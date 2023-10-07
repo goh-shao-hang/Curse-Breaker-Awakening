@@ -28,8 +28,6 @@ namespace CBA.Entities.Player
 
         private void Update()
         {
-            Debug.Log(CurrentStamina);
-
             //debug
             if (UnityEngine.Input.GetKeyDown(KeyCode.F))
             {

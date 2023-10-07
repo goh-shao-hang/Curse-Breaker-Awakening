@@ -17,6 +17,12 @@ namespace GameCells.Modules
         {
             _movementRigidbody.drag = drag;
         }
+
+        public void SetUseGravity(bool useGravity)
+        {
+            _movementRigidbody.useGravity = useGravity;
+        }
+
         public void SetVelocity(Vector3 velocity)
         {
             _movementRigidbody.velocity = velocity;

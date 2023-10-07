@@ -11,7 +11,7 @@ namespace CBA.Entities.Player
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        private PlayerControls _playerControls;
+        public PlayerControls PlayerControls { get; private set; }
 
         public Vector2 MoveInput { get; private set; }
         public Vector2 LookInput { get; private set; }
@@ -22,28 +22,28 @@ namespace CBA.Entities.Player
 
         private void OnEnable()
         {
-            if (_playerControls == null)
+            if (PlayerControls == null)
             {
-                _playerControls = new PlayerControls();
+                PlayerControls = new PlayerControls();
                 BindInput();
             }
 
-            _playerControls.Enable();
+            PlayerControls.Enable();
 
         }
 
         private void OnDisable()
         {
-            _playerControls.Disable();
+            PlayerControls.Disable();
         }
 
         private void BindInput()
         {
-            _playerControls.Gameplay.Move.performed += ctx => OnMove(ctx);
-            _playerControls.Gameplay.Look.performed += ctx => OnLook(ctx);
-            _playerControls.Gameplay.Sprint.performed += ctx => OnSprintPressed(ctx);
-            _playerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
-            _playerControls.Gameplay.Jump.performed += ctx => OnJump(ctx);
+            PlayerControls.Gameplay.Move.performed += ctx => OnMove(ctx);
+            PlayerControls.Gameplay.Look.performed += ctx => OnLook(ctx);
+            PlayerControls.Gameplay.Sprint.performed += ctx => OnSprintPressed(ctx);
+            PlayerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
+            PlayerControls.Gameplay.Jump.performed += ctx => OnJump(ctx);
         }
 
         private void OnMove(InputAction.CallbackContext ctx)
