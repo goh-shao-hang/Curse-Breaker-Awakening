@@ -4,9 +4,11 @@ using UnityEngine;
 
 namespace CBA.Entities.Player
 {
-    public class PlayerCameraManager : MonoBehaviour
+    public class CameraManager : MonoBehaviour
     {
         [SerializeField] private Camera _playerCamera;
+
+        public Camera Camera => _playerCamera;
 
         private LTDescr _fovTween = null;
 
@@ -20,10 +22,10 @@ namespace CBA.Entities.Player
         {
             if (_fovTween != null)
             {
-                LeanTween.cancel(_playerCamera.gameObject, _fovTween.uniqueId);
+                LeanTween.cancel(Camera.gameObject, _fovTween.uniqueId);
             }
 
-            _fovTween = LeanTween.value(_playerCamera.gameObject, _playerCamera.fieldOfView, fov, duration).setOnUpdate(value => _playerCamera.fieldOfView = value);
+            _fovTween = LeanTween.value(Camera.gameObject, Camera.fieldOfView, fov, duration).setOnUpdate(value => Camera.fieldOfView = value);
         }
 
 

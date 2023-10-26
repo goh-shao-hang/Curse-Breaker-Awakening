@@ -12,7 +12,7 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Transform _orientationTransform;
         [SerializeField] private PlayerInputHandler _playerInputHandler;
-        [SerializeField] private PlayerCameraManager _playerCameraManager;
+        [SerializeField] private CameraManager _playerCameraManager;
         [SerializeField] private MovementModule _playerMovementModule;
         [SerializeField] private PhysicsQuery _groundChecker;
         [SerializeField] private RaycastCheck _slopeChecker;
@@ -175,7 +175,7 @@ namespace CBA.Entities.Player
         private void HandleSprinting()
         {
             //If sprint is pressed and is moving, start sprinting
-            if (_isSprintInputHeld && _playerInputHandler.MoveInput != Vector2.zero && !_isSprinting)
+            if (_isSprintInputHeld && _playerInputHandler.MoveInput != Vector2.zero && !_isSprinting && _playerStamina.CurrentStamina > 0)
             {
                 StartSprinting();
             }
@@ -190,6 +190,7 @@ namespace CBA.Entities.Player
             {
                 CalculateSprintingStaminaConsumption();
             }
+
         }
 
         private void OnSprintPressed()

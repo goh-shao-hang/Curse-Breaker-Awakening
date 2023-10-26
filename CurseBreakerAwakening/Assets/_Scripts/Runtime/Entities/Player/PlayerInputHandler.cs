@@ -18,7 +18,12 @@ namespace CBA.Entities.Player
         public event Action OnSprintPressedInput;
         public event Action OnSprintReleasedInput;
         public event Action OnJumpInput;
-
+        public event Action OnCrouchPressedInput;
+        public event Action OnCrouchReleasedInput;
+        public event Action OnSlidePressedInput;
+        public event Action OnSlideReleasedInput;
+        public event Action OnAttackPressedInput;
+        public event Action OnAttackReleasedInput;
 
         private void OnEnable()
         {
@@ -44,6 +49,12 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Sprint.performed += ctx => OnSprintPressed(ctx);
             PlayerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
             PlayerControls.Gameplay.Jump.performed += ctx => OnJump(ctx);
+            PlayerControls.Gameplay.Crouch.performed += ctx => OnCrouchPressed(ctx);
+            PlayerControls.Gameplay.Crouch.canceled += ctx => OnCrouchReleased(ctx);
+            PlayerControls.Gameplay.Slide.performed += ctx => OnSlidePressed(ctx);
+            PlayerControls.Gameplay.Slide.canceled += ctx => OnSlideReleased(ctx);
+            PlayerControls.Gameplay.Attack.performed += ctx => OnAttackPressed(ctx);
+            PlayerControls.Gameplay.Attack.canceled += ctx => OnAttackReleased(ctx);
         }
 
         private void OnMove(InputAction.CallbackContext ctx)
@@ -69,6 +80,36 @@ namespace CBA.Entities.Player
         private void OnJump(InputAction.CallbackContext ctx)
         {
             OnJumpInput?.Invoke();
+        }
+
+        private void OnCrouchPressed(InputAction.CallbackContext ctx)
+        {
+            OnCrouchPressedInput?.Invoke();
+        }
+
+        private void OnCrouchReleased(InputAction.CallbackContext ctx)
+        {
+            OnCrouchReleasedInput?.Invoke();
+        }
+
+        private void OnSlidePressed(InputAction.CallbackContext ctx)
+        {
+            OnSlidePressedInput?.Invoke();
+        }
+
+        private void OnSlideReleased(InputAction.CallbackContext ctx)
+        {
+            OnSlideReleasedInput?.Invoke();
+        }
+
+        private void OnAttackPressed(InputAction.CallbackContext ctx)
+        {
+            OnAttackPressedInput?.Invoke();
+        }
+
+        private void OnAttackReleased(InputAction.CallbackContext ctx)
+        {
+            OnAttackReleasedInput?.Invoke();
         }
     }
 

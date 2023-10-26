@@ -9,6 +9,11 @@ namespace GameCells.Utilities
         [SerializeField] private bool _visualize = true;
         [SerializeField] protected LayerMask _targetLayers;
 
+        public void SetOffset(Vector3 offset)
+        {
+            transform.localPosition = offset;
+        }
+
         public abstract bool Hit();
 
         public abstract void OnVisualize();

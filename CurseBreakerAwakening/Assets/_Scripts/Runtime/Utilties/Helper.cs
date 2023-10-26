@@ -4,10 +4,15 @@ using UnityEngine;
 
 namespace GameCells.Utilities
 {
-    public static class RandomUtil
+    public static class Helper
     {
+
+        private static Camera _mainCamera = null;
+        public static Camera MainCamera => _mainCamera ??= Camera.main;
+
+
         /// <summary>
-        /// Return true or false based on a successChance between 0 and 1.
+        /// Return true or false based on a probability between 0 and 1.
         /// </summary>
         /// <param name="successChance"></param>
         /// <returns></returns>

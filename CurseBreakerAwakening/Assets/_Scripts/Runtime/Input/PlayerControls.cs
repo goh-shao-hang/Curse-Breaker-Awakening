@@ -64,6 +64,51 @@ namespace CBA.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""4459c9c6-bc93-4e67-8b0d-a4bc9680dbd1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slide"",
+                    ""type"": ""Button"",
+                    ""id"": ""15fe2b07-c65c-42c1-a200-fc9862d0b580"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7572365-9e13-48ec-bfae-9109e26359ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""09ce368c-4fdf-4ca4-bdb4-254e0308bd23"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Kick"",
+                    ""type"": ""Button"",
+                    ""id"": ""a01ca2e1-86ba-4d3b-b11f-aa76c572f39e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -124,11 +169,33 @@ namespace CBA.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6df96458-4957-4701-b6c0-b20d131b75fc"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""223b8379-b288-4044-b6cf-5b807cc95852"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8180902f-cf7a-475b-a976-ec1a5c7aa332"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -146,12 +213,133 @@ namespace CBA.Input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e964c68a-8427-43b6-b104-2294a5b33e92"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b4467a9c-7da3-40b8-8299-a9fe713d5295"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2aeef190-9afc-49df-a343-662a447b8736"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a88ff3c0-6ce6-47f6-af0b-1902d35d6043"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7aa74cf-56aa-4046-b497-b2dd386bc667"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de760b32-5634-46d2-b9af-65a61f0b5e79"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6a6edf9-8989-40f5-961a-27b290e93547"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d67ad287-9d7d-49ce-8849-4831a812c69e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05a96ec7-d1ea-4b7f-b690-8e627dd3ddea"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9903343f-e85a-45d2-a5b0-e99ab6e56a5f"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd4d5016-6f63-4311-a1f0-89902248f126"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59900c99-6740-43b6-8209-5540c460a1a3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Kick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -174,6 +362,17 @@ namespace CBA.Input
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -183,6 +382,11 @@ namespace CBA.Input
             m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
             m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+            m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
+            m_Gameplay_Slide = m_Gameplay.FindAction("Slide", throwIfNotFound: true);
+            m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
+            m_Gameplay_Block = m_Gameplay.FindAction("Block", throwIfNotFound: true);
+            m_Gameplay_Kick = m_Gameplay.FindAction("Kick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -248,6 +452,11 @@ namespace CBA.Input
         private readonly InputAction m_Gameplay_Look;
         private readonly InputAction m_Gameplay_Sprint;
         private readonly InputAction m_Gameplay_Jump;
+        private readonly InputAction m_Gameplay_Crouch;
+        private readonly InputAction m_Gameplay_Slide;
+        private readonly InputAction m_Gameplay_Attack;
+        private readonly InputAction m_Gameplay_Block;
+        private readonly InputAction m_Gameplay_Kick;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
@@ -256,6 +465,11 @@ namespace CBA.Input
             public InputAction @Look => m_Wrapper.m_Gameplay_Look;
             public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+            public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
+            public InputAction @Slide => m_Wrapper.m_Gameplay_Slide;
+            public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
+            public InputAction @Block => m_Wrapper.m_Gameplay_Block;
+            public InputAction @Kick => m_Wrapper.m_Gameplay_Kick;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -277,6 +491,21 @@ namespace CBA.Input
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Slide.started += instance.OnSlide;
+                @Slide.performed += instance.OnSlide;
+                @Slide.canceled += instance.OnSlide;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @Block.started += instance.OnBlock;
+                @Block.performed += instance.OnBlock;
+                @Block.canceled += instance.OnBlock;
+                @Kick.started += instance.OnKick;
+                @Kick.performed += instance.OnKick;
+                @Kick.canceled += instance.OnKick;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -293,6 +522,21 @@ namespace CBA.Input
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
+                @Slide.started -= instance.OnSlide;
+                @Slide.performed -= instance.OnSlide;
+                @Slide.canceled -= instance.OnSlide;
+                @Attack.started -= instance.OnAttack;
+                @Attack.performed -= instance.OnAttack;
+                @Attack.canceled -= instance.OnAttack;
+                @Block.started -= instance.OnBlock;
+                @Block.performed -= instance.OnBlock;
+                @Block.canceled -= instance.OnBlock;
+                @Kick.started -= instance.OnKick;
+                @Kick.performed -= instance.OnKick;
+                @Kick.canceled -= instance.OnKick;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -319,12 +563,26 @@ namespace CBA.Input
                 return asset.controlSchemes[m_KeyboardSchemeIndex];
             }
         }
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
+        {
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
+        }
         public interface IGameplayActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
+            void OnSlide(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
+            void OnBlock(InputAction.CallbackContext context);
+            void OnKick(InputAction.CallbackContext context);
         }
     }
 }
