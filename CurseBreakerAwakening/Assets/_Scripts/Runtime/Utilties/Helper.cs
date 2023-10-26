@@ -11,6 +11,12 @@ namespace GameCells.Utilities
         public static Camera MainCamera => _mainCamera ??= Camera.main;
 
 
+        public static void LockAndHideCursor(bool lockAndHide)
+        {
+            Cursor.lockState = lockAndHide ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !lockAndHide;
+        }
+
         /// <summary>
         /// Return true or false based on a probability between 0 and 1.
         /// </summary>
