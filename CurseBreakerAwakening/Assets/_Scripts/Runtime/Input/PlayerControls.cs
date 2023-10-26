@@ -66,24 +66,6 @@ namespace CBA.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Crouch"",
-                    ""type"": ""Button"",
-                    ""id"": ""4459c9c6-bc93-4e67-8b0d-a4bc9680dbd1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Slide"",
-                    ""type"": ""Button"",
-                    ""id"": ""15fe2b07-c65c-42c1-a200-fc9862d0b580"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""d7572365-9e13-48ec-bfae-9109e26359ab"",
@@ -246,39 +228,6 @@ namespace CBA.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a88ff3c0-6ce6-47f6-af0b-1902d35d6043"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e7aa74cf-56aa-4046-b497-b2dd386bc667"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""de760b32-5634-46d2-b9af-65a61f0b5e79"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Slide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a6a6edf9-8989-40f5-961a-27b290e93547"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -382,8 +331,6 @@ namespace CBA.Input
             m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
             m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
-            m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
-            m_Gameplay_Slide = m_Gameplay.FindAction("Slide", throwIfNotFound: true);
             m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
             m_Gameplay_Block = m_Gameplay.FindAction("Block", throwIfNotFound: true);
             m_Gameplay_Kick = m_Gameplay.FindAction("Kick", throwIfNotFound: true);
@@ -452,8 +399,6 @@ namespace CBA.Input
         private readonly InputAction m_Gameplay_Look;
         private readonly InputAction m_Gameplay_Sprint;
         private readonly InputAction m_Gameplay_Jump;
-        private readonly InputAction m_Gameplay_Crouch;
-        private readonly InputAction m_Gameplay_Slide;
         private readonly InputAction m_Gameplay_Attack;
         private readonly InputAction m_Gameplay_Block;
         private readonly InputAction m_Gameplay_Kick;
@@ -465,8 +410,6 @@ namespace CBA.Input
             public InputAction @Look => m_Wrapper.m_Gameplay_Look;
             public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
-            public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
-            public InputAction @Slide => m_Wrapper.m_Gameplay_Slide;
             public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
             public InputAction @Block => m_Wrapper.m_Gameplay_Block;
             public InputAction @Kick => m_Wrapper.m_Gameplay_Kick;
@@ -491,12 +434,6 @@ namespace CBA.Input
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Crouch.started += instance.OnCrouch;
-                @Crouch.performed += instance.OnCrouch;
-                @Crouch.canceled += instance.OnCrouch;
-                @Slide.started += instance.OnSlide;
-                @Slide.performed += instance.OnSlide;
-                @Slide.canceled += instance.OnSlide;
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
@@ -522,12 +459,6 @@ namespace CBA.Input
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
-                @Crouch.started -= instance.OnCrouch;
-                @Crouch.performed -= instance.OnCrouch;
-                @Crouch.canceled -= instance.OnCrouch;
-                @Slide.started -= instance.OnSlide;
-                @Slide.performed -= instance.OnSlide;
-                @Slide.canceled -= instance.OnSlide;
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
@@ -578,8 +509,6 @@ namespace CBA.Input
             void OnLook(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
-            void OnCrouch(InputAction.CallbackContext context);
-            void OnSlide(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnBlock(InputAction.CallbackContext context);
             void OnKick(InputAction.CallbackContext context);
