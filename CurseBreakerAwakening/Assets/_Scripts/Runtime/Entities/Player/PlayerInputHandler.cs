@@ -42,20 +42,30 @@ namespace CBA.Entities.Player
         {
             PlayerControls.Gameplay.Move.performed += ctx => OnMove(ctx);
             PlayerControls.Gameplay.Look.performed += ctx => OnLook(ctx);
+            PlayerControls.Gameplay.Jump.performed += ctx => OnJump(ctx);
+            PlayerControls.Gameplay.Sprint.performed += ctx => OnSprintPressed(ctx);
+            PlayerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
+            PlayerControls.Gameplay.Attack.performed += ctx => OnAttack(ctx);
+            PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
+            PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
         }
 
         private void Update()
         {
-            UpdateButtonInput();
         }
 
-        private void UpdateButtonInput()
+        private void LateUpdate()
         {
-            JumpInput = PlayerControls.Gameplay.Jump.WasPressedThisFrame();
-            SprintInput = PlayerControls.Gameplay.Sprint.WasPressedThisFrame();
-            AttackInput = PlayerControls.Gameplay.Attack.WasPressedThisFrame();
-            BlockInput = PlayerControls.Gameplay.Block.WasPressedThisFrame();
-            KickInput = PlayerControls.Gameplay.Kick.WasPressedThisFrame();
+            ResetButtonInput();
+        }
+
+        private void ResetButtonInput()
+        {
+            JumpInput = false;
+            //SprintInput = false;
+            AttackInput = false;
+            BlockInput = false;
+            KickInput = false;
         }
 
         private void OnMove(InputAction.CallbackContext ctx)
@@ -68,6 +78,35 @@ namespace CBA.Entities.Player
             LookInput = ctx.ReadValue<Vector2>();
         }
 
+        private void OnJump(InputAction.CallbackContext ctx)
+        {
+            JumpInput = true;
+        }
+
+        private void OnSprintPressed(InputAction.CallbackContext ctx)
+        {
+            SprintInput = true;
+        }
+
+        private void OnSprintReleased(InputAction.CallbackContext ctx)
+        {
+            SprintInput = false;
+        }
+
+        private void OnAttack(InputAction.CallbackContext ctx)
+        {
+            AttackInput = true;
+        }
+
+        private void OnBlock(InputAction.CallbackContext ctx)
+        {
+            BlockInput = true;
+        }
+
+        private void OnKick(InputAction.CallbackContext ctx)
+        {
+            KickInput = true;
+        }
     }
 
 }

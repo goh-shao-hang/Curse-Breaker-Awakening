@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 86195121}
   m_Layer: 0
-  m_Name: CameraFollowTarget
+  m_Name: CameraRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCamera: {fileID: 961739752}
   _playerInputHandler: {fileID: 1301189312}
-  _cameraFollowTarget: {fileID: 86195121}
+  _cameraRoot: {fileID: 86195121}
   _sensitivity: 0.3
   _invertXAxis: 0
   _invertYAxis: 0
@@ -767,6 +767,56 @@ MonoBehaviour:
     m_Bits: 64
   _offset: {x: 0, y: -1, z: 0}
   _radius: 0.2
+--- !u!1 &1094004925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094004926}
+  - component: {fileID: 1094004927}
+  m_Layer: 0
+  m_Name: SlopeChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1094004926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094004925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1293992240}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1094004927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094004925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1625f54111cd804885028307665bfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visualize: 1
+  _targetLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  _raycastDirection: {x: 0, y: -1, z: 0}
+  _maxDistance: 2
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,6 +895,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1059641476}
+  - {fileID: 1094004926}
   m_Father: {fileID: 1301189310}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -914,14 +965,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInputHandler: {fileID: 1301189312}
+  _cameraRootTransform: {fileID: 86195121}
   _movementModule: {fileID: 1707548933}
   _groundChecker: {fileID: 1059641477}
+  _slopeChecker: {fileID: 1094004927}
   _walkMovementForce: 50
   _sprintMovementForce: 100
   _maxSpeed: 8
   _groundDrag: 7
   _jumpForce: 6
   _airMovementMultiplier: 0.1
+  _maxSlopeAngle: 45
 --- !u!114 &1301189312
 MonoBehaviour:
   m_ObjectHideFlags: 0
