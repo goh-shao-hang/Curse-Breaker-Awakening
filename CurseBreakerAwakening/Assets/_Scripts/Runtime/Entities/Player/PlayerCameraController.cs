@@ -1,3 +1,4 @@
+using Cinemachine;
 using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace CBA.Entities.Player
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private Transform _cameraRoot;
+        [SerializeField] private CinemachineImpulseSource _cinemachineImpulseSource;
+
+        public Camera PlayerCamera => _playerCamera;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _sensitivity;
@@ -28,14 +32,18 @@ namespace CBA.Entities.Player
 
         private void Update()
         {
-            transform.position = _cameraRoot.transform.position;
-
             _yaw += _playerInputHandler.LookInput.x * _sensitivity;
             _pitch -= _playerInputHandler.LookInput.y * _sensitivity;
             _pitch = Mathf.Clamp(_pitch, -_maxCameraVerticalAngle, _maxCameraVerticalAngle);
 
-            _playerCamera.transform.rotation = Quaternion.Euler(_pitch, _yaw, 0f);
+            transform.position = _cameraRoot.transform.position;
+            transform.rotation = Quaternion.Euler(_pitch, _yaw, 0f);
             _cameraRoot.rotation = Quaternion.Euler(0f, _yaw, 0f);
+        }
+
+        public void CameraShake(float strength = 0.3f)
+        {
+            _cinemachineImpulseSource.GenerateImpulse(strength);
         }
     }
 }

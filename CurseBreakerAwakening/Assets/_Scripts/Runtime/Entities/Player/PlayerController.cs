@@ -15,6 +15,7 @@ namespace CBA.Entities.Player
         [SerializeField] private MovementModule _movementModule;
         [SerializeField] private PhysicsQuery _groundChecker;
         [SerializeField] private RaycastCheck _slopeChecker;
+        [SerializeField] private Animator _animator;
 
         //Dependency getters
         public PlayerInputHandler PlayerInputHandler => _playerInputHandler;
@@ -100,6 +101,12 @@ namespace CBA.Entities.Player
             }
 
             _movementModule.AddForce(_moveDirection * _movementForce * (IsGrounded ? 1 : _airMovementMultiplier), ForceMode.Force);
+
+            //TODO
+            if (_animator == null)
+                return;
+
+            _animator.SetBool(GameData.ISMOVING_HASH, _playerInputHandler.MoveInput != Vector2.zero);
         }
 
         private void LimitMaxSpeed()
@@ -107,7 +114,6 @@ namespace CBA.Entities.Player
             if (!IsOnSlope)
             {
                 _horizontalVelocity.Set(_movementModule.CurrentVelocity.x, 0f, _movementModule.CurrentVelocity.z);
-                Debug.Log(_horizontalVelocity.magnitude);
 
                 if (_horizontalVelocity.magnitude > _maxSpeed)
                 {
