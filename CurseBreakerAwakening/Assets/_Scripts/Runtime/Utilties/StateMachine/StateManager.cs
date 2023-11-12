@@ -32,6 +32,9 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         else if (!_isSwitchingState)
         {
             SwitchState(nextStateKey);
+
+            //TODO return here my cause problem, check later
+            return;
         }
     }
 

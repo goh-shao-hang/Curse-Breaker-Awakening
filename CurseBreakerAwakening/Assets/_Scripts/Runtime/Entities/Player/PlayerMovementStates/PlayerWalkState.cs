@@ -18,7 +18,8 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
-            if (_playerController.PlayerInputHandler.SprintInput)
+            if (_playerController.CurrentStamina > 0 && _playerController.PlayerInputHandler.SprintInput 
+                && _playerController.PlayerInputHandler.MoveInput != Vector2.zero)
             {
                 return EPlayerMovementState.Sprint;
             }

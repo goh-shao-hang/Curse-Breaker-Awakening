@@ -17,9 +17,24 @@ namespace CBA.Entities.Player
             _playerController.SetMovementForce(_playerController.SprintMovementForce);
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            //TODO consume stamina
+            ConsumeStamina();
+        }
+
+        private void ConsumeStamina()
+        {
+            _playerController.SetStamina(_playerController.CurrentStamina - _playerController.SpritingStaminaConsumption * Time.deltaTime);
+            _playerController.StartStaminaRegenTimer();
+        }
+
         public override EPlayerMovementState GetNextState()
         {
-            if (!_playerController.PlayerInputHandler.SprintInput) //Sprint Released
+            if (!_playerController.PlayerInputHandler.SprintInput || _playerController.PlayerInputHandler.MoveInput == Vector2.zero 
+                || _playerController.CurrentStamina <= 0f)
             {
                 return EPlayerMovementState.Walk;
             }

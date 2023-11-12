@@ -20,7 +20,7 @@ namespace CBA.Entities.Player
         //Dependency getters
         public PlayerInputHandler PlayerInputHandler => _playerInputHandler;
 
-        [Header(GameData.SETTINGS)]
+        [Header("Movement Settings")]
         [SerializeField] private float _walkMovementForce = 50f;
         [SerializeField] private float _sprintMovementForce = 100f;
         [SerializeField] private float _maxSpeed = 15f;
@@ -29,9 +29,21 @@ namespace CBA.Entities.Player
         [SerializeField] private float _airMovementMultiplier = 0.1f;
         [SerializeField] private float _maxSlopeAngle = 45f;
 
+        [Header("Stamina Settings")]
+        [SerializeField] private float _maxStamina = 100f;
+        [SerializeField] private float _staminaRegenRate = 20f;
+        [SerializeField] private float _sprintingStaminaConsumption = 10f;
+        [SerializeField] private float _staminaRegenDelay = 1f;
+
+        #region Getters
         public float WalkMovementForce => _walkMovementForce;
         public float SprintMovementForce => _sprintMovementForce;
+        public float MaxStamina => _maxStamina;
+        public float CurrentStamina { get; private set; }
+        public float SpritingStaminaConsumption => _sprintingStaminaConsumption;
+        #endregion
 
+        #region Variables
         public bool IsGrounded => _groundChecker.Hit();
         public bool IsOnSlope
         {
@@ -43,8 +55,15 @@ namespace CBA.Entities.Player
         }
 
         private float _movementForce;
+        private float _staminaRegenTimer;
         private Vector3 _moveDirection;
         private Vector3 _horizontalVelocity;
+        #endregion
+
+        #region Events
+        public event Action<float> OnStaminaChanged;
+        #endregion
+
 
         protected override void Awake()
         {
@@ -55,6 +74,9 @@ namespace CBA.Entities.Player
             _StatesDict.Add(EPlayerMovementState.Sprint, new PlayerSprintState(EPlayerMovementState.Sprint, this));
 
             _currentState = _StatesDict[EPlayerMovementState.Walk];
+
+            //Initialize Variables
+            CurrentStamina = MaxStamina;
         }
 
         protected override void Update()
@@ -69,6 +91,8 @@ namespace CBA.Entities.Player
             }
 
             LimitMaxSpeed();
+
+            RegenerateStamina();
         }
         protected override void FixedUpdate()
         {
@@ -143,6 +167,34 @@ namespace CBA.Entities.Player
         public void SetMovementForce(float movementForce)
         {
             this._movementForce = movementForce;
+        }
+
+        public void RegenerateStamina()
+        {
+            if (CurrentStamina >= MaxStamina)
+                return;
+
+            if (_staminaRegenTimer <= 0f)
+            {
+                _staminaRegenTimer = 0f;
+                SetStamina(CurrentStamina + _staminaRegenRate * Time.deltaTime);
+            }
+            else
+            {
+                _staminaRegenTimer -= Time.deltaTime;
+            }
+        }
+
+        public void SetStamina(float value)
+        {
+            CurrentStamina = Mathf.Clamp(value, 0f, MaxStamina);
+
+            OnStaminaChanged?.Invoke(CurrentStamina / MaxStamina);
+        }
+
+        public void StartStaminaRegenTimer()
+        {
+            _staminaRegenTimer = _staminaRegenDelay;
         }
     }
 }
