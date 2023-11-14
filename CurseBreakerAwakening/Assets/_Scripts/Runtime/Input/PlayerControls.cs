@@ -91,6 +91,15 @@ namespace CBA.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""956bf394-85ee-4386-b2a4-fc83b0309f57"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,7 +205,7 @@ namespace CBA.Input
                 {
                     ""name"": """",
                     ""id"": ""e964c68a-8427-43b6-b104-2294a5b33e92"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -218,7 +227,7 @@ namespace CBA.Input
                 {
                     ""name"": """",
                     ""id"": ""2aeef190-9afc-49df-a343-662a447b8736"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -262,7 +271,7 @@ namespace CBA.Input
                 {
                     ""name"": """",
                     ""id"": ""9903343f-e85a-45d2-a5b0-e99ab6e56a5f"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -289,6 +298,28 @@ namespace CBA.Input
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Kick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f65ceffb-cc2e-4f96-a269-c8a63f95d5d3"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cab7a16-96e7-462b-90f9-e4f9b7b71c1f"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -334,6 +365,7 @@ namespace CBA.Input
             m_Gameplay_Attack = m_Gameplay.FindAction("Attack", throwIfNotFound: true);
             m_Gameplay_Block = m_Gameplay.FindAction("Block", throwIfNotFound: true);
             m_Gameplay_Kick = m_Gameplay.FindAction("Kick", throwIfNotFound: true);
+            m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -402,6 +434,7 @@ namespace CBA.Input
         private readonly InputAction m_Gameplay_Attack;
         private readonly InputAction m_Gameplay_Block;
         private readonly InputAction m_Gameplay_Kick;
+        private readonly InputAction m_Gameplay_Crouch;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
@@ -413,6 +446,7 @@ namespace CBA.Input
             public InputAction @Attack => m_Wrapper.m_Gameplay_Attack;
             public InputAction @Block => m_Wrapper.m_Gameplay_Block;
             public InputAction @Kick => m_Wrapper.m_Gameplay_Kick;
+            public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -443,6 +477,9 @@ namespace CBA.Input
                 @Kick.started += instance.OnKick;
                 @Kick.performed += instance.OnKick;
                 @Kick.canceled += instance.OnKick;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -468,6 +505,9 @@ namespace CBA.Input
                 @Kick.started -= instance.OnKick;
                 @Kick.performed -= instance.OnKick;
                 @Kick.canceled -= instance.OnKick;
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -512,6 +552,7 @@ namespace CBA.Input
             void OnAttack(InputAction.CallbackContext context);
             void OnBlock(InputAction.CallbackContext context);
             void OnKick(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
         }
     }
 }

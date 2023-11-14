@@ -33,6 +33,16 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
+            if (_playerController.CanWallRun && _playerController.IsRunnableWallDetected) //&& Mathf.Abs(_playerController.PlayerInputHandler.MoveInput.y) >= 0.1f)
+            {
+                return EPlayerMovementState.WallRun;
+            }
+
+            if (_playerController.IsGrounded && _playerController.PlayerInputHandler.CrouchInput)
+            {
+                return EPlayerMovementState.Crouch;
+            }
+
             if (!_playerController.PlayerInputHandler.SprintInput || _playerController.PlayerInputHandler.MoveInput == Vector2.zero 
                 || _playerController.CurrentStamina <= 0f)
             {

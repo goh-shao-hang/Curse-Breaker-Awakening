@@ -1,3 +1,4 @@
+using CBA;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,12 @@ namespace GameCells.Utilities
         [SerializeField] private bool _visualize = true;
         [SerializeField] protected LayerMask _targetLayers;
 
+        [Header(GameData.SETTINGS)]
+        [SerializeField] protected Vector3 _offset;
+
         public void SetOffset(Vector3 offset)
         {
-            transform.localPosition = offset;
+            _offset = offset;
         }
 
         public abstract bool Hit();

@@ -5,5 +5,7 @@ using UnityEngine;
 public enum EPlayerMovementState
 {
     Walk,
-    Sprint
+    Sprint,
+    Crouch,
+    WallRun
 }

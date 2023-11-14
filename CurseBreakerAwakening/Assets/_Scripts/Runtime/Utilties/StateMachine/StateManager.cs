@@ -40,7 +40,8 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
 
     protected virtual void FixedUpdate()
     {
-
+        if (!_isSwitchingState)
+            _currentState.FixedUpdate();
     }
 
     protected virtual void SwitchState(EState newStateKey)

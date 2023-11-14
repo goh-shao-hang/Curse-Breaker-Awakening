@@ -7,7 +7,6 @@ using UnityEngine;
 public class SphereCheck : PhysicsQuery
 {
     [Header(GameData.SETTINGS)]
-    [SerializeField] private Vector3 _offset;
     [SerializeField] private float _radius;
 
     public override bool Hit()

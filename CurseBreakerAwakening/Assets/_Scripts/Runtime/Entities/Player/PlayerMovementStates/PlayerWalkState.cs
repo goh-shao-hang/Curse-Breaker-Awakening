@@ -15,9 +15,14 @@ namespace CBA.Entities.Player
             _playerController.SetMovementForce(_playerController.WalkMovementForce);
         }
 
-
         public override EPlayerMovementState GetNextState()
         {
+
+            if (_playerController.IsGrounded && _playerController.PlayerInputHandler.CrouchInput)
+            {
+                return EPlayerMovementState.Crouch;
+            }
+
             if (_playerController.CurrentStamina > 0 && _playerController.PlayerInputHandler.SprintInput 
                 && _playerController.PlayerInputHandler.MoveInput != Vector2.zero)
             {

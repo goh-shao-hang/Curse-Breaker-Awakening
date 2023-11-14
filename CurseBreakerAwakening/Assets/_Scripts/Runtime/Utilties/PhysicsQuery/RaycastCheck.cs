@@ -15,11 +15,11 @@ public class RaycastCheck : PhysicsQuery
 
     public override bool Hit()
     {
-        return Physics.Raycast(transform.position, _raycastDirection, out _hitInfo, _maxDistance, _targetLayers);
+        return Physics.Raycast(transform.position + _offset, _raycastDirection, out _hitInfo, _maxDistance, _targetLayers);
     }
 
     public override void OnVisualize()
     {
-        Gizmos.DrawLine(transform.position, transform.position + _raycastDirection * _maxDistance);
+        Gizmos.DrawLine(transform.position + _offset, transform.position + _offset + _raycastDirection * _maxDistance);
     }
 }

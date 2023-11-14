@@ -15,11 +15,13 @@ namespace CBA.Entities.Player
 
         public Vector2 MoveInput { get; private set; }
         public Vector2 LookInput { get; private set; }
-        public bool JumpInput { get; private set; }
+        public event Action OnJumpInput;
         public bool SprintInput { get; private set; }
+        public bool CrouchInput { get; private set; }
         public bool AttackInput { get; private set; }
         public bool BlockInput { get; private set; }
         public bool KickInput { get; private set; }
+
 
         private void OnEnable()
         {
@@ -45,6 +47,8 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Jump.performed += ctx => OnJump(ctx);
             PlayerControls.Gameplay.Sprint.performed += ctx => OnSprintPressed(ctx);
             PlayerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
+            PlayerControls.Gameplay.Crouch.performed += ctx => OnCrouchPressed(ctx);
+            PlayerControls.Gameplay.Crouch.canceled += ctx => OnCrouchReleased(ctx);
             PlayerControls.Gameplay.Attack.performed += ctx => OnAttack(ctx);
             PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
@@ -61,7 +65,6 @@ namespace CBA.Entities.Player
 
         private void ResetButtonInput()
         {
-            JumpInput = false;
             //SprintInput = false;
             AttackInput = false;
             BlockInput = false;
@@ -80,7 +83,7 @@ namespace CBA.Entities.Player
 
         private void OnJump(InputAction.CallbackContext ctx)
         {
-            JumpInput = true;
+            OnJumpInput?.Invoke();
         }
 
         private void OnSprintPressed(InputAction.CallbackContext ctx)
@@ -91,6 +94,16 @@ namespace CBA.Entities.Player
         private void OnSprintReleased(InputAction.CallbackContext ctx)
         {
             SprintInput = false;
+        }
+
+        private void OnCrouchPressed(InputAction.CallbackContext ctx)
+        {
+            CrouchInput = true;
+        }
+
+        private void OnCrouchReleased(InputAction.CallbackContext ctx)
+        {
+            CrouchInput = false;
         }
 
         private void OnAttack(InputAction.CallbackContext ctx)
