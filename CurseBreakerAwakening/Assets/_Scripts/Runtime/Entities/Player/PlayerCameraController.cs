@@ -13,7 +13,6 @@ namespace CBA.Entities.Player
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private CinemachineImpulseSource _cinemachineImpulseSource;
-
         public Camera PlayerCamera => _playerCamera;
 
         [Header(GameData.SETTINGS)]
@@ -60,9 +59,11 @@ namespace CBA.Entities.Player
             _playerController.CameraRootTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
         }
 
-        public void CameraShake(float strength = 0.3f)
+        public void CameraShake(int direction = 1, float strength = 0.3f)
         {
-            _cinemachineImpulseSource.GenerateImpulse(strength);
+            //_cinemachineImpulseSource.GenerateImpulse(strength);
+            _cinemachineImpulseSource.GenerateImpulseWithVelocity(strength * (Vector3.right * direction + Vector3.up - Vector3.forward));
+
         }
 
         public void TiltCamera(bool tiltRight)

@@ -58,13 +58,12 @@ namespace CBA.Entities.Player.Weapons
                 }
 
                 _hitTargetCache.Add(collider);
+
+                collider.GetComponent<Entity>()?.TakeDamage(1);
+
+                //TODO
                 Debug.LogWarning($"hit {collider.name}");
             }
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawCube(transform.position, _hitbox.size);
         }
 
         public void Attack()
@@ -95,7 +94,6 @@ namespace CBA.Entities.Player.Weapons
         public void AllowNextComboInput()
         {
             _allowNextComboInput = true;
-            Debug.LogWarning("next");
         }
 
         public void ResetCombo()

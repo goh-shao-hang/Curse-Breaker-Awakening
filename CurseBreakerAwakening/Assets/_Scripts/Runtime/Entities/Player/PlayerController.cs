@@ -98,7 +98,7 @@ namespace CBA.Entities.Player
         #endregion
 
         #region Variables
-        public bool _jumpBuffer { get; private set; } = false;
+        public bool JumpBuffer { get; private set; } = false;
         private Coroutine _jumpBufferCO = null;
 
         private float _movementForce;
@@ -146,7 +146,7 @@ namespace CBA.Entities.Player
 
             _movementModule.SetDrag(IsGrounded ? _groundDrag : 0f);
 
-            if (_jumpBuffer && IsGrounded)
+            if (JumpBuffer && IsGrounded)
             {
                 Jump();
             }
@@ -219,7 +219,7 @@ namespace CBA.Entities.Player
         private void OnJumpPressed()
         {
             //Set jump buffer that can be consumed upon request to perform certain actions, etc. jump and wall jump
-            _jumpBuffer = true;
+            JumpBuffer = true;
 
             if (_jumpBufferCO != null)
             {
@@ -231,11 +231,12 @@ namespace CBA.Entities.Player
 
         public void ConsumeJumpBuffer()
         {
-            _jumpBuffer = false;
+            JumpBuffer = false;
 
             if (_jumpBufferCO != null)
             {
                 StopCoroutine(_jumpBufferCO);
+                _jumpBufferCO = null;
             }
         }
 

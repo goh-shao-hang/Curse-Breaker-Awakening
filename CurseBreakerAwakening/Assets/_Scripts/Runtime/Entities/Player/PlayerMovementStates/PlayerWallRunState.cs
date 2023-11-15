@@ -31,7 +31,7 @@ namespace CBA.Entities.Player
             _playerController.MovementModule.AddForce(Vector3.down * _playerController.WallRunGravity, ForceMode.Force);
 
             //Wall jump
-            if (_playerController._jumpBuffer)
+            if (_playerController.JumpBuffer)
             {
                 PerformWallJump();
             }

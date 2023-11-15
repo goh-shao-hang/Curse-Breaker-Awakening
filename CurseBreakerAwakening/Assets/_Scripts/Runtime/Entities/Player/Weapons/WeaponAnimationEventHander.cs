@@ -10,7 +10,7 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnActivateHitboxEvent;
         public event Action OnDeactivateHitboxEvent;
         public event Action OnAllowNextComboEvent;
-        public event Action OnCameraShakeEvent;
+        public event Action<int> OnCameraShakeEvent;
 
         public void ActivateHitbox()
         {
@@ -27,9 +27,9 @@ namespace CBA.Entities.Player.Weapons
             OnAllowNextComboEvent?.Invoke();
         }
 
-        public void CameraShake()
+        public void CameraShake(int direction)
         {
-            OnCameraShakeEvent?.Invoke();
+            OnCameraShakeEvent?.Invoke(direction);
         }
     }
 }

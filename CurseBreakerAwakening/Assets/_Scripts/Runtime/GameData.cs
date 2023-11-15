@@ -14,6 +14,7 @@ namespace CBA
         public static readonly int ATTACK_HASH = Animator.StringToHash("attack");
         public static readonly int COMBO_HASH = Animator.StringToHash("combo");
         public static readonly int ISMOVING_HASH = Animator.StringToHash("isMoving");
+        public static readonly int HIT_HASH = Animator.StringToHash("hit");
 
 
         #endregion

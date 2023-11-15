@@ -16,9 +16,10 @@ namespace CBA.Entities.Player
         public Vector2 MoveInput { get; private set; }
         public Vector2 LookInput { get; private set; }
         public event Action OnJumpInput;
+        public event Action OnAttackPressedInput;
+        public event Action OnAttackReleasedInput;
         public bool SprintInput { get; private set; }
         public bool CrouchInput { get; private set; }
-        public bool AttackInput { get; private set; }
         public bool BlockInput { get; private set; }
         public bool KickInput { get; private set; }
 
@@ -49,7 +50,7 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Sprint.canceled += ctx => OnSprintReleased(ctx);
             PlayerControls.Gameplay.Crouch.performed += ctx => OnCrouchPressed(ctx);
             PlayerControls.Gameplay.Crouch.canceled += ctx => OnCrouchReleased(ctx);
-            PlayerControls.Gameplay.Attack.performed += ctx => OnAttack(ctx);
+            PlayerControls.Gameplay.Attack.performed += ctx => OnAttackPressed(ctx);
             PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
         }
@@ -66,7 +67,6 @@ namespace CBA.Entities.Player
         private void ResetButtonInput()
         {
             //SprintInput = false;
-            AttackInput = false;
             BlockInput = false;
             KickInput = false;
         }
@@ -106,9 +106,14 @@ namespace CBA.Entities.Player
             CrouchInput = false;
         }
 
-        private void OnAttack(InputAction.CallbackContext ctx)
+        private void OnAttackPressed(InputAction.CallbackContext ctx)
         {
-            AttackInput = true;
+            OnAttackPressedInput?.Invoke();
+        }
+
+        private void OnAttackReleased(InputAction.CallbackContext ctx)
+        {
+            OnAttackReleasedInput?.Invoke();
         }
 
         private void OnBlock(InputAction.CallbackContext ctx)
