@@ -1,5 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 namespace GameCells.Utilities
@@ -34,5 +38,36 @@ namespace GameCells.Utilities
                 return false;
             }
         }
+
     }
+
+   /* public class BufferedInput
+    {
+        private CancellationTokenSource _cancellationTokenSource = null;
+
+        public bool IsBuffering { get; set; } = false;
+
+        public async Task Buffer(float bufferDuration)
+        {
+            IsBuffering = true;
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            try
+            {
+                await Task.Delay(Mathf.RoundToInt(bufferDuration * 1000), _cancellationTokenSource.Token);
+                IsBuffering = false;
+                _cancellationTokenSource.Dispose();
+            }
+            catch
+            {
+                IsBuffering = false;
+                _cancellationTokenSource.Dispose();
+            } 
+        }
+
+        public void Cancel()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+    }*/
 }

@@ -30,6 +30,7 @@ namespace CBA.Entities.Player
             _playerInputHandler.OnAttackPressedInput += OnAttackPressed;
 
             _currentWeapon.WeaponAnimationEventHander.OnCameraShakeEvent += CameraShake;
+            _currentWeapon.OnWeaponHit += () => CameraShake(0, 1f);
         }
 
         private void OnDisable()
@@ -41,8 +42,9 @@ namespace CBA.Entities.Player
 
         private void Update()
         {
-            if (AttackBuffer)
+            if (AttackBuffer && _currentWeapon.NextComboInputAllowed)
             {
+                ConsumeAttackBuffer();
                 _currentWeapon.Attack();
             }
         }
@@ -95,9 +97,9 @@ namespace CBA.Entities.Player
             _currentWeapon.WeaponAnimationEventHander.OnCameraShakeEvent += CameraShake;
         }*/
 
-        public void CameraShake(int direction)
+        public void CameraShake(int direction, float strength = 0.3f)
         {
-            _playerCameraController.CameraShake(direction);
+            _playerCameraController.CameraShake(direction, strength);
         }
     }
 }

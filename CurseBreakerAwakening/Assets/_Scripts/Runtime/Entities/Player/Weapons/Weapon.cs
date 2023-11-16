@@ -2,6 +2,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CBA.Entities.Player.Weapons
@@ -15,19 +16,25 @@ namespace CBA.Entities.Player.Weapons
         [SerializeField] private BoxCollider _hitbox;
         [SerializeField] private LayerMask _enemyLayer;
 
+        //TODO
+        [SerializeField] private GameObject _hitVFX;
+
         public WeaponAnimationEventHander WeaponAnimationEventHander => _weaponAnimationEventHander;
 
         private List<Collider> _hitTargetCache;
 
         private int _currentCombo = 0;
         private bool _hitboxEnabled;
-        private bool _allowNextComboInput;
-        
+
+        public bool NextComboInputAllowed { get; private set; }
+
+        //Events
+        public event Action OnWeaponHit;
 
         private void Awake()
         {
             _hitTargetCache = new List<Collider>();
-            _allowNextComboInput = true;
+            NextComboInputAllowed = true;
         }
 
         private void OnEnable()
@@ -44,10 +51,37 @@ namespace CBA.Entities.Player.Weapons
             _weaponAnimationEventHander.OnAllowNextComboEvent -= AllowNextComboInput;
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(_hitbox.transform.position, _hitbox.transform.position + _hitbox.transform.forward * _hitbox.size.z);
+        }
+
         private void Update()
         {
             if (!_hitboxEnabled)
                 return;
+
+            /*if (Physics.Raycast(_hitbox.transform.position, _hitbox.transform.up, out RaycastHit hit, _hitbox.size.z, GameData.ENEMY_LAYER))
+            {
+                if (_hitTargetCache.Contains(hit.collider))
+                    return;
+
+                _hitTargetCache.Add(hit.collider);
+
+                hit.collider.GetComponent<Entity>()?.TakeDamage(1);
+
+                OnWeaponHit?.Invoke();
+
+                //VFX
+                if (_hitVFX != null)
+                {
+                    Instantiate(_hitVFX, hit.point, Quaternion.identity);
+                }
+
+                //TODO
+                Debug.LogWarning($"hit {hit.collider.name}");
+            }*/
 
             Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.ENEMY_LAYER);
             foreach (var collider in colliders)
@@ -61,6 +95,14 @@ namespace CBA.Entities.Player.Weapons
 
                 collider.GetComponent<Entity>()?.TakeDamage(1);
 
+                OnWeaponHit?.Invoke();
+
+                //VFX
+                if (_hitVFX != null)
+                {
+                    Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity);
+                }
+
                 //TODO
                 Debug.LogWarning($"hit {collider.name}");
             }
@@ -68,13 +110,13 @@ namespace CBA.Entities.Player.Weapons
 
         public void Attack()
         {
-            if (!_allowNextComboInput)
+            if (!NextComboInputAllowed)
                 return;
 
             _weaponAnimator.SetInteger(GameData.COMBO_HASH, _currentCombo);
             _weaponAnimator.SetTrigger(GameData.ATTACK_HASH);
 
-            _allowNextComboInput = false;
+            NextComboInputAllowed = false;
             _currentCombo = (_currentCombo + 1) % (_weaponData.MaxCombo - 1);
         }
 
@@ -93,7 +135,7 @@ namespace CBA.Entities.Player.Weapons
 
         public void AllowNextComboInput()
         {
-            _allowNextComboInput = true;
+            NextComboInputAllowed = true;
         }
 
         public void ResetCombo()

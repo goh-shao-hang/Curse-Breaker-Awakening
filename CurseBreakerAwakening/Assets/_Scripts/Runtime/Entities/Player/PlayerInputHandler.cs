@@ -1,4 +1,5 @@
 using CBA.Input;
+using GameCells.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ namespace CBA.Entities.Player
         public bool BlockInput { get; private set; }
         public bool KickInput { get; private set; }
 
-
         private void OnEnable()
         {
             if (PlayerControls == null)
@@ -33,7 +33,6 @@ namespace CBA.Entities.Player
             }
 
             PlayerControls.Enable();
-
         }
 
         private void OnDisable()
@@ -55,10 +54,6 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
         }
 
-        private void Update()
-        {
-        }
-
         private void LateUpdate()
         {
             ResetButtonInput();
@@ -66,7 +61,6 @@ namespace CBA.Entities.Player
 
         private void ResetButtonInput()
         {
-            //SprintInput = false;
             BlockInput = false;
             KickInput = false;
         }

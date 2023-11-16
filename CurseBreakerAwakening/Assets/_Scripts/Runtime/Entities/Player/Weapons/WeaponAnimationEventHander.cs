@@ -1,3 +1,4 @@
+using GameCells.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnActivateHitboxEvent;
         public event Action OnDeactivateHitboxEvent;
         public event Action OnAllowNextComboEvent;
-        public event Action<int> OnCameraShakeEvent;
+        public event Action<int, float> OnCameraShakeEvent;
 
         public void ActivateHitbox()
         {
@@ -27,9 +28,15 @@ namespace CBA.Entities.Player.Weapons
             OnAllowNextComboEvent?.Invoke();
         }
 
-        public void CameraShake(int direction)
+        public void CameraShake(SO_CameraShakeData cameraShakeData)
         {
-            OnCameraShakeEvent?.Invoke(direction);
+            OnCameraShakeEvent?.Invoke(cameraShakeData.Direction, cameraShakeData.Strength);
+        }
+
+        //Shake using default values
+        public void CameraShakeDefault()
+        {
+            OnCameraShakeEvent?.Invoke(0, 0.3f);
         }
     }
 }

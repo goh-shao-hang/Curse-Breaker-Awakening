@@ -395,7 +395,8 @@ AnimationClip:
   - time: 0.25
     functionName: CameraShake
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 5be31bbd6ce247a468aa5258188ff5ac,
+      type: 2}
     floatParameter: 0
     intParameter: -1
     messageOptions: 0
