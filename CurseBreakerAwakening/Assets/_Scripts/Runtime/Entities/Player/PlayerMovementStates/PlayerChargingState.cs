@@ -23,8 +23,6 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
-            }
-
             return this.StateKey;
         }
     }
