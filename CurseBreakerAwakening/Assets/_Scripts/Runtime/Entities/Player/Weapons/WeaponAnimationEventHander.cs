@@ -11,7 +11,7 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnActivateHitboxEvent;
         public event Action OnDeactivateHitboxEvent;
         public event Action OnAllowNextComboEvent;
-        public event Action<int, float> OnCameraShakeEvent;
+        public event Action<Vector3, float> OnCameraShakeEvent;
 
         public void ActivateHitbox()
         {
@@ -36,7 +36,7 @@ namespace CBA.Entities.Player.Weapons
         //Shake using default values
         public void CameraShakeDefault()
         {
-            OnCameraShakeEvent?.Invoke(0, 0.3f);
+            OnCameraShakeEvent?.Invoke(Vector3.one, 0.3f);
         }
     }
 }

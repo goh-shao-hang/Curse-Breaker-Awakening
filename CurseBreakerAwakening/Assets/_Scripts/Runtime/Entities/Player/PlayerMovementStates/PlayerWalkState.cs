@@ -17,6 +17,10 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
+            if (_playerController.CurrentChargeTime > 0.5f)
+            {
+                return EPlayerMovementState.Charging;
+            }
 
             if (_playerController.IsGrounded && _playerController.PlayerInputHandler.CrouchInput)
             {

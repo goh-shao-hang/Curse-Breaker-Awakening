@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af960a0b80519724bbcdce8108efce4d, type: 3}
   m_Name: CameraShakeData_PlayerAttack2
   m_EditorClassIdentifier: 
-  Direction: 1
+  Direction: {x: 1, y: 0, z: -1}
   Strength: 0.3

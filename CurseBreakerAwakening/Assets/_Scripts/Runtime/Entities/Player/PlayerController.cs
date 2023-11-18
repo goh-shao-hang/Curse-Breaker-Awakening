@@ -43,6 +43,12 @@ namespace CBA.Entities.Player
         [SerializeField] private float _wallRunGravity = 3f;
         [SerializeField] private float _wallRunCameraTilt = 10f;
 
+        [Header("Charge Attack")]
+        [SerializeField] private float _chargeVelocity = 10f;
+        [SerializeField] private float _chargeMovementDuration = 1f;
+        [SerializeField] private float _minChargeTime = 0.5f;
+        [SerializeField] private float _maxChargeTime = 2f;
+
         #region Getters
         public PlayerInputHandler PlayerInputHandler => _playerInputHandler;
         public MovementModule MovementModule => _movementModule;
@@ -60,6 +66,8 @@ namespace CBA.Entities.Player
         public float WallRunGravity => _wallRunGravity;
         public float WallRunCameraTilt => _wallRunCameraTilt;
         public bool CanWallRun => _canWallRun;
+        public float CurrentChargeTime { get; private set; }
+        public float ChargeMovementDuration => _chargeMovementDuration;
 
         public bool IsGrounded => _groundChecker.Hit();
         public bool IsOnSlope
@@ -100,6 +108,7 @@ namespace CBA.Entities.Player
         #region Variables
         public bool JumpBuffer { get; private set; } = false;
         private Coroutine _jumpBufferCO = null;
+        private Coroutine _chargeTimerCO = null;
 
         private float _movementForce;
         private float _staminaRegenTimer;
@@ -111,8 +120,9 @@ namespace CBA.Entities.Player
         public event Action<float> OnStaminaChanged;
         public event Action<bool> OnWallRunStarted;
         public event Action OnWallRunEnded;
+        public event Action OnChargingStart;
+        public event Action<float> OnChargedAttack;
         #endregion
-
 
         protected override void Awake()
         {
@@ -123,6 +133,8 @@ namespace CBA.Entities.Player
             _StatesDict.Add(EPlayerMovementState.Sprint, new PlayerSprintState(EPlayerMovementState.Sprint, this));
             _StatesDict.Add(EPlayerMovementState.Crouch, new PlayerCrouchState(EPlayerMovementState.Crouch, this));
             _StatesDict.Add(EPlayerMovementState.WallRun, new PlayerWallRunState(EPlayerMovementState.WallRun, this));
+            _StatesDict.Add(EPlayerMovementState.Charging, new PlayerChargingState(EPlayerMovementState.Charging, this));
+            _StatesDict.Add(EPlayerMovementState.ChargedAttack, new PlayerChargedAttackState(EPlayerMovementState.ChargedAttack, this));
 
             _currentState = _StatesDict[EPlayerMovementState.Walk];
 
@@ -300,5 +312,6 @@ namespace CBA.Entities.Player
         {
             OnWallRunEnded?.Invoke();
         }
+
     }
 }

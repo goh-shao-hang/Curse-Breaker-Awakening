@@ -19,6 +19,8 @@ namespace CBA.Entities.Player
         public event Action OnJumpInput;
         public event Action OnAttackPressedInput;
         public event Action OnAttackReleasedInput;
+
+        public bool ChargeInput { get; private set; }
         public bool SprintInput { get; private set; }
         public bool CrouchInput { get; private set; }
         public bool BlockInput { get; private set; }
@@ -50,6 +52,7 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Crouch.performed += ctx => OnCrouchPressed(ctx);
             PlayerControls.Gameplay.Crouch.canceled += ctx => OnCrouchReleased(ctx);
             PlayerControls.Gameplay.Attack.performed += ctx => OnAttackPressed(ctx);
+            PlayerControls.Gameplay.Attack.canceled += ctx => OnAttackReleased(ctx);
             PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
         }
@@ -119,6 +122,7 @@ namespace CBA.Entities.Player
         {
             KickInput = true;
         }
+
     }
 
 }

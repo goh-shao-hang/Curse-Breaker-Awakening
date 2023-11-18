@@ -59,10 +59,10 @@ namespace CBA.Entities.Player
             _playerController.CameraRootTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
         }
 
-        public void CameraShake(int direction = 1, float strength = 0.3f)
+        public void CameraShake(Vector3 direction, float strength = 0.3f)
         {
             //_cinemachineImpulseSource.GenerateImpulse(strength);
-            _cinemachineImpulseSource.GenerateImpulseWithVelocity(strength * (Vector3.right * direction + Vector3.up - Vector3.forward));
+            _cinemachineImpulseSource.GenerateImpulseWithVelocity(direction * strength);
 
         }
 

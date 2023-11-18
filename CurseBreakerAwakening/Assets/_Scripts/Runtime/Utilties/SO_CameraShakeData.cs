@@ -7,7 +7,7 @@ namespace GameCells.Utilities
     [CreateAssetMenu(menuName = "Data/Camera Shake Data", fileName = "CameraShakeData")]
     public class SO_CameraShakeData : ScriptableObject
     {
-        public int Direction;
+        public Vector3 Direction;
         public float Strength;
     }
 }
