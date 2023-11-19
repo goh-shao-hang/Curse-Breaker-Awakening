@@ -2,7 +2,6 @@ using GameCells.Modules;
 using GameCells.Utilities;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CBA.Entities.Player
@@ -11,6 +10,7 @@ namespace CBA.Entities.Player
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private PlayerInputHandler _playerInputHandler;
+        [SerializeField] private PlayerCombatManager _playerCombatManager;
         [SerializeField] private Transform _cameraRootTransform;
         [SerializeField] private MovementModule _movementModule;
         [SerializeField] private CapsuleCollider _playerCollider;
@@ -44,18 +44,20 @@ namespace CBA.Entities.Player
         [SerializeField] private float _wallRunCameraTilt = 10f;
 
         [Header("Charge Attack")]
-        [SerializeField] private float _chargeVelocity = 10f;
-        [SerializeField] private float _chargeMovementDuration = 1f;
-        [SerializeField] private float _minChargeTime = 0.5f;
-        [SerializeField] private float _maxChargeTime = 2f;
+        [SerializeField] private float _chargingMoveForce = 30f;
+        [SerializeField] private float _minChargedAttackMovementSpeed = 10f;
+        [SerializeField] private float _maxChargedAttackMovementSpeed = 15f;
 
         #region Getters
+        //Dependencies
         public PlayerInputHandler PlayerInputHandler => _playerInputHandler;
+        public PlayerCombatManager PlayerCombatManager => _playerCombatManager;
         public MovementModule MovementModule => _movementModule;
         public CapsuleCollider PlayerCollider => _playerCollider;
         public PhysicsQuery GroundChecker => _groundChecker;
         public Transform CameraRootTransform => _cameraRootTransform;
 
+        //Movement
         public float WalkMovementForce => _walkMovementForce;
         public float SprintMovementForce => _sprintMovementForce;
         public float CrouchMovementForce => _crouchMovementForce;
@@ -63,22 +65,13 @@ namespace CBA.Entities.Player
         public float MaxStamina => _maxStamina;
         public float CurrentStamina { get; private set; }
         public float SpritingStaminaConsumption => _sprintingStaminaConsumption;
+        public bool IsLimitingMaxSpeed { get; private set; }
+        public bool JumpBuffer { get; private set; } = false;
+
+        //Wall Run
         public float WallRunGravity => _wallRunGravity;
         public float WallRunCameraTilt => _wallRunCameraTilt;
         public bool CanWallRun => _canWallRun;
-        public float CurrentChargeTime { get; private set; }
-        public float ChargeMovementDuration => _chargeMovementDuration;
-
-        public bool IsGrounded => _groundChecker.Hit();
-        public bool IsOnSlope
-        {
-            get
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, _slopeChecker.HitInfo.normal);
-                return _slopeChecker.Hit() && slopeAngle != 0 && slopeAngle < _maxSlopeAngle;
-            }
-        }
-
         public bool IsRunnableWallDetected
         {
             get
@@ -102,13 +95,28 @@ namespace CBA.Entities.Player
         }
         public RaycastHit runnableWallHitInfo;
 
+        //Charged Attack
+        public float ChargingMoveForce => _chargingMoveForce;
+        public float MinChargedAttackMovementSpeed => _minChargedAttackMovementSpeed;
+        public float MaxChargedAttackMovementSpeed => _maxChargedAttackMovementSpeed;
+        public bool IsChargingAttack { get; private set; }
+        public float LastChargePercentage { get; private set; } = 0f;
+
+        //Physics
+        public bool IsGrounded => _groundChecker.Hit();
+        public bool IsOnSlope
+        {
+            get
+            {
+                float slopeAngle = Vector3.Angle(Vector3.up, _slopeChecker.HitInfo.normal);
+                return _slopeChecker.Hit() && slopeAngle != 0 && slopeAngle < _maxSlopeAngle;
+            }
+        }
         public Vector3 ColliderBottomPoint => _playerCollider.center - (Vector3.up * (_playerCollider.height * 0.5f));
         #endregion
 
         #region Variables
-        public bool JumpBuffer { get; private set; } = false;
         private Coroutine _jumpBufferCO = null;
-        private Coroutine _chargeTimerCO = null;
 
         private float _movementForce;
         private float _staminaRegenTimer;
@@ -120,8 +128,6 @@ namespace CBA.Entities.Player
         public event Action<float> OnStaminaChanged;
         public event Action<bool> OnWallRunStarted;
         public event Action OnWallRunEnded;
-        public event Action OnChargingStart;
-        public event Action<float> OnChargedAttack;
         #endregion
 
         protected override void Awake()
@@ -145,11 +151,16 @@ namespace CBA.Entities.Player
         private void OnEnable()
         {
             _playerInputHandler.OnJumpInput += OnJumpPressed;
+            _playerCombatManager.OnChargingStarted += OnChargingStarted;
+            _playerCombatManager.OnChargedAttackReleased += OnChargedAttackReleased;
+            _playerCombatManager.OnChargedAttackEnded += OnChargedAttackEnded;
         }
 
         private void OnDisable()
         {
             _playerInputHandler.OnJumpInput -= OnJumpPressed;
+            _playerCombatManager.OnChargingStarted -= OnChargingStarted;
+            _playerCombatManager.OnChargedAttackEnded -= OnChargedAttackEnded;
         }
 
         protected override void Update()
@@ -208,6 +219,9 @@ namespace CBA.Entities.Player
 
         private void LimitMaxSpeed()
         {
+            if (!IsLimitingMaxSpeed)
+                return;
+
             if (!IsOnSlope)
             {
                 _horizontalVelocity.Set(_movementModule.CurrentVelocity.x, 0f, _movementModule.CurrentVelocity.z);
@@ -226,6 +240,11 @@ namespace CBA.Entities.Player
                 }
             }
             
+        }
+
+        public void SetIsLimitingMaxSpeed(bool set)
+        {
+            IsLimitingMaxSpeed = set;
         }
 
         private void OnJumpPressed()
@@ -311,6 +330,22 @@ namespace CBA.Entities.Player
         public void WallRunEnded()
         {
             OnWallRunEnded?.Invoke();
+        }
+
+        public void OnChargingStarted()
+        {
+            IsChargingAttack = true;
+        }
+
+        public void OnChargedAttackReleased(float chargePercentage)
+        {
+            IsChargingAttack = false;
+            LastChargePercentage = chargePercentage;
+        }
+
+        public void OnChargedAttackEnded()
+        {
+
         }
 
     }

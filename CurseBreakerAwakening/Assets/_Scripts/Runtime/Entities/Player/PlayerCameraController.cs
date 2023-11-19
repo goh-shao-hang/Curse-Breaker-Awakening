@@ -20,6 +20,7 @@ namespace CBA.Entities.Player
         [SerializeField] private bool _invertXAxis;
         [SerializeField] private bool _invertYAxis;
         [SerializeField] private float _maxCameraVerticalAngle;
+        public bool _cameraMovementLocked { get; private set; }
 
         private float _yaw; //horizontal rotation
         private float _pitch; //vertical rotation
@@ -40,23 +41,36 @@ namespace CBA.Entities.Player
         {
             _playerController.OnWallRunStarted += TiltCamera;
             _playerController.OnWallRunEnded += StopCameraTilt;
+            _playerController.PlayerCombatManager.OnChargedAttackReleased += (x) => LockCameraMovement(true);
+            _playerController.PlayerCombatManager.OnChargedAttackEnded += () => LockCameraMovement(false);
         }
 
         private void OnDisable()
         {
             _playerController.OnWallRunStarted -= TiltCamera;
             _playerController.OnWallRunEnded -= StopCameraTilt;
+            _playerController.PlayerCombatManager.OnChargedAttackReleased -= (x) => LockCameraMovement(true);
+            _playerController.PlayerCombatManager.OnChargedAttackEnded -= () => LockCameraMovement(false);
         }
 
         private void Update()
         {
-            _yaw += _playerController.PlayerInputHandler.LookInput.x * _sensitivity;
-            _pitch -= _playerController.PlayerInputHandler.LookInput.y * _sensitivity;
-            _pitch = Mathf.Clamp(_pitch, -_maxCameraVerticalAngle, _maxCameraVerticalAngle);
+            if (!_cameraMovementLocked)
+            {
+                _yaw += _playerController.PlayerInputHandler.LookInput.x * _sensitivity;
+                _pitch -= _playerController.PlayerInputHandler.LookInput.y * _sensitivity;
+                _pitch = Mathf.Clamp(_pitch, -_maxCameraVerticalAngle, _maxCameraVerticalAngle);
+                transform.rotation = Quaternion.Euler(_pitch, _yaw, _tiltRotation);
+                _playerController.CameraRootTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
+            }
 
             transform.position = _playerController.CameraRootTransform.transform.position;
-            transform.rotation = Quaternion.Euler(_pitch, _yaw, _tiltRotation);
-            _playerController.CameraRootTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
+        }
+
+        public void LockCameraMovement(bool locked)
+        {
+            Debug.Log("LOCK");
+            _cameraMovementLocked = locked;
         }
 
         public void CameraShake(Vector3 direction, float strength = 0.3f)

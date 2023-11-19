@@ -2365,6 +2365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInputHandler: {fileID: 1301189312}
+  _playerCombatManager: {fileID: 1301189314}
   _cameraRootTransform: {fileID: 86195121}
   _movementModule: {fileID: 1707548933}
   _playerCollider: {fileID: 1301189308}
@@ -2390,6 +2391,9 @@ MonoBehaviour:
   _minWallRunHeight: 2
   _wallRunGravity: 3
   _wallRunCameraTilt: 15
+  _chargingMoveForce: 30
+  _minChargedAttackMovementSpeed: 10
+  _maxChargedAttackMovementSpeed: 25
 --- !u!114 &1301189312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2436,6 +2440,9 @@ MonoBehaviour:
   _weaponHolderTransform: {fileID: 617685363}
   _currentWeapon: {fileID: 733389723}
   _attackBufferDuration: 0.2
+  _chargedAttackDuration: 0.5
+  _minChargeTime: 0.5
+  _maxChargeTime: 2
 --- !u!144 &1328473336
 CharacterJoint:
   m_ObjectHideFlags: 0
