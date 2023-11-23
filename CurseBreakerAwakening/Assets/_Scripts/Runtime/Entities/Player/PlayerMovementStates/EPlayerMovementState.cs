@@ -8,6 +8,5 @@ public enum EPlayerMovementState
     Sprint,
     Crouch,
     WallRun,
-    Charging,
     ChargedAttack
 }

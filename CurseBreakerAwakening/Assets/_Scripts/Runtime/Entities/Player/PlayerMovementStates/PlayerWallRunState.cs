@@ -56,6 +56,11 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
+            if (_playerController.IsPerformingChargedAttack)
+            {
+                return EPlayerMovementState.ChargedAttack;
+            }
+
             if (!_playerController.IsRunnableWallDetected)// || Mathf.Abs(_playerController.PlayerInputHandler.MoveInput.y) < 0.1f)
             {
                 return EPlayerMovementState.Walk;

@@ -7,7 +7,7 @@ namespace GameCells.Utilities
     public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         private static T instance = null;
-        private static T Instance
+        public static T Instance
         {
             get
             {
@@ -23,14 +23,9 @@ namespace GameCells.Utilities
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private void RemoveInstance()
+        private static void RemoveInstance()
         {
             instance = null;
-        }
-
-        public static T GetInstance()
-        {
-            return Instance;
         }
 
         protected void SetDontDestroyOnLoad()

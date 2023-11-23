@@ -15,7 +15,10 @@ MonoBehaviour:
   Name: Long Sword
   Rarity: 0
   Type: 1
-  WeaponPrefab: {fileID: 2328828255405290318, guid: c8a1157bd32733349a262d3aa230bd04,
+  WeaponPrefab: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
     type: 3}
-  MaxCombo: 3
+  AttackDamage: 3
+  MinChargedAttackDamage: 5
+  MaxChargedAttackDamage: 10
+  MaxCombo: 2
   ComboResetTime: 1.5

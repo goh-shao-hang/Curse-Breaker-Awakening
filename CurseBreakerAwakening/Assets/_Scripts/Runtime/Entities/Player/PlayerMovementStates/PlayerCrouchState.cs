@@ -32,6 +32,11 @@ namespace CBA.Entities.Player
 
         public override EPlayerMovementState GetNextState()
         {
+            if (_playerController.IsPerformingChargedAttack)
+            {
+                return EPlayerMovementState.ChargedAttack;
+            }
+
             if (!_playerController.PlayerInputHandler.CrouchInput)
             {
                 if (!_playerController.PlayerInputHandler.SprintInput || _playerController.PlayerInputHandler.MoveInput == Vector2.zero
