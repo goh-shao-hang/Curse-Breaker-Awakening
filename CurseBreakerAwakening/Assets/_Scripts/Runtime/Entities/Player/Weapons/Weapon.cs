@@ -1,9 +1,12 @@
 using Cinemachine;
+using GameCells.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace CBA.Entities.Player.Weapons
 {
@@ -14,10 +17,15 @@ namespace CBA.Entities.Player.Weapons
         [SerializeField] private WeaponAnimationEventHander _weaponAnimationEventHander;
         [SerializeField] private Animator _weaponAnimator;
         [SerializeField] private BoxCollider _hitbox;
+        [SerializeField] private BoxCollider _chargedAttackHitbox;
         [SerializeField] private LayerMask _enemyLayer;
 
-        //TODO
+        [Header("Effects")]
+        [SerializeField] private GameObject _chargingVFX;
+        [SerializeField] private GameObject _fullyChargedVFX;
         [SerializeField] private GameObject _hitVFX;
+        [SerializeField] private MeshRenderer _weaponMeshRenderer;
+        [SerializeField] private Material _chargedAttackMaterial;
 
         public WeaponAnimationEventHander WeaponAnimationEventHander => _weaponAnimationEventHander;
 
@@ -25,6 +33,10 @@ namespace CBA.Entities.Player.Weapons
 
         private int _currentCombo = 0;
         private bool _hitboxEnabled;
+        private bool _chargedAttackHitboxEnabled;
+        private float _currentChargedAttackDamage;
+
+        private Material _originalMaterial;
 
         public bool NextComboInputAllowed { get; private set; }
 
@@ -35,6 +47,11 @@ namespace CBA.Entities.Player.Weapons
         {
             _hitTargetCache = new List<Collider>();
             NextComboInputAllowed = true;
+
+            _chargingVFX.SetActive(false);
+            _fullyChargedVFX.SetActive(false);
+
+            _originalMaterial = _weaponMeshRenderer.material;
         }
 
         private void OnEnable()
@@ -59,9 +76,50 @@ namespace CBA.Entities.Player.Weapons
 
         private void Update()
         {
-            if (!_hitboxEnabled)
-                return;
+            if (_hitboxEnabled)
+            {
+                Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.ENEMY_LAYER);
+                foreach (var collider in colliders)
+                {
+                    if (_hitTargetCache.Contains(collider))
+                    {
+                        continue;
+                    }
 
+                    _hitTargetCache.Add(collider);
+
+                    collider.GetComponent<IDamageable>()?.TakeDamage(_weaponData.AttackDamage);
+
+                    OnWeaponHit?.Invoke();
+
+                    if (_hitVFX != null)
+                    {
+                        Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity);
+                    }
+                }
+            }
+            else if (_chargedAttackHitboxEnabled)
+            {
+                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, GameData.ENEMY_LAYER);
+                foreach (var collider in colliders)
+                {
+                    if (_hitTargetCache.Contains(collider))
+                    {
+                        continue;
+                    }
+
+                    _hitTargetCache.Add(collider);
+
+                    collider.GetComponent<IDamageable>()?.TakeDamage(_currentChargedAttackDamage);
+
+                    OnWeaponHit?.Invoke();
+
+                    if (_hitVFX != null)
+                    {
+                        Instantiate(_hitVFX, _chargedAttackHitbox.transform.position, Quaternion.identity);
+                    }
+                }
+            }
             /*if (Physics.Raycast(_hitbox.transform.position, _hitbox.transform.up, out RaycastHit hit, _hitbox.size.z, GameData.ENEMY_LAYER))
             {
                 if (_hitTargetCache.Contains(hit.collider))
@@ -83,29 +141,7 @@ namespace CBA.Entities.Player.Weapons
                 Debug.LogWarning($"hit {hit.collider.name}");
             }*/
 
-            Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.ENEMY_LAYER);
-            foreach (var collider in colliders)
-            {
-                if (_hitTargetCache.Contains(collider))
-                {
-                    continue;
-                }
-
-                _hitTargetCache.Add(collider);
-
-                collider.GetComponent<Entity>()?.TakeDamage(1);
-
-                OnWeaponHit?.Invoke();
-
-                //VFX
-                if (_hitVFX != null)
-                {
-                    Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity);
-                }
-
-                //TODO
-                Debug.LogWarning($"hit {collider.name}");
-            }
+            
         }
 
         public void Attack()
@@ -117,7 +153,31 @@ namespace CBA.Entities.Player.Weapons
             _weaponAnimator.SetTrigger(GameData.ATTACK_HASH);
 
             NextComboInputAllowed = false;
-            _currentCombo = (_currentCombo + 1) % (_weaponData.MaxCombo - 1);
+            _currentCombo = (_currentCombo + 1) % (_weaponData.MaxCombo);
+        }
+
+        public void StartCharging()
+        {
+            _weaponAnimator.SetBool(GameData.ISCHARGING_HASH, true);
+
+            _chargingVFX.SetActive(true);
+        }
+
+        public void OnFullyCharged()
+        {
+            _weaponAnimator.SetTrigger(GameData.FULLYCHARGED_HASH);
+
+            _chargingVFX.SetActive(false);
+            _fullyChargedVFX.SetActive(true);
+
+            _weaponMeshRenderer.material = _chargedAttackMaterial;
+        }
+
+        public void StopCharging()
+        {
+            _weaponAnimator.SetBool(GameData.ISCHARGING_HASH, false);
+
+            _chargingVFX.SetActive(false);
         }
 
         public void ActivateHitbox()
@@ -133,6 +193,26 @@ namespace CBA.Entities.Player.Weapons
             _hitTargetCache.Clear();
         }
 
+        public void StartChargedAttack(float chargedPercentage)
+        {
+            _chargedAttackHitboxEnabled = true;
+            _currentChargedAttackDamage = Mathf.Lerp(_weaponData.MinChargedAttackDamage, _weaponData.MaxChargedAttackDamage, chargedPercentage);
+        }
+
+        public void StopChargedAttack()
+        {
+            _chargedAttackHitboxEnabled = false;
+
+            //Reset cache
+            _hitTargetCache.Clear();
+
+            _weaponAnimator.SetTrigger(GameData.CHARGEDATTACKENDED_HASH);
+
+            _weaponMeshRenderer.material = _originalMaterial;
+
+            _fullyChargedVFX.SetActive(false);
+        }
+
         public void AllowNextComboInput()
         {
             NextComboInputAllowed = true;
@@ -142,5 +222,6 @@ namespace CBA.Entities.Player.Weapons
         {
             _currentCombo = 0;
         }
+
     }
 }

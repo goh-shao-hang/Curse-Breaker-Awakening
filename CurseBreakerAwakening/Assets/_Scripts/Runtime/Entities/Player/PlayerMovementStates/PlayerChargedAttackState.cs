@@ -22,11 +22,13 @@ namespace CBA.Entities.Player
 
             _playerController.PlayerCombatManager.OnChargedAttackEnded += OnChargeAttackEnded;
 
-            Debug.Log("charge attacking!");
             _playerController.SetMovementForce(0f);
 
-            _chargedAttackMovementSpeed = _playerController.MinChargedAttackMovementSpeed +
-                (_playerController.MaxChargedAttackMovementSpeed - _playerController.MinChargedAttackMovementSpeed) * _playerController.LastChargePercentage;
+            //Allow player to go through enemies. Another dedicated hitbox will be used to detect hits
+            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.ENEMY_LAYER_INDEX, true);
+
+            _chargedAttackMovementSpeed = Mathf.Lerp(_playerController.MinChargedAttackMovementSpeed, _playerController.MaxChargedAttackMovementSpeed, 
+                _playerController.LastChargePercentage);
 
             _chargedAttackDirection = _playerController.CameraRootTransform.forward;
 
@@ -52,8 +54,10 @@ namespace CBA.Entities.Player
 
             _playerController.PlayerCombatManager.OnChargedAttackEnded -= OnChargeAttackEnded;
 
+            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.ENEMY_LAYER_INDEX, false);
+
             _playerController.SetIsLimitingMaxSpeed(true);
-            Debug.Log("charge attack end");
+
         }
 
         public override EPlayerMovementState GetNextState()

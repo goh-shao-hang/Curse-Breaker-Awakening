@@ -36,7 +36,6 @@ namespace CBA.Entities.Player
 
         [Header("Wall Run")]
         [SerializeField] private bool _canWallRun = true;
-        [SerializeField] private float _wallRunTime = 5f;
         [SerializeField] private float _wallRunMovementForce = 50f;
         [SerializeField] private float _wallCheckDistance = 0.5f;
         [SerializeField] private float _minWallRunHeight;
@@ -65,7 +64,7 @@ namespace CBA.Entities.Player
         public float MaxStamina => _maxStamina;
         public float CurrentStamina { get; private set; }
         public float SpritingStaminaConsumption => _sprintingStaminaConsumption;
-        public bool IsLimitingMaxSpeed { get; private set; }
+        public bool IsLimitingMaxSpeed { get; private set; } = true;
         public bool JumpBuffer { get; private set; } = false;
 
         //Wall Run
@@ -100,6 +99,7 @@ namespace CBA.Entities.Player
         public float MinChargedAttackMovementSpeed => _minChargedAttackMovementSpeed;
         public float MaxChargedAttackMovementSpeed => _maxChargedAttackMovementSpeed;
         public bool IsChargingAttack { get; private set; }
+        public bool IsPerformingChargedAttack { get; private set; }
         public float LastChargePercentage { get; private set; } = 0f;
 
         //Physics
@@ -139,13 +139,14 @@ namespace CBA.Entities.Player
             _StatesDict.Add(EPlayerMovementState.Sprint, new PlayerSprintState(EPlayerMovementState.Sprint, this));
             _StatesDict.Add(EPlayerMovementState.Crouch, new PlayerCrouchState(EPlayerMovementState.Crouch, this));
             _StatesDict.Add(EPlayerMovementState.WallRun, new PlayerWallRunState(EPlayerMovementState.WallRun, this));
-            _StatesDict.Add(EPlayerMovementState.Charging, new PlayerChargingState(EPlayerMovementState.Charging, this));
             _StatesDict.Add(EPlayerMovementState.ChargedAttack, new PlayerChargedAttackState(EPlayerMovementState.ChargedAttack, this));
 
             _currentState = _StatesDict[EPlayerMovementState.Walk];
 
             //Initialize Variables
             CurrentStamina = MaxStamina;
+
+            IsLimitingMaxSpeed = true;
         }
 
         private void OnEnable()
@@ -214,7 +215,8 @@ namespace CBA.Entities.Player
                 }
             }
 
-            _movementModule.AddForce(_moveDirection * _movementForce * (IsGrounded ? 1 : _airMovementMultiplier), ForceMode.Force);
+            float finalMovementForce = _movementForce * (IsGrounded ? 1 : _airMovementMultiplier) * (IsChargingAttack ? 0.5f : 1);
+            _movementModule.AddForce(_moveDirection * finalMovementForce, ForceMode.Force);
         }
 
         private void LimitMaxSpeed()
@@ -341,11 +343,12 @@ namespace CBA.Entities.Player
         {
             IsChargingAttack = false;
             LastChargePercentage = chargePercentage;
+            IsPerformingChargedAttack = true;
         }
 
         public void OnChargedAttackEnded()
         {
-
+            IsPerformingChargedAttack = false;
         }
 
     }
