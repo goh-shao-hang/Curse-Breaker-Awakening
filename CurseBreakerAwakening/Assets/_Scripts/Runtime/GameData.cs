@@ -18,6 +18,8 @@ namespace CBA
         public static readonly int FULLYCHARGED_HASH = Animator.StringToHash("fullyCharged");
         public static readonly int CHARGEDATTACKENDED_HASH = Animator.StringToHash("chargedAttackEnded");
         public static readonly int HIT_HASH = Animator.StringToHash("hit");
+        public static readonly int XVELOCITY_HASH = Animator.StringToHash("xVelocity");
+        public static readonly int ZVELOCITY_HASH = Animator.StringToHash("zVelocity");
 
 
         #endregion

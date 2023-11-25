@@ -30,13 +30,16 @@ namespace CBA.Entities.Player.Weapons
 
         public void CameraShake(SO_CameraShakeData cameraShakeData)
         {
-            GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
+            GameEventsManager.Instance.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
+            //_cameraShakeGameEvent?.Invoke(cameraShakeData);
+            //GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
         }
 
         //Shake using default values
-        public void CameraShakeDefault()
+        /*public void CameraShakeDefault()
         {
-            GameEventsManager.Instance?.CameraShake(Vector3.one, 0.3f);
-        }
+            _cameraShakeGameEvent?.Invoke(Vector3.one, 0.3f);
+            //GameEventsManager.Instance?.CameraShake(Vector3.one, 0.3f);
+        }*/
     }
 }

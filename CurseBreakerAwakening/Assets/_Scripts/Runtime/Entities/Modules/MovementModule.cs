@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameCells.Modules
+namespace GameCells.Entities
 {
     public class MovementModule : MonoBehaviour
     {

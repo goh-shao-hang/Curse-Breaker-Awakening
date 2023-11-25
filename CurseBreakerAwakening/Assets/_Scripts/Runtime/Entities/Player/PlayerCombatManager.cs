@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CBA.Entities.Player
 {
@@ -17,6 +18,7 @@ namespace CBA.Entities.Player
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private Transform _weaponHolderTransform;
+        [SerializeField] private BoxCollider _chargedAttackHitbox;
 
         [SerializeField] private Weapon _currentWeapon = null;
 
@@ -32,6 +34,8 @@ namespace CBA.Entities.Player
         [SerializeField] private bool _equipWeapon = true;
 
         public bool AttackBuffer { get; private set; } = false;
+
+        public UnityEvent OnPlayerWeaponHit; //Trigger things like camera shakes
 
         public event Action OnChargingStarted;
         public event Action OnChargingMaxed;
@@ -56,9 +60,6 @@ namespace CBA.Entities.Player
         {
             _playerInputHandler.OnAttackPressedInput += OnAttackPressed;
             _playerInputHandler.OnAttackReleasedInput += OnAttackReleased;
-
-            //TODO
-            //_currentWeapon.OnWeaponHit += () => CameraShake(0, 1f);
         }
 
         private void OnDisable()
@@ -79,6 +80,7 @@ namespace CBA.Entities.Player
         private void LateUpdate()
         {
             _weaponHolderTransform.rotation = _playerCameraController.PlayerCamera.transform.rotation;
+            _chargedAttackHitbox.transform.rotation = Quaternion.Euler(0f, _playerCameraController.PlayerCamera.transform.eulerAngles.y, 0f);
         }
 
         private void OnAttackPressed()
@@ -181,10 +183,21 @@ namespace CBA.Entities.Player
         {
             if (_currentWeapon != null)
             {
+                //Unsubscribe from events
+                _currentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
                 Destroy(_currentWeapon.gameObject);
             }
 
             _currentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform);
+            _currentWeapon.SetChargedAttackHitbox(_chargedAttackHitbox);
+
+            //Subscribe to events
+            _currentWeapon.OnWeaponHit += TriggerOnPlayerWeaponHit;
+        }
+
+        private void TriggerOnPlayerWeaponHit()
+        {
+            OnPlayerWeaponHit?.Invoke();
         }
     }
 }

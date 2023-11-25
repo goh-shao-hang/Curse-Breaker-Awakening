@@ -4,31 +4,15 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public abstract class Entity : MonoBehaviour, IDamageable
+    public class Entity : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
-        [SerializeField] protected SO_EntityData _entityData;
+        [field: SerializeField] public SO_EntityData EntityData;
 
-        protected float _currentHealth;
-
-        protected virtual void Awake()
+        //TODO temporary
+        public void Destroy(float delay)
         {
-            _currentHealth = _entityData.Health;
+            Destroy(gameObject, delay);
         }
-
-        public virtual void TakeDamage(float amount)
-        {
-            _currentHealth -= amount;
-
-            if (_currentHealth <= 0f)
-            {
-                Die();
-            }
-        }
-
-        protected virtual void Die()
-        {
-        }
-
     }
 }

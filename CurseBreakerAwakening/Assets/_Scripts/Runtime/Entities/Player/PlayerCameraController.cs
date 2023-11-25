@@ -11,6 +11,7 @@ namespace CBA.Entities.Player
     public class PlayerCameraController : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
+        [SerializeField] private GameEventsManager gameEventsManager;
         [SerializeField] private Camera _playerCamera;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private CinemachineImpulseSource _cinemachineImpulseSource;
@@ -26,12 +27,6 @@ namespace CBA.Entities.Player
         private float _yaw; //horizontal rotation
         private float _pitch; //vertical rotation
         private float _tiltRotation = 0f;
-
-        private void Awake()
-        {
-            //TODO
-            LeanTween.reset();
-        }
 
         private void Start()
         {

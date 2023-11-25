@@ -1,4 +1,4 @@
-using GameCells.Modules;
+using GameCells.Entities;
 using GameCells.Utilities;
 using System;
 using System.Collections;

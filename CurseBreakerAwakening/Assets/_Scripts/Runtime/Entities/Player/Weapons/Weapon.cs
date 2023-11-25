@@ -17,8 +17,7 @@ namespace CBA.Entities.Player.Weapons
         [SerializeField] private WeaponAnimationEventHander _weaponAnimationEventHander;
         [SerializeField] private Animator _weaponAnimator;
         [SerializeField] private BoxCollider _hitbox;
-        [SerializeField] private BoxCollider _chargedAttackHitbox;
-        [SerializeField] private LayerMask _enemyLayer;
+        private BoxCollider _chargedAttackHitbox;
 
         [Header("Effects")]
         [SerializeField] private GameObject _chargingVFX;
@@ -88,7 +87,7 @@ namespace CBA.Entities.Player.Weapons
 
                     _hitTargetCache.Add(collider);
 
-                    collider.GetComponent<IDamageable>()?.TakeDamage(_weaponData.AttackDamage);
+                    collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_weaponData.AttackDamage);
 
                     OnWeaponHit?.Invoke();
 
@@ -110,7 +109,7 @@ namespace CBA.Entities.Player.Weapons
 
                     _hitTargetCache.Add(collider);
 
-                    collider.GetComponent<IDamageable>()?.TakeDamage(_currentChargedAttackDamage);
+                    collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_currentChargedAttackDamage);
 
                     OnWeaponHit?.Invoke();
 
@@ -223,5 +222,10 @@ namespace CBA.Entities.Player.Weapons
             _currentCombo = 0;
         }
 
+
+        public void SetChargedAttackHitbox(BoxCollider hitbox)
+        {
+            _chargedAttackHitbox = hitbox;
+        }
     }
 }
