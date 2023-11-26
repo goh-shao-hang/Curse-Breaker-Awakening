@@ -19,6 +19,7 @@ namespace CBA.Entities.Player
         public event Action OnJumpInput;
         public event Action OnAttackPressedInput;
         public event Action OnAttackReleasedInput;
+        public event Action OnInteractPressedInput;
 
         public bool ChargeInput { get; private set; }
         public bool SprintInput { get; private set; }
@@ -55,6 +56,7 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Attack.canceled += ctx => OnAttackReleased(ctx);
             PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
+            PlayerControls.Gameplay.Interact.performed += ctx => OnInteractPressed(ctx);
         }
 
         private void LateUpdate()
@@ -123,6 +125,10 @@ namespace CBA.Entities.Player
             KickInput = true;
         }
 
+        private void OnInteractPressed(InputAction.CallbackContext ctx)
+        {
+            OnInteractPressedInput?.Invoke();
+        }
     }
 
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 980999762061052820}
   - component: {fileID: 980999762061052907}
   - component: {fileID: 980999762061052822}
+  - component: {fileID: 8346056967299136009}
+  - component: {fileID: 1301189317}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -148,6 +150,52 @@ MonoBehaviour:
   _minChargeTime: 0.5
   _maxChargeTime: 2
   _equipWeapon: 1
+  OnPlayerWeaponHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8346056967299136009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980999762061052911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931ba17c8a289394e91c5d705ef1c461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCameraController: {fileID: 0}
+  _playerInputHandler: {fileID: 0}
+  _interactionDistance: 2
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1301189317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980999762061052911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2c29144b6a84194aa78f25e7e92a0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _positionToWrite: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
 --- !u!1 &980999762067724411
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &980999764022817680
 Transform:
   m_ObjectHideFlags: 0
@@ -550,8 +598,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.75400996
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.28403345
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0.745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.080153026
+      objectReference: {fileID: 0}
+    - target: {fileID: 1351038895, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0.44551668
       objectReference: {fileID: 0}
     - target: {fileID: 383471265225623396, guid: ae6ac6c875ff37a489edd983d905b673,
         type: 3}

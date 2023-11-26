@@ -69,6 +69,8 @@ namespace GameCells.Utilities
             {
                 rigidbody.detectCollisions = true;
                 rigidbody.isKinematic = false;
+
+                rigidbody.useGravity = false;
             }
 
             foreach (Collider collider in _colliders)

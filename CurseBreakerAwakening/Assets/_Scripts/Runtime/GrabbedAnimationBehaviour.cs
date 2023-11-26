@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingAnimationBehaviour : StateMachineBehaviour
+public class GrabbedAnimationBehaviour : StateMachineBehaviour
 {
     private Transform _characterMeshTransform = null;
 
@@ -13,12 +13,12 @@ public class FallingAnimationBehaviour : StateMachineBehaviour
             _characterMeshTransform = animator.transform;
         }
 
-        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position, Quaternion.Euler(-90f, 0, 0f));
+        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position + Vector3.up, Quaternion.Euler(-90f, 0, 0f));
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position, Quaternion.Euler(0f, 0f, 0f));
+        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position - Vector3.up, Quaternion.Euler(0f, 0f, 0f));
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -13,10 +13,15 @@ namespace CBA.Entities.Player.Weapons
         public EWeaponType Type;
         public Weapon WeaponPrefab;
 
-        [Header("Stats")]
+        [Header("Basic Attack")]
         public float AttackDamage = 3f;
+        public float AttackGuardDamage = 3f;
+
+        [Header("Charged Attack")]
         public float MinChargedAttackDamage = 5f;
         public float MaxChargedAttackDamage = 10f;
+        public float MinChargedAttackGuardDamage = 5f;
+        public float MaxChargedAttackGuardDamage = 10f;
 
         [Header("Combo")]
         public int MaxCombo = 3;

@@ -77,7 +77,7 @@ namespace CBA.Entities.Player.Weapons
         {
             if (_hitboxEnabled)
             {
-                Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.ENEMY_LAYER);
+                Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.DAMAGEABLE_LAYER);
                 foreach (var collider in colliders)
                 {
                     if (_hitTargetCache.Contains(collider))
@@ -99,7 +99,7 @@ namespace CBA.Entities.Player.Weapons
             }
             else if (_chargedAttackHitboxEnabled)
             {
-                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, GameData.ENEMY_LAYER);
+                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, GameData.DAMAGEABLE_LAYER);
                 foreach (var collider in colliders)
                 {
                     if (_hitTargetCache.Contains(collider))

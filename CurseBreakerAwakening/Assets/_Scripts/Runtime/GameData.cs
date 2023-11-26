@@ -20,7 +20,8 @@ namespace CBA
         public static readonly int HIT_HASH = Animator.StringToHash("hit");
         public static readonly int XVELOCITY_HASH = Animator.StringToHash("xVelocity");
         public static readonly int ZVELOCITY_HASH = Animator.StringToHash("zVelocity");
-
+        public static readonly int ISSTUNNED_HASH = Animator.StringToHash("isStunned");
+        public static readonly int ISGRABBED_HASH = Animator.StringToHash("isGrabbed");
 
         #endregion
 
@@ -28,10 +29,10 @@ namespace CBA
 
         public static readonly LayerMask PLAYER_LAYER = LayerMask.GetMask("Player");
         public static readonly LayerMask TERRAIN_LAYER = LayerMask.GetMask("Terrain");
-        public static readonly LayerMask ENEMY_LAYER = LayerMask.GetMask("Enemy");
+        public static readonly LayerMask DAMAGEABLE_LAYER = LayerMask.GetMask("Damageable");
 
         public static readonly int PLAYER_LAYER_INDEX = LayerMask.NameToLayer("Player");
-        public static readonly int ENEMY_LAYER_INDEX = LayerMask.NameToLayer("Enemy");
+        public static readonly int DAMAGEABLE_LAYER_INDEX = LayerMask.NameToLayer("Damageable");
 
         #endregion
     }

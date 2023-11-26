@@ -100,6 +100,15 @@ namespace CBA.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""93774d4c-31b0-4fc1-b3e8-178ef81562c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -293,7 +302,7 @@ namespace CBA.Input
                 {
                     ""name"": """",
                     ""id"": ""59900c99-6740-43b6-8209-5540c460a1a3"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -320,6 +329,28 @@ namespace CBA.Input
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57fac0e6-92f4-44e4-a436-b4490c5e645d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a2ec30c-830b-4bbc-8471-b8117363fb39"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -366,6 +397,7 @@ namespace CBA.Input
             m_Gameplay_Block = m_Gameplay.FindAction("Block", throwIfNotFound: true);
             m_Gameplay_Kick = m_Gameplay.FindAction("Kick", throwIfNotFound: true);
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
+            m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -435,6 +467,7 @@ namespace CBA.Input
         private readonly InputAction m_Gameplay_Block;
         private readonly InputAction m_Gameplay_Kick;
         private readonly InputAction m_Gameplay_Crouch;
+        private readonly InputAction m_Gameplay_Interact;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
@@ -447,6 +480,7 @@ namespace CBA.Input
             public InputAction @Block => m_Wrapper.m_Gameplay_Block;
             public InputAction @Kick => m_Wrapper.m_Gameplay_Kick;
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
+            public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -480,6 +514,9 @@ namespace CBA.Input
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -508,6 +545,9 @@ namespace CBA.Input
                 @Crouch.started -= instance.OnCrouch;
                 @Crouch.performed -= instance.OnCrouch;
                 @Crouch.canceled -= instance.OnCrouch;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -553,6 +593,7 @@ namespace CBA.Input
             void OnBlock(InputAction.CallbackContext context);
             void OnKick(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }

@@ -6,8 +6,9 @@ using UnityEngine.Events;
 
 namespace CBA.Entities
 {
-    public class HealthModule : MonoBehaviour, IDamageable
+    public class HealthModule : MonoBehaviour
     {
+        [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Entity _entity;
 
         public UnityEvent OnHealthChanged;
@@ -21,11 +22,6 @@ namespace CBA.Entities
             CurrentHealth = _entity.EntityData.Health;
         }
 
-        private void hi()
-        {
-
-        }
-
         public void TakeDamage(float amount)
         {
             CurrentHealth -= amount;
@@ -34,12 +30,7 @@ namespace CBA.Entities
             if (CurrentHealth <= 0f)
             {
                 OnHealthDepleted?.Invoke();
-                Die();
             }
-        }
-
-        private void Die()
-        {
         }
     }
 }
