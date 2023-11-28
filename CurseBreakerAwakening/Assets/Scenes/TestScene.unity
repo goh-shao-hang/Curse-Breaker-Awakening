@@ -1556,7 +1556,6 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 5
   _grabSmoothing: 10
-  _offset: {x: 0, y: -1, z: 0}
   OnStartHighlight:
     m_PersistentCalls:
       m_Calls: []
@@ -2300,7 +2299,6 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 7
   _grabSmoothing: 10
-  _offset: {x: 0, y: -0.5, z: 0}
   OnStartHighlight:
     m_PersistentCalls:
       m_Calls:
@@ -4015,7 +4013,6 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 50
   _grabSmoothing: 10
-  _offset: {x: 0, y: -1, z: 0}
   OnStartHighlight:
     m_PersistentCalls:
       m_Calls: []

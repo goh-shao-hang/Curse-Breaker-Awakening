@@ -21,7 +21,7 @@ namespace CBA.Entities.Player
 
         private RaycastHit _raycastHit;
         private GrabbableObject _currentGrabbedObject = null;
-        private GrabbableObject _currentDetectedGrabbable = null;
+        private GrabbableObject _currentSelection = null;
 
         private void OnEnable()
         {
@@ -36,11 +36,11 @@ namespace CBA.Entities.Player
         private void Update()
         {
             //Manage Highlighting
-            if (_currentDetectedGrabbable != null)
+            if (_currentSelection != null)
             {
-                _currentDetectedGrabbable.StopHighlight();
+                _currentSelection.OnDeselect();
             }
-            _currentDetectedGrabbable = null;
+            _currentSelection = null;
             
             //Manage Grabbing
             if (_currentGrabbedObject != null)
@@ -65,8 +65,8 @@ namespace CBA.Entities.Player
                 {
                     if (grabbableObject.IsGrabbable)
                     {
-                        grabbableObject.StartHighlight();
-                        _currentDetectedGrabbable = grabbableObject;
+                        grabbableObject.OnSelect();
+                        _currentSelection = grabbableObject;
                     }
                 }
             }
@@ -84,17 +84,16 @@ namespace CBA.Entities.Player
             if (_currentGrabbedObject != null)
             {
                 _currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
-                //_currentGrabbedObject.StopGrabbing();
                 _currentGrabbedObject = null;
             }
-            else if (_currentGrabbedObject == null && _currentDetectedGrabbable != null)
+            else if (_currentGrabbedObject == null && _currentSelection != null)
             {
-                if (_currentDetectedGrabbable.IsGrabbable)
+                if (_currentSelection.IsGrabbable)
                 {
-                    _currentDetectedGrabbable.StartGrabbing(_grabTransform, this.transform);
-                    _currentGrabbedObject = _currentDetectedGrabbable;
+                    _currentSelection.StartGrabbing(_grabTransform, this.transform);
+                    _currentGrabbedObject = _currentSelection;
 
-                    _currentDetectedGrabbable = null;
+                    _currentSelection = null;
                 }
             }
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GrabbableObject : MonoBehaviour
+public class GrabbableObject : MonoBehaviour, IInteractable
 {
     [Header(GameData.DEPENDENCIES)]
     [SerializeField] private Rigidbody _grabRigidbody;
@@ -13,7 +13,6 @@ public class GrabbableObject : MonoBehaviour
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 5f;
     [SerializeField] private float _grabSmoothing = 10f;
-    [SerializeField] private Vector3 _offset = Vector3.down;
 
     public bool IsGrabbable { get; private set; }
 
@@ -40,21 +39,9 @@ public class GrabbableObject : MonoBehaviour
     {
         if (_grabTransform != null)
         {
-            transform.position = Vector3.Lerp(transform.position, _grabTransform.position + _offset, Time.deltaTime * _grabSmoothing);
+            transform.position = Vector3.Lerp(transform.position, _grabTransform.position, Time.deltaTime * _grabSmoothing);
             transform.LookAt(_grabberTransform);
         }
-    }
-
-    public void StartHighlight()
-    {
-        //For effects such as outline to indicate grabbable
-        OnStartHighlight?.Invoke();
-    }
-
-    public void StopHighlight()
-    {
-        //For effects such as outline to indicate grabbable
-        OnStopHighlight?.Invoke();
     }
 
     public void StartGrabbing(Transform grabTransform, Transform _grabberTransform)
@@ -89,5 +76,19 @@ public class GrabbableObject : MonoBehaviour
         _grabRigidbody.detectCollisions = true;
 
         _grabRigidbody.AddForce(direction * _thrownForce, ForceMode.Impulse);
+    }
+
+    public void OnSelect()
+    {
+        OnStartHighlight?.Invoke();
+    }
+
+    public void OnDeselect()
+    {
+        OnStopHighlight?.Invoke();
+    }
+
+    public void OnInteract()
+    {
     }
 }
