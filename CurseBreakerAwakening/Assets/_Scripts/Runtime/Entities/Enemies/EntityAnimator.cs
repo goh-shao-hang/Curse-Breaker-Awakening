@@ -1,47 +1,49 @@
 using CBA;
-using CBA.Entities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityAnimator : MonoBehaviour
+namespace CBA.Entities
 {
-    [Header(GameData.DEPENDENCIES)]
-    [SerializeField] private HealthModule _healthModule;
-    [SerializeField] private GuardModule _guardModule;
-    [SerializeField] private Animator _animator;
-
-    public Animator Animator => _animator;
-
-    private void OnEnable()
+    public class EntityAnimator : MonoBehaviour
     {
-        _healthModule.OnHealthChanged.AddListener(PlayHitAnimation);
+        [Header(GameData.DEPENDENCIES)]
+        [SerializeField] private HealthModule _healthModule;
+        [SerializeField] private GuardModule _guardModule;
+        [SerializeField] private Animator _animator;
 
-        //TODO
-        _guardModule.OnGuardBroken.AddListener(PlayStunnedAnimation);
-    }
+        public Animator Animator => _animator;
 
-    private void OnDisable()
-    {
-        _healthModule.OnHealthChanged.RemoveListener(PlayHitAnimation);
+        private void OnEnable()
+        {
+            _healthModule.OnHealthChanged.AddListener(PlayHitAnimation);
 
-        //TODO
-        _guardModule.OnGuardBroken.RemoveListener(PlayStunnedAnimation);
+            //TODO
+            _guardModule.OnGuardBroken.AddListener(PlayStunnedAnimation);
+        }
 
-    }
+        private void OnDisable()
+        {
+            _healthModule.OnHealthChanged.RemoveListener(PlayHitAnimation);
 
-    private void PlayHitAnimation()
-    {
-        _animator.SetTrigger(GameData.HIT_HASH);
-    }
+            //TODO
+            _guardModule.OnGuardBroken.RemoveListener(PlayStunnedAnimation);
 
-    private void PlayStunnedAnimation()
-    {
-        _animator.SetTrigger(GameData.ISSTUNNED_HASH);
-    }
+        }
 
-    private void PlayGrabbedAnimation()
-    {
-        _animator.SetTrigger(GameData.ISGRABBED_HASH);
+        private void PlayHitAnimation()
+        {
+            _animator.SetTrigger(GameData.HIT_HASH);
+        }
+
+        private void PlayStunnedAnimation()
+        {
+            _animator.SetTrigger(GameData.ISSTUNNED_HASH);
+        }
+
+        private void PlayGrabbedAnimation()
+        {
+            _animator.SetTrigger(GameData.ISGRABBED_HASH);
+        }
     }
 }

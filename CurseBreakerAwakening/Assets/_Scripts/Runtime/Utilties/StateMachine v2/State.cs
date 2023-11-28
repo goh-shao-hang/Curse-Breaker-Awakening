@@ -1,27 +1,35 @@
-using System;
+using Codice.Client.BaseCommands.Ls;
+using GameCells;
+using GameCells.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State<EState> where EState : Enum
+public abstract class State
 {
-    public EState StateKey { get; private set; }
+    public List<Transition> _transitions = new();
 
-    public State(EState key)
+    public virtual void Enter() 
     {
-        StateKey = key;
+        foreach (var transition in _transitions) 
+        {
+            transition.Condition.Enter();
+        }
     }
 
-
-    private List<Transition> _transitions = new List<Transition>();
-
-    public void AddTransition(Transition transition) => _transitions.Add(transition);
-
-    public virtual void Enter()
+    public virtual void Update() 
     {
         foreach (var transition in _transitions)
         {
-            transition.Enter();
+            transition.Condition.Update();
+        }
+    }
+
+    public virtual void FixedUpdate() 
+    {
+        foreach (var transition in _transitions)
+        {
+            transition.Condition.FixedUpdate();
         }
     }
 
@@ -29,23 +37,16 @@ public abstract class State<EState> where EState : Enum
     {
         foreach (var transition in _transitions)
         {
-            transition.Exit();
+            transition.Condition.Exit();
         }
     }
 
-    public virtual void Update()
-    {
-        foreach (var transition in _transitions)
-        {
-            transition.Update();
-        }
-    }
+    /// <summary>
+    /// Add a transition this state can transition to upon meeting certain condition
+    /// </summary>
+    /// <param name="targetState"></param>
+    /// <param name="condition"></param>
+    public void AddTransition(State targetState, Condition condition) => _transitions.Add(new Transition(targetState, condition));
 
-    public virtual void FixedUpdate()
-    {
-        foreach (var transition in _transitions)
-        {
-            transition.FixedUpdate();
-        }
-    }
+    public void AddTransition(Transition transition) => _transitions.Add(transition);
 }

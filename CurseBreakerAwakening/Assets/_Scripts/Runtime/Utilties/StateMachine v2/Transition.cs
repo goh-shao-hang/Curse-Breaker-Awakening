@@ -1,32 +1,19 @@
-using System;
+using GameCells;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Transition
+namespace GameCells.StateMachine
 {
-    public Action Callback;
-
-    public abstract bool Evaluate();
-
-    public virtual void Enter() { }
-
-    public virtual void Exit() { }
-
-    public virtual void Update() 
+    public class Transition
     {
-        if (!Evaluate())
-            return;
+        public State TargetState { get; }
+        public Condition Condition { get; }
 
-        if (Callback != null)
+        public Transition(State targetState, Condition condition)
         {
-            Callback?.Invoke();
-        }
-        else
-        {
-            Enter();
+            TargetState = targetState;
+            Condition = condition;
         }
     }
-
-    public virtual void FixedUpdate() { }
 }
