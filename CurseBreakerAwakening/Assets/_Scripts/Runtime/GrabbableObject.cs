@@ -13,11 +13,15 @@ public class GrabbableObject : MonoBehaviour
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 5f;
     [SerializeField] private float _grabSmoothing = 10f;
+    [SerializeField] private Vector3 _offset = Vector3.down;
 
     public bool IsGrabbable { get; private set; }
 
+    private Transform _grabberTransform;
     private Transform _grabTransform;
 
+    public UnityEvent OnStartHighlight;
+    public UnityEvent OnStopHighlight;
     public UnityEvent OnGrabbed;
     public UnityEvent OnReleased;
 
@@ -36,13 +40,27 @@ public class GrabbableObject : MonoBehaviour
     {
         if (_grabTransform != null)
         {
-            transform.position = Vector3.Lerp(transform.position, _grabTransform.position, Time.deltaTime * _grabSmoothing);
+            transform.position = Vector3.Lerp(transform.position, _grabTransform.position + _offset, Time.deltaTime * _grabSmoothing);
+            transform.LookAt(_grabberTransform);
         }
     }
 
-    public void StartGrabbing(Transform grabTransform)
+    public void StartHighlight()
+    {
+        //For effects such as outline to indicate grabbable
+        OnStartHighlight?.Invoke();
+    }
+
+    public void StopHighlight()
+    {
+        //For effects such as outline to indicate grabbable
+        OnStopHighlight?.Invoke();
+    }
+
+    public void StartGrabbing(Transform grabTransform, Transform _grabberTransform)
     {
         this._grabTransform = grabTransform;
+        this._grabberTransform = _grabberTransform;
 
         _grabRigidbody.useGravity = false;
         _grabRigidbody.detectCollisions = false;
@@ -53,6 +71,7 @@ public class GrabbableObject : MonoBehaviour
     public void StopGrabbing()
     {
         this._grabTransform = null;
+        this._grabberTransform = null;
 
         _grabRigidbody.isKinematic = true;
         _grabRigidbody.useGravity = false;

@@ -32,6 +32,7 @@ namespace CBA.Entities.Player
         [SerializeField] private float _maxStamina = 100f;
         [SerializeField] private float _staminaRegenRate = 20f;
         [SerializeField] private float _sprintingStaminaConsumption = 10f;
+        [SerializeField] private float _wallRunStaminaConsumption = 5f;
         [SerializeField] private float _staminaRegenDelay = 1f;
 
         [Header("Wall Run")]
@@ -64,6 +65,7 @@ namespace CBA.Entities.Player
         public float MaxStamina => _maxStamina;
         public float CurrentStamina { get; private set; }
         public float SpritingStaminaConsumption => _sprintingStaminaConsumption;
+        public float WallRunStaminaConsumption => _wallRunStaminaConsumption;
         public bool IsLimitingMaxSpeed { get; private set; } = true;
         public bool JumpBuffer { get; private set; } = false;
 

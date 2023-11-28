@@ -30,11 +30,20 @@ namespace CBA.Entities.Player
             //Apply custom gravity
             _playerController.MovementModule.AddForce(Vector3.down * _playerController.WallRunGravity, ForceMode.Force);
 
+            //Consume Stamina
+            ConsumeStamina();
+
             //Wall jump
             if (_playerController.JumpBuffer)
             {
                 PerformWallJump();
             }
+        }
+
+        private void ConsumeStamina()
+        {
+            _playerController.SetStamina(_playerController.CurrentStamina - _playerController.WallRunStaminaConsumption * Time.deltaTime);
+            _playerController.StartStaminaRegenTimer();
         }
 
         private void PerformWallJump()

@@ -1556,6 +1556,13 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 5
   _grabSmoothing: 10
+  _offset: {x: 0, y: -1, z: 0}
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
   OnGrabbed:
     m_PersistentCalls:
       m_Calls: []
@@ -2230,6 +2237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: e8f9c41d6b6ce1444b4e8dbabccc694c, type: 2}
+  _animator: {fileID: 1897311346}
 --- !u!114 &768821420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2292,6 +2300,49 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 7
   _grabSmoothing: 10
+  _offset: {x: 0, y: -0.5, z: 0}
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1897311349}
+        m_TargetAssemblyTypeName: CharacterOutlineController, CBA.Runtime
+        m_MethodName: SetAlpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1897311349}
+        m_TargetAssemblyTypeName: CharacterOutlineController, CBA.Runtime
+        m_MethodName: ShowOultine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1897311349}
+        m_TargetAssemblyTypeName: CharacterOutlineController, CBA.Runtime
+        m_MethodName: SetAlpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.3
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnGrabbed:
     m_PersistentCalls:
       m_Calls:
@@ -3520,6 +3571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: f1ea86d8842e90a4ba27649f6594bd11, type: 2}
+  _animator: {fileID: 0}
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -3837,7 +3889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195875681}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: -0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3963,6 +4015,13 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 50
   _grabSmoothing: 10
+  _offset: {x: 0, y: -1, z: 0}
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
   OnGrabbed:
     m_PersistentCalls:
       m_Calls: []
@@ -7111,6 +7170,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 980999762061052907, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: _wallRunStaminaConsumption
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 980999762061052911, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_Name
@@ -7121,6 +7185,11 @@ PrefabInstance:
       propertyPath: _grabTransform
       value: 
       objectReference: {fileID: 1195875682}
+    - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: _maxGrabDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: _playerInputHandler
@@ -7399,6 +7468,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1974657825183822536, guid: 5945951b333d92b429873373c0d77476,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1974657825226049396, guid: 5945951b333d92b429873373c0d77476,
         type: 3}
       propertyPath: m_Name

@@ -22,6 +22,11 @@ namespace CBA.Entities.Player
                 return EPlayerMovementState.ChargedAttack;
             }
 
+            if (_playerController.CanWallRun && _playerController.IsRunnableWallDetected) //&& Mathf.Abs(_playerController.PlayerInputHandler.MoveInput.y) >= 0.1f)
+            {
+                return EPlayerMovementState.WallRun;
+            }
+
             if (_playerController.IsGrounded && _playerController.PlayerInputHandler.CrouchInput)
             {
                 return EPlayerMovementState.Crouch;

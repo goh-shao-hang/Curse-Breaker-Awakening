@@ -21,26 +21,29 @@ namespace CBA.Entities.Player
 
         private RaycastHit _raycastHit;
         private GrabbableObject _currentGrabbedObject = null;
+        private GrabbableObject _currentDetectedGrabbable = null;
 
         private void OnEnable()
         {
-            _playerInputHandler.OnInteractPressedInput += CheckForInteractable;
+            _playerInputHandler.OnInteractPressedInput += TryGrab;
         }
 
         private void OnDisable()
         {
-            _playerInputHandler.OnInteractPressedInput -= CheckForInteractable;
+            _playerInputHandler.OnInteractPressedInput -= TryGrab;
         }
 
         private void Update()
         {
-            if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit,
-                    _maxGrabDistance, _interactableLayer))
+            //Manage Highlighting
+            if (_currentDetectedGrabbable != null)
             {
-                Debug.Log(_raycastHit.collider.name);
+                _currentDetectedGrabbable.StopHighlight();
             }
-
-                if (_currentGrabbedObject != null)
+            _currentDetectedGrabbable = null;
+            
+            //Manage Grabbing
+            if (_currentGrabbedObject != null)
             {
                 //Update grab position
                 if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, 
@@ -54,6 +57,19 @@ namespace CBA.Entities.Player
                     + _playerCameraController.PlayerCamera.transform.forward * _maxGrabDistance;
                 }
             }
+            //Only check for highlight if the player is not already grabbing something
+            else if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
+                _interactableLayer))
+            {
+                if (_raycastHit.transform.TryGetComponent(out GrabbableObject grabbableObject))
+                {
+                    if (grabbableObject.IsGrabbable)
+                    {
+                        grabbableObject.StartHighlight();
+                        _currentDetectedGrabbable = grabbableObject;
+                    }
+                }
+            }
         }
 
         private void OnDrawGizmos()
@@ -63,29 +79,23 @@ namespace CBA.Entities.Player
         }
 
 
-        private void CheckForInteractable()
+        private void TryGrab()
         {
-            if (_currentGrabbedObject == null)
+            if (_currentGrabbedObject != null)
             {
-                if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
-                _interactableLayer))
-                {
-                    if (_raycastHit.transform.TryGetComponent(out GrabbableObject grabbableObject))
-                    {
-                        if (grabbableObject.IsGrabbable)
-                        {
-                            grabbableObject.StartGrabbing(_grabTransform);
-                            _currentGrabbedObject = grabbableObject;
-                        }
-
-                    }
-                }
-            }
-            else
-            {
-                _currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward  );
+                _currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
                 //_currentGrabbedObject.StopGrabbing();
                 _currentGrabbedObject = null;
+            }
+            else if (_currentGrabbedObject == null && _currentDetectedGrabbable != null)
+            {
+                if (_currentDetectedGrabbable.IsGrabbable)
+                {
+                    _currentDetectedGrabbable.StartGrabbing(_grabTransform, this.transform);
+                    _currentGrabbedObject = _currentDetectedGrabbable;
+
+                    _currentDetectedGrabbable = null;
+                }
             }
         }
     }
