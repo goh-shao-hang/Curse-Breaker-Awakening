@@ -18,14 +18,14 @@ namespace CBA.Entities.Player.Weapons
 
         private void OnEnable()
         {
-            _weaponAnimationEventHander.OnActivateHitboxEvent += StartTrailEmission;
-            _weaponAnimationEventHander.OnDeactivateHitboxEvent += StopTrailEmission;
+            _weaponAnimationEventHander.OnEmitTrail += StartTrailEmission;
+            _weaponAnimationEventHander.OnStopEmitTrail += StopTrailEmission;
         }
 
         private void OnDisable()
         {
-            _weaponAnimationEventHander.OnActivateHitboxEvent -= StartTrailEmission;
-            _weaponAnimationEventHander.OnDeactivateHitboxEvent -= StopTrailEmission;
+            _weaponAnimationEventHander.OnEmitTrail -= StartTrailEmission;
+            _weaponAnimationEventHander.OnStopEmitTrail -= StopTrailEmission;
         }
 
         private void StartTrailEmission()

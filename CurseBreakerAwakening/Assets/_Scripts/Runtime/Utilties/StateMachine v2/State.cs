@@ -10,7 +10,10 @@ namespace GameCells.StateMachine
         {
             foreach (var transition in _transitions)
             {
-                transition.Condition.Enter();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Enter();
+                }
             }
         }
 
@@ -18,7 +21,10 @@ namespace GameCells.StateMachine
         {
             foreach (var transition in _transitions)
             {
-                transition.Condition.Update();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Update();
+                }
             }
         }
 
@@ -26,7 +32,10 @@ namespace GameCells.StateMachine
         {
             foreach (var transition in _transitions)
             {
-                transition.Condition.FixedUpdate();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.FixedUpdate();
+                }
             }
         }
 
@@ -34,7 +43,10 @@ namespace GameCells.StateMachine
         {
             foreach (var transition in _transitions)
             {
-                transition.Condition.Exit();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Exit();
+                }
             }
         }
 

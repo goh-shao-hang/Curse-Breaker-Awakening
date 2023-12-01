@@ -8,12 +8,18 @@ namespace GameCells.StateMachine
     public class Transition
     {
         public State TargetState { get; }
-        public Condition Condition { get; }
+        public Condition[] Conditions { get; }
 
         public Transition(State targetState, Condition condition)
         {
             TargetState = targetState;
-            Condition = condition;
+            Conditions = new Condition[] { condition };
+        }
+
+        public Transition(State targetState, Condition[] conditions)
+        {
+            TargetState = targetState;
+            Conditions = conditions;
         }
     }
 }

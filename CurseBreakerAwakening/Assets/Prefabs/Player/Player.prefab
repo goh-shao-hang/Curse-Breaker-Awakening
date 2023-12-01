@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 980999762061052906}
   - component: {fileID: 980999762061052821}
   - component: {fileID: 980999762061052904}
+  - component: {fileID: 7276995258556810002}
   - component: {fileID: 980999762061052820}
   - component: {fileID: 980999762061052907}
   - component: {fileID: 980999762061052822}
@@ -74,6 +75,25 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7276995258556810002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980999762061052911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314923d2da65d724d907423460a47069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntityData: {fileID: 0}
+  AINavigationModule: {fileID: 0}
+  Animator: {fileID: 0}
+  Hurtbox: {fileID: 0}
+  HealthModule: {fileID: 0}
+  GuardModule: {fileID: 0}
+  _playerPos: {fileID: 0}
 --- !u!114 &980999762061052820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +137,7 @@ MonoBehaviour:
   _maxStamina: 100
   _staminaRegenRate: 25
   _sprintingStaminaConsumption: 20
+  _wallRunStaminaConsumption: 5
   _staminaRegenDelay: 1
   _canWallRun: 1
   _wallRunMovementForce: 200
@@ -179,10 +200,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCameraController: {fileID: 0}
   _playerInputHandler: {fileID: 0}
-  _interactionDistance: 2
+  _grabTransform: {fileID: 0}
+  _maxGrabDistance: 2
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 128
+  _terrainlayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1301189317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,6 +315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 980999762728581202}
   - component: {fileID: 980999762728581201}
+  - component: {fileID: 1161610224137523901}
   m_Layer: 9
   m_Name: Modules
   m_TagString: Untagged
@@ -325,6 +351,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementRigidbody: {fileID: 980999762061052821}
+--- !u!114 &1161610224137523901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980999762728581200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1260d67578657ed4b99d3eb6805c072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: {fileID: 7276995258556810002}
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthDepleted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &980999763275670244
 GameObject:
   m_ObjectHideFlags: 0

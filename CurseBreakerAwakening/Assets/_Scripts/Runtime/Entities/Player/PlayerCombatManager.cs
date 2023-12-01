@@ -155,7 +155,6 @@ namespace CBA.Entities.Player
             _currentChargeTime = _maxChargeTime;
             _currentWeapon.OnFullyCharged();
             OnChargingMaxed?.Invoke();
-            Debug.LogWarning("MAX");
 
             _chargingCO = null;
         }

@@ -12,6 +12,8 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnActivateHitboxEvent;
         public event Action OnDeactivateHitboxEvent;
         public event Action OnAllowNextComboEvent;
+        public event Action OnEmitTrail;
+        public event Action OnStopEmitTrail;
 
         public void ActivateHitbox()
         {
@@ -33,6 +35,16 @@ namespace CBA.Entities.Player.Weapons
             GameEventsManager.Instance.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
             //_cameraShakeGameEvent?.Invoke(cameraShakeData);
             //GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
+        }
+
+        public void EmitTrail()
+        {
+            OnEmitTrail?.Invoke();
+        }
+
+        public void StopEmitTrail()
+        {
+            OnStopEmitTrail?.Invoke();
         }
 
         //Shake using default values

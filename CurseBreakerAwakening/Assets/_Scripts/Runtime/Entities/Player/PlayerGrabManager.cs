@@ -72,13 +72,6 @@ namespace CBA.Entities.Player
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_grabTransform.position, .2f);
-        }
-
-
         private void TryGrab()
         {
             if (_currentGrabbedObject != null)

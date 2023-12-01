@@ -20,7 +20,10 @@ namespace GameCells.StateMachine
 
             foreach (var transition in _anyTransitions) 
             {
-                transition.Condition.Enter();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Enter();
+                }
             }
         }
 
@@ -33,21 +36,43 @@ namespace GameCells.StateMachine
                 if (_currentState == transition.TargetState) //Don't transition to self
                     continue;
 
-                transition.Condition.Update();
+                bool allConditionsMet = true;
 
-                if (transition.Condition.Evaluate())
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Update();
+
+                    if (!condition.Evaluate())
+                    {
+                        allConditionsMet = false;
+                        break;
+                    }
+                }
+
+                if (allConditionsMet)
                 {
                     SwitchState(transition.TargetState);
-                    return;
                 }
             }
 
             foreach (var transition in _currentState._transitions)
             {
-                if (transition.Condition.Evaluate())
+                 bool allConditionsMet = true;
+
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Update();
+
+                    if (!condition.Evaluate())
+                    {
+                        allConditionsMet = false;
+                        break;
+                    }
+                }
+
+                if (allConditionsMet)
                 {
                     SwitchState(transition.TargetState);
-                    return;
                 }
             }
         }
@@ -59,7 +84,10 @@ namespace GameCells.StateMachine
 
             foreach (var transition in _anyTransitions)
             {
-                transition.Condition.Exit();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Exit();
+                }
             }
 
             _currentState?.Exit();
@@ -68,7 +96,10 @@ namespace GameCells.StateMachine
 
             foreach (var transition in _anyTransitions)
             {
-                transition.Condition.Enter();
+                foreach (var condition in transition.Conditions)
+                {
+                    condition.Enter();
+                }
             }
         }
 
