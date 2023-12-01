@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : EntityState
+public class IdleState : EnemyState
 {
-    public IdleState(Entity entity) : base(entity)
+    public IdleState(Entity entity, EnemyStateMachine context) : base(entity, context)
     {
     }
 
@@ -13,6 +13,6 @@ public class IdleState : EntityState
     {
         base.Enter();
 
-        _entity.NavMeshAgentModule.StopFollow();
+        _context.NavMeshAgentModule.StopFollow();
     }
 }

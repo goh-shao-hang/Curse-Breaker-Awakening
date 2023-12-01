@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class RecoverState : EntityState
+    public class RecoverState : EnemyState
     {
-        public RecoverState(Entity entity) : base(entity)
+        public RecoverState(Entity entity, EnemyStateMachine context) : base(entity, context)
         {
         }
 
@@ -14,7 +14,7 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            _entity.Animator.CrossFade("Recover", 0f, 0);
+            _context.Animator.CrossFade("Recover", 0f, 0);
         }
     }
 }

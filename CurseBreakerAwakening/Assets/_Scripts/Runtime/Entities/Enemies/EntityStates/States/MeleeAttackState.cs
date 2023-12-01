@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class MeleeAttackState : EntityState
+    public class MeleeAttackState : EnemyState
     {
-        public MeleeAttackState(Entity entity) : base(entity)
+        public MeleeAttackState(Entity entity, EnemyStateMachine context) : base(entity, context)
         {
         }
 
@@ -14,8 +14,8 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            _entity.NavMeshAgentModule.StopFollow();
-            _entity.Animator.SetTrigger(GameData.ATTACK_HASH);
+            _context.NavMeshAgentModule.StopFollow();
+            _context.Animator.SetTrigger(GameData.ATTACK_HASH);
         }
     }
 }

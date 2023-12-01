@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class StunnedState : EntityState
+    public class StunnedState : EnemyState
     {
         private GrabbableObject _grabbableObject;
 
-        public StunnedState(Entity entity, GrabbableObject grabbableObject) : base(entity)
+        public StunnedState(Entity entity, EnemyStateMachine context, GrabbableObject grabbableObject) : base(entity, context)
         {
             this._grabbableObject = grabbableObject;
         }
@@ -17,12 +17,12 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            _entity.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
+            _context.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
 
-            _entity.NavMeshAgentModule?.Disable();
+            _context.NavMeshAgentModule?.Disable();
 
             //TODO set this when exiting some sort of guard state instead
-            _entity.Hurtbox.SetIsGuarding(false);
+            _context.Hurtbox.SetIsGuarding(false);
 
             _grabbableObject?.SetIsGrabbable(true);
         }
@@ -31,13 +31,13 @@ namespace CBA.Entities
         {
             base.Exit();
 
-            _entity.Animator.SetBool(GameData.ISSTUNNED_HASH, false);
+            _context.Animator.SetBool(GameData.ISSTUNNED_HASH, false);
 
-            _entity.NavMeshAgentModule?.Enable();
+            _context.NavMeshAgentModule?.Enable();
 
             _grabbableObject?.SetIsGrabbable(false);
 
-            _entity.GuardModule?.ReplenishGuard();
+            _context.GuardModule?.ReplenishGuard();
         }
     }
 }

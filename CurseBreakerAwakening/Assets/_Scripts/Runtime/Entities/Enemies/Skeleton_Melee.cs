@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class Skeleton_Melee : StateMachine
+    public class Skeleton_Melee : EnemyStateMachine
     {
-        [Header(GameData.DEPENDENCIES)]
-        [SerializeField] private Entity _entity;
-
-        //TODO maybe place some of this somewhere better?
         [SerializeField] private PhysicsQuery _playerDetector;
         [SerializeField] private PhysicsQuery _attackRangeDetector;
         [SerializeField] private GrabbableObject _grabbableObject;
@@ -43,25 +39,25 @@ namespace CBA.Entities
         {
             //State Machine Initialization
             //1. State Initialization
-            _idleState = new IdleState(_entity);
-            _chaseState = new ChaseState(_entity);
-            _meleeAttackState = new MeleeAttackState(_entity);
-            _stunnedState = new StunnedState(_entity, _grabbableObject);
-            _grabbedState = new GrabbedState(_entity, _grabbableObject);
-            _recoverState = new RecoverState(_entity);
-            _deathState = new DeathState(_entity, _ragdollController);
+            _idleState = new IdleState(_entity, this);
+            _chaseState = new ChaseState(_entity, this);
+            _meleeAttackState = new MeleeAttackState(_entity, this);
+            _stunnedState = new StunnedState(_entity, this, _grabbableObject);
+            _grabbedState = new GrabbedState(_entity, this, _grabbableObject);
+            _recoverState = new RecoverState(_entity, this);
+            _deathState = new DeathState(_entity, this, _ragdollController);
 
             //2. Condition Initialization
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
             _meleeAttackTimerCondition = new Condition_Timer(_meleeAttackDuration);
-            _guardBrokenCondition = new Condition_GuardBroken(_entity.GuardModule);
+            _guardBrokenCondition = new Condition_GuardBroken(GuardModule);
             _stunTimerCondition = new Condition_Timer(_entity.EntityData.BaseStunDuration);
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
             _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
-            _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(_entity.Animator);
-            _healthDepletedCondition = new Condition_HealthDepleted(_entity.HealthModule);
+            _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
+            _healthDepletedCondition = new Condition_HealthDepleted(HealthModule);
 
             //3. Setting up transitions
             _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);

@@ -14,11 +14,8 @@ namespace CBA.Entities
             _animator = animator;
         }
 
-
-
         public override bool Evaluate()
         {
-            Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
             return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f;
         }
 

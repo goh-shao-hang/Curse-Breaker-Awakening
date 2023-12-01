@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class GrabbedState : EntityState
+    public class GrabbedState : EnemyState
     {
         private GrabbableObject _grabbable;
         private bool _isGrabbed;
 
-        public GrabbedState(Entity entity, GrabbableObject grabbable) : base(entity)
+        public GrabbedState(Entity entity, EnemyStateMachine context, GrabbableObject grabbable) : base(entity, context)
         {
             this._grabbable = grabbable;
         }
@@ -23,11 +23,11 @@ namespace CBA.Entities
             _grabbable.OnThrown.AddListener(() => SetGrabbableState(false)); //No longer grabbable upon being thrown
             _grabbable.OnTerrainCollision.AddListener(() => EnableThrowPhysics(false)); //No longer use physics upon hitting terrain
 
-            _entity.Animator.SetBool(GameData.ISGRABBED_HASH, true);
+            _context.Animator.SetBool(GameData.ISGRABBED_HASH, true);
 
-            _entity.NavMeshAgentModule?.Disable();
+            _context.NavMeshAgentModule?.Disable();
 
-            _entity.GuardModule?.SetGuard(0f);
+            _context.GuardModule?.SetGuard(0f);
         }
 
         public override void Exit()
@@ -39,11 +39,11 @@ namespace CBA.Entities
             _grabbable.OnThrown.RemoveListener(() => SetGrabbableState(false));
             _grabbable.OnTerrainCollision.RemoveListener(() => EnableThrowPhysics(false));
 
-            _entity.Animator.SetBool(GameData.ISGRABBED_HASH, false);
+            _context.Animator.SetBool(GameData.ISGRABBED_HASH, false);
 
-            _entity.NavMeshAgentModule?.Enable();
+            _context.NavMeshAgentModule?.Enable();
 
-            _entity.GuardModule?.ReplenishGuard();
+            _context.GuardModule?.ReplenishGuard();
         }
 
         private void SetGrabbableState(bool isGrabbable)

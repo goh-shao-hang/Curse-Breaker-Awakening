@@ -2378,11 +2378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: e8f9c41d6b6ce1444b4e8dbabccc694c, type: 2}
-  AINavigationModule: {fileID: 147949570}
-  Animator: {fileID: 373832777}
-  Hurtbox: {fileID: 768821421}
-  HealthModule: {fileID: 147949569}
-  GuardModule: {fileID: 147949571}
   _playerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
 --- !u!114 &768821421
 MonoBehaviour:
@@ -2482,11 +2477,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: {fileID: 768821419}
+  NavMeshAgentModule: {fileID: 147949570}
+  Animator: {fileID: 373832777}
+  Hurtbox: {fileID: 768821421}
+  HealthModule: {fileID: 147949569}
+  GuardModule: {fileID: 147949571}
   _playerDetector: {fileID: 865104972}
   _attackRangeDetector: {fileID: 1061181138}
   _grabbableObject: {fileID: 768821423}
   _ragdollController: {fileID: 373832780}
-  _chaseSpeed: 1.5
   _meleeAttackDuration: 1.5
 --- !u!54 &768821425
 Rigidbody:
@@ -3727,11 +3726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: f1ea86d8842e90a4ba27649f6594bd11, type: 2}
-  AINavigationModule: {fileID: 0}
-  Animator: {fileID: 0}
-  Hurtbox: {fileID: 0}
-  HealthModule: {fileID: 0}
-  GuardModule: {fileID: 0}
   _playerPos: {fileID: 0}
 --- !u!1 &1160234425
 GameObject:
@@ -4263,11 +4257,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: {fileID: 0}
+  NavMeshAgentModule: {fileID: 0}
+  Animator: {fileID: 0}
+  Hurtbox: {fileID: 0}
+  HealthModule: {fileID: 0}
+  GuardModule: {fileID: 0}
   _playerDetector: {fileID: 0}
   _attackRangeDetector: {fileID: 0}
   _grabbableObject: {fileID: 0}
   _ragdollController: {fileID: 0}
-  _chaseSpeed: 5
   _meleeAttackDuration: 1
 --- !u!114 &1275073079
 MonoBehaviour:
@@ -4282,11 +4280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: f1ea86d8842e90a4ba27649f6594bd11, type: 2}
-  AINavigationModule: {fileID: 0}
-  Animator: {fileID: 0}
-  Hurtbox: {fileID: 0}
-  HealthModule: {fileID: 0}
-  GuardModule: {fileID: 0}
   _playerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
 --- !u!65 &1275073080
 BoxCollider:

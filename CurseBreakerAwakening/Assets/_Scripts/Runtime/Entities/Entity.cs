@@ -10,11 +10,6 @@ namespace CBA.Entities
     {
         [Header(GameData.DEPENDENCIES)]
         [field: SerializeField] public SO_EntityData EntityData;
-        [field: SerializeField] public AINavigationModule NavMeshAgentModule;
-        [field: SerializeField] public Animator Animator;
-        [field: SerializeField] public EnemyHurtbox Hurtbox;
-        [field: SerializeField] public HealthModule HealthModule;
-        [field: SerializeField] public GuardModule GuardModule;
 
         //TODO
         [field: SerializeField] public SO_GlobalPosition _playerPos;

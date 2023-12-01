@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseState : EntityState
+public class ChaseState : EnemyState
 {
-    public ChaseState(Entity entity) : base(entity)
+    public ChaseState(Entity entity, EnemyStateMachine context) : base(entity, context)
     {
     }
 
@@ -13,7 +13,7 @@ public class ChaseState : EntityState
     {
         base.Enter();
 
-        _entity.NavMeshAgentModule.SetFollowPosition(_entity._playerPos);
+        _context.NavMeshAgentModule.SetFollowPosition(_entity._playerPos);
     }
 
 }
