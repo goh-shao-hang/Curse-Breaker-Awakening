@@ -22,6 +22,16 @@ namespace CBA.Entities
             CurrentGuardMeter = _entity.EntityData.Guard;
         }
 
+        public void ReplenishGuard()
+        {
+            CurrentGuardMeter = MaxGuardMeter;
+        }
+
+        public void SetGuard(float guard)
+        {
+            CurrentGuardMeter = guard;
+        }
+
         public void TakeDamage(float amount)
         {
             CurrentGuardMeter -= amount;

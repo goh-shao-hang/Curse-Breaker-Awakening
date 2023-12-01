@@ -22,7 +22,7 @@ namespace GameCells.Utilities
             RemoveInstance();
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void RemoveInstance()
         {
             instance = null;

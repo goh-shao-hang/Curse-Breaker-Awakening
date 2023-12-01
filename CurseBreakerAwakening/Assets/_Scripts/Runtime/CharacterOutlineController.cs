@@ -44,7 +44,7 @@ public class CharacterOutlineController : MonoBehaviour
 
                 if (!_startWithOutline)
                 {
-                    HideOultine();
+                    EnableOutline(false);
                 }
             }
         }
@@ -60,19 +60,11 @@ public class CharacterOutlineController : MonoBehaviour
         }
     }
 
-    public void HideOultine()
+    public void EnableOutline(bool show)
     {
         for (int i = 0; i < _meshRenderers.Length; i++)
         {
-            _outlineMaterials[i].SetInt(ACTIVE, 0);
-        }
-    }
-
-    public void ShowOultine()
-    {
-        for (int i = 0; i < _meshRenderers.Length; i++)
-        {
-            _outlineMaterials[i].SetInt(ACTIVE, 1);
+            _outlineMaterials[i].SetInt(ACTIVE, show ? 1 : 0);
         }
     }
 

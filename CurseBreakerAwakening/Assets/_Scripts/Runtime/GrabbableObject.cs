@@ -12,70 +12,86 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [Header(GameData.SETTINGS)]
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 5f;
-    [SerializeField] private float _grabSmoothing = 10f;
 
     public bool IsGrabbable { get; private set; }
 
-    private Transform _grabberTransform;
     private Transform _grabTransform;
 
+    public UnityEvent<bool> OnGrabbableStateChanged;
     public UnityEvent OnStartHighlight;
     public UnityEvent OnStopHighlight;
-    public UnityEvent OnGrabbed;
-    public UnityEvent OnReleased;
+    [HideInInspector] public UnityEvent OnGrabbed;
+    [HideInInspector] public UnityEvent OnThrown;
+    [HideInInspector] public UnityEvent OnTerrainCollision;
+
+    private bool _thrown = false;
 
     private void Start()
     {
-        //_grabRigidbody.isKinematic = true;
-
-        _grabRigidbody.isKinematic = true;
-        _grabRigidbody.useGravity = false;
-        _grabRigidbody.detectCollisions = true;
+        EnableThrowPhysics(false);
 
         IsGrabbable = _startGrabbable;
     }
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (_grabTransform != null)
+        if (!_thrown)
+            return;
+
+        if (collision.collider.gameObject.layer == GameData.TERRAIN_LAYER_INDEX)
         {
-            transform.position = Vector3.Lerp(transform.position, _grabTransform.position, Time.deltaTime * _grabSmoothing);
-            transform.LookAt(_grabberTransform);
+            OnTerrainCollision?.Invoke();
+            _thrown = false;
         }
+    }
+
+    public void SetIsGrabbable(bool isGrabbable)
+    {
+        IsGrabbable = isGrabbable;
+        OnGrabbableStateChanged.Invoke(isGrabbable);
+
+        /*if (!isGrabbable)
+        {
+            _grabRigidbody.isKinematic = true;
+        }*/
+    }
+
+    public void EnableThrowPhysics(bool enabled)
+    {
+        _grabRigidbody.isKinematic = !enabled;
     }
 
     public void StartGrabbing(Transform grabTransform, Transform _grabberTransform)
     {
         this._grabTransform = grabTransform;
-        this._grabberTransform = _grabberTransform;
 
-        _grabRigidbody.useGravity = false;
-        _grabRigidbody.detectCollisions = false;
+        transform.SetParent(_grabTransform);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 180f, 0f));
+
+        EnableThrowPhysics(false);
+
+        //TODO
+        _grabRigidbody.detectCollisions = false; //Prevent attacking this object or colliding with other objects
 
         OnGrabbed?.Invoke();
-    }
-
-    public void StopGrabbing()
-    {
-        this._grabTransform = null;
-        this._grabberTransform = null;
-
-        _grabRigidbody.isKinematic = true;
-        _grabRigidbody.useGravity = false;
-        _grabRigidbody.detectCollisions = true;
-
-        OnReleased?.Invoke();
     }
 
     public void Throw(Vector3 direction)
     {
         this._grabTransform = null;
 
-        _grabRigidbody.isKinematic = false;
-        _grabRigidbody.useGravity = true;
+        transform.SetParent(null);
+
+        EnableThrowPhysics(true);
+
+        //TODO
         _grabRigidbody.detectCollisions = true;
 
         _grabRigidbody.AddForce(direction * _thrownForce, ForceMode.Impulse);
+
+        OnThrown?.Invoke();
+
+        _thrown = true;
     }
 
     public void OnSelect()
@@ -90,5 +106,6 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        throw new System.NotImplementedException();
     }
 }

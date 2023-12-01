@@ -45,8 +45,8 @@ namespace CBA.Entities.Player
             //Manage Grabbing
             if (_currentGrabbedObject != null)
             {
-                //Update grab position
-                if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, 
+                /*//Update grab position
+                if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit,
                     _maxGrabDistance, _terrainlayer))
                 {
                     _grabTransform.transform.position = _raycastHit.point;
@@ -55,7 +55,7 @@ namespace CBA.Entities.Player
                 {
                     _grabTransform.transform.position = _playerCameraController.PlayerCamera.transform.position
                     + _playerCameraController.PlayerCamera.transform.forward * _maxGrabDistance;
-                }
+                }*/
             }
             //Only check for highlight if the player is not already grabbing something
             else if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
@@ -93,6 +93,7 @@ namespace CBA.Entities.Player
                     _currentSelection.StartGrabbing(_grabTransform, this.transform);
                     _currentGrabbedObject = _currentSelection;
 
+                    _currentSelection.OnDeselect();
                     _currentSelection = null;
                 }
             }

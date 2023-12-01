@@ -26,7 +26,7 @@ namespace GameCells.Utilities
 
         private void Awake()
         {
-            _rigidbodies = GetComponentsInChildren<Rigidbody>();
+            _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>();
             joints = GetComponentsInChildren<Joint>();
             _colliders = GetComponentsInChildren<Collider>();
 
@@ -69,8 +69,6 @@ namespace GameCells.Utilities
             {
                 rigidbody.detectCollisions = true;
                 rigidbody.isKinematic = false;
-
-                rigidbody.useGravity = false;
             }
 
             foreach (Collider collider in _colliders)

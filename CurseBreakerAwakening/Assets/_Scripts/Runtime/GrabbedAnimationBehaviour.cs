@@ -13,12 +13,15 @@ public class GrabbedAnimationBehaviour : StateMachineBehaviour
             _characterMeshTransform = animator.transform;
         }
 
-        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position + Vector3.up, Quaternion.Euler(-90f, 0, 0f));
+        _characterMeshTransform.SetLocalPositionAndRotation(_characterMeshTransform.localPosition + Vector3.up, Quaternion.Euler(-90f, 0, 0f));
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _characterMeshTransform.SetPositionAndRotation(_characterMeshTransform.position - Vector3.up, Quaternion.Euler(0f, 0f, 0f));
+        LeanTween.moveLocal(animator.gameObject, Vector3.zero, 0.2f);
+        LeanTween.rotateLocal(animator.gameObject, Vector3.zero, 0.2f);
+
+        //_characterMeshTransform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

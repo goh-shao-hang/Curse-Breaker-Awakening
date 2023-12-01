@@ -7,7 +7,7 @@ namespace GameCells.StateMachine
 {
     public abstract class StateMachine : MonoBehaviour
     {
-        private State _currentState;
+        protected State _currentState;
 
         //List of transitions in this state machine that applies to every state
         private List<Transition> _anyTransitions = new List<Transition>();
@@ -17,14 +17,24 @@ namespace GameCells.StateMachine
         {
             _currentState = initialState;
             _currentState.Enter();
+
+            foreach (var transition in _anyTransitions) 
+            {
+                transition.Condition.Enter();
+            }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             _currentState?.Update();
 
             foreach (var transition in _anyTransitions)
             {
+                if (_currentState == transition.TargetState) //Don't transition to self
+                    continue;
+
+                transition.Condition.Update();
+
                 if (transition.Condition.Evaluate())
                 {
                     SwitchState(transition.TargetState);
@@ -47,9 +57,19 @@ namespace GameCells.StateMachine
             if (_currentState == newState)
                 return;
 
+            foreach (var transition in _anyTransitions)
+            {
+                transition.Condition.Exit();
+            }
+
             _currentState?.Exit();
             _currentState = newState;
             _currentState?.Enter();
+
+            foreach (var transition in _anyTransitions)
+            {
+                transition.Condition.Enter();
+            }
         }
 
         /// <summary>

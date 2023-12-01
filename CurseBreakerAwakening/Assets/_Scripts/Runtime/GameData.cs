@@ -33,6 +33,7 @@ namespace CBA
         public static readonly LayerMask DAMAGEABLE_LAYER = LayerMask.GetMask("Damageable");
 
         public static readonly int PLAYER_LAYER_INDEX = LayerMask.NameToLayer("Player");
+        public static readonly int TERRAIN_LAYER_INDEX = LayerMask.NameToLayer("Terrain");
         public static readonly int DAMAGEABLE_LAYER_INDEX = LayerMask.NameToLayer("Damageable");
 
         #endregion

@@ -18,7 +18,6 @@ namespace CBA.Entities
 
         [Header("Animation")]
         [SerializeField] private Animator _animator;
-        [SerializeField] private float _speedDampTime = 0.5f;
 
         private SO_GlobalPosition _followPosition = null;
 

@@ -34,6 +34,9 @@ namespace CBA.Entities
             _collider.enabled = true;
             _rigidbody.isKinematic = false;
 
+            if (!_destroyAfterDetach)
+                return;
+
             Destroy(gameObject, _destroyDelay);
         }
     }

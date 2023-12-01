@@ -19,7 +19,7 @@ namespace CBA.Entities
             _healthModule.OnHealthChanged.AddListener(PlayHitAnimation);
 
             //TODO
-            _guardModule.OnGuardBroken.AddListener(PlayStunnedAnimation);
+            //_guardModule.OnGuardBroken.AddListener(PlayStunnedAnimation);
         }
 
         private void OnDisable()
@@ -27,7 +27,7 @@ namespace CBA.Entities
             _healthModule.OnHealthChanged.RemoveListener(PlayHitAnimation);
 
             //TODO
-            _guardModule.OnGuardBroken.RemoveListener(PlayStunnedAnimation);
+            //_guardModule.OnGuardBroken.RemoveListener(PlayStunnedAnimation);
 
         }
 
@@ -36,14 +36,9 @@ namespace CBA.Entities
             _animator.SetTrigger(GameData.HIT_HASH);
         }
 
-        private void PlayStunnedAnimation()
+        /*private void PlayStunnedAnimation()
         {
             _animator.SetTrigger(GameData.ISSTUNNED_HASH);
-        }
-
-        private void PlayGrabbedAnimation()
-        {
-            _animator.SetTrigger(GameData.ISGRABBED_HASH);
-        }
+        }*/
     }
 }
