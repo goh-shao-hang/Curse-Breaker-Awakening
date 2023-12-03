@@ -25,7 +25,7 @@ namespace CBA.Entities.Player
             _playerController.SetMovementForce(0f);
 
             //Allow player to go through enemies. Another dedicated hitbox will be used to detect hits
-            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.DAMAGEABLE_LAYER_INDEX, true);
+            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.ENEMY_LAYER_INDEX, true);
 
             _chargedAttackMovementSpeed = Mathf.Lerp(_playerController.MinChargedAttackMovementSpeed, _playerController.MaxChargedAttackMovementSpeed, 
                 _playerController.LastChargePercentage);
@@ -54,7 +54,7 @@ namespace CBA.Entities.Player
 
             _playerController.PlayerCombatManager.OnChargedAttackEnded -= OnChargeAttackEnded;
 
-            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.DAMAGEABLE_LAYER_INDEX, false);
+            Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.ENEMY_LAYER_INDEX, false);
 
             _playerController.SetIsLimitingMaxSpeed(true);
 

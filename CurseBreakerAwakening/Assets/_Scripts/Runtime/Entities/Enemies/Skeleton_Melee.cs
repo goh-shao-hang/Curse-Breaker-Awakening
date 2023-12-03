@@ -1,3 +1,4 @@
+using CBA.Entities.Player.Weapons;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace CBA.Entities
         [SerializeField] private PhysicsQuery _attackRangeDetector;
         [SerializeField] private GrabbableObject _grabbableObject;
         [SerializeField] private RagdollController _ragdollController;
+
+        [Header("Attacks")]
+        [SerializeField] private AttackData meleeAttack;
 
         [Header(GameData.CUSTOMIZATION)]
         [SerializeField] private float _meleeAttackDuration = 1f;
@@ -41,7 +45,7 @@ namespace CBA.Entities
             //1. State Initialization
             _idleState = new IdleState(_entity, this);
             _chaseState = new ChaseState(_entity, this);
-            _meleeAttackState = new MeleeAttackState(_entity, this);
+            _meleeAttackState = new MeleeAttackState(_entity, this, meleeAttack);
             _stunnedState = new StunnedState(_entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(_entity, this, _grabbableObject);
             _recoverState = new RecoverState(_entity, this);

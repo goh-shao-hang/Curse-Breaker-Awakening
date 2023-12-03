@@ -1,6 +1,7 @@
 using CBA;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameCells.Utilities
@@ -19,6 +20,8 @@ namespace GameCells.Utilities
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private StartMode _startMode;
+        [SerializeField] private LayerMask _layersToExcludeWhenSearching;
+
 
         private Rigidbody[] _rigidbodies;
         private Joint[] joints;
@@ -26,7 +29,8 @@ namespace GameCells.Utilities
 
         private void Awake()
         {
-            _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>();
+            _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>().Where(x => ((_layersToExcludeWhenSearching.value) & (1 << x.gameObject.layer)) == 0).ToArray();
+
             joints = GetComponentsInChildren<Joint>();
             _colliders = GetComponentsInChildren<Collider>();
 

@@ -19,6 +19,7 @@ namespace CBA.Entities
 
         private void Start()
         {
+            MaxHealth = _entity.EntityData.Health;
             CurrentHealth = _entity.EntityData.Health;
         }
 

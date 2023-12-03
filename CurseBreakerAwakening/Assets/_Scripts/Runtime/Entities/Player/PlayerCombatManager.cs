@@ -24,6 +24,7 @@ namespace CBA.Entities.Player
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _attackBufferDuration = 0.2f;
+        [SerializeField] private LayerMask _targetLayers;
 
         [Header("Charged Attack")]
         [SerializeField] private float _chargedAttackDuration = 1f;
@@ -188,6 +189,7 @@ namespace CBA.Entities.Player
             }
 
             _currentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform);
+            _currentWeapon.SetTargetLayers(_targetLayers);
             _currentWeapon.SetChargedAttackHitbox(_chargedAttackHitbox);
 
             //Subscribe to events

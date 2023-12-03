@@ -6,8 +6,11 @@ namespace CBA.Entities
 {
     public class MeleeAttackState : EnemyState
     {
-        public MeleeAttackState(Entity entity, EnemyStateMachine context) : base(entity, context)
+        private AttackData _attackData;
+
+        public MeleeAttackState(Entity entity, EnemyStateMachine context, AttackData attackData) : base(entity, context)
         {
+            this._attackData = attackData;
         }
 
         public override void Enter()
@@ -16,6 +19,12 @@ namespace CBA.Entities
 
             _context.NavMeshAgentModule.StopFollow();
             _context.Animator.SetTrigger(GameData.ATTACK_HASH);
+            _attackData.Hitbox.SetDamage(_attackData.Damage);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
         }
     }
 }

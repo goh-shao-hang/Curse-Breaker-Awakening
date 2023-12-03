@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace CBA.Entities
 
         [field: SerializeField] public bool IsGuarding { get; private set; } = false;
 
+        public event Action<float> OnHurt;
+
         private void Awake()
         {
             _hurtboxCollider = GetComponent<Collider>();
@@ -32,6 +35,8 @@ namespace CBA.Entities
 
         public void TakeDamage(float amount)
         {
+            OnHurt?.Invoke(amount);
+
             if (_guardModule != null && IsGuarding)
             {
                 _guardModule.TakeDamage(amount);

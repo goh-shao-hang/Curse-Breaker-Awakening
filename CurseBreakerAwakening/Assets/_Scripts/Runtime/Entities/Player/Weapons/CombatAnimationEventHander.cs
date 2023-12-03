@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CBA.Entities.Player.Weapons
 {
-    public class WeaponAnimationEventHander : MonoBehaviour
+    public class CombatAnimationEventHander : MonoBehaviour
     {
         public event Action OnActivateHitboxEvent;
         public event Action OnDeactivateHitboxEvent;

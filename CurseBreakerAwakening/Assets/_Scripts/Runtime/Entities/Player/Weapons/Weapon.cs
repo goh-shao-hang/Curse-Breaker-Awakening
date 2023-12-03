@@ -14,9 +14,10 @@ namespace CBA.Entities.Player.Weapons
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private SO_WeaponData _weaponData;
-        [SerializeField] private WeaponAnimationEventHander _weaponAnimationEventHander;
+        [SerializeField] private CombatAnimationEventHander _weaponAnimationEventHander;
         [SerializeField] private Animator _weaponAnimator;
         [SerializeField] private BoxCollider _hitbox;
+
         private BoxCollider _chargedAttackHitbox;
 
         [Header("Effects")]
@@ -26,8 +27,9 @@ namespace CBA.Entities.Player.Weapons
         [SerializeField] private MeshRenderer _weaponMeshRenderer;
         [SerializeField] private Material _chargedAttackMaterial;
 
-        public WeaponAnimationEventHander WeaponAnimationEventHander => _weaponAnimationEventHander;
+        public CombatAnimationEventHander WeaponAnimationEventHander => _weaponAnimationEventHander;
 
+        private LayerMask _targetLayers;
         private List<Collider> _hitTargetCache;
 
         private int _currentCombo = 0;
@@ -77,7 +79,7 @@ namespace CBA.Entities.Player.Weapons
         {
             if (_hitboxEnabled)
             {
-                Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, GameData.DAMAGEABLE_LAYER);
+                Collider[] colliders = Physics.OverlapBox(_hitbox.transform.position, _hitbox.size * 0.5f, _hitbox.transform.rotation, _targetLayers);
                 foreach (var collider in colliders)
                 {
                     if (_hitTargetCache.Contains(collider))
@@ -99,7 +101,7 @@ namespace CBA.Entities.Player.Weapons
             }
             else if (_chargedAttackHitboxEnabled)
             {
-                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, GameData.DAMAGEABLE_LAYER);
+                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, _targetLayers);
                 foreach (var collider in colliders)
                 {
                     if (_hitTargetCache.Contains(collider))
@@ -222,6 +224,10 @@ namespace CBA.Entities.Player.Weapons
             _currentCombo = 0;
         }
 
+        public void SetTargetLayers(LayerMask targetLayers)
+        {
+            _targetLayers = targetLayers;
+        }
 
         public void SetChargedAttackHitbox(BoxCollider hitbox)
         {

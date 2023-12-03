@@ -18,9 +18,10 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            SetGrabbableState(true);
+            _grabbable.SetIsGrabbable(false);
+            //SetGrabbableState(false);
 
-            _grabbable.OnThrown.AddListener(() => SetGrabbableState(false)); //No longer grabbable upon being thrown
+            //_grabbable.OnThrown.AddListener(() => SetGrabbableState(false)); //No longer grabbable upon being thrown
             _grabbable.OnTerrainCollision.AddListener(() => EnableThrowPhysics(false)); //No longer use physics upon hitting terrain
 
             _context.Animator.SetBool(GameData.ISGRABBED_HASH, true);
@@ -34,9 +35,9 @@ namespace CBA.Entities
         {
             base.Exit();
 
-            SetGrabbableState(false);
+            //SetGrabbableState(false);
 
-            _grabbable.OnThrown.RemoveListener(() => SetGrabbableState(false));
+            //_grabbable.OnThrown.RemoveListener(() => SetGrabbableState(false));
             _grabbable.OnTerrainCollision.RemoveListener(() => EnableThrowPhysics(false));
 
             _context.Animator.SetBool(GameData.ISGRABBED_HASH, false);
@@ -46,10 +47,10 @@ namespace CBA.Entities
             _context.GuardModule?.ReplenishGuard();
         }
 
-        private void SetGrabbableState(bool isGrabbable)
+        /*private void SetGrabbableState(bool isGrabbable)
         {
             _grabbable.SetIsGrabbable(isGrabbable);
-        }
+        }*/
 
         private void EnableThrowPhysics(bool enabled)
         {

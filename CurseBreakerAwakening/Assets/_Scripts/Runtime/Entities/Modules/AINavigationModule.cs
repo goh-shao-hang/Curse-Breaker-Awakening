@@ -1,8 +1,10 @@
 using GameCells.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace CBA.Entities
 {
@@ -19,7 +21,11 @@ namespace CBA.Entities
         [Header("Animation")]
         [SerializeField] private Animator _animator;
 
-        private SO_GlobalPosition _followPosition = null;
+        public SO_GlobalPosition FollowPosition { get; private set; } = null;
+
+        //For effects only eg. animation rigging
+        public event Action OnTargetSet;
+        public event Action OnTargetRemoved;
 
         private void Awake()
         {
@@ -38,7 +44,7 @@ namespace CBA.Entities
                 UpdateOverridenRotation();
             }
 
-            if (_followPosition != null)
+            if (FollowPosition != null)
             {
                 UpdateFollowing();
             }
@@ -62,31 +68,35 @@ namespace CBA.Entities
 
         private void UpdateFollowing()
         {
-            _navMeshAgent.SetDestination(_followPosition.Value);
+            _navMeshAgent.SetDestination(FollowPosition.Value);
         }
 
 
         public void SetOneTimeDestination(Vector3 position)
         {
             _navMeshAgent.SetDestination(position);
-            _followPosition = null;
+            FollowPosition = null;
         }
 
         public void SetOneTimeDestination(SO_GlobalPosition position)
         {
             _navMeshAgent.SetDestination(position.Value);
-            _followPosition = null;
+            FollowPosition = null;
         }
 
         public void SetFollowPosition(SO_GlobalPosition position)
         {
-            _followPosition = position;
+            FollowPosition = position;
+
+            OnTargetSet?.Invoke();
         }
 
         public void StopFollow()
         {
-            _followPosition = null;
+            FollowPosition = null;
             _navMeshAgent.SetDestination(_navMeshAgent.transform.position);
+
+            OnTargetRemoved?.Invoke();
         }
 
         public void Enable()

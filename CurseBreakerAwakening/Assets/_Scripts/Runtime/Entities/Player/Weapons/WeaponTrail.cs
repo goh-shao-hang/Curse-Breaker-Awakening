@@ -9,7 +9,7 @@ namespace CBA.Entities.Player.Weapons
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private TrailRenderer _trailRenderer;
-        [SerializeField] private WeaponAnimationEventHander _weaponAnimationEventHander;
+        [SerializeField] private CombatAnimationEventHander _weaponAnimationEventHander;
 
         private void Awake()
         {

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 980999762061052907}
   - component: {fileID: 980999762061052822}
   - component: {fileID: 8346056967299136009}
+  - component: {fileID: 8423231553689615740}
   - component: {fileID: 1301189317}
   m_Layer: 9
   m_Name: Player
@@ -88,11 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 0}
-  AINavigationModule: {fileID: 0}
-  Animator: {fileID: 0}
-  Hurtbox: {fileID: 0}
-  HealthModule: {fileID: 0}
-  GuardModule: {fileID: 0}
   _playerPos: {fileID: 0}
 --- !u!114 &980999762061052820
 MonoBehaviour:
@@ -208,6 +204,20 @@ MonoBehaviour:
   _terrainlayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &8423231553689615740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980999762061052911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfc5b69a5b200043b169fc99f365bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthModule: {fileID: 1161610224137523901}
+  _playerController: {fileID: 980999762061052907}
 --- !u!114 &1301189317
 MonoBehaviour:
   m_ObjectHideFlags: 0
