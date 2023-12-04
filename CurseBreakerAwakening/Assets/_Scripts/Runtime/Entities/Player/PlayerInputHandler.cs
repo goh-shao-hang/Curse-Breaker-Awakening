@@ -19,12 +19,12 @@ namespace CBA.Entities.Player
         public event Action OnJumpInput;
         public event Action OnAttackPressedInput;
         public event Action OnAttackReleasedInput;
+        public event Action OnBlockPressedInput;
+        public event Action OnBlockReleasedInput;
         public event Action OnInteractPressedInput;
 
-        public bool ChargeInput { get; private set; }
         public bool SprintInput { get; private set; }
         public bool CrouchInput { get; private set; }
-        public bool BlockInput { get; private set; }
         public bool KickInput { get; private set; }
 
         private void OnEnable()
@@ -54,7 +54,8 @@ namespace CBA.Entities.Player
             PlayerControls.Gameplay.Crouch.canceled += ctx => OnCrouchReleased(ctx);
             PlayerControls.Gameplay.Attack.performed += ctx => OnAttackPressed(ctx);
             PlayerControls.Gameplay.Attack.canceled += ctx => OnAttackReleased(ctx);
-            PlayerControls.Gameplay.Block.performed += ctx => OnBlock(ctx);
+            PlayerControls.Gameplay.Block.performed += ctx => OnBlockPressed(ctx);
+            PlayerControls.Gameplay.Block.canceled += ctx => OnBlockReleased(ctx);
             PlayerControls.Gameplay.Kick.performed += ctx => OnKick(ctx);
             PlayerControls.Gameplay.Interact.performed += ctx => OnInteractPressed(ctx);
         }
@@ -66,7 +67,6 @@ namespace CBA.Entities.Player
 
         private void ResetButtonInput()
         {
-            BlockInput = false;
             KickInput = false;
         }
 
@@ -115,9 +115,14 @@ namespace CBA.Entities.Player
             OnAttackReleasedInput?.Invoke();
         }
 
-        private void OnBlock(InputAction.CallbackContext ctx)
+        private void OnBlockPressed(InputAction.CallbackContext ctx)
         {
-            BlockInput = true;
+            OnBlockPressedInput?.Invoke();
+        }
+
+        private void OnBlockReleased(InputAction.CallbackContext ctx)
+        {
+            OnBlockReleasedInput?.Invoke();
         }
 
         private void OnKick(InputAction.CallbackContext ctx)

@@ -23,6 +23,7 @@ namespace CBA.Entities.Player
         [SerializeField] private Weapon _currentWeapon = null;
 
         [Header(GameData.SETTINGS)]
+        [field: SerializeField] public float BlockStaminaConsumption = 20f;
         [SerializeField] private float _attackBufferDuration = 0.2f;
         [SerializeField] private LayerMask _targetLayers;
 
@@ -32,9 +33,15 @@ namespace CBA.Entities.Player
         [SerializeField] private float _maxChargeTime = 2f;
 
         [Header("DEBUG")]
+        [SerializeField] private float _duration;
+        [SerializeField] private float _strength;
+        [SerializeField] private float _vibrato;
         [SerializeField] private bool _equipWeapon = true;
 
         public bool AttackBuffer { get; private set; } = false;
+        //public bool GuardBuffer { get; private set; } = false;
+        public bool IsBlocking { get; private set; } = false;
+
 
         public UnityEvent OnPlayerWeaponHit; //Trigger things like camera shakes
 
@@ -44,6 +51,7 @@ namespace CBA.Entities.Player
         public event Action OnChargedAttackEnded;
 
         private Coroutine _attackBufferCO = null;
+        private Coroutine _guardBufferCO = null;
         private Coroutine _chargingCO = null;
         private Coroutine _chargedAttackCO = null;
 
@@ -61,12 +69,18 @@ namespace CBA.Entities.Player
         {
             _playerInputHandler.OnAttackPressedInput += OnAttackPressed;
             _playerInputHandler.OnAttackReleasedInput += OnAttackReleased;
+
+            _playerInputHandler.OnBlockPressedInput += OnBlockPressed;
+            _playerInputHandler.OnBlockReleasedInput += OnBlockReleased;
         }
 
         private void OnDisable()
         {
             _playerInputHandler.OnAttackPressedInput -= OnAttackPressed;
             _playerInputHandler.OnAttackReleasedInput -= OnAttackReleased;
+
+            _playerInputHandler.OnBlockPressedInput -= OnBlockPressed;
+            _playerInputHandler.OnBlockReleasedInput -= OnBlockReleased;
         }
 
         private void Update()
@@ -135,6 +149,46 @@ namespace CBA.Entities.Player
             ConsumeAttackBuffer();
         }
 
+        private void OnBlockPressed()
+        {
+            Debug.LogWarning("Block start");
+
+            StartBlocking();
+
+            /*GuardBuffer = true;
+
+            if (_guardBufferCO != null)
+            {
+                StopCoroutine(_guardBufferCO);
+            }
+
+            _guardBufferCO = StartCoroutine(ResetAttackBufferCO());*/
+            //_chargingCO = StartCoroutine(ChargingCO());
+        }
+
+        private void OnBlockReleased()
+        {
+            Debug.LogWarning("Block end");
+
+            StopBlocking();
+        }
+
+        public void StartBlocking()
+        {
+            _currentWeapon.StartBlocking();
+        }
+
+        public void StopBlocking()
+        {
+            _currentWeapon.StopBlocking();
+        }
+
+        public void SetIsBlocking(bool isBlocking)
+        {
+            IsBlocking = isBlocking;
+            Debug.Log(isBlocking);
+        }
+
         private IEnumerator ChargingCO()
         {
             _currentChargeTime = 0f;
@@ -198,6 +252,7 @@ namespace CBA.Entities.Player
 
         private void TriggerOnPlayerWeaponHit()
         {
+            _playerCameraController.CameraShakeOmni(_duration, _strength, _vibrato);
             OnPlayerWeaponHit?.Invoke();
         }
     }

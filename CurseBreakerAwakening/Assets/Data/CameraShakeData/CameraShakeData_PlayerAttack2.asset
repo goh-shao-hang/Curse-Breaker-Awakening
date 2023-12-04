@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CameraShakeData_PlayerAttack2
   m_EditorClassIdentifier: 
   Direction: {x: 1, y: 0, z: -1}
-  Strength: 0.3
+  Strength: 0.15

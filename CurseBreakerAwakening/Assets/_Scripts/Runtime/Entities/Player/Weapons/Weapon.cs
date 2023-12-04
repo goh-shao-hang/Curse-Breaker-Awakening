@@ -69,12 +69,6 @@ namespace CBA.Entities.Player.Weapons
             _weaponAnimationEventHander.OnAllowNextComboEvent -= AllowNextComboInput;
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(_hitbox.transform.position, _hitbox.transform.position + _hitbox.transform.forward * _hitbox.size.z);
-        }
-
         private void Update()
         {
             if (_hitboxEnabled)
@@ -101,7 +95,7 @@ namespace CBA.Entities.Player.Weapons
             }
             else if (_chargedAttackHitboxEnabled)
             {
-                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _hitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, _targetLayers);
+                Collider[] colliders = Physics.OverlapBox(_chargedAttackHitbox.transform.position, _chargedAttackHitbox.size * 0.5f, _chargedAttackHitbox.transform.rotation, _targetLayers);
                 foreach (var collider in colliders)
                 {
                     if (_hitTargetCache.Contains(collider))
@@ -155,6 +149,17 @@ namespace CBA.Entities.Player.Weapons
 
             NextComboInputAllowed = false;
             _currentCombo = (_currentCombo + 1) % (_weaponData.MaxCombo);
+        }
+
+        public void StartBlocking()
+        {
+            _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, true);
+        }
+
+        public void StopBlocking()
+        {
+            Debug.LogError("blocking stopped");
+            _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, false);
         }
 
         public void StartCharging()

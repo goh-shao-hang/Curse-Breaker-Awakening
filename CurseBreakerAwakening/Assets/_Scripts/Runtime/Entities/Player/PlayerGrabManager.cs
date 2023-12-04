@@ -1,4 +1,5 @@
 using CBA;
+using GameCells.Entities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace CBA.Entities.Player
         [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private Transform _grabTransform;
+        [SerializeField] private MovementModule _movementModule;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _maxGrabDistance = 2f;
@@ -76,7 +78,8 @@ namespace CBA.Entities.Player
         {
             if (_currentGrabbedObject != null)
             {
-                _currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
+                //_currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
+                _currentGrabbedObject.Throw(_grabTransform.forward.normalized + Vector3.up, _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
             }
             else if (_currentGrabbedObject == null && _currentSelection != null)

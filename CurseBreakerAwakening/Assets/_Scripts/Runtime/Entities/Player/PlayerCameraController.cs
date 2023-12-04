@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using GameCells;
 using GameCells.Utilities;
 using System.Collections;
@@ -13,6 +14,7 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private GameEventsManager gameEventsManager;
         [SerializeField] private Camera _playerCamera;
+        [SerializeField] private CinemachineVirtualCamera _playerVirtualCamera;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private CinemachineImpulseSource _cinemachineImpulseSource;
         public Camera PlayerCamera => _playerCamera;
@@ -72,6 +74,31 @@ namespace CBA.Entities.Player
         public void CameraShake(Vector3 direction, float strength = 0.3f)
         {
             _cinemachineImpulseSource.GenerateImpulseWithVelocity(direction * strength);
+        }
+
+        private Tween _cameraShakeTween = null;
+        public void CameraShakeOmni(float duration = 0.15f, float strength = .75f, float vibrato = 10f)
+        {
+            //StartCoroutine(CameraShake(duration, strength));
+            if (_cameraShakeTween != null && _cameraShakeTween.IsPlaying())
+                return;
+
+            _cameraShakeTween = _playerVirtualCamera.transform.DOShakePosition(duration, strength, 10).OnComplete(() => _cameraShakeTween = null);
+        }
+
+        public IEnumerator CameraShake(float duration, float magnitude)
+        {
+            float timeElapsed = 0f;
+            while (timeElapsed < duration)
+            {
+                float xOffset = Random.Range(-1f, 1f) * magnitude;
+                float yOffset = Random.Range(-1f, 1f) * magnitude;
+                _playerVirtualCamera.transform.localPosition = Vector3.Lerp(_playerVirtualCamera.transform.localPosition, new Vector3(xOffset, yOffset, _playerVirtualCamera.transform.localPosition.z), 0.1f);
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            _playerVirtualCamera.transform.localPosition = Vector3.zero;
         }
 
         public void TiltCamera(bool tiltRight)

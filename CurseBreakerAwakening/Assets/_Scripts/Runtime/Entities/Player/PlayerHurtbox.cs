@@ -14,20 +14,21 @@ namespace CBA.Entities.Player
 
         public void TakeDamage(float amount)
         {
-            _healthModule.TakeDamage(amount);
-
-            //TODO set up guarding
-            /*if ( _playerController.CurrentStamina > 0)
+            if (_playerCombatManager.IsBlocking && _playerController.CurrentStamina > 0)
             {
-                _playerController.SetStamina(_playerController.CurrentStamina - amount);
+                _playerController.SetStamina(_playerController.CurrentStamina - _playerCombatManager.BlockStaminaConsumption);
                 _playerController.StartStaminaRegenTimer();
 
-                //TODO make some warning if stamina is 0
+                if (_playerController.CurrentStamina <= 0) //Stamina depleted after taking this hit
+                {
+                    _playerCombatManager.StopBlocking();
+                    //TODO some warning effect
+                }
             }
             else
             {
                 _healthModule.TakeDamage(amount);
-            }*/
+            }
         }
     }
 }

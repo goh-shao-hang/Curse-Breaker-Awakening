@@ -31,8 +31,14 @@ namespace GameCells.Utilities
         {
             _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>().Where(x => ((_layersToExcludeWhenSearching.value) & (1 << x.gameObject.layer)) == 0).ToArray();
 
+            List<Collider> colliders = new List<Collider>();
+            foreach (var rigidbody in _rigidbodies)
+            {
+                colliders.Add(rigidbody.GetComponent<Collider>());
+            }
+            _colliders = colliders.ToArray();
+
             joints = GetComponentsInChildren<Joint>();
-            _colliders = GetComponentsInChildren<Collider>();
 
             if (_startMode == StartMode.Animator)
             {

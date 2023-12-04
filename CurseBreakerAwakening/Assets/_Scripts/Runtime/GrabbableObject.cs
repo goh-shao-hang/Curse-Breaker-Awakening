@@ -76,7 +76,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         OnGrabbed?.Invoke();
     }
 
-    public void Throw(Vector3 direction)
+    public void Throw(Vector3 direction, Vector3 carriedVelocity)
     {
         this._grabTransform = null;
 
@@ -86,6 +86,9 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
         //TODO
         _grabRigidbody.detectCollisions = true;
+
+        _grabRigidbody.velocity = carriedVelocity; //Inherit velocity from player
+        Debug.LogWarning(carriedVelocity);
 
         _grabRigidbody.AddForce(direction * _thrownForce, ForceMode.Impulse);
 

@@ -76,7 +76,7 @@ namespace CBA.Entities
 
         public void OnDeath()
         {
-            _collider.enabled = true;
+            _collider.enabled = false;
 
             /*transform.SetParent(null);
             _collider.isTrigger = false;
