@@ -18,6 +18,7 @@ namespace CBA.Entities.Player.Weapons
         [SerializeField] private Animator _weaponAnimator;
         [SerializeField] private BoxCollider _hitbox;
 
+        private PlayerCombatManager _playerCombatManager;
         private BoxCollider _chargedAttackHitbox;
 
         [Header("Effects")]
@@ -30,7 +31,7 @@ namespace CBA.Entities.Player.Weapons
         public CombatAnimationEventHander WeaponAnimationEventHander => _weaponAnimationEventHander;
 
         private LayerMask _targetLayers;
-        private List<Collider> _hitTargetCache;
+        private List<Collider> _hitTargetCache = new List<Collider>();
 
         private int _currentCombo = 0;
         private bool _hitboxEnabled;
@@ -39,16 +40,21 @@ namespace CBA.Entities.Player.Weapons
 
         private Material _originalMaterial;
 
-        public bool NextComboInputAllowed { get; private set; }
+        public bool NextComboInputAllowed { get; private set; } = true;
 
         //Events
         public event Action OnWeaponHit;
 
+        public Weapon Initialize(PlayerCombatManager playerCombatManager)
+        {
+            _playerCombatManager = playerCombatManager;
+            _targetLayers = _playerCombatManager.TargetLayers;
+            _chargedAttackHitbox = _playerCombatManager.ChargedAttackHitbox;
+            return this;
+        }
+
         private void Awake()
         {
-            _hitTargetCache = new List<Collider>();
-            NextComboInputAllowed = true;
-
             _chargingVFX.SetActive(false);
             _fullyChargedVFX.SetActive(false);
 
@@ -115,28 +121,6 @@ namespace CBA.Entities.Player.Weapons
                     }
                 }
             }
-            /*if (Physics.Raycast(_hitbox.transform.position, _hitbox.transform.up, out RaycastHit hit, _hitbox.size.z, GameData.ENEMY_LAYER))
-            {
-                if (_hitTargetCache.Contains(hit.collider))
-                    return;
-
-                _hitTargetCache.Add(hit.collider);
-
-                hit.collider.GetComponent<Entity>()?.TakeDamage(1);
-
-                OnWeaponHit?.Invoke();
-
-                //VFX
-                if (_hitVFX != null)
-                {
-                    Instantiate(_hitVFX, hit.point, Quaternion.identity);
-                }
-
-                //TODO
-                Debug.LogWarning($"hit {hit.collider.name}");
-            }*/
-
-            
         }
 
         public void Attack()
@@ -151,6 +135,19 @@ namespace CBA.Entities.Player.Weapons
             _currentCombo = (_currentCombo + 1) % (_weaponData.MaxCombo);
         }
 
+        public void ActivateHitbox()
+        {
+            _hitboxEnabled = true;
+        }
+
+        public void DeactivateHitbox()
+        {
+            _hitboxEnabled = false;
+
+            //Reset cache
+            _hitTargetCache.Clear();
+        }
+
         public void StartBlocking()
         {
             _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, true);
@@ -158,7 +155,6 @@ namespace CBA.Entities.Player.Weapons
 
         public void StopBlocking()
         {
-            Debug.LogError("blocking stopped");
             _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, false);
         }
 
@@ -184,19 +180,6 @@ namespace CBA.Entities.Player.Weapons
             _weaponAnimator.SetBool(GameData.ISCHARGING_HASH, false);
 
             _chargingVFX.SetActive(false);
-        }
-
-        public void ActivateHitbox()
-        {
-            _hitboxEnabled = true;
-        }
-
-        public void DeactivateHitbox()
-        {
-            _hitboxEnabled = false;
-
-            //Reset cache
-            _hitTargetCache.Clear();
         }
 
         public void StartChargedAttack(float chargedPercentage)
@@ -229,14 +212,6 @@ namespace CBA.Entities.Player.Weapons
             _currentCombo = 0;
         }
 
-        public void SetTargetLayers(LayerMask targetLayers)
-        {
-            _targetLayers = targetLayers;
-        }
-
-        public void SetChargedAttackHitbox(BoxCollider hitbox)
-        {
-            _chargedAttackHitbox = hitbox;
-        }
+        
     }
 }

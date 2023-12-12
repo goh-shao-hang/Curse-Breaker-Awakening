@@ -18,14 +18,14 @@ namespace CBA.Entities.Player
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private Transform _weaponHolderTransform;
-        [SerializeField] private BoxCollider _chargedAttackHitbox;
+        [field: SerializeField] public BoxCollider ChargedAttackHitbox;
 
         [SerializeField] private Weapon _currentWeapon = null;
 
         [Header(GameData.SETTINGS)]
         [field: SerializeField] public float BlockStaminaConsumption = 20f;
+        [field: SerializeField] public LayerMask TargetLayers;
         [SerializeField] private float _attackBufferDuration = 0.2f;
-        [SerializeField] private LayerMask _targetLayers;
 
         [Header("Charged Attack")]
         [SerializeField] private float _chargedAttackDuration = 1f;
@@ -39,7 +39,6 @@ namespace CBA.Entities.Player
         [SerializeField] private bool _equipWeapon = true;
 
         public bool AttackBuffer { get; private set; } = false;
-        //public bool GuardBuffer { get; private set; } = false;
         public bool IsBlocking { get; private set; } = false;
 
 
@@ -51,7 +50,6 @@ namespace CBA.Entities.Player
         public event Action OnChargedAttackEnded;
 
         private Coroutine _attackBufferCO = null;
-        private Coroutine _guardBufferCO = null;
         private Coroutine _chargingCO = null;
         private Coroutine _chargedAttackCO = null;
 
@@ -94,8 +92,24 @@ namespace CBA.Entities.Player
 
         private void LateUpdate()
         {
+            //Weapon rotation
             _weaponHolderTransform.rotation = _playerCameraController.PlayerCamera.transform.rotation;
-            _chargedAttackHitbox.transform.rotation = Quaternion.Euler(0f, _playerCameraController.PlayerCamera.transform.eulerAngles.y, 0f);
+            ChargedAttackHitbox.transform.rotation = Quaternion.Euler(0f, _playerCameraController.PlayerCamera.transform.eulerAngles.y, 0f);
+        }
+
+        private void EquipWeapon(SO_WeaponData weaponData)
+        {
+            if (_currentWeapon != null)
+            {
+                //Unsubscribe from events
+                _currentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
+                Destroy(_currentWeapon.gameObject);
+            }
+
+            _currentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform).Initialize(this);
+
+            //Subscribe to events
+            _currentWeapon.OnWeaponHit += TriggerOnPlayerWeaponHit;
         }
 
         private void OnAttackPressed()
@@ -151,25 +165,11 @@ namespace CBA.Entities.Player
 
         private void OnBlockPressed()
         {
-            Debug.LogWarning("Block start");
-
             StartBlocking();
-
-            /*GuardBuffer = true;
-
-            if (_guardBufferCO != null)
-            {
-                StopCoroutine(_guardBufferCO);
-            }
-
-            _guardBufferCO = StartCoroutine(ResetAttackBufferCO());*/
-            //_chargingCO = StartCoroutine(ChargingCO());
         }
 
         private void OnBlockReleased()
         {
-            Debug.LogWarning("Block end");
-
             StopBlocking();
         }
 
@@ -186,7 +186,6 @@ namespace CBA.Entities.Player
         public void SetIsBlocking(bool isBlocking)
         {
             IsBlocking = isBlocking;
-            Debug.Log(isBlocking);
         }
 
         private IEnumerator ChargingCO()
@@ -233,22 +232,7 @@ namespace CBA.Entities.Player
             _chargedAttackCO = null;
         }
 
-        private void EquipWeapon(SO_WeaponData weaponData)
-        {
-            if (_currentWeapon != null)
-            {
-                //Unsubscribe from events
-                _currentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
-                Destroy(_currentWeapon.gameObject);
-            }
-
-            _currentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform);
-            _currentWeapon.SetTargetLayers(_targetLayers);
-            _currentWeapon.SetChargedAttackHitbox(_chargedAttackHitbox);
-
-            //Subscribe to events
-            _currentWeapon.OnWeaponHit += TriggerOnPlayerWeaponHit;
-        }
+        
 
         private void TriggerOnPlayerWeaponHit()
         {

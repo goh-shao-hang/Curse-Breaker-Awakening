@@ -40,6 +40,7 @@ namespace CBA.Entities
             if (_guardModule != null && IsGuarding)
             {
                 _guardModule.TakeDamage(amount);
+                _animator.SetTrigger(GameData.HIT_HASH);
             }
             else
             {

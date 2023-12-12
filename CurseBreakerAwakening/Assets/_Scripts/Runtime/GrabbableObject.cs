@@ -88,7 +88,6 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         _grabRigidbody.detectCollisions = true;
 
         _grabRigidbody.velocity = carriedVelocity; //Inherit velocity from player
-        Debug.LogWarning(carriedVelocity);
 
         _grabRigidbody.AddForce(direction * _thrownForce, ForceMode.Impulse);
 
