@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6455173271881685822}
   - component: {fileID: 8219972455113413054}
   m_Layer: 0
-  m_Name: Hit
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ VisualEffect:
   m_GameObject: {fileID: 5364094300398349714}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: d7c7a3c1f36773241b998af4bd21aff9, type: 3}
-  m_InitialEventName: OnPlay
+  m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1

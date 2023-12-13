@@ -6496,6 +6496,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1466532680}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029150554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8423231553689615740, guid: a9e72aa30a367574eb8e0984971dc2be,
+    type: 3}
+  m_PrefabInstance: {fileID: 980999763227498836}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfc5b69a5b200043b169fc99f365bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &2054604850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7439,6 +7451,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 980999762061052822, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
+      propertyPath: PlayerHurtbox
+      value: 
+      objectReference: {fileID: 2029150554}
+    - target: {fileID: 980999762061052822, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
       propertyPath: ChargedAttackHitbox
       value: 
       objectReference: {fileID: 1956593099}
@@ -7565,6 +7582,11 @@ PrefabInstance:
     - target: {fileID: 980999763229951843, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 980999763229951843, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,

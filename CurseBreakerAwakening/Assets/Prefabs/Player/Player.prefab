@@ -191,15 +191,14 @@ MonoBehaviour:
   _playerInputHandler: {fileID: 980999762061052820}
   _playerCameraController: {fileID: 0}
   _weaponHolderTransform: {fileID: 980999763820017703}
-  _chargedAttackHitbox: {fileID: 747243636247433320}
-  _currentWeapon: {fileID: 980999763570490063}
-  _attackBufferDuration: 0.2
-  _targetLayers:
+  ChargedAttackHitbox: {fileID: 0}
+  PlayerHurtbox: {fileID: 0}
+  CurrentWeapon: {fileID: 0}
+  BlockStaminaConsumption: 20
+  TargetLayers:
     serializedVersion: 2
-    m_Bits: 128
-  _chargedAttackDuration: 0.5
-  _minChargeTime: 0.5
-  _maxChargeTime: 2
+    m_Bits: 0
+  _attackBufferDuration: 0.2
   _duration: 0.15
   _strength: 1
   _vibrato: 100
@@ -234,6 +233,7 @@ MonoBehaviour:
   _playerCameraController: {fileID: 0}
   _playerInputHandler: {fileID: 980999762061052820}
   _grabTransform: {fileID: 1195875682}
+  _movementModule: {fileID: 0}
   _maxGrabDistance: 1.5
   _interactableLayer:
     serializedVersion: 2
@@ -256,6 +256,12 @@ MonoBehaviour:
   _healthModule: {fileID: 1161610224137523901}
   _playerController: {fileID: 980999762061052907}
   _playerCombatManager: {fileID: 0}
+  OnParrySuccess:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBlockSuccess:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1301189317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +786,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
         type: 3}
+      propertyPath: _parrySuccessVFX
+      value: 
+      objectReference: {fileID: 6455173271881685822, guid: 0823161fd42c84d478a7ae44eb6eaf12,
+        type: 3}
+    - target: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
+        type: 3}
       propertyPath: _chargedAttackHitbox
       value: 
       objectReference: {fileID: 747243636247433320}
@@ -826,15 +838,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 634843736887246250}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &980999763570490063 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
-    type: 3}
-  m_PrefabInstance: {fileID: 634843736887246250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea28382e1007c14782e120b5450d29a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

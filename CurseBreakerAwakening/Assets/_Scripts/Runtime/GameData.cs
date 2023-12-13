@@ -17,8 +17,11 @@ namespace CBA
         public static readonly int COMBO_HASH = Animator.StringToHash("combo");
         public static readonly int ISMOVING_HASH = Animator.StringToHash("isMoving");
         public static readonly int ISBlOCKING_HASH = Animator.StringToHash("isBlocking");
+        public static readonly int BLOCKSUCCESS_HASH = Animator.StringToHash("blockSuccess");
+        public static readonly int PARRY_HASH = Animator.StringToHash("parry");
         public static readonly int ISCHARGING_HASH = Animator.StringToHash("isCharging");
         public static readonly int FULLYCHARGED_HASH = Animator.StringToHash("fullyCharged");
+        public static readonly int CHARGERELEASED_HASH = Animator.StringToHash("chargeReleased");
         public static readonly int CHARGEDATTACKENDED_HASH = Animator.StringToHash("chargedAttackEnded");
         public static readonly int HIT_HASH = Animator.StringToHash("hit");
         public static readonly int XVELOCITY_HASH = Animator.StringToHash("xVelocity");

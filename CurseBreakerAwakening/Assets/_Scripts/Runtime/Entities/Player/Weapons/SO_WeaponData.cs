@@ -18,10 +18,17 @@ namespace CBA.Entities.Player.Weapons
         public float AttackGuardDamage = 3f;
 
         [Header("Charged Attack")]
+        public float MinChargingTime = 0.5f;
+        public float MaxChargingTime = 2f;
+        public float ChargedAttackDuration = 0.5f;
         public float MinChargedAttackDamage = 5f;
         public float MaxChargedAttackDamage = 10f;
         public float MinChargedAttackGuardDamage = 5f;
         public float MaxChargedAttackGuardDamage = 10f;
+
+        [Header("Block")]
+        public float ParryDuration = 0.2f;
+        public float MinBlockTime = 0.1f;
 
         [Header("Combo")]
         public int MaxCombo = 3;

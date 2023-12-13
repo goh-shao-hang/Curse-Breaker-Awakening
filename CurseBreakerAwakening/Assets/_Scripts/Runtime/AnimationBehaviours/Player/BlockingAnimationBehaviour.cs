@@ -8,13 +8,16 @@ public class BlockingAnimationBehaviour : StateMachineBehaviour
     [Tooltip("This should be same as the transition time of any animation into the blocking animation.")]
     [SerializeField] private float _blockActivationDelay = 0.2f;
 
+    private PlayerHurtbox _playerHurtbox = null;
     private PlayerCombatManager _playerCombatManager = null;
+    
     private float _timeEntered = 0f;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_playerCombatManager == null)
+        if (_playerHurtbox == null)
         {
+            _playerHurtbox = animator.GetComponentInParent<PlayerHurtbox>();
             _playerCombatManager = animator.GetComponentInParent<PlayerCombatManager>();
         }
 
@@ -23,19 +26,26 @@ public class BlockingAnimationBehaviour : StateMachineBehaviour
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_playerCombatManager.IsBlocking)
+        if (_playerHurtbox.IsBlocking) //Already entered blocking state, no need to evaluate anymore
             return;
 
         _timeEntered += Time.deltaTime;
         if (_timeEntered >= _blockActivationDelay)
         {
-            _playerCombatManager.SetIsBlocking(true);
+            _playerHurtbox.SetIsParrying(true);
+        }
+
+        if (_timeEntered >= _blockActivationDelay + _playerCombatManager.CurrentWeapon.WeaponData.ParryDuration)
+        {
+            _playerHurtbox.SetIsParrying(false);
+            _playerHurtbox.SetIsBlocking(true);
         }
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _playerCombatManager.SetIsBlocking(false);
+        _playerHurtbox.SetIsParrying(false);
+        _playerHurtbox.SetIsBlocking(false);
     }
 
 }
