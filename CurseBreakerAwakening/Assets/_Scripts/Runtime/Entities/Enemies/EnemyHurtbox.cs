@@ -40,13 +40,20 @@ namespace CBA.Entities
             if (_guardModule != null && IsGuarding)
             {
                 _guardModule.TakeDamage(amount);
-                _animator.SetTrigger(GameData.HIT_HASH);
+                
             }
             else
             {
                 _healthModule.TakeDamage(amount);
-                _animator.SetTrigger(GameData.HIT_HASH);
             }
+
+            if (!_animator.GetCurrentAnimatorStateInfo(1).IsName(GameData.HIT_ANIM)) //Already playing hit animation
+                _animator.SetTrigger(GameData.HIT_HASH);
+        }
+
+        public void SetDamagedAnimationWeight(float weight)
+        {
+            _animator.SetLayerWeight((int)GameData.EEnemyAnimatorLayers.Damage, weight);
         }
 
         public void Enable()

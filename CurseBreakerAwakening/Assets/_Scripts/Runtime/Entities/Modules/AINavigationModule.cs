@@ -52,7 +52,7 @@ namespace CBA.Entities
 
         private void UpdateAnimation()
         {
-            _animator.SetBool(GameData.ISMOVING_HASH, _navMeshAgent.velocity.sqrMagnitude > 0.01f);
+            _animator.SetFloat(GameData.VELOCITY_HASH, _navMeshAgent.velocity.magnitude, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
         }
 
         private void UpdateOverridenRotation()

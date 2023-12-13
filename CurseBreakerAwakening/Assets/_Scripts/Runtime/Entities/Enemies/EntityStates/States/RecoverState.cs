@@ -14,7 +14,7 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            _context.Animator.CrossFade("Recover", 0f, 0);
+            _context.Animator.CrossFade(GameData.RECOVER_ANIM, 0f, 0);
         }
     }
 }

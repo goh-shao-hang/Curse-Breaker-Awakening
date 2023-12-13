@@ -2198,7 +2198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabRigidbody: {fileID: 768821425}
   _startGrabbable: 0
-  _thrownForce: 5
+  _thrownForce: 4
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls:
@@ -7427,7 +7427,7 @@ PrefabInstance:
     - target: {fileID: 634843737395143974, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 747243636247433320, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
@@ -7587,6 +7587,26 @@ PrefabInstance:
     - target: {fileID: 980999763229951843, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 980999763229951843, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 980999763570490061, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2597002787239187364, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742549587498406305, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,

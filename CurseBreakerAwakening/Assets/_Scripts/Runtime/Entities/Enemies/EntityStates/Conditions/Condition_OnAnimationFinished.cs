@@ -16,7 +16,7 @@ namespace CBA.Entities
 
         public override bool Evaluate()
         {
-            return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f;
+            return _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f;
         }
 
     }

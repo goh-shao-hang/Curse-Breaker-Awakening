@@ -17,6 +17,7 @@ namespace CBA.Entities
         {
             base.Enter();
 
+            _context.Hurtbox.SetDamagedAnimationWeight(1f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
 
             _context.NavMeshAgentModule?.Disable();
@@ -31,6 +32,7 @@ namespace CBA.Entities
         {
             base.Exit();
 
+            _context.Hurtbox.SetDamagedAnimationWeight(0.3f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, false);
 
             _context.NavMeshAgentModule?.Enable();
