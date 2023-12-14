@@ -15,7 +15,7 @@ TagManager:
   - Enemy
   - Weapon
   - Player
-  - 
+  - UI particles
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: VFX
     uniqueID: 1641054491
+    locked: 0
+  - name: UI
+    uniqueID: 2904135463
     locked: 0
