@@ -165,7 +165,7 @@ MonoBehaviour:
   _staminaRegenRate: 25
   _sprintingStaminaConsumption: 20
   _wallRunStaminaConsumption: 10
-  _staminaRegenDelay: 1
+  _staminaRegenDelay: 1.5
   _canWallRun: 1
   _wallRunMovementForce: 200
   _wallCheckDistance: 0.7
@@ -191,17 +191,17 @@ MonoBehaviour:
   _playerInputHandler: {fileID: 980999762061052820}
   _playerCameraController: {fileID: 0}
   _weaponHolderTransform: {fileID: 980999763820017703}
-  ChargedAttackHitbox: {fileID: 0}
-  PlayerHurtbox: {fileID: 0}
+  ChargedAttackHitbox: {fileID: 747243636247433320}
+  PlayerHurtbox: {fileID: 8423231553689615740}
   CurrentWeapon: {fileID: 0}
   BlockStaminaConsumption: 20
   TargetLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _attackBufferDuration: 0.2
   _duration: 0.15
-  _strength: 1
-  _vibrato: 100
+  _strength: 0.5
+  _vibrato: 10
   _equipWeapon: 1
   OnPlayerWeaponHit:
     m_PersistentCalls:
@@ -233,7 +233,7 @@ MonoBehaviour:
   _playerCameraController: {fileID: 0}
   _playerInputHandler: {fileID: 980999762061052820}
   _grabTransform: {fileID: 1195875682}
-  _movementModule: {fileID: 0}
+  _movementModule: {fileID: 980999762728581201}
   _maxGrabDistance: 1.5
   _interactableLayer:
     serializedVersion: 2
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthModule: {fileID: 1161610224137523901}
   _playerController: {fileID: 980999762061052907}
-  _playerCombatManager: {fileID: 0}
+  _playerCombatManager: {fileID: 980999762061052822}
   OnParrySuccess:
     m_PersistentCalls:
       m_Calls: []
@@ -664,7 +664,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1}
+  m_Size: {x: 1.25, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!1001 &634843736887246250
 PrefabInstance:
@@ -673,6 +673,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 980999763820017703}
     m_Modifications:
+    - target: {fileID: 509221004, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 816765431, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -800,6 +804,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 383471265225623399, guid: ae6ac6c875ff37a489edd983d905b673,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 383471265380756012, guid: ae6ac6c875ff37a489edd983d905b673,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -829,6 +838,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225988304698404366, guid: ae6ac6c875ff37a489edd983d905b673,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269234354790280203, guid: ae6ac6c875ff37a489edd983d905b673,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}

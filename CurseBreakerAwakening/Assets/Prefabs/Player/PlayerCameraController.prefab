@@ -500,7 +500,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc36c789887e50742bf501ba506b64a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEventsManager: {fileID: 0}
   _playerCamera: {fileID: 1974657825183822537}
+  _playerVirtualCamera: {fileID: 1974657823380212355}
   _playerController: {fileID: 0}
   _cinemachineImpulseSource: {fileID: 1974657825226049401}
   _sensitivity: 0.3
