@@ -10,6 +10,9 @@ namespace CBA.LevelGeneration
         public bool Visited = false;
         public bool[] Exits = new bool[4]; //Up -> Down -> Right -> Left
 
+        //TODO TEST
+        public RoomController Room;
+
         public ERoomShape RoomShape { get; private set; }
         public float RoomRotation { get; private set; }
 
