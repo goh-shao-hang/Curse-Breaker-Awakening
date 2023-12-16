@@ -35,10 +35,10 @@ namespace CBA.LevelGeneration
 
         private void Start()
         {
-            Generate();
+            StartCoroutine(Generate());
         }
 
-        private void Generate()
+        private IEnumerator Generate()
         {
             //Board Initialization
             _board = new Cell[_boardSize.x, _boardSize.y];
@@ -57,19 +57,19 @@ namespace CBA.LevelGeneration
             {
                 iterations++;
 
-                //TODO
-                //Feel free to spawn default room or add artificial wait here for visualization, but keep in mind not all connections are established yet
                 if (!_board[_currentCell.x, _currentCell.y].Visited)
                 {
                     _roomCount++;
+                    _board[_currentCell.x, _currentCell.y].Room = Instantiate(_rooms[0], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
                 }
 
+                _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
                 _board[_currentCell.x, _currentCell.y].Visited = true;
 
                 if (_roomCount >= _maxRooms)
                     break; //End iteration
 
-                //yield return WaitHandler.GetWaitForSeconds(_delay);
+                yield return WaitHandler.GetWaitForSeconds(_delay);
 
                 List<Vector2Int> neighbours = CheckNeighbours(_currentCell);
 
@@ -120,6 +120,7 @@ namespace CBA.LevelGeneration
                         _board[nextCell.x, nextCell.y].Exits[2] = true;
                     }
 
+                    _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
                     _currentCell = nextCell;
                 }
             }
@@ -195,8 +196,8 @@ namespace CBA.LevelGeneration
                     {
                         //cell.UpdateTypeAndRotation();
 
-                        var room = Instantiate(_rooms[0], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
-                        room.UpdateExits(_board[i, j].Exits);
+                        //var room = Instantiate(_rooms[0], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
+                        //room.UpdateExits(_board[i, j].Exits);
                     }
 
                 }
