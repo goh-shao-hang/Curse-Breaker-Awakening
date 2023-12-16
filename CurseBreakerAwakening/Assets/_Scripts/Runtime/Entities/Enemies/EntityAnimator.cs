@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
+    //Unused
     public class EntityAnimator : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
@@ -17,18 +18,11 @@ namespace CBA.Entities
         private void OnEnable()
         {
             _healthModule.OnHealthChanged.AddListener(PlayHitAnimation);
-
-            //TODO
-            //_guardModule.OnGuardBroken.AddListener(PlayStunnedAnimation);
         }
 
         private void OnDisable()
         {
             _healthModule.OnHealthChanged.RemoveListener(PlayHitAnimation);
-
-            //TODO
-            //_guardModule.OnGuardBroken.RemoveListener(PlayStunnedAnimation);
-
         }
 
         private void PlayHitAnimation()
@@ -36,9 +30,5 @@ namespace CBA.Entities
             _animator.SetTrigger(GameData.HIT_HASH);
         }
 
-        /*private void PlayStunnedAnimation()
-        {
-            _animator.SetTrigger(GameData.ISSTUNNED_HASH);
-        }*/
     }
 }

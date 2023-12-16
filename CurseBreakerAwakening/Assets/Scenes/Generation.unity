@@ -353,11 +353,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rooms:
   - {fileID: 8408015851019220780, guid: 72159a47cf286ad478925d9c03f3962d, type: 3}
-  _boardSize: {x: 5, y: 5}
+  _boardSize: {x: 10, y: 10}
   _maxIterations: 1000
   _maxRooms: 20
   _roomOffset: {x: 10, y: 10}
-  _delay: 0.1
+  _delay: 0
   _startPosition: {x: 0, y: 0}
 --- !u!4 &839470758
 Transform:

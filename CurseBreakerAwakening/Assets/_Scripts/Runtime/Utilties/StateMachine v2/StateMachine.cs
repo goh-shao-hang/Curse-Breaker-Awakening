@@ -12,8 +12,7 @@ namespace GameCells.StateMachine
         //List of transitions in this state machine that applies to every state
         private List<Transition> _anyTransitions = new List<Transition>();
 
-        //TODO
-        public void Initialize(State initialState)//, Dictionary<State, List<Transition>> states)
+        public void Initialize(State initialState)
         {
             _currentState = initialState;
             _currentState.Enter();

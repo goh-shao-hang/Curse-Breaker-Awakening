@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CBA.Entities.Player
 {
-    //TODO unused
+    // unused
     public class PlayerChargingState : PlayerMovementBaseState
     {
         public PlayerChargingState(EPlayerMovementState key, PlayerController playerController) : base(key, playerController)

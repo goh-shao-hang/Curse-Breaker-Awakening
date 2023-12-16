@@ -33,7 +33,6 @@ public abstract class StateManager<EState> : MonoBehaviour where EState : Enum
         {
             SwitchState(nextStateKey);
 
-            //TODO return here my cause problem, check later
             return;
         }
     }

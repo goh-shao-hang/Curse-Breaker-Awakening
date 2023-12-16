@@ -32,7 +32,6 @@ namespace CBA.Entities.Player.Weapons
 
         [Header("Combo")]
         public int MaxCombo = 3;
-        //TODO unused
-        public float ComboResetTime = 1.5f;
+        public float ComboResetTime = 1.5f; //Unused
     }
 }

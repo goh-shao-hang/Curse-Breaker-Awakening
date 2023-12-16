@@ -21,7 +21,6 @@ namespace CBA.Entities.Player
         {
             base.Update();
 
-            //TODO consume stamina
             ConsumeStamina();
         }
 

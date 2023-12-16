@@ -70,7 +70,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
         EnableThrowPhysics(false);
 
-        //TODO
+        //TODO use some other way
         _grabRigidbody.detectCollisions = false; //Prevent attacking this object or colliding with other objects
 
         OnGrabbed?.Invoke();
@@ -84,7 +84,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
         EnableThrowPhysics(true);
 
-        //TODO
+        //TODO use some other way
         _grabRigidbody.detectCollisions = true;
 
         _grabRigidbody.velocity = carriedVelocity; //Inherit velocity from player

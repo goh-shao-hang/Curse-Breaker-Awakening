@@ -14,10 +14,6 @@ namespace CBA.Entities
         //TODO
         [field: SerializeField] public SO_GlobalPosition _playerPos;
 
-        //TODO temporary
-        public void Destroy(float delay)
-        {
-            Destroy(gameObject, delay);
-        }
+
     }
 }

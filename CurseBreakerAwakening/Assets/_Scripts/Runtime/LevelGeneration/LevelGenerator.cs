@@ -17,6 +17,7 @@ namespace CBA.LevelGeneration
         [SerializeField] private Vector2Int _boardSize;
         [SerializeField] private int _maxIterations = 1000;
         [SerializeField] private int _maxRooms = 25;
+        [SerializeField] private bool _allowLoops = true;
 
         [Header(GameData.DEBUG)]
         [SerializeField] private Vector2 _roomOffset;
@@ -26,6 +27,7 @@ namespace CBA.LevelGeneration
         [SerializeField] private Vector2Int _startPosition = Vector2Int.zero;
 
         private Cell[,] _board;
+
         private Vector2Int _currentCell;
         private Stack<Vector2Int> _path = new Stack<Vector2Int>();
 
@@ -33,11 +35,10 @@ namespace CBA.LevelGeneration
 
         private void Start()
         {
-            StartCoroutine(Generate());
-            TestSpawnRooms();
+            Generate();
         }
 
-        private IEnumerator Generate()
+        private void Generate()
         {
             //Board Initialization
             _board = new Cell[_boardSize.x, _boardSize.y];
@@ -52,7 +53,7 @@ namespace CBA.LevelGeneration
             int iterations = 0;
             _currentCell = _startPosition;
 
-            while (iterations <= _maxIterations) //Or any exit condition that might be desired
+            while (iterations <= _maxIterations) //Hard iteration limit to prevent endless looping
             {
                 iterations++;
 
@@ -60,17 +61,15 @@ namespace CBA.LevelGeneration
                 //Feel free to spawn default room or add artificial wait here for visualization, but keep in mind not all connections are established yet
                 if (!_board[_currentCell.x, _currentCell.y].Visited)
                 {
-                    _board[_currentCell.x, _currentCell.y].Room = Instantiate(_rooms[0], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.identity, transform);
                     _roomCount++;
                 }
-                _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
+
+                _board[_currentCell.x, _currentCell.y].Visited = true;
 
                 if (_roomCount >= _maxRooms)
                     break; //End iteration
 
-                _board[_currentCell.x, _currentCell.y].Visited = true;
-
-                yield return WaitHandler.GetWaitForSeconds(_delay);
+                //yield return WaitHandler.GetWaitForSeconds(_delay);
 
                 List<Vector2Int> neighbours = CheckNeighbours(_currentCell);
 
@@ -121,13 +120,13 @@ namespace CBA.LevelGeneration
                         _board[nextCell.x, nextCell.y].Exits[2] = true;
                     }
 
-                    //TODO
-                    _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
                     _currentCell = nextCell;
                 }
             }
 
             Debug.LogWarning("GENERATION COMPLETE");
+            TestSpawnRooms();
+
         }
 
 
@@ -145,27 +144,39 @@ namespace CBA.LevelGeneration
             //Additional Note: Keep in mind that the positive values on the board goes right and down.
 
             //Left
-            if (cell.x - 1 >= 0 && !_board[cell.x - 1, cell.y].Visited)
+            if (cell.x - 1 >= 0)
             {
-                neighbours.Add(new Vector2Int(cell.x - 1, cell.y));
+                if (_allowLoops || !_board[cell.x - 1, cell.y].Visited)
+                {
+                    neighbours.Add(new Vector2Int(cell.x - 1, cell.y));
+                }
             }
 
             //Right
-            if (cell.x + 1 < _boardSize.x && !_board[cell.x + 1, cell.y].Visited)
+            if (cell.x + 1 < _boardSize.x )
             {
-                neighbours.Add(new Vector2Int(cell.x + 1, cell.y));
+                if (_allowLoops || !_board[cell.x + 1, cell.y].Visited)
+                {
+                    neighbours.Add(new Vector2Int(cell.x + 1, cell.y));
+                }
             }
 
             //Up
-            if (cell.y - 1 >= 0 && !_board[cell.x, cell.y - 1].Visited)
+            if (cell.y - 1 >= 0)
             {
-                neighbours.Add(new Vector2Int(cell.x, cell.y - 1));
+                if (_allowLoops || !_board[cell.x, cell.y - 1].Visited)
+                {
+                    neighbours.Add(new Vector2Int(cell.x, cell.y - 1));
+                }
             }
 
             //Down
-            if (cell.y + 1 < _boardSize.y && !_board[cell.x, cell.y + 1].Visited)
+            if (cell.y + 1 < _boardSize.y)
             {
-                neighbours.Add(new Vector2Int(cell.x, cell.y + 1));
+                if (_allowLoops || !_board[cell.x, cell.y + 1].Visited)
+                {
+                    neighbours.Add(new Vector2Int(cell.x, cell.y + 1));
+                }
             }
 
             return neighbours;
@@ -180,10 +191,14 @@ namespace CBA.LevelGeneration
                 for (int j = 0; j < _boardSize.y; j++)
                 {
                     Cell cell = _board[i, j];
-                    //cell.UpdateTypeAndRotation();
+                    if (cell.Visited)
+                    {
+                        //cell.UpdateTypeAndRotation();
 
-                    //var room = Instantiate(_rooms[0], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform).GetComponent<RoomController>();
-                    //room.UpdateExits(_board[i, j].Exits);
+                        var room = Instantiate(_rooms[0], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
+                        room.UpdateExits(_board[i, j].Exits);
+                    }
+
                 }
             }
         }
