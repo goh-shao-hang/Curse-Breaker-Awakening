@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace CBA.LevelGeneration
 {
-    public class Cell
+    public class LevelCell
     {
         public bool Visited = false;
-        public bool[] Exits = new bool[4];
+        public bool[] Exits = new bool[4]; //Up -> Down -> Right -> Left
     }
 }

@@ -8,6 +8,7 @@ namespace CBA
     {
         public const string DEPENDENCIES = "Dependencies";
         public const string SETTINGS = "Settings";
+        public const string DEBUG = "Debug";
         public const string CUSTOMIZATION = "Cutomization";
         public const string MODULES = "Modules";
 

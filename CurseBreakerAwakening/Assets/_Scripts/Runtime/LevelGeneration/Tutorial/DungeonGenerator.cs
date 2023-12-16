@@ -8,7 +8,7 @@ namespace CBA.LevelGeneration
     public class DungeonGenerator : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
-        [SerializeField] private RoomController _roomPrefab;
+        [SerializeField] private Rule[] _rooms;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private Vector2 _roomOffset;
@@ -41,7 +41,7 @@ namespace CBA.LevelGeneration
             int currentCell = _startPos;
             int iterations = 0;
 
-            while (iterations < _maxIterations) 
+            while (iterations < _maxIterations)
             {
                 //Take a step
                 iterations++;
@@ -156,7 +156,38 @@ namespace CBA.LevelGeneration
                     if (currentCell.Visited)
                     {
                         //Spawn room at the grid, with regarding to the offset (offset i times to right and j times downwards)
-                        var newRoom = Instantiate(_roomPrefab, new Vector3(i * _roomOffset.x, 0, -j * _roomOffset.y), Quaternion.identity, transform);
+                        int random = -1;
+                        List<int> availableRooms = new List<int>();
+                        for (int k = 0; k < _rooms.Length; k++)
+                        {
+                            int probability = _rooms[k].GetSpawnChance(i, j);
+
+                            if (probability == 2)
+                            {
+                                random = k; //The first obligatory room at this position will always spawn
+                                break;
+                            }
+                            else if (probability == 1)
+                            {
+                                availableRooms.Add(k); //Add to a list of room that can be spawned and decide which to spawn later
+                            }
+                        }
+
+                        if (random == -1) //No obligatory room found
+                        {
+                            //Choose from any available rooms
+                            if (availableRooms.Count > 0)
+                            {
+                                random = availableRooms[Random.Range(0, availableRooms.Count)];
+                            }
+                            else //No possible rooms found
+                            {
+                                Debug.LogWarning($"Default Room spawned at {i},{j}");
+                                random = 0; //Use default room instead
+                            }
+                        }
+
+                        var newRoom = Instantiate(_rooms[random].RoomPrefab, new Vector3(i * _roomOffset.x, 0, -j * _roomOffset.y), Quaternion.identity, transform);
                         newRoom.UpdateExits(currentCell.Exits); //Update the room regarding which exits should be open
 
                         newRoom.name += $" {i}-{j}";
