@@ -322,6 +322,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &369324432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369324433}
+  m_Layer: 0
+  m_Name: LEVEL GENERATION
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369324433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369324432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 839470758}
+  - {fileID: 686601536}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &686601535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686601536}
+  - component: {fileID: 686601537}
+  m_Layer: 0
+  m_Name: RoomSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &686601536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686601535}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 369324433}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &686601537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686601535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0155b196d70719b47b486912c4da5e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelGenerator: {fileID: 839470757}
+  _roomDatas:
+  - RoomShape: 0
+    RoomPrefabs:
+    - {fileID: 3839247232520740845, guid: 81793333e499be24e9151aee2ae46591, type: 3}
+  - RoomShape: 1
+    RoomPrefabs:
+    - {fileID: 5048578314796642081, guid: 063072ab62c7d4544bd932f8db0c761d, type: 3}
+  - RoomShape: 2
+    RoomPrefabs:
+    - {fileID: 3573811737770999564, guid: 5c264f2e4491ead47874682f08982537, type: 3}
+  - RoomShape: 3
+    RoomPrefabs:
+    - {fileID: 4505497113257158614, guid: 7260cc69b780378458b7716e50214217, type: 3}
+  - RoomShape: 4
+    RoomPrefabs:
+    - {fileID: 2786619811599399143, guid: 6518fb7a3417bea45b2749bd7456eddc, type: 3}
+  _roomOffset: {x: 10, y: 10}
 --- !u!1 &839470756
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +428,7 @@ GameObject:
   - component: {fileID: 839470758}
   - component: {fileID: 839470757}
   m_Layer: 0
-  m_Name: NewGenerator
+  m_Name: LevelGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,12 +448,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rooms:
   - {fileID: 8408015851019220780, guid: 72159a47cf286ad478925d9c03f3962d, type: 3}
-  _boardSize: {x: 10, y: 10}
+  BoardSize: {x: 10, y: 10}
+  _startPosition: {x: 0, y: 0}
   _maxIterations: 1000
   _maxRooms: 20
+  _allowLoops: 1
+  _isolateFirstRoom: 1
+  _roomSpawner: {fileID: 686601537}
   _roomOffset: {x: 10, y: 10}
   _delay: 0
-  _startPosition: {x: 0, y: 0}
 --- !u!4 &839470758
 Transform:
   m_ObjectHideFlags: 0
@@ -366,13 +464,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839470756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 369324433}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &843587073 stripped
 MonoBehaviour:

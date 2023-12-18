@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 using GameCells.Utilities;
+using UnityEngine.Serialization;
 
 namespace CBA.LevelGeneration
 {
@@ -14,19 +14,22 @@ namespace CBA.LevelGeneration
         [SerializeField] private RoomController[] _rooms;
 
         [Header(GameData.SETTINGS)]
-        [SerializeField] private Vector2Int _boardSize;
+        [FormerlySerializedAs("_boardSize")] [field: SerializeField] public Vector2Int BoardSize;
+        [SerializeField] private Vector2Int _startPosition = Vector2Int.zero;
         [SerializeField] private int _maxIterations = 1000;
         [SerializeField] private int _maxRooms = 25;
         [SerializeField] private bool _allowLoops = true;
+        [SerializeField] private bool _isolateFirstRoom = true;
 
         [Header(GameData.DEBUG)]
+        [SerializeField] private RoomSpawner _roomSpawner;
         [SerializeField] private Vector2 _roomOffset;
         [SerializeField] private float _delay;
 
-        //TODO change
-        [SerializeField] private Vector2Int _startPosition = Vector2Int.zero;
+        public event Action OnGenerationCompleted;
 
-        private Cell[,] _board;
+        public Cell[,] Board { get; private set; }
+        public Dictionary<Cell, int> CellIndexDict { get; private set; } = new Dictionary<Cell, int>();
 
         private Vector2Int _currentCell;
         private Stack<Vector2Int> _path = new Stack<Vector2Int>();
@@ -41,12 +44,12 @@ namespace CBA.LevelGeneration
         private IEnumerator Generate()
         {
             //Board Initialization
-            _board = new Cell[_boardSize.x, _boardSize.y];
-            for (int i = 0; i < _boardSize.x; i++)
+            Board = new Cell[BoardSize.x, BoardSize.y];
+            for (int i = 0; i < BoardSize.x; i++)
             {
-                for (int j = 0; j < _boardSize.y; j++)
+                for (int j = 0; j < BoardSize.y; j++)
                 {
-                    _board[i, j] = new Cell();
+                    Board[i, j] = new Cell();
                 }
             }
 
@@ -57,14 +60,26 @@ namespace CBA.LevelGeneration
             {
                 iterations++;
 
-                if (!_board[_currentCell.x, _currentCell.y].Visited)
+                if (!Board[_currentCell.x, _currentCell.y].Visited)
                 {
                     _roomCount++;
-                    _board[_currentCell.x, _currentCell.y].Room = Instantiate(_rooms[0], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
+
+                    //TODO dont instantiate here, find and remove update exits
+                    //Board[_currentCell.x, _currentCell.y].Room = Instantiate(_rooms[0], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
+
+                    Board[_currentCell.x, _currentCell.y].UpdateTypeAndRotation();
+                    ERoomShape roomShape = Board[_currentCell.x, _currentCell.y].RoomShape;
+                    GameObject[] roomPrefabs = _roomSpawner._roomPrefabsDict[roomShape];
+                    int random = Random.Range(0, roomPrefabs.Length);
+
+                    Board[_currentCell.x, _currentCell.y].Room = Instantiate(roomPrefabs[random], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, Board[_currentCell.x, _currentCell.y].RoomRotation, 0f), transform);
+
+                    //Assign index
+                    CellIndexDict.Add(Board[_currentCell.x, _currentCell.y], _roomCount);
                 }
 
-                _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
-                _board[_currentCell.x, _currentCell.y].Visited = true;
+                //Board[_currentCell.x, _currentCell.y].Room.UpdateExits(Board[_currentCell.x, _currentCell.y].Exits);
+                Board[_currentCell.x, _currentCell.y].Visited = true;
 
                 if (_roomCount >= _maxRooms)
                     break; //End iteration
@@ -98,36 +113,63 @@ namespace CBA.LevelGeneration
                     //Up
                     if (nextCell.y > _currentCell.y)
                     {
-                        _board[_currentCell.x, _currentCell.y].Exits[0] = true; //Up exit is open
-                        _board[nextCell.x, nextCell.y].Exits[1] = true;
+                        Board[_currentCell.x, _currentCell.y].Exits[0] = true; //Up exit is open
+                        Board[nextCell.x, nextCell.y].Exits[2] = true;
                     }
                     //Down
                     else if (nextCell.y < _currentCell.y)
                     {
-                        _board[_currentCell.x, _currentCell.y].Exits[1] = true; //Down exit is open
-                        _board[nextCell.x, nextCell.y].Exits[0] = true;
+                        Board[_currentCell.x, _currentCell.y].Exits[2] = true; //Down exit is open
+                        Board[nextCell.x, nextCell.y].Exits[0] = true;
                     }
                     //Right
                     else if (nextCell.x > _currentCell.x)
                     {
-                        _board[_currentCell.x, _currentCell.y].Exits[2] = true; //Right exit is open
-                        _board[nextCell.x, nextCell.y].Exits[3] = true;
+                        Board[_currentCell.x, _currentCell.y].Exits[1] = true; //Right exit is open
+                        Board[nextCell.x, nextCell.y].Exits[3] = true;
                     }
                     //Left
                     else
                     {
-                        _board[_currentCell.x, _currentCell.y].Exits[3] = true; //Left exit is open
-                        _board[nextCell.x, nextCell.y].Exits[2] = true;
+                        Board[_currentCell.x, _currentCell.y].Exits[3] = true; //Left exit is open
+                        Board[nextCell.x, nextCell.y].Exits[1] = true;
                     }
 
-                    _board[_currentCell.x, _currentCell.y].Room.UpdateExits(_board[_currentCell.x, _currentCell.y].Exits);
+                    Board[_currentCell.x, _currentCell.y].UpdateTypeAndRotation();
+                    Destroy(Board[_currentCell.x, _currentCell.y].Room);
+                    ERoomShape roomShape = Board[_currentCell.x, _currentCell.y].RoomShape;
+                    GameObject[] roomPrefabs = _roomSpawner._roomPrefabsDict[roomShape];
+                    int random = Random.Range(0, roomPrefabs.Length);
+                    Board[_currentCell.x, _currentCell.y].Room = Instantiate(roomPrefabs[random], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, Board[_currentCell.x, _currentCell.y].RoomRotation, 0f), transform);
+
+                    //Board[_currentCell.x, _currentCell.y].Room.UpdateExits(Board[_currentCell.x, _currentCell.y].Exits);
                     _currentCell = nextCell;
                 }
             }
 
-            Debug.LogWarning("GENERATION COMPLETE");
-            TestSpawnRooms();
+            OnGenerationCompleted?.Invoke();
 
+            Debug.LogWarning("GENERATION COMPLETE");
+
+            //TestSpawnRooms();
+            //SpawnRooms();
+
+        }
+
+        private void UpdateAllCellTypes()
+        {
+            for (int i = 0; i < BoardSize.x; i++)
+            {
+                // Loop through columns
+                for (int j = 0; j < BoardSize.y; j++)
+                {
+                    Cell cell = Board[i, j];
+                    if (cell.Visited)
+                    {
+                        cell.UpdateTypeAndRotation();
+                    }
+                }
+            }
         }
 
 
@@ -147,36 +189,40 @@ namespace CBA.LevelGeneration
             //Left
             if (cell.x - 1 >= 0)
             {
-                if (_allowLoops || !_board[cell.x - 1, cell.y].Visited)
+                if (_allowLoops || !Board[cell.x - 1, cell.y].Visited) //Valid if loop allowed or cell is not yet visited
                 {
-                    neighbours.Add(new Vector2Int(cell.x - 1, cell.y));
+                    if (!_isolateFirstRoom || _startPosition != new Vector2Int(cell.x - 1, cell.y)) //Not valid if first room is isolated and neighbour is the first room
+                        neighbours.Add(new Vector2Int(cell.x - 1, cell.y));
                 }
             }
 
             //Right
-            if (cell.x + 1 < _boardSize.x )
+            if (cell.x + 1 < BoardSize.x )
             {
-                if (_allowLoops || !_board[cell.x + 1, cell.y].Visited)
+                if (_allowLoops || !Board[cell.x + 1, cell.y].Visited)
                 {
-                    neighbours.Add(new Vector2Int(cell.x + 1, cell.y));
+                    if (!_isolateFirstRoom || _startPosition != new Vector2Int(cell.x + 1, cell.y)) //Not valid if first room is isolated and neighbour is the first room
+                        neighbours.Add(new Vector2Int(cell.x + 1, cell.y));
                 }
             }
 
             //Up
             if (cell.y - 1 >= 0)
             {
-                if (_allowLoops || !_board[cell.x, cell.y - 1].Visited)
+                if (_allowLoops || !Board[cell.x, cell.y - 1].Visited)
                 {
-                    neighbours.Add(new Vector2Int(cell.x, cell.y - 1));
+                    if (!_isolateFirstRoom || _startPosition != new Vector2Int(cell.x, cell.y - 1)) //Not valid if first room is isolated and neighbour is the first room
+                        neighbours.Add(new Vector2Int(cell.x, cell.y - 1));
                 }
             }
 
             //Down
-            if (cell.y + 1 < _boardSize.y)
+            if (cell.y + 1 < BoardSize.y)
             {
-                if (_allowLoops || !_board[cell.x, cell.y + 1].Visited)
+                if (_allowLoops || !Board[cell.x, cell.y + 1].Visited)
                 {
-                    neighbours.Add(new Vector2Int(cell.x, cell.y + 1));
+                    if (!_isolateFirstRoom || _startPosition != new Vector2Int(cell.x - 1, cell.y + 1)) //Not valid if first room is isolated and neighbour is the first room
+                        neighbours.Add(new Vector2Int(cell.x, cell.y + 1));
                 }
             }
 
@@ -186,18 +232,39 @@ namespace CBA.LevelGeneration
         private void TestSpawnRooms()
         {
             //Loop through rows
-            for (int i = 0; i < _boardSize.x; i++)
+            for (int i = 0; i < BoardSize.x; i++)
             {
                 // Loop through columns
-                for (int j = 0; j < _boardSize.y; j++)
+                for (int j = 0; j < BoardSize.y; j++)
                 {
-                    Cell cell = _board[i, j];
+                    Cell cell = Board[i, j];
                     if (cell.Visited)
                     {
                         //cell.UpdateTypeAndRotation();
 
                         //var room = Instantiate(_rooms[0], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
                         //room.UpdateExits(_board[i, j].Exits);
+                    }
+
+                }
+            }
+        }
+
+        private void SpawnRooms()
+        {
+            for (int i = 0; i < BoardSize.x; i++)
+            {
+                for (int j = 0; j < BoardSize.y; j++)
+                {
+                    Cell currentCell = Board[i, j];
+                    if (currentCell.Visited)
+                    {
+                        currentCell.UpdateTypeAndRotation();
+                        ERoomShape roomShape = currentCell.RoomShape;
+                        GameObject[] roomPrefabs = _roomSpawner._roomPrefabsDict[roomShape];
+                        int random = Random.Range(0, roomPrefabs.Length);
+
+                        Instantiate(roomPrefabs[random], new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform);
                     }
 
                 }

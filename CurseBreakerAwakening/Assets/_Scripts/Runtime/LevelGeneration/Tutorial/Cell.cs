@@ -8,10 +8,12 @@ namespace CBA.LevelGeneration
     public class Cell
     {
         public bool Visited = false;
-        public bool[] Exits = new bool[4]; //Up -> Down -> Right -> Left
+        public bool[] Exits = new bool[4]; //Up -> Right -> Down -> Left
 
         //TODO TEST
-        public RoomController Room;
+        //public RoomController Room;
+        public GameObject Room;
+
 
         public ERoomShape RoomShape { get; private set; }
         public float RoomRotation { get; private set; }
@@ -41,16 +43,28 @@ namespace CBA.LevelGeneration
                 {
                     if (!Exits[i])
                     {
-                        return;
+                        break;
                     }
                     closedExitIndex++;
                 }
 
-                RoomRotation = 90 * closedExitIndex;
+                RoomRotation = 180 + (90 * closedExitIndex); //Face away from closed exit
             }
             else if (exitCount == 2)
             {
-                if (Exits[0] == Exits[2] && Exits[1] == Exits[3])
+                if (Exits[0] == Exits[2])
+                {
+                    RoomShape = ERoomShape.TwoExits_I;
+                    if (Exits[0])
+                    {
+                        RoomRotation = 0f;
+                    }
+                    else
+                    {
+                        RoomRotation = 90f;
+                    }
+                }
+                else
                 {
                     RoomShape = ERoomShape.TwoExits_L;
 
@@ -70,18 +84,6 @@ namespace CBA.LevelGeneration
                             break;
                     }
                 }
-                else
-                {
-                    RoomShape = ERoomShape.TwoExits_I;
-                    if (Exits[0])
-                    {
-                        RoomRotation = 0f;
-                    }
-                    else
-                    {
-                        RoomRotation = 90f;
-                    }
-                }
             }
             else if (exitCount == 1)
             {
@@ -92,7 +94,7 @@ namespace CBA.LevelGeneration
                 {
                     if (Exits[i])
                     {
-                        return;
+                        break;
                     }
                     openExitIndex++;
                 }

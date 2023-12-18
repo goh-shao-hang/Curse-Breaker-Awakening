@@ -79,14 +79,14 @@ namespace CBA.LevelGeneration
                         if (nextCell - 1 == currentCell)
                         {
                             //Next cell is at right
-                            _board[currentCell].Exits[2] = true; //This cell has exit to right
+                            _board[currentCell].Exits[1] = true; //This cell has exit to right
                             currentCell = nextCell;
                             _board[currentCell].Exits[3] = true; //Next cell has exit to left
                         }
                         else
                         {
                             //Next cell is below
-                            _board[currentCell].Exits[1] = true; //This cell has exit to down
+                            _board[currentCell].Exits[2] = true; //This cell has exit to down
                             currentCell = nextCell;
                             _board[currentCell].Exits[0] = true; //Next cell has exit to up
                         }
@@ -98,14 +98,14 @@ namespace CBA.LevelGeneration
                             //Next cell is at left
                             _board[currentCell].Exits[3] = true; //This cell has exit to left
                             currentCell = nextCell;
-                            _board[currentCell].Exits[2] = true; //Next cell has exit to right
+                            _board[currentCell].Exits[1] = true; //Next cell has exit to right
                         }
                         else
                         {
                             //Next cell is above
                             _board[currentCell].Exits[0] = true; //This cell has exit to up
                             currentCell = nextCell;
-                            _board[currentCell].Exits[1] = true; //Next cell has exit to down
+                            _board[currentCell].Exits[2] = true; //Next cell has exit to down
                         }
                     }
                 }

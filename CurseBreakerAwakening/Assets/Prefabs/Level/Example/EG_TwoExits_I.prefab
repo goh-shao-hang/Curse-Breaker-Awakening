@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 6501527911407180580}
   - component: {fileID: 4969689849446193997}
   - component: {fileID: 7107793946539388132}
-  - component: {fileID: -3077476465156427772}
   m_Layer: 6
   m_Name: EG_TwoExits_I
   m_TagString: Untagged
@@ -197,19 +196,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3077476465156427772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573811737770999564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f2b1c5a1de37ee409ac77d09f6c579a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _roomShape: 0
 --- !u!1 &8340187278743708077
 GameObject:
   m_ObjectHideFlags: 0
