@@ -12,7 +12,7 @@ namespace CBA.LevelGeneration
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private LevelGenerator _levelGenerator;
-        [SerializeField] private RoomShapeData[] _roomDatas;
+        [SerializeField] private RoomTypeData[] _roomTypeDatas;
         [SerializeField] private RoomSpawnerRule[] _rules;
 
         [Header(GameData.SETTINGS)]
@@ -21,7 +21,7 @@ namespace CBA.LevelGeneration
         [Header(GameData.DEBUG)]
         [SerializeField] private bool _visualizeGeneration;
 
-        private Dictionary<ERoomShape, Dictionary<ERoomType, GameObject[]>> _roomsDict = new Dictionary<ERoomShape, Dictionary<ERoomType, GameObject[]>>();
+        private Dictionary<ERoomType, Dictionary<ERoomShape, List<GameObject>>> _roomsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<GameObject>>>();
 
         //For visualization only
         private Dictionary<Cell, GameObject> RoomsDict = new Dictionary<Cell, GameObject>();
@@ -30,18 +30,20 @@ namespace CBA.LevelGeneration
         private void Awake()
         {
             //Dictionary initialization
-            foreach (var data in _roomDatas)
+            foreach (var data in _roomTypeDatas)
             {
-                if (!_roomsDict.ContainsKey(data.RoomShape))
+                if (!_roomsDict.ContainsKey(data.RoomType))
                 {
-                    _roomsDict.Add(data.RoomShape, new Dictionary<ERoomType, GameObject[]>());
+                    _roomsDict.Add(data.RoomType, new Dictionary<ERoomShape, List<GameObject>>());
 
-                    foreach (var types in data.RoomTypes)
+                    foreach (Room room in data.RoomPrefabs)
                     {
-                        if (!_roomsDict[data.RoomShape].ContainsKey(types.RoomType))
+                        if (!_roomsDict[data.RoomType].ContainsKey(room.RoomShape))
                         {
-                            _roomsDict[data.RoomShape].Add(types.RoomType, types.RoomPrefabs);
+                            _roomsDict[data.RoomType].Add(room.RoomShape, new List<GameObject>());
                         }
+
+                        _roomsDict[data.RoomType][room.RoomShape].Add(room.gameObject);
                     }
                 }
             }
@@ -65,8 +67,8 @@ namespace CBA.LevelGeneration
 
         private GameObject GetRandomRoomOfShapeAndType(ERoomShape shape, ERoomType type)
         {
-            GameObject[] PossibleRooms = _roomsDict[shape][type];
-            return PossibleRooms[Random.Range(0, PossibleRooms.Length)];
+            List<GameObject> PossibleRooms = _roomsDict[type][shape];
+            return PossibleRooms[Random.Range(0, PossibleRooms.Count)];
         }
 
         private void SpawnIndividualRoom(Cell cell, Vector2Int cellPosition)
@@ -151,29 +153,10 @@ namespace CBA.LevelGeneration
                 rule.UpdateName();
             }
 
-            foreach (var data in _roomDatas)
+            foreach (var data in _roomTypeDatas)
             {
                 data.UpdateName();
-
-                foreach (var room in data.RoomTypes)
-                {
-                    room.UpdateName();
-                }
             }
-        }
-    }
-
-    [Serializable]
-    public class RoomShapeData
-    {
-        [HideInInspector] public string ShapeName;
-
-        public ERoomShape RoomShape;
-        [FormerlySerializedAs("Rooms")] public RoomTypeData[] RoomTypes;
-
-        public void UpdateName()
-        {
-            ShapeName = RoomShape.ToString();
         }
     }
 
@@ -183,7 +166,7 @@ namespace CBA.LevelGeneration
         [HideInInspector] public string RoomTypeName;
 
         public ERoomType RoomType = ERoomType.Normal;
-        public GameObject[] RoomPrefabs;
+        public Room[] RoomPrefabs;
 
         public void UpdateName()
         {

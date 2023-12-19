@@ -770,54 +770,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelGenerator: {fileID: 839470757}
-  _roomDatas:
-  - ShapeName: SingleExit
-    RoomShape: 0
-    RoomTypes:
-    - RoomTypeName: Entrance
-      RoomType: 0
-      RoomPrefabs:
-      - {fileID: 3839247232520740845, guid: bab65f8489f6db94a9e3116c13776fa2, type: 3}
-    - RoomTypeName: Normal
-      RoomType: 1
-      RoomPrefabs:
-      - {fileID: 3839247232520740845, guid: 81793333e499be24e9151aee2ae46591, type: 3}
-    - RoomTypeName: Boss
-      RoomType: 3
-      RoomPrefabs:
-      - {fileID: 3839247232520740845, guid: 31bf9ff66b6072842a650ce148625e35, type: 3}
-    - RoomTypeName: Treasure
-      RoomType: 2
-      RoomPrefabs:
-      - {fileID: 3839247232520740845, guid: a8bbb9d1dcf100a43bcb65f8c284330a, type: 3}
-  - ShapeName: TwoExits_L
-    RoomShape: 1
-    RoomTypes:
-    - RoomTypeName: Normal
-      RoomType: 1
-      RoomPrefabs:
-      - {fileID: 5048578314796642081, guid: 063072ab62c7d4544bd932f8db0c761d, type: 3}
-  - ShapeName: TwoExits_I
-    RoomShape: 2
-    RoomTypes:
-    - RoomTypeName: Normal
-      RoomType: 1
-      RoomPrefabs:
-      - {fileID: 3573811737770999564, guid: 5c264f2e4491ead47874682f08982537, type: 3}
-  - ShapeName: ThreeExits
-    RoomShape: 3
-    RoomTypes:
-    - RoomTypeName: Normal
-      RoomType: 1
-      RoomPrefabs:
-      - {fileID: 4505497113257158614, guid: 7260cc69b780378458b7716e50214217, type: 3}
-  - ShapeName: FourExits
-    RoomShape: 4
-    RoomTypes:
-    - RoomTypeName: Normal
-      RoomType: 1
-      RoomPrefabs:
-      - {fileID: 2786619811599399143, guid: 6518fb7a3417bea45b2749bd7456eddc, type: 3}
+  _roomTypeDatas:
+  - RoomTypeName: Entrance
+    RoomType: 0
+    RoomPrefabs:
+    - {fileID: -3437908115205379465, guid: bab65f8489f6db94a9e3116c13776fa2, type: 3}
+  - RoomTypeName: Normal
+    RoomType: 1
+    RoomPrefabs:
+    - {fileID: -9156250047584521879, guid: 6518fb7a3417bea45b2749bd7456eddc, type: 3}
+    - {fileID: 243501877520587220, guid: 81793333e499be24e9151aee2ae46591, type: 3}
+    - {fileID: 67673481803098544, guid: 7260cc69b780378458b7716e50214217, type: 3}
+    - {fileID: 7414888675471219771, guid: 5c264f2e4491ead47874682f08982537, type: 3}
+    - {fileID: 4160577134551000602, guid: 063072ab62c7d4544bd932f8db0c761d, type: 3}
+  - RoomTypeName: Boss
+    RoomType: 3
+    RoomPrefabs:
+    - {fileID: 5190685641103074527, guid: 31bf9ff66b6072842a650ce148625e35, type: 3}
+  - RoomTypeName: Treasure
+    RoomType: 2
+    RoomPrefabs:
+    - {fileID: -9061896951187281405, guid: b007041de47ac1a4c837a69433d8054d, type: 3}
+    - {fileID: -8549445220517054011, guid: a8bbb9d1dcf100a43bcb65f8c284330a, type: 3}
+    - {fileID: -1155610660044828048, guid: 0152f5127347d324586046e4cb84b94e, type: 3}
+    - {fileID: 3259637781907372472, guid: eaa5e5cd96aeec04a9bfdff0bdfdbbdb, type: 3}
+    - {fileID: -7721312874975349721, guid: 7b01969b46fc1bf48bbd4423cf4bf2fc, type: 3}
   _rules:
   - ruleName: Entrance
     roomType: 0

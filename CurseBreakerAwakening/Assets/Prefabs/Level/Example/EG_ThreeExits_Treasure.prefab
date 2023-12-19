@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 2416333167045282502}
   - component: {fileID: 7024084744181764639}
   - component: {fileID: 8362396388786797512}
+  - component: {fileID: -1155610660044828048}
   m_Layer: 6
   m_Name: EG_ThreeExits_Treasure
   m_TagString: Untagged
@@ -197,6 +198,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1155610660044828048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505497113257158614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d479755f48758e4a84b852338aeeeb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RoomShape>k__BackingField: 3
 --- !u!1 &5031095895856221051
 GameObject:
   m_ObjectHideFlags: 0

@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 2410543855490947476}
   - component: {fileID: 5314583779375301952}
   - component: {fileID: 2611071676298419121}
+  - component: {fileID: -9061896951187281405}
   m_Layer: 6
   m_Name: EG_FourExits_Treasure
   m_TagString: Untagged
@@ -198,6 +199,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-9061896951187281405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786619811599399143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d479755f48758e4a84b852338aeeeb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <RoomShape>k__BackingField: 4
 --- !u!1 &4960421977768568222
 GameObject:
   m_ObjectHideFlags: 0
