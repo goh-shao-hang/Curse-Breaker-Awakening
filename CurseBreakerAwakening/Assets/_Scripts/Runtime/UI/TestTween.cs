@@ -14,6 +14,7 @@ public class TestTween : MonoBehaviour
     [SerializeField] private float _endXPos = -450f;
     [SerializeField] private float _rotation = 180f;
     [SerializeField] private TextMeshProUGUI _clickToStart;
+    [SerializeField] private RectTransform _particleSystem;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class TestTween : MonoBehaviour
 
         _clickToStart.alpha = 0;
 
+        _particleSystem.GetComponent<ParticleSystem>().Stop();
 
         _title1.DOFade(1, 1.5f).SetDelay(0.5f).SetEase(Ease.InOutSine);
         _title1.rectTransform.DOScale(1, 1.5f).SetDelay(0.5f).SetEase(Ease.OutSine).OnComplete(Title2);
@@ -45,6 +47,9 @@ public class TestTween : MonoBehaviour
         flash.rectTransform.DOScale(0, _duration).SetEase(Ease.OutSine);
         flash.rectTransform.DORotate(new Vector3(0, 0, _rotation), _duration, RotateMode.FastBeyond360).SetEase(Ease.OutSine);
         flash.rectTransform.DOAnchorPosX(_endXPos, _duration);
+
+        _particleSystem.DOAnchorPosX(_endXPos, _duration).OnComplete(() => _particleSystem.GetComponent<ParticleSystem>().Stop());
+        _particleSystem.GetComponent<ParticleSystem>().Play();
 
         Invoke(nameof(ClickToStart), 1f);
     }
