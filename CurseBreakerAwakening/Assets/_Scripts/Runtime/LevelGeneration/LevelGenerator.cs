@@ -68,17 +68,7 @@ namespace CBA.LevelGeneration
                 {
                     _roomCount++;
 
-                    //TODO dont instantiate here, find and remove update exits
-                    //Board[_currentCell.x, _currentCell.y].Room = Instantiate(_rooms[0], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, 0f, 0f), transform);
-
                     OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
-
-                    //Board[_currentCell.x, _currentCell.y].UpdateTypeAndRotation();
-                    //ERoomShape roomShape = Board[_currentCell.x, _currentCell.y].RoomShape;
-                    //GameObject[] roomPrefabs = _roomSpawner._roomPrefabsDict[roomShape];
-                    //int random = Random.Range(0, roomPrefabs.Length);
-
-                    //Board[_currentCell.x, _currentCell.y].Room = Instantiate(roomPrefabs[random], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, Board[_currentCell.x, _currentCell.y].RoomRotation, 0f), transform);
 
                     //Assign index
                     CellIndexDict.Add(_roomCount, Board[_currentCell.x, _currentCell.y]);
@@ -140,16 +130,7 @@ namespace CBA.LevelGeneration
                         Board[_currentCell.x, _currentCell.y].Exits[3] = true; //Left exit is open
                         Board[nextCell.x, nextCell.y].Exits[1] = true;
                     }
-
-
-
-                    //Board[_currentCell.x, _currentCell.y].UpdateTypeAndRotation();
-                    //Destroy(Board[_currentCell.x, _currentCell.y].Room);
-                    //ERoomShape roomShape = Board[_currentCell.x, _currentCell.y].RoomShape;
-                    //GameObject[] roomPrefabs = _roomSpawner._roomPrefabsDict[roomShape];
-                    //int random = Random.Range(0, roomPrefabs.Length);
-                    //Board[_currentCell.x, _currentCell.y].Room = Instantiate(roomPrefabs[random], new Vector3(_currentCell.x * _roomOffset.x, 0, _currentCell.y * _roomOffset.y), Quaternion.Euler(0f, Board[_currentCell.x, _currentCell.y].RoomRotation, 0f), transform);
-
+                    
                     OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
 
                     _currentCell = nextCell;

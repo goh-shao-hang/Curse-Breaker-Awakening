@@ -816,7 +816,7 @@ MonoBehaviour:
     SpawnIndex: 
     IsOptional: 0
   _roomOffset: {x: 10, y: 10}
-  _visualizeGeneration: 1
+  _visualizeGeneration: 0
 --- !u!1001 &762218798
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -36,17 +36,17 @@ namespace CBA.LevelGeneration
 
         private void OnEnable()
         {
-            _levelGenerator.OnGenerationCompleted += SpawnRooms;
-
-            if (_visualizeGeneration)
+            if (!_visualizeGeneration)
+                _levelGenerator.OnGenerationCompleted += SpawnRooms;
+            else
                 _levelGenerator.OnCellUpdate += SpawnIndividualRoom;
         }
 
         private void OnDisable()
         {
-            _levelGenerator.OnGenerationCompleted -= SpawnRooms;
-
-            if (_visualizeGeneration)
+            if (!_visualizeGeneration)
+                _levelGenerator.OnGenerationCompleted -= SpawnRooms;
+            else
                 _levelGenerator.OnCellUpdate -= SpawnIndividualRoom;
         }
 
@@ -57,17 +57,17 @@ namespace CBA.LevelGeneration
             GameObject[] roomPrefabs = _roomPrefabsDict[roomShape];
             int random = Random.Range(0, roomPrefabs.Length);
 
+            if (cell.Room != null)
+            {
+                Destroy(cell.Room);
+            }
+
             cell.Room = Instantiate(roomPrefabs[random], new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform);
         }
 
         private void SpawnRooms()
         {
-            for (int i = 0; i < _levelGenerator.CellIndexDict.Count; i++)
-            {
-
-            }
-
-            /*for (int i = 0; i < _levelGenerator.BoardSize.x; i++)
+            for (int i = 0; i < _levelGenerator.BoardSize.x; i++)
             {
                 for (int j = 0; j < _levelGenerator.BoardSize.y; j++)
                 {
@@ -82,7 +82,7 @@ namespace CBA.LevelGeneration
                     }
 
                 }
-            }*/
+            }
         }
 
         private void OnValidate()
