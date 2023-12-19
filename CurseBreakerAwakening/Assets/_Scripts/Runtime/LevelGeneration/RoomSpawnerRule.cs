@@ -11,8 +11,10 @@ namespace CBA.LevelGeneration
         [HideInInspector] public string ruleName;
 
         public ERoomType roomType;
-        public int[] SpawnIndex;
-        public bool IsOptional = false;
+        public int MinSpawnIndex;
+        public int MaxSpawnIndex;
+        [Range(0, 1)]
+        public float SpawnChance = 1;
 
         public void UpdateName()
         {

@@ -773,50 +773,74 @@ MonoBehaviour:
   _roomDatas:
   - ShapeName: SingleExit
     RoomShape: 0
-    Rooms:
+    RoomTypes:
     - RoomTypeName: Entrance
       RoomType: 0
       RoomPrefabs:
+      - {fileID: 3839247232520740845, guid: bab65f8489f6db94a9e3116c13776fa2, type: 3}
+    - RoomTypeName: Normal
+      RoomType: 1
+      RoomPrefabs:
       - {fileID: 3839247232520740845, guid: 81793333e499be24e9151aee2ae46591, type: 3}
+    - RoomTypeName: Boss
+      RoomType: 3
+      RoomPrefabs:
+      - {fileID: 3839247232520740845, guid: 31bf9ff66b6072842a650ce148625e35, type: 3}
+    - RoomTypeName: Treasure
+      RoomType: 2
+      RoomPrefabs:
+      - {fileID: 3839247232520740845, guid: a8bbb9d1dcf100a43bcb65f8c284330a, type: 3}
   - ShapeName: TwoExits_L
     RoomShape: 1
-    Rooms:
-    - RoomTypeName: Entrance
-      RoomType: 0
+    RoomTypes:
+    - RoomTypeName: Normal
+      RoomType: 1
       RoomPrefabs:
       - {fileID: 5048578314796642081, guid: 063072ab62c7d4544bd932f8db0c761d, type: 3}
   - ShapeName: TwoExits_I
     RoomShape: 2
-    Rooms:
-    - RoomTypeName: Entrance
-      RoomType: 0
+    RoomTypes:
+    - RoomTypeName: Normal
+      RoomType: 1
       RoomPrefabs:
       - {fileID: 3573811737770999564, guid: 5c264f2e4491ead47874682f08982537, type: 3}
   - ShapeName: ThreeExits
     RoomShape: 3
-    Rooms:
-    - RoomTypeName: Entrance
-      RoomType: 0
+    RoomTypes:
+    - RoomTypeName: Normal
+      RoomType: 1
       RoomPrefabs:
       - {fileID: 4505497113257158614, guid: 7260cc69b780378458b7716e50214217, type: 3}
   - ShapeName: FourExits
     RoomShape: 4
-    Rooms:
-    - RoomTypeName: Entrance
-      RoomType: 0
+    RoomTypes:
+    - RoomTypeName: Normal
+      RoomType: 1
       RoomPrefabs:
       - {fileID: 2786619811599399143, guid: 6518fb7a3417bea45b2749bd7456eddc, type: 3}
   _rules:
   - ruleName: Entrance
     roomType: 0
-    SpawnIndex: 00000000
-    IsOptional: 0
+    MinSpawnIndex: 1
+    MaxSpawnIndex: 1
+    SpawnChance: 1
   - ruleName: Normal
     roomType: 1
-    SpawnIndex: 
-    IsOptional: 0
+    MinSpawnIndex: 2
+    MaxSpawnIndex: 19
+    SpawnChance: 1
+  - ruleName: Boss
+    roomType: 3
+    MinSpawnIndex: 20
+    MaxSpawnIndex: 20
+    SpawnChance: 1
+  - ruleName: Treasure
+    roomType: 2
+    MinSpawnIndex: 2
+    MaxSpawnIndex: 19
+    SpawnChance: 0.1
   _roomOffset: {x: 10, y: 10}
-  _visualizeGeneration: 0
+  _visualizeGeneration: 1
 --- !u!1001 &762218798
 PrefabInstance:
   m_ObjectHideFlags: 0

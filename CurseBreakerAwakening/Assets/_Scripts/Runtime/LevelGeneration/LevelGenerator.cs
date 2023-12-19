@@ -31,7 +31,7 @@ namespace CBA.LevelGeneration
         public event Action OnGenerationCompleted;
 
         public Cell[,] Board { get; private set; }
-        public Dictionary<int, Cell> CellIndexDict { get; private set; } = new Dictionary<int, Cell>();
+        private Dictionary<Cell, int> _cellIndexDict = new Dictionary<Cell, int>();
 
         private Vector2Int _currentCell;
         private Stack<Vector2Int> _path = new Stack<Vector2Int>();
@@ -68,10 +68,10 @@ namespace CBA.LevelGeneration
                 {
                     _roomCount++;
 
-                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
-
                     //Assign index
-                    CellIndexDict.Add(_roomCount, Board[_currentCell.x, _currentCell.y]);
+                    _cellIndexDict.Add(Board[_currentCell.x, _currentCell.y], _roomCount);
+
+                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
                 }
 
                 //Board[_currentCell.x, _currentCell.y].Room.UpdateExits(Board[_currentCell.x, _currentCell.y].Exits);
@@ -137,13 +137,12 @@ namespace CBA.LevelGeneration
                 }
             }
 
-            UpdateAllCellTypes();
             OnGenerationCompleted?.Invoke();
 
             Debug.LogWarning($"GENERATION COMPLETE IN {Time.time - _startTime} SECONDS");
         }
 
-        private void UpdateAllCellTypes()
+        public void UpdateAllCellTypes()
         {
             for (int i = 0; i < BoardSize.x; i++)
             {
@@ -214,6 +213,11 @@ namespace CBA.LevelGeneration
             }
 
             return neighbours;
+        }
+
+        public int GetCellIndex(Cell cell)
+        {
+            return _cellIndexDict[cell];
         }
     }
 }
