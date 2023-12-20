@@ -8,7 +8,6 @@ namespace CBA.LevelGeneration
     public class Room : MonoBehaviour
     {
         [field: SerializeField] public ERoomShape RoomShape { get; private set; }
-
         [field: SerializeField] public Exit[] Exits { get; private set; }
 
         [Serializable]

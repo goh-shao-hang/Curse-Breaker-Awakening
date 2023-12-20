@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2199d9f2a849b4547bcc2587bfb09f0c, type: 3}
+  m_Name: Map Icons
+  m_EditorClassIdentifier: 
+  icons:
+  - IconName: Entrance
+    RoomType: 0
+    Sprite: {fileID: 21300000, guid: 041f9e686e8f32146a29611cdf0b9d8f, type: 3}
+  - IconName: Normal
+    RoomType: 1
+    Sprite: {fileID: 21300000, guid: 8bee69ddc9edd254cb303475a4c71dbb, type: 3}
+  - IconName: Treasure
+    RoomType: 2
+    Sprite: {fileID: 21300000, guid: b5b79825fd7748946905058b88042a31, type: 3}
+  - IconName: Boss
+    RoomType: 3
+    Sprite: {fileID: 21300000, guid: 765b6b53e3fdbb84fa8209c4f9a10c3d, type: 3}

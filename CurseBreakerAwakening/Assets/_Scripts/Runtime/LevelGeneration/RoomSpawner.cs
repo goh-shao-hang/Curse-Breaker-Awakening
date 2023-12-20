@@ -23,8 +23,10 @@ namespace CBA.LevelGeneration
 
         private Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>> _roomsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>>();
 
-        private Dictionary<Vector2Int, Room> RoomsDict = new Dictionary<Vector2Int, Room>();
+        private Dictionary<Vector2Int, Room> _roomPositionDict = new Dictionary<Vector2Int, Room>();
+        private Dictionary<Cell, ERoomType> _roomTypeDict = new Dictionary<Cell, ERoomType>();
 
+        public event Action OnAllRoomsSpawned;
 
         private void Awake()
         {
@@ -53,7 +55,10 @@ namespace CBA.LevelGeneration
             if (!_visualizeGeneration)
                 _levelGenerator.OnGenerationCompleted += SpawnRooms;
             else
+            {
                 _levelGenerator.OnCellUpdate += SpawnIndividualRoom;
+                _levelGenerator.OnGenerationCompleted += () => OnAllRoomsSpawned?.Invoke();
+            }
         }
 
         private void OnDisable()
@@ -61,7 +66,21 @@ namespace CBA.LevelGeneration
             if (!_visualizeGeneration)
                 _levelGenerator.OnGenerationCompleted -= SpawnRooms;
             else
+            {
                 _levelGenerator.OnCellUpdate -= SpawnIndividualRoom;
+                _levelGenerator.OnGenerationCompleted -= () => OnAllRoomsSpawned?.Invoke();
+
+            }
+        }
+
+        public ERoomType GetRoomType(Cell cell)
+        {
+            if (_roomTypeDict.ContainsKey(cell))
+            {
+                return _roomTypeDict[cell];
+            }
+
+            return ERoomType.Normal;
         }
 
         private Room GetRandomRoomOfShapeAndType(ERoomShape shape, ERoomType type)
@@ -80,13 +99,19 @@ namespace CBA.LevelGeneration
             ERoomType roomToSpawn = GetRoomTypeToSpawnFromRules(roomIndex);
             Room room = GetRandomRoomOfShapeAndType(cell.RoomShape, roomToSpawn);
 
-            if (RoomsDict.ContainsKey(cellPosition))
+            if (_roomTypeDict.ContainsKey(cell))
             {
-                Destroy(RoomsDict[cellPosition].gameObject);
-                RoomsDict.Remove(cellPosition);
+                _roomTypeDict.Remove(cell);
+            }
+            _roomTypeDict.Add(cell, roomToSpawn);
+
+            if (_roomPositionDict.ContainsKey(cellPosition))
+            {
+                Destroy(_roomPositionDict[cellPosition].gameObject);
+                _roomPositionDict.Remove(cellPosition);
             }
 
-            RoomsDict.Add(cellPosition, Instantiate(room, new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
+            _roomPositionDict.Add(cellPosition, Instantiate(room, new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
         }
 
         
@@ -107,10 +132,17 @@ namespace CBA.LevelGeneration
                         ERoomType roomToSpawn = GetRoomTypeToSpawnFromRules(roomIndex);
                         Room room = GetRandomRoomOfShapeAndType(currentCell.RoomShape, roomToSpawn);
 
-                        RoomsDict.Add(new Vector2Int(i, j), Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform));
+                        if (!_roomTypeDict.ContainsKey(currentCell))
+                        {
+                            _roomTypeDict.Add(currentCell, roomToSpawn);
+                        }
+
+                        _roomPositionDict.Add(new Vector2Int(i, j), Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform));
                     }
                 }
             }
+
+            OnAllRoomsSpawned?.Invoke();
         }
 
         private ERoomType GetRoomTypeToSpawnFromRules(int roomIndex)
