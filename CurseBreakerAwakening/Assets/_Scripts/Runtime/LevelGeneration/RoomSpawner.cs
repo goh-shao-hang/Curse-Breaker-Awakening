@@ -21,10 +21,9 @@ namespace CBA.LevelGeneration
         [Header(GameData.DEBUG)]
         [SerializeField] private bool _visualizeGeneration;
 
-        private Dictionary<ERoomType, Dictionary<ERoomShape, List<GameObject>>> _roomsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<GameObject>>>();
+        private Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>> _roomsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>>();
 
-        //For visualization only
-        private Dictionary<Cell, GameObject> RoomsDict = new Dictionary<Cell, GameObject>();
+        private Dictionary<Vector2Int, Room> RoomsDict = new Dictionary<Vector2Int, Room>();
 
 
         private void Awake()
@@ -34,16 +33,16 @@ namespace CBA.LevelGeneration
             {
                 if (!_roomsDict.ContainsKey(data.RoomType))
                 {
-                    _roomsDict.Add(data.RoomType, new Dictionary<ERoomShape, List<GameObject>>());
+                    _roomsDict.Add(data.RoomType, new Dictionary<ERoomShape, List<Room>>());
 
                     foreach (Room room in data.RoomPrefabs)
                     {
                         if (!_roomsDict[data.RoomType].ContainsKey(room.RoomShape))
                         {
-                            _roomsDict[data.RoomType].Add(room.RoomShape, new List<GameObject>());
+                            _roomsDict[data.RoomType].Add(room.RoomShape, new List<Room>());
                         }
 
-                        _roomsDict[data.RoomType][room.RoomShape].Add(room.gameObject);
+                        _roomsDict[data.RoomType][room.RoomShape].Add(room);
                     }
                 }
             }
@@ -65,9 +64,9 @@ namespace CBA.LevelGeneration
                 _levelGenerator.OnCellUpdate -= SpawnIndividualRoom;
         }
 
-        private GameObject GetRandomRoomOfShapeAndType(ERoomShape shape, ERoomType type)
+        private Room GetRandomRoomOfShapeAndType(ERoomShape shape, ERoomType type)
         {
-            List<GameObject> PossibleRooms = _roomsDict[type][shape];
+            List<Room> PossibleRooms = _roomsDict[type][shape];
             return PossibleRooms[Random.Range(0, PossibleRooms.Count)];
         }
 
@@ -79,15 +78,15 @@ namespace CBA.LevelGeneration
             int roomIndex = _levelGenerator.GetCellIndex(cell);
 
             ERoomType roomToSpawn = GetRoomTypeToSpawnFromRules(roomIndex);
-            GameObject room = GetRandomRoomOfShapeAndType(cell.RoomShape, roomToSpawn);
+            Room room = GetRandomRoomOfShapeAndType(cell.RoomShape, roomToSpawn);
 
-            if (RoomsDict.ContainsKey(cell))
+            if (RoomsDict.ContainsKey(cellPosition))
             {
-                Destroy(RoomsDict[cell]);
-                RoomsDict.Remove(cell);
+                Destroy(RoomsDict[cellPosition].gameObject);
+                RoomsDict.Remove(cellPosition);
             }
 
-            RoomsDict.Add(cell, Instantiate(room, new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
+            RoomsDict.Add(cellPosition, Instantiate(room, new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
         }
 
         
@@ -106,9 +105,9 @@ namespace CBA.LevelGeneration
                         int roomIndex = _levelGenerator.GetCellIndex(currentCell);
 
                         ERoomType roomToSpawn = GetRoomTypeToSpawnFromRules(roomIndex);
-                        GameObject room = GetRandomRoomOfShapeAndType(currentCell.RoomShape, roomToSpawn);
+                        Room room = GetRandomRoomOfShapeAndType(currentCell.RoomShape, roomToSpawn);
 
-                        Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform);
+                        RoomsDict.Add(new Vector2Int(i, j), Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform));
                     }
                 }
             }
