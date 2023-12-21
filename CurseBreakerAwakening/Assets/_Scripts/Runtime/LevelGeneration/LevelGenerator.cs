@@ -10,11 +10,8 @@ namespace CBA.LevelGeneration
 {
     public class LevelGenerator : MonoBehaviour
     {
-        [Header(GameData.DEPENDENCIES)]
-        [SerializeField] private RoomController[] _rooms;
-
         [Header(GameData.SETTINGS)]
-        [FormerlySerializedAs("_boardSize")][field: SerializeField] public Vector2Int BoardSize;
+        [field: SerializeField] public Vector2Int BoardSize;
         [SerializeField] private Vector2Int _startPosition = Vector2Int.zero;
         [SerializeField] private int _maxIterations = 1000;
         [SerializeField] private int _maxRooms = 25;
@@ -22,12 +19,10 @@ namespace CBA.LevelGeneration
         [SerializeField] private bool _isolateFirstRoom = true;
 
         [Header(GameData.DEBUG)]
-        [SerializeField] private RoomSpawner _roomSpawner;
-        [SerializeField] private Vector2 _roomOffset;
         [SerializeField] private float _delay;
         private float _startTime; //For debug
 
-        public event Action<Cell, Vector2Int> OnCellUpdate;
+        public event Action<Cell> OnCellUpdate;
         public event Action OnGenerationCompleted;
 
         public Cell[,] Board { get; private set; }
@@ -53,7 +48,7 @@ namespace CBA.LevelGeneration
             {
                 for (int j = 0; j < BoardSize.y; j++)
                 {
-                    Board[i, j] = new Cell();
+                    Board[i, j] = new Cell(i, j);
                 }
             }
 
@@ -71,7 +66,7 @@ namespace CBA.LevelGeneration
                     //Assign index
                     _cellIndexDict.Add(Board[_currentCell.x, _currentCell.y], _roomCount);
 
-                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
+                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y]);
                 }
 
                 //Board[_currentCell.x, _currentCell.y].Room.UpdateExits(Board[_currentCell.x, _currentCell.y].Exits);
@@ -131,7 +126,7 @@ namespace CBA.LevelGeneration
                         Board[nextCell.x, nextCell.y].Exits[1] = true;
                     }
                     
-                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y], _currentCell);
+                    OnCellUpdate?.Invoke(Board[_currentCell.x, _currentCell.y]);
 
                     _currentCell = nextCell;
                 }

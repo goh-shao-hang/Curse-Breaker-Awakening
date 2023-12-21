@@ -1,3 +1,4 @@
+using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class MapTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
+            Helper.LockAndHideCursor(Cursor.lockState == CursorLockMode.Locked ? false : true);
             _mapCanvas.alpha = _mapCanvas.alpha == 1 ? 0 : 1;
         }
     }

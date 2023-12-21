@@ -21,10 +21,10 @@ namespace CBA.LevelGeneration
         [Header(GameData.DEBUG)]
         [SerializeField] private bool _visualizeGeneration;
 
-        private Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>> _roomsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>>();
+        public Dictionary<Cell, Room> RoomsDict = new Dictionary<Cell, Room>();
 
-        private Dictionary<Vector2Int, Room> _roomPositionDict = new Dictionary<Vector2Int, Room>();
         private Dictionary<Cell, ERoomType> _roomTypeDict = new Dictionary<Cell, ERoomType>();
+        private Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>> _roomsPrefabsDict = new Dictionary<ERoomType, Dictionary<ERoomShape, List<Room>>>();
 
         public event Action OnAllRoomsSpawned;
 
@@ -33,18 +33,18 @@ namespace CBA.LevelGeneration
             //Dictionary initialization
             foreach (var data in _roomTypeDatas)
             {
-                if (!_roomsDict.ContainsKey(data.RoomType))
+                if (!_roomsPrefabsDict.ContainsKey(data.RoomType))
                 {
-                    _roomsDict.Add(data.RoomType, new Dictionary<ERoomShape, List<Room>>());
+                    _roomsPrefabsDict.Add(data.RoomType, new Dictionary<ERoomShape, List<Room>>());
 
                     foreach (Room room in data.RoomPrefabs)
                     {
-                        if (!_roomsDict[data.RoomType].ContainsKey(room.RoomShape))
+                        if (!_roomsPrefabsDict[data.RoomType].ContainsKey(room.RoomShape))
                         {
-                            _roomsDict[data.RoomType].Add(room.RoomShape, new List<Room>());
+                            _roomsPrefabsDict[data.RoomType].Add(room.RoomShape, new List<Room>());
                         }
 
-                        _roomsDict[data.RoomType][room.RoomShape].Add(room);
+                        _roomsPrefabsDict[data.RoomType][room.RoomShape].Add(room);
                     }
                 }
             }
@@ -85,11 +85,11 @@ namespace CBA.LevelGeneration
 
         private Room GetRandomRoomOfShapeAndType(ERoomShape shape, ERoomType type)
         {
-            List<Room> PossibleRooms = _roomsDict[type][shape];
+            List<Room> PossibleRooms = _roomsPrefabsDict[type][shape];
             return PossibleRooms[Random.Range(0, PossibleRooms.Count)];
         }
 
-        private void SpawnIndividualRoom(Cell cell, Vector2Int cellPosition)
+        private void SpawnIndividualRoom(Cell cell)
         {
             cell.UpdateTypeAndRotation();
 
@@ -105,13 +105,13 @@ namespace CBA.LevelGeneration
             }
             _roomTypeDict.Add(cell, roomToSpawn);
 
-            if (_roomPositionDict.ContainsKey(cellPosition))
+            if (RoomsDict.ContainsKey(cell))
             {
-                Destroy(_roomPositionDict[cellPosition].gameObject);
-                _roomPositionDict.Remove(cellPosition);
+                Destroy(RoomsDict[cell].gameObject);
+                RoomsDict.Remove(cell);
             }
 
-            _roomPositionDict.Add(cellPosition, Instantiate(room, new Vector3(cellPosition.x * _roomOffset.x, 0, cellPosition.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
+            RoomsDict.Add(cell, Instantiate(room, new Vector3(cell.Position.x * _roomOffset.x, 0, cell.Position.y * _roomOffset.y), Quaternion.Euler(0f, cell.RoomRotation, 0f), transform));
         }
 
         
@@ -137,7 +137,7 @@ namespace CBA.LevelGeneration
                             _roomTypeDict.Add(currentCell, roomToSpawn);
                         }
 
-                        _roomPositionDict.Add(new Vector2Int(i, j), Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform));
+                        RoomsDict.Add(currentCell, Instantiate(room, new Vector3(i * _roomOffset.x, 0, j * _roomOffset.y), Quaternion.Euler(0f, currentCell.RoomRotation, 0f), transform));
                     }
                 }
             }

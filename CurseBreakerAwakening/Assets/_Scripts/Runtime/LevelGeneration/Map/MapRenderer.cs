@@ -20,6 +20,11 @@ namespace CBA.LevelGeneration
         [SerializeField] private Vector2 _roomOffset;
         [SerializeField] private float _containerPadding = 200f;
 
+        [Header(GameData.DEBUG)]
+        [SerializeField] private bool _revealAllOnStart = false;
+
+        private Dictionary<Cell, RoomIcon> _iconDict = new Dictionary<Cell, RoomIcon>();
+
         private void OnEnable()
         {
             _roomSpawner.OnAllRoomsSpawned += DrawMap;
@@ -46,9 +51,17 @@ namespace CBA.LevelGeneration
                         //Room room = GetRandomRoomOfShapeAndType(currentCell.RoomShape, roomToSpawn);
 
                         RoomIcon roomIcon = Instantiate(_roomIconPrefab, _iconContainer);
+
+                        _iconDict.Add(currentCell, roomIcon);
+
                         roomIcon.Root.anchoredPosition = new Vector2(i * _roomOffset.x, j * _roomOffset.y);
                         roomIcon.UpdateExits(currentCell);
                         roomIcon.IconImage.sprite = _mapIcons.GetIcon(_roomSpawner.GetRoomType(currentCell));
+
+                        if (!_revealAllOnStart && _levelGenerator.GetCellIndex(currentCell) != 1)
+                        {
+                            roomIcon.gameObject.SetActive(false);
+                        }
 
                         if (j > maxVerticalSize)
                         {
@@ -66,5 +79,12 @@ namespace CBA.LevelGeneration
             _viewport.sizeDelta = new Vector2(maxHorizontalSize * _roomOffset.x + _containerPadding * 2, maxVerticalSize * _roomOffset.y + _containerPadding* 2);
         }
 
+        public void RevealRoom(Cell cell)
+        {
+            if (_iconDict.ContainsKey(cell))
+            {
+                _iconDict[cell].gameObject.SetActive(true);
+            }
+        }
     }
 }

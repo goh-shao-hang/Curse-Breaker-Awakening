@@ -10,24 +10,45 @@ namespace CBA.LevelGeneration
         [field: SerializeField] public ERoomShape RoomShape { get; private set; }
         [field: SerializeField] public Exit[] Exits { get; private set; }
 
-        [Serializable]
-        public class Exit
+        public event Action<EExitDirection> OnPlayerExitRoom;
+
+        private Dictionary<EExitDirection, Exit> _exitsDict = new Dictionary<EExitDirection, Exit>();
+
+        public Exit GetEntrance(EExitDirection direction)
         {
-            [field: SerializeField] public EDirection Direction { get; private set; }
-            [field: SerializeField] public Collider ExitCollider { get; private set; }
+            return _exitsDict[direction];
+        }
 
-            public static float ExitDirectionToRotation(EDirection direction)
+        private void Awake()
+        {
+            foreach (var exit in Exits)
             {
-                return (float)direction;
+                if (!_exitsDict.ContainsKey(exit.Direction))
+                {
+                    _exitsDict.Add(exit.Direction, exit);
+                }
             }
+        }
 
-            public enum EDirection
+        private void OnEnable()
+        {
+            foreach (var exit in Exits) 
             {
-                Up = 0,
-                Right = 90,
-                Down = 180,
-                Left = 270
+                exit.OnPlayerExit += (EExitDirection direction) => OnPlayerExit(exit.Direction);
             }
+        }
+
+        private void OnDisable()
+        {
+            foreach (var exit in Exits)
+            {
+                exit.OnPlayerExit -= (EExitDirection direction) => OnPlayerExit(exit.Direction);
+            }
+        }
+
+        private void OnPlayerExit(EExitDirection direction)
+        {
+            OnPlayerExitRoom?.Invoke(direction);
         }
     }
 }

@@ -7,11 +7,17 @@ namespace CBA.LevelGeneration
 {
     public class Cell
     {
+        public Cell(int x, int y)
+        {
+            this.Position = new Vector2Int(x, y);
+        }
+
+        public Vector2Int Position;
         public bool Visited = false;
         public bool[] Exits = new bool[4]; //Up -> Right -> Down -> Left
 
         public ERoomShape RoomShape { get; private set; }
-        public float RoomRotation { get; private set; }
+        public int RoomRotation { get; private set; }
 
         public void UpdateTypeAndRotation()
         {
@@ -52,11 +58,11 @@ namespace CBA.LevelGeneration
                     RoomShape = ERoomShape.TwoExits_I;
                     if (Exits[0])
                     {
-                        RoomRotation = 0f;
+                        RoomRotation = 0;
                     }
                     else
                     {
-                        RoomRotation = 90f;
+                        RoomRotation = 90;
                     }
                 }
                 else
@@ -66,16 +72,16 @@ namespace CBA.LevelGeneration
                     switch (true)
                     {
                         case true when Exits[0] && Exits[1]:
-                            RoomRotation = 0f;
+                            RoomRotation = 0;
                             break;
                         case true when Exits[1] && Exits[2]:
-                            RoomRotation = 90f;
+                            RoomRotation = 90;
                             break;
                         case true when Exits[2] && Exits[3]:
-                            RoomRotation = 180f;
+                            RoomRotation = 180;
                             break;
                         case true when Exits[3] && Exits[0]:
-                            RoomRotation = 270f;
+                            RoomRotation = 270;
                             break;
                     }
                 }

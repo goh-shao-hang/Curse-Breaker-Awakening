@@ -31,7 +31,7 @@ namespace CBA.LevelGeneration
             {
                 for (int j = 0; j < _boardSize.y; j++)
                 {
-                    _board.Add(new Cell());
+                    _board.Add(new Cell(i, j));
                 }
             }
 
