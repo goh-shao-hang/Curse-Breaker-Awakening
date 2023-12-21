@@ -14,7 +14,7 @@ namespace CBA.LevelGeneration
         [SerializeField] private GameObject _playerReference;
         [SerializeField] private CanvasGroup _transitionCanvas;
 
-        private const float _roomTransitionDuration = 1f;
+        private const float _roomTransitionDuration = 0.5f;
 
         private Dictionary<Cell, Room> _roomsDict;
         private Cell _currentCell;
