@@ -21,6 +21,8 @@ namespace CBA.Entities
             _context.NavMeshAgentModule?.Disable();
             _context.Hurtbox.Disable();
             _ragdollController?.EnableRagdoll();
+
+            _entity.Die();
         }
     }
 }

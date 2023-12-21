@@ -1,4 +1,5 @@
 using GameCells.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,11 @@ namespace CBA.Entities
         //TODO
         [field: SerializeField] public SO_GlobalPosition _playerPos;
 
+        public event Action OnDeath;
 
+        public void Die()
+        {
+            OnDeath?.Invoke();
+        }
     }
 }

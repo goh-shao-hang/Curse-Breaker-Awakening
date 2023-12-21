@@ -85,6 +85,7 @@ namespace CBA.LevelGeneration
             //_playerReference.gameObject.SetActive(true);
 
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
+            _currentRoom.OnPlayerEnter();
 
             _transitionCanvas.DOFade(0, _roomTransitionDuration);
         }

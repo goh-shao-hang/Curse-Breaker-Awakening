@@ -26,6 +26,8 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     private bool _thrown = false;
 
+    private Transform _originalParent;
+
     private void Start()
     {
         EnableThrowPhysics(false);
@@ -65,6 +67,8 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     {
         this._grabTransform = grabTransform;
 
+        _originalParent = transform.parent;
+
         transform.SetParent(_grabTransform);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 180f, 0f));
 
@@ -80,7 +84,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     {
         this._grabTransform = null;
 
-        transform.SetParent(null);
+        transform.SetParent(_originalParent == null ? null : _originalParent);
 
         EnableThrowPhysics(true);
 

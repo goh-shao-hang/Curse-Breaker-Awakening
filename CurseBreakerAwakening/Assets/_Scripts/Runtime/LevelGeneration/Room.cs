@@ -10,6 +10,7 @@ namespace CBA.LevelGeneration
         [field: SerializeField] public ERoomShape RoomShape { get; private set; }
         [field: SerializeField] public Exit[] Exits { get; private set; }
 
+        public event Action OnPlayerEnterRoom;
         public event Action<EExitDirection> OnPlayerExitRoom;
 
         private Dictionary<EExitDirection, Exit> _exitsDict = new Dictionary<EExitDirection, Exit>();
@@ -46,9 +47,30 @@ namespace CBA.LevelGeneration
             }
         }
 
-        private void OnPlayerExit(EExitDirection direction)
+        public virtual void OnPlayerEnter() 
+        {
+            OnPlayerEnterRoom?.Invoke();
+        }
+
+        public virtual void OnPlayerExit(EExitDirection direction)
         {
             OnPlayerExitRoom?.Invoke(direction);
+        }
+
+        public void LockRoom()
+        {
+            foreach (var exit in this.Exits)
+            {
+                exit.Lock();
+            }
+        }
+
+        public void UnlockRoom()
+        {
+            foreach (var exit in this.Exits)
+            {
+                exit.Unlock();
+            }
         }
     }
 }
