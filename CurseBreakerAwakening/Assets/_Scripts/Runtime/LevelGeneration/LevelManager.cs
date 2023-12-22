@@ -1,3 +1,4 @@
+using CBA.Entities.Player;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,9 @@ namespace CBA.LevelGeneration
         [SerializeField] private RoomSpawner _roomSpawner;
         [SerializeField] private MapRenderer _mapRenderer;
         [SerializeField] private GameObject _playerReference;
+        [SerializeField] private PlayerCameraController _playerCameraReference;
         [SerializeField] private CanvasGroup _transitionCanvas;
+
 
         private const float _roomTransitionDuration = 0.5f;
 
@@ -81,7 +84,9 @@ namespace CBA.LevelGeneration
             _mapRenderer?.RevealRoom(_currentCell);
 
             Exit entrance = _currentRoom.GetEntrance(nextRoomEntrance);
-            _playerReference.transform.SetPositionAndRotation(entrance.SpawnPoint.position, entrance.SpawnPoint.rotation);
+            _playerReference.transform.position = entrance.SpawnPoint.position;
+            _playerCameraReference.ResetCameraRotation();
+            _playerCameraReference.transform.rotation = entrance.SpawnPoint.rotation;
             //_playerReference.gameObject.SetActive(true);
 
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;

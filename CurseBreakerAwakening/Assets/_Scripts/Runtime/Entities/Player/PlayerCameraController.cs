@@ -66,6 +66,12 @@ namespace CBA.Entities.Player
             transform.SetPositionAndRotation(_playerController.CameraRootTransform.transform.position, Quaternion.Euler(_pitch, _yaw, _tiltRotation));
         }
 
+        public void ResetCameraRotation()
+        {
+            _yaw = 0f;
+            _pitch = 0f;
+        }
+
         public void LockCameraMovement(bool locked)
         {
             _cameraMovementLocked = locked;
