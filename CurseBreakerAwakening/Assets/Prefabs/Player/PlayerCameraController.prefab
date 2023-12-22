@@ -94,7 +94,7 @@ MonoBehaviour:
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_Duration: 0.2
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
+    m_NoiseOffsets: {x: 24.876709, y: 224.7745, z: -592.6726}
 --- !u!1 &1974657823755460875
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ MonoBehaviour:
   _playerVirtualCamera: {fileID: 1974657823380212355}
   _playerController: {fileID: 0}
   _cinemachineImpulseSource: {fileID: 1974657825226049401}
-  _sensitivity: 0.3
+  _sensitivity: 0.2
   _invertXAxis: 0
   _invertYAxis: 0
   _maxCameraVerticalAngle: 80

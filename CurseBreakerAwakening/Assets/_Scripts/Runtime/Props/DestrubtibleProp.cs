@@ -12,8 +12,8 @@ namespace CBA
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _randomScaleOnStart;
-        [SerializeField] private float _minScale;
-        [SerializeField] private float _maxScale;
+        [SerializeField] private float _minScale = 1;
+        [SerializeField] private float _maxScale = 1.5f;
 
         [Header("Explosion")]
         [SerializeField] private float _explosionForce = 2.0f;
