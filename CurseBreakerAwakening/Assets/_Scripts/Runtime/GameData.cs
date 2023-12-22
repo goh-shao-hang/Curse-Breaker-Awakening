@@ -52,12 +52,12 @@ namespace CBA
 
         public static readonly LayerMask PLAYER_LAYER = LayerMask.GetMask("Player");
         public static readonly LayerMask TERRAIN_LAYER = LayerMask.GetMask("Terrain");
-        public static readonly LayerMask ENEMY_LAYER = LayerMask.GetMask("Enemy");
+        public static readonly LayerMask DAMAGEABLE_LAYER = LayerMask.GetMask("Damageable");
         public static readonly LayerMask WEAPON_LAYER = LayerMask.GetMask("Weapon");
 
         public static readonly int PLAYER_LAYER_INDEX = LayerMask.NameToLayer("Player");
         public static readonly int TERRAIN_LAYER_INDEX = LayerMask.NameToLayer("Terrain");
-        public static readonly int ENEMY_LAYER_INDEX = LayerMask.NameToLayer("Enemy");
+        public static readonly int DAMAGEABLE_LAYER_INDEX = LayerMask.NameToLayer("Damageable");
         public static readonly int WEAPON_LAYER_INDEX = LayerMask.NameToLayer("Weapon");
 
         #endregion

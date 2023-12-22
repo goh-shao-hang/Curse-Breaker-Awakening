@@ -47,8 +47,7 @@ namespace CBA.Entities
                 _healthModule.TakeDamage(amount);
             }
 
-            if (!_animator.GetCurrentAnimatorStateInfo(1).IsName(GameData.HIT_ANIM)) //Already playing hit animation
-                _animator.SetTrigger(GameData.HIT_HASH);
+            _animator.SetTrigger(GameData.HIT_HASH);
         }
 
         public void SetDamagedAnimationWeight(float weight)
