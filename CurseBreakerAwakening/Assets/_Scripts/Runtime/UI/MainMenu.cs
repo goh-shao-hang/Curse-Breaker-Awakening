@@ -1,24 +1,69 @@
+using CBA;
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private RectTransform _startup;
-    [SerializeField] private RectTransform _menu;
+    [Header("Title")]
+    [SerializeField] private Image _title;
+    [SerializeField] private float _titleFinalYPosition = 200f;
+    [SerializeField] private float _titleFinalScale = 0.9f;
+    [SerializeField] private float _titleTweenDuration = 1f;
 
-    private void Awake()
-    {
-    }
+    [Header("Buttons")]
+    [FormerlySerializedAs("_buttons")][SerializeField] private CanvasGroup _buttonsCanvasGroup;
+    [SerializeField] private float _buttonsTweenDuration = 1f;
+
+    private Button[] _buttons;
 
     private void Start()
     {
-        _startup.gameObject.SetActive(true);
+        _buttonsCanvasGroup.alpha = 0f;
+        _buttonsCanvasGroup.interactable = false;
+
+        _title.rectTransform.DOAnchorPosY(_titleFinalYPosition, _titleTweenDuration).SetEase(Ease.InOutSine);
+        _title.rectTransform.DOScale(_titleFinalScale, _titleTweenDuration).SetEase(Ease.InOutSine).OnComplete(ShowButtons);
     }
 
-    public void EnableMenu()
+    private void ShowButtons()
     {
-        _startup.gameObject.SetActive(false);
-        _menu.gameObject.SetActive(true);
+        _buttonsCanvasGroup.DOFade(1, _buttonsTweenDuration).OnComplete(() => _buttonsCanvasGroup.interactable = true);
     }
+
+    public void NewGame()
+    {
+        //TODO
+        //DO THIS WHENEVER LOADING TO OTHER SCENE
+        DOTween.KillAll();
+        SceneManager.LoadScene(GameData.GENERATION_SCENE);
+    }
+
+    public void Continue()
+    {
+        NewGame();
+    }
+
+    public void ShowOptions()
+    {
+        Debug.Log("ShowOptions");
+    }
+
+    public void ShowCredits()
+    {
+        Debug.Log("ShowCredits");
+    }
+
+    public void QuitGame()
+    {
+        Debug.LogWarning("QUIT");
+        Application.Quit();
+    }
+
 }

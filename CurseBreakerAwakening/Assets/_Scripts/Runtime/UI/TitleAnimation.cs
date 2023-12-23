@@ -11,17 +11,22 @@ using UnityEngine.UI;
 
 public class TitleAnimation : MonoBehaviour
 {
-    [SerializeField] private MainMenu _mainMenu;
+    [SerializeField] private MainMenuScene _mainMenu;
 
     [SerializeField] private Image _title1White;
     [SerializeField] private Image _title;
     [SerializeField] private Image _titleMaskedImage;
     [SerializeField] private float _duration = 1f;
-    [FormerlySerializedAs("flash")] [SerializeField] private Image _lensFlare;
-    [FormerlySerializedAs("_rotation")][SerializeField] private float _lensFlareRotation = 180f;
+    [SerializeField] private Image _lensFlare;
+    [SerializeField] private float _lensFlareRotation = 180f;
     [SerializeField] private float _endXPos = -450f;
-    [SerializeField] private TextMeshProUGUI _clickToStart;
-    [SerializeField] private RectTransform _particleSystem;
+    [FormerlySerializedAs("_clickToStart")][SerializeField] private TextMeshProUGUI _pressToStart;
+
+    [Header("Particles")]
+    [FormerlySerializedAs("_particleSystem")] [SerializeField] private RectTransform _sparklesParticles;
+    [SerializeField] private GameObject _fireParticles;
+
+    [Header("Audio")]
     [SerializeField] private AudioSource _bgmAudioSource;
     [SerializeField] private AudioSource _sfxAudioSource;
     [SerializeField] private AudioClip _revealSfx;
@@ -37,10 +42,12 @@ public class TitleAnimation : MonoBehaviour
         _title.color = transparent;
         _lensFlare.color = transparent;
 
-        _clickToStart.alpha = 0;
+        _pressToStart.alpha = 0;
 
         _title1White.DOFade(1, 1.5f).SetDelay(0.5f).SetEase(Ease.InOutSine);
         _title1White.rectTransform.DOScale(1, 1.5f).SetDelay(0.5f).SetEase(Ease.OutSine).OnComplete(Title2);
+
+        _fireParticles.SetActive(false);
     }
 
     private void Title2()
@@ -61,8 +68,8 @@ public class TitleAnimation : MonoBehaviour
 
         shineSequence.Append(_titleMaskedImage.rectTransform.DOAnchorPosX(-750, _duration).SetEase(Ease.OutSine)).AppendInterval(5f);
 
-        _particleSystem.DOAnchorPosX(_endXPos, _duration).OnComplete(() => _particleSystem.GetComponent<ParticleSystem>().Stop());
-        _particleSystem.GetComponent<ParticleSystem>().Play();
+        _sparklesParticles.DOAnchorPosX(_endXPos, _duration).OnComplete(() => _sparklesParticles.GetComponent<ParticleSystem>().Stop());
+        _sparklesParticles.GetComponent<ParticleSystem>().Play();
 
         _sfxAudioSource.PlayOneShot(_revealSfx);
 
@@ -73,7 +80,9 @@ public class TitleAnimation : MonoBehaviour
     {
         _bgmAudioSource.Play();
 
-        _clickToStart.DOFade(1, 1).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+        _fireParticles.gameObject.SetActive(true);
+
+        _pressToStart.DOFade(1, 1).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
         Invoke(nameof(EnablePressToStart), 1f);
     }
 
@@ -83,10 +92,13 @@ public class TitleAnimation : MonoBehaviour
         m_EventListener = InputSystem.onAnyButtonPress.Call(OnPressToStart);
     }
 
-    public void OnPressToStart(InputControl button)
+    public async void OnPressToStart(InputControl button)
     {
-        _mainMenu.EnableMenu();
-
         m_EventListener.Dispose();
+
+        _pressToStart.DOKill();
+        await _pressToStart.DOFade(0, _duration).SetEase(Ease.InOutSine).AsyncWaitForCompletion();
+
+        _mainMenu.EnableMenu();
     }
 }

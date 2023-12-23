@@ -1304,6 +1304,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1974657825226049399, guid: 5945951b333d92b429873373c0d77476,
         type: 3}
+      propertyPath: _sensitivity
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974657825226049399, guid: 5945951b333d92b429873373c0d77476,
+        type: 3}
       propertyPath: _playerController
       value: 
       objectReference: {fileID: 2100129303}

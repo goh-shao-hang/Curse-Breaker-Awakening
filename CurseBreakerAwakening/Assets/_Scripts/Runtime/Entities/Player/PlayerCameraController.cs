@@ -72,6 +72,12 @@ namespace CBA.Entities.Player
             _pitch = 0f;
         }
 
+        public void SetCameraRotation(float yaw, float pitch)
+        {
+            _yaw = yaw;
+            _pitch = pitch;
+        }
+
         public void LockCameraMovement(bool locked)
         {
             _cameraMovementLocked = locked;

@@ -12,6 +12,13 @@ namespace CBA
         public const string CUSTOMIZATION = "Cutomization";
         public const string MODULES = "Modules";
 
+        #region Scenes
+
+        public const string MAINMENU_SCENE = "MainMenu";
+        public const string GENERATION_SCENE = "Generation";
+
+        #endregion
+
         #region Animator Hashes and Strings
 
         public const float ANIMATIONDAMPTIME = 0.2f;

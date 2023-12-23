@@ -23,6 +23,8 @@ namespace CBA.LevelGeneration
         private Cell _currentCell;
         private Room _currentRoom => _roomsDict[_currentCell];
 
+        private bool _isTransitioning;
+
         private void OnEnable()
         {
             _roomSpawner.OnAllRoomsSpawned += StartLevel;
@@ -60,8 +62,21 @@ namespace CBA.LevelGeneration
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
         }
 
-        public async void TransitionToRoom(EExitDirection exitDirection)
+        public void TransitionToRoom(EExitDirection exitDirection)
         {
+            if (_isTransitioning)
+                return;
+
+            _isTransitioning = true;
+
+            _transitionCanvas.DOFade(1, _roomTransitionDuration).OnComplete(() => LoadNextRoom(exitDirection));
+        }
+
+        private void LoadNextRoom(EExitDirection exitDirection)
+        {
+            _currentRoom.gameObject.SetActive(false);
+            _currentRoom.OnPlayerExitRoom -= TransitionToRoom;
+
             //Adjust direction considering rotation of current cell
             int adjustedDirection = ((int)exitDirection + (_currentCell.RoomRotation / 90)) % 4;
 
@@ -72,11 +87,6 @@ namespace CBA.LevelGeneration
                 entranceDirection += 4;
             }
 
-            await _transitionCanvas.DOFade(1, _roomTransitionDuration).AsyncWaitForCompletion();
-
-            _currentRoom.gameObject.SetActive(false);
-            _currentRoom.OnPlayerExitRoom -= TransitionToRoom;
-
             EExitDirection nextRoomEntrance = (EExitDirection)entranceDirection;
 
             _currentCell = nextCell;
@@ -86,13 +96,13 @@ namespace CBA.LevelGeneration
             Exit entrance = _currentRoom.GetEntrance(nextRoomEntrance);
             _playerReference.transform.position = entrance.SpawnPoint.position;
             _playerCameraReference.ResetCameraRotation();
-            _playerCameraReference.transform.rotation = entrance.SpawnPoint.rotation;
+            _playerCameraReference.SetCameraRotation(entrance.SpawnPoint.rotation.eulerAngles.y, entrance.SpawnPoint.rotation.eulerAngles.x);
             //_playerReference.gameObject.SetActive(true);
 
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
             _currentRoom.OnPlayerEnter();
 
-            _transitionCanvas.DOFade(0, _roomTransitionDuration);
+            _transitionCanvas.DOFade(0, _roomTransitionDuration).OnComplete(() => _isTransitioning = false);
         }
 
         private Cell GetNextCell(int direction)
