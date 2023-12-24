@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private float _titleTweenDuration = 1f;
 
     [Header("Buttons")]
-    [FormerlySerializedAs("_buttons")][SerializeField] private CanvasGroup _buttonsCanvasGroup;
+    [SerializeField] private CanvasGroup _buttonsCanvasGroup;
     [SerializeField] private float _buttonsTweenDuration = 1f;
 
     private Button[] _buttons;
