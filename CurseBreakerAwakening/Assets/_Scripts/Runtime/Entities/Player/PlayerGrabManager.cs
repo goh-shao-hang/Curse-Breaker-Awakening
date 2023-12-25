@@ -16,6 +16,7 @@ namespace CBA.Entities.Player
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _maxGrabDistance = 2f;
+        [SerializeField] private float _throwUpwardAdjustment = 0.5f;
         [SerializeField] private LayerMask _interactableLayer;
         [SerializeField] private LayerMask _terrainlayer;
 
@@ -78,8 +79,17 @@ namespace CBA.Entities.Player
         {
             if (_currentGrabbedObject != null)
             {
+                RaycastHit hit;
+                Vector3 targetPosition = _playerCameraController.transform.forward * 1000f;
+                if (Physics.Raycast(_playerCameraController.transform.position, _playerCameraController.transform.forward, out hit, 1000f))
+                {
+                    targetPosition = hit.point;
+                }
+
+                Vector3 direction = (targetPosition - _grabTransform.position).normalized;
+
                 //_currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
-                _currentGrabbedObject.Throw(_grabTransform.forward.normalized + Vector3.up, _movementModule.CurrentVelocity);
+                _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
             }
             else if (_currentGrabbedObject == null && _currentSelection != null)

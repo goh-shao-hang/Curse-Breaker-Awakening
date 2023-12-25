@@ -12,6 +12,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [Header(GameData.SETTINGS)]
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 5f;
+    [SerializeField] private Vector3 _grabbedOffset;
 
     public bool IsGrabbable { get; private set; }
 
@@ -70,7 +71,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         _originalParent = transform.parent;
 
         transform.SetParent(_grabTransform);
-        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 180f, 0f));
+        transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
 
         EnableThrowPhysics(false);
 

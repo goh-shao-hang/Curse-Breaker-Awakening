@@ -385,6 +385,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &342430927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342430928}
+  m_Layer: 0
+  m_Name: ObjectGrabPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &342430928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342430927}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1849505130}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349084167
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +610,7 @@ MonoBehaviour:
   _grabRigidbody: {fileID: 0}
   _startGrabbable: 1
   _thrownForce: 5
+  _grabbedOffset: {x: 0, y: 0, z: 0}
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -688,6 +720,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &439908730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1066818408336681244, guid: 5eb6f6202132b3a498a9cd5e581c797f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1066671627259453304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &439908732 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1066671628316380503, guid: 5eb6f6202132b3a498a9cd5e581c797f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1066671627259453304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &439908737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439908730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grabRigidbody: {fileID: 439908732}
+  _startGrabbable: 1
+  _thrownForce: 5
+  _grabbedOffset: {x: 0, y: 0, z: 0}
+  OnGrabbableStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGrabbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnThrown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTerrainCollision:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &453299551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,6 +2802,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25670874, y: 0.94279647, z: 1.11}
   m_Center: {x: 0.01, y: -0.03743583, z: -0.0000011324883}
+--- !u!4 &1849505130 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1974657825183822536, guid: 5945951b333d92b429873373c0d77476,
+    type: 3}
+  m_PrefabInstance: {fileID: 1974657824769444129}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1849842389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8171991414136199997, guid: 18e0098c09c0bed41bd638b522e5a033,
@@ -3860,6 +3944,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: _thrownForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: _grabbedOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: _grabbedOffset.y
+      value: -1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: _grabbedOffset.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20439b170f1f6a3428f5df00b0a48ca3, type: 3}
 --- !u!1 &414117464166638338
@@ -4031,6 +4135,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: _grabTransform
+      value: 
+      objectReference: {fileID: 342430928}
     - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: _playerCameraController

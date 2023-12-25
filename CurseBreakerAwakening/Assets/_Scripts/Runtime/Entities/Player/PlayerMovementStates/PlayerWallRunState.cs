@@ -70,7 +70,7 @@ namespace CBA.Entities.Player
                 return EPlayerMovementState.ChargedAttack;
             }
 
-            if (!_playerController.IsRunnableWallDetected)// || Mathf.Abs(_playerController.PlayerInputHandler.MoveInput.y) < 0.1f)
+            if (!_playerController.IsRunnableWallDetected || _playerController.CurrentStamina <= 0f)// || Mathf.Abs(_playerController.PlayerInputHandler.MoveInput.y) < 0.1f)
             {
                 return EPlayerMovementState.Walk;
             }

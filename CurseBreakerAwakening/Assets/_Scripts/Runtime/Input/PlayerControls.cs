@@ -258,7 +258,7 @@ namespace CBA.Input
                 {
                     ""name"": """",
                     ""id"": ""d67ad287-9d7d-49ce-8849-4831a812c69e"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
