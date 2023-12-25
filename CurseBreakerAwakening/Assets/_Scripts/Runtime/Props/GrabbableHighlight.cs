@@ -36,7 +36,7 @@ namespace CBA
 
             if (_outlineMaterial == null)
             {
-                Debug.LogError($"No outline material is found on {gameObject.name}!");
+                Debug.LogWarning($"No outline material is found on {gameObject.name}!");
                 return;
             }
 
