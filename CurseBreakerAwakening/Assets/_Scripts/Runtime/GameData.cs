@@ -15,6 +15,7 @@ namespace CBA
         #region Scenes
 
         public const string MAINMENU_SCENE = "MainMenu";
+        public const string INTRO_SCENE = "Intro";
         public const string GENERATION_SCENE = "Generation";
 
         #endregion

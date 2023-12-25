@@ -42,7 +42,7 @@ public class MainMenu : MonoBehaviour
         //TODO
         //DO THIS WHENEVER LOADING TO OTHER SCENE
         DOTween.KillAll();
-        SceneManager.LoadScene(GameData.GENERATION_SCENE);
+        SceneManager.LoadScene(GameData.INTRO_SCENE);
     }
 
     public void Continue()
