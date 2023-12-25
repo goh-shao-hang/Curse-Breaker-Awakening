@@ -720,52 +720,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &439908730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1066818408336681244, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1066671627259453304}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &439908732 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1066671628316380503, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1066671627259453304}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &439908737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439908730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grabRigidbody: {fileID: 439908732}
-  _startGrabbable: 1
-  _thrownForce: 5
-  _grabbedOffset: {x: 0, y: 0, z: 0}
-  OnGrabbableStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStartHighlight:
-    m_PersistentCalls:
-      m_Calls: []
-  OnStopHighlight:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGrabbed:
-    m_PersistentCalls:
-      m_Calls: []
-  OnThrown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnTerrainCollision:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &453299551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,14 +1107,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777720774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.004363274, y: 0, z: 0, w: 0.9999905}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.5, y: 0, z: 0}
 --- !u!1 &798341871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3265,6 +3219,52 @@ CapsuleCollider:
   m_Height: 0.27841526
   m_Direction: 1
   m_Center: {x: 0, y: 0.13920763, z: 0}
+--- !u!1 &2101624454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4016283001859454582, guid: c82e806401fa10c4f80be1a432108e4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4016283000210441659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2101624456 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4016283001856311108, guid: c82e806401fa10c4f80be1a432108e4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4016283000210441659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2101624461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101624454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grabRigidbody: {fileID: 2101624456}
+  _startGrabbable: 1
+  _thrownForce: 5
+  _grabbedOffset: {x: 0, y: 0, z: 0.8}
+  OnGrabbableStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGrabbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnThrown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTerrainCollision:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2119540567
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,12 +4199,12 @@ PrefabInstance:
     - target: {fileID: 1063871837350347152, guid: 5eb6f6202132b3a498a9cd5e581c797f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.362
+      value: 0.476
       objectReference: {fileID: 0}
     - target: {fileID: 1063871837350347152, guid: 5eb6f6202132b3a498a9cd5e581c797f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.611475
+      value: -2.8237057
       objectReference: {fileID: 0}
     - target: {fileID: 1063871837350347152, guid: 5eb6f6202132b3a498a9cd5e581c797f,
         type: 3}
@@ -4240,26 +4240,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1063871837350347152, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1066671628316380488, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-        type: 3}
-      propertyPath: _maxScale
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1066671628316380488, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-        type: 3}
-      propertyPath: _minScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1066671628316380488, guid: 5eb6f6202132b3a498a9cd5e581c797f,
-        type: 3}
-      propertyPath: _randomScaleOnStart
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1066818408336681244, guid: 5eb6f6202132b3a498a9cd5e581c797f,
         type: 3}
@@ -5302,7 +5282,7 @@ PrefabInstance:
     - target: {fileID: 4016283001859111142, guid: c82e806401fa10c4f80be1a432108e4c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.26223063
+      value: -1.95
       objectReference: {fileID: 0}
     - target: {fileID: 4016283001859111142, guid: c82e806401fa10c4f80be1a432108e4c,
         type: 3}

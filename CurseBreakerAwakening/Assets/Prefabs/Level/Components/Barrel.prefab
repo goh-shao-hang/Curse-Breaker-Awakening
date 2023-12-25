@@ -1822,6 +1822,8 @@ GameObject:
   - component: {fileID: 1021978028982429346}
   - component: {fileID: 1066671628316380503}
   - component: {fileID: 1066671628316380488}
+  - component: {fileID: 439908737}
+  - component: {fileID: 439908743}
   m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
@@ -1839,7 +1841,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1063871834823739676}
   - {fileID: 1063871839026972750}
@@ -1875,6 +1877,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: bfdb6063aff9644dd8d2515ddc61f97b, type: 2}
+  - {fileID: 2100000, guid: 74163dc380752d542b05b3244fc994c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1946,6 +1949,54 @@ MonoBehaviour:
   _explosionRadius: 5
   _upForceMin: 0
   _upForceMax: 0.5
+--- !u!114 &439908737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066818408336681244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grabRigidbody: {fileID: 1066671628316380503}
+  _startGrabbable: 1
+  _thrownForce: 5
+  _grabbedOffset: {x: 0, y: 0, z: 0.8}
+  OnGrabbableStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStopHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGrabbed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnThrown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTerrainCollision:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &439908743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066818408336681244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1970d6e8a2f431d4b9a0f19e21955728, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 2.9960785, g: 2.9960785, b: 0, a: 1}
+  _thickness: 0.005
 --- !u!1 &1066818408590265582
 GameObject:
   m_ObjectHideFlags: 0
