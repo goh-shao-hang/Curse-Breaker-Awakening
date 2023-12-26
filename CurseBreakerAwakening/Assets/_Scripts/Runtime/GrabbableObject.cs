@@ -10,6 +10,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [SerializeField] private Rigidbody _grabRigidbody;
 
     [Header(GameData.SETTINGS)]
+    [SerializeField] private bool _startKinematic = true;
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 5f;
     [SerializeField] private Vector3 _grabbedOffset;
@@ -31,7 +32,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        EnableThrowPhysics(false);
+        EnableThrowPhysics(_startKinematic);
 
         IsGrabbable = _startGrabbable;
     }

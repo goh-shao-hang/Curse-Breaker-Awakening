@@ -41,7 +41,7 @@ namespace CBA.Entities.Player
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.G))
             {
-                _healthBarRoot.rectTransform.DOKill();
+                _healthBarRoot.rectTransform.DOKill(true);
                 _healthBarRoot.rectTransform.DOShakeAnchorPos(0.5f, _shakeStrength, _shakeVibrato);
             }
         }
@@ -50,7 +50,7 @@ namespace CBA.Entities.Player
         {
             float healthPercentage = Mathf.Clamp01(_playerHealthModule.CurrentHealth / _playerHealthModule.MaxHealth);
 
-            _healthBarRoot.rectTransform.DOKill();
+            _healthBarRoot.rectTransform.DOKill(true);
             _healthBarRoot.rectTransform.DOShakeAnchorPos(0.5f, _shakeStrength, _shakeVibrato);
 
             _healthBarFill.fillAmount = healthPercentage;

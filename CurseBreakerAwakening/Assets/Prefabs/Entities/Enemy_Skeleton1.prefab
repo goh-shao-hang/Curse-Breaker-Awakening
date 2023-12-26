@@ -868,8 +868,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabRigidbody: {fileID: 376674859392112433}
+  _startKinematic: 0
   _startGrabbable: 0
-  _thrownForce: 4
+  _thrownForce: 10
+  _grabbedOffset: {x: 0, y: -1.3, z: 0}
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls:

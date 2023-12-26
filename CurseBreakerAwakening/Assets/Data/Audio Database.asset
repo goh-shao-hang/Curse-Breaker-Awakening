@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed117782bfeabbc4fa87d6de3e1d77c8, type: 3}
+  m_Name: Audio Database
+  m_EditorClassIdentifier: 
+  <Musics>k__BackingField:
+  - <Name>k__BackingField: MainMenuTheme
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 4c53332693b78c248b568f689aab0a45, type: 3}
+    _volume: 0.5
+    _pitch: 1
+    _pitchVariation: 0
+  <SoundEffects>k__BackingField:
+  - <Name>k__BackingField: RevealTitle
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: b3f5a57c7257e2b429f1c955d76749e0, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: TitlePressed
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 9dad825db376e8d4f929e1ddd6a2900a, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: GameStartNarration
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: a832b76d3f946da45bf2b416491a9ced, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: Menu_Select
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 5dcbf6204a1a76942a8d7de74a48f9c7, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: MainMenu_Confirm
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: dc5070d52d8d78244b82cef0a09b56bc, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: Gate_Open
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: bd3ea3203aa62cf4a886c48d0da956ba, type: 3}
+    _volume: 0.5
+    _pitch: 1
+    _pitchVariation: 0.1
+  - <Name>k__BackingField: Gate_Close
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 735a6803ee240e2449f3968747a2b238, type: 3}
+    _volume: 0.5
+    _pitch: 1
+    _pitchVariation: 0.1
+  - <Name>k__BackingField: Sword_Attack
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 869e313aee6c01642bc7aad5e9b0925e, type: 3}
+    - {fileID: 8300000, guid: e6655cb93ae6ac748bec84c4284169b5, type: 3}
+    - {fileID: 8300000, guid: 27d04ec9fecf6c247b73e4bb8114e87b, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.15
+  - <Name>k__BackingField: Sword_Block
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 0dcf2e32ae426704589ba3d753ca2d9b, type: 3}
+    - {fileID: 8300000, guid: 3f8cb9c807132954e95f2aa5de21a6b6, type: 3}
+    - {fileID: 8300000, guid: 2d152ec8a35d71b409eb1d0097e7a260, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.1
+  - <Name>k__BackingField: Sword_Hit
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 93befb34dd3374f44b50d06ccdf57367, type: 3}
+    - {fileID: 8300000, guid: 6f1bafd3b6ac4f04c89e1875985096be, type: 3}
+    - {fileID: 8300000, guid: 77f44f29c920d2a4592056655b558923, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.15
+  - <Name>k__BackingField: Sword_Parry
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: ffed0caa35c6c8349a54dcb763d10e80, type: 3}
+    - {fileID: 8300000, guid: ab8532f0b166a9d4981333c8958e469c, type: 3}
+    - {fileID: 8300000, guid: 16575646d9e073e45a168221f690d9a4, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.15
+  - <Name>k__BackingField: PropsDestroyed_Wood
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 05f3cebf855a2374ea6c52c75507aa2b, type: 3}
+    - {fileID: 8300000, guid: 4b207a496ea502f4eb377f3503fcbb40, type: 3}
+    - {fileID: 8300000, guid: 7b001da732f2e554cb5084cb11f8525e, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.15

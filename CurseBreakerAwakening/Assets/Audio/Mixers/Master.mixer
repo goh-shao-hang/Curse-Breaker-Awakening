@@ -28,6 +28,48 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-982596109075423338
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: c694af2188ed7ce4691b3bb858ed2927
+  m_EffectName: SFX Reverb
+  m_MixLevel: 68fd4276baa9b054ea02b93d50ce38f0
+  m_Parameters:
+  - m_ParameterName: Dry Level
+    m_GUID: 93adcb4d374af8a4b94c9fec4f0b301d
+  - m_ParameterName: Room
+    m_GUID: 17b37cea83eeb744da469053590b2506
+  - m_ParameterName: Room HF
+    m_GUID: 75185b649d98e634086d54c8bc565fc6
+  - m_ParameterName: Decay Time
+    m_GUID: a113fb1bcd91d2e429ed1acd8017a12a
+  - m_ParameterName: Decay HF Ratio
+    m_GUID: f29e3cd3f29505840bafadbbf5530fec
+  - m_ParameterName: Reflections
+    m_GUID: 4a54b926c623c6545b8c0ef6eb82b227
+  - m_ParameterName: Reflect Delay
+    m_GUID: c54991ef7c92c064495147f6b20b53b7
+  - m_ParameterName: Reverb
+    m_GUID: 1e4a243cef703004eb6bb157261aef1f
+  - m_ParameterName: Reverb Delay
+    m_GUID: 5cd0896c65e94ff41a09be37653d69ab
+  - m_ParameterName: Diffusion
+    m_GUID: 8fb3b44f8cdc9e04b9ece452963e48e1
+  - m_ParameterName: Density
+    m_GUID: 3f9b91419028d5b4da4b6bb0c84f5014
+  - m_ParameterName: HF Reference
+    m_GUID: 444ac563c541732429d2eea81d4c62db
+  - m_ParameterName: Room LF
+    m_GUID: 661550c40101ca2458336ee310d468c9
+  - m_ParameterName: LF Reference
+    m_GUID: 4d3d48c9c3838a24aa3956670bf0f5b9
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -96,7 +138,9 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: e0260bc4cd2bd324daaa9b34db0ff621
-  m_FloatValues: {}
+  m_FloatValues:
+    71236a320833d1347b2ac828f29db9a0: 0
+    3c7d6cadc3498c6418f84aece4cde557: 0
   m_TransitionOverrides: {}
 --- !u!243 &1813897820624922086
 AudioMixerGroupController:

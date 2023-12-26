@@ -1,3 +1,4 @@
+using CBA.Core;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -29,6 +30,8 @@ public class MainMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         _textMeshProUGUI.DOKill();
         _textMeshProUGUI.rectTransform.DOScale(_selectedScale, _tweenDuration);
         _textMeshProUGUI.alpha = _selectedAlpha;
+
+        AudioManager.Instance.PlayGlobalSFX("Menu_Select");
 
         OnSelected?.Invoke();
     }

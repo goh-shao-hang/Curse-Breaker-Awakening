@@ -1,11 +1,14 @@
+using CBA.Core;
 using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -13,6 +16,7 @@ public class TitleAnimation : MonoBehaviour
 {
     [SerializeField] private MainMenuScene _mainMenu;
 
+    [SerializeField] private Volume _pressStartEffectVolume;
     [SerializeField] private Image _title1White;
     [SerializeField] private Image _title;
     [SerializeField] private Image _titleMaskedImage;
@@ -20,16 +24,11 @@ public class TitleAnimation : MonoBehaviour
     [SerializeField] private Image _lensFlare;
     [SerializeField] private float _lensFlareRotation = 180f;
     [SerializeField] private float _endXPos = -450f;
-    [FormerlySerializedAs("_clickToStart")][SerializeField] private TextMeshProUGUI _pressToStart;
+    [SerializeField] private TextMeshProUGUI _pressToStart;
 
     [Header("Particles")]
-    [FormerlySerializedAs("_particleSystem")] [SerializeField] private RectTransform _sparklesParticles;
+    [SerializeField] private RectTransform _sparklesParticles;
     [SerializeField] private GameObject _fireParticles;
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource _bgmAudioSource;
-    [SerializeField] private AudioSource _sfxAudioSource;
-    [SerializeField] private AudioClip _revealSfx;
 
     private void Start()
     {
@@ -71,14 +70,14 @@ public class TitleAnimation : MonoBehaviour
         _sparklesParticles.DOAnchorPosX(_endXPos, _duration).OnComplete(() => _sparklesParticles.GetComponent<ParticleSystem>().Stop());
         _sparklesParticles.GetComponent<ParticleSystem>().Play();
 
-        _sfxAudioSource.PlayOneShot(_revealSfx);
+        AudioManager.Instance.PlayGlobalSFX("RevealTitle");
 
         Invoke(nameof(PressToStartAnimation), 1f);
     }
 
     private void PressToStartAnimation()
     {
-        _bgmAudioSource.Play();
+        AudioManager.Instance.PlayBGM("MainMenuTheme");
 
         _fireParticles.gameObject.SetActive(true);
 
@@ -92,13 +91,26 @@ public class TitleAnimation : MonoBehaviour
         m_EventListener = InputSystem.onAnyButtonPress.Call(OnPressToStart);
     }
 
+    private GameObject _startEffectWeightReference; //For start effect volume to reference weight since dotween doesnt have punch value
     public async void OnPressToStart(InputControl button)
     {
         m_EventListener.Dispose();
+
+        AudioManager.Instance.PlayGlobalSFX("TitlePressed");
+            
+        _startEffectWeightReference = new GameObject();
+        _startEffectWeightReference.transform.DOPunchPosition(Vector3.right, 1f, 0, 0).SetEase(Ease.OutBounce).OnUpdate(UpdatePressStartEffect);
+
+        await Task.Delay(1000); //Wait 1 second
 
         _pressToStart.DOKill();
         await _pressToStart.DOFade(0, _duration).SetEase(Ease.InOutSine).AsyncWaitForCompletion();
 
         _mainMenu.EnableMenu();
+    }
+
+    private void UpdatePressStartEffect()
+    {
+        _pressStartEffectVolume.weight = _startEffectWeightReference.transform.position.x;
     }
 }

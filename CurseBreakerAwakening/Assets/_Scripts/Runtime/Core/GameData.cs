@@ -12,6 +12,14 @@ namespace CBA
         public const string CUSTOMIZATION = "Cutomization";
         public const string MODULES = "Modules";
 
+        #region Hidden Variables
+
+        public const float LEVEL_TRANSITION_TIME = 5f;
+        public const float SCENE_TRANSITION_DURATION = 2f;
+        public const float PROPS_DESTROYED_DELAY = 5f;
+
+        #endregion
+
         #region Scenes
 
         public const string MAINMENU_SCENE = "MainMenu";

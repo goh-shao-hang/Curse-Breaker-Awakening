@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameCells
+namespace CBA.Core
 {
     public class GameEventsManager : Singleton<GameEventsManager>
     {
         public event Action<Vector3, float> OnCameraShakeEvent;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             LeanTween.reset();
         }
 

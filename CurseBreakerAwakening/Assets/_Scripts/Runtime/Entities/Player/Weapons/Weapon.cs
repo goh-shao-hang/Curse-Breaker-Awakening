@@ -1,3 +1,4 @@
+using CBA.Core;
 using Cinemachine;
 using GameCells.Utilities;
 using System;
@@ -26,6 +27,7 @@ namespace CBA.Entities.Player.Weapons
         private BoxCollider _chargedAttackHitbox;
 
         [Header("Effects")]
+        [SerializeField] private AudioEmitter _weaponAudioEmitter;
         [SerializeField] private GameObject _chargingVFX;
         [SerializeField] private GameObject _fullyChargedVFX;
         [SerializeField] private GameObject _hitVFX;
@@ -133,6 +135,8 @@ namespace CBA.Entities.Player.Weapons
 
                 OnWeaponHit?.Invoke();
 
+                _weaponAudioEmitter?.PlayOneShotSfx("Sword_Hit");
+
                 if (_hitVFX != null)
                 {
                     Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity);
@@ -155,6 +159,8 @@ namespace CBA.Entities.Player.Weapons
                 collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_currentChargedAttackDamage);
 
                 OnWeaponHit?.Invoke();
+
+                _weaponAudioEmitter?.PlayOneShotSfx("Sword_Hit");
 
                 if (_hitVFX != null)
                 {
@@ -185,6 +191,8 @@ namespace CBA.Entities.Player.Weapons
 
             _weaponAnimator.SetInteger(GameData.COMBO_HASH, _currentCombo);
             _weaponAnimator.SetTrigger(GameData.ATTACK_HASH);
+
+            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Attack");
 
             NextComboInputAllowed = false;
             _currentCombo = (_currentCombo + 1) % (WeaponData.MaxCombo);
@@ -399,6 +407,7 @@ namespace CBA.Entities.Player.Weapons
             }
 
             _weaponAnimator.SetTrigger(GameData.PARRY_HASH);
+            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Parry");
         }
 
         public void OnBlockSuccess()
@@ -409,11 +418,13 @@ namespace CBA.Entities.Player.Weapons
             }
 
             _weaponAnimator.SetTrigger(GameData.BLOCKSUCCESS_HASH);
+            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Block");
+
         }
         #endregion
 
-       
 
-        
+
+
     }
 }

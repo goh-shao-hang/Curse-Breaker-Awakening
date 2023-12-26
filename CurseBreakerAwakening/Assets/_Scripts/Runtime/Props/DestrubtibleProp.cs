@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +10,13 @@ namespace CBA
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private GameObject _destroyedPieces;
+        [SerializeField] private AudioEmitter _audioEmitter;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _randomScaleOnStart;
         [SerializeField] private float _minScale = 1;
         [SerializeField] private float _maxScale = 1.5f;
+        [SerializeField] private string _destroyedSfxName = "PropsDestroyed_Wood";
 
         [Header("Explosion")]
         [SerializeField] private float _explosionForce = 2.0f;
@@ -22,7 +25,7 @@ namespace CBA
         [SerializeField] private float _upForceMax = 0.5f;
 
         private Rigidbody[] _destroyedPiecesRigidbodies;
-
+        
         private void Awake()
         {
             _destroyedPiecesRigidbodies = _destroyedPieces.GetComponentsInChildren<Rigidbody>();
@@ -36,6 +39,14 @@ namespace CBA
             transform.localScale = Vector3.one * Random.Range(_minScale, _maxScale);
         }
 
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.B))
+            {
+                _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
+            }
+        }
+
         public void TakeDamage(float amount)
         {
             _destroyedPieces.SetActive(true);
@@ -44,8 +55,11 @@ namespace CBA
             foreach (var rigidbody in _destroyedPiecesRigidbodies)
             {
                 rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, Random.Range(_upForceMin, _upForceMax), ForceMode.Impulse);
-                Destroy(rigidbody.gameObject, 5f    );
+                Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
             }
+
+            _audioEmitter.transform.SetParent(null);
+            _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
 
             Destroy(gameObject);
         }

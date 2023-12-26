@@ -1,4 +1,4 @@
-using GameCells;
+using CBA.Core;
 using GameCells.Utilities;
 using System;
 using System.Collections;
@@ -32,7 +32,7 @@ namespace CBA.Entities.Player.Weapons
 
         public void CameraShake(SO_CameraShakeData cameraShakeData)
         {
-            GameEventsManager.Instance.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
+            GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
             //_cameraShakeGameEvent?.Invoke(cameraShakeData);
             //GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
         }

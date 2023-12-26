@@ -1,4 +1,5 @@
 using CBA;
+using CBA.Core;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -11,6 +12,9 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header(GameData.DEPENDENCIES)]
+    [SerializeField] private SceneField _introScene;
+
     [Header("Title")]
     [SerializeField] private Image _title;
     [SerializeField] private float _titleFinalYPosition = 200f;
@@ -42,7 +46,10 @@ public class MainMenu : MonoBehaviour
         //TODO
         //DO THIS WHENEVER LOADING TO OTHER SCENE
         DOTween.KillAll();
-        SceneManager.LoadScene(GameData.INTRO_SCENE);
+
+        AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
+        AudioManager.Instance?.StopBGM(2f);
+        SceneTransitionManager.Instance.TransitionToScene(_introScene, true);
     }
 
     public void Continue()
