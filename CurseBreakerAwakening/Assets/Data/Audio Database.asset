@@ -99,6 +99,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 05f3cebf855a2374ea6c52c75507aa2b, type: 3}
     - {fileID: 8300000, guid: 4b207a496ea502f4eb377f3503fcbb40, type: 3}
     - {fileID: 8300000, guid: 7b001da732f2e554cb5084cb11f8525e, type: 3}
-    _volume: 1
+    _volume: 0.75
     _pitch: 1
     _pitchVariation: 0.15
