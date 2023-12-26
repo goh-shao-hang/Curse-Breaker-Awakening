@@ -26,7 +26,7 @@ namespace CBA.Core
 
         private void LoadLevel()
         {
-            SceneTransitionManager.Instance.TransitionToScene(_testSceneToLoad, true);
+            SceneTransitionManager.Instance.LoadSceneWithTransition(_testSceneToLoad, true);
         }
     }
 }

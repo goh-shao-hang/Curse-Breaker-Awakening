@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
 
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
         AudioManager.Instance?.StopBGM(2f);
-        SceneTransitionManager.Instance.TransitionToScene(_introScene, true);
+        SceneTransitionManager.Instance.LoadSceneWithTransition(_introScene, true);
     }
 
     public void Continue()

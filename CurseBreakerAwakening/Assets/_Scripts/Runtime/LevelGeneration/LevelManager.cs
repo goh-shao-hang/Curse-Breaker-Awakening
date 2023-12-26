@@ -16,6 +16,8 @@ namespace CBA.LevelGeneration
         [SerializeField] private PlayerCameraController _playerCameraReference;
         [SerializeField] private CanvasGroup _transitionCanvas;
 
+        public PlayerCameraController PlayerCameraReference => _playerCameraReference;
+
 
         private const float _roomTransitionDuration = 0.5f;
 
@@ -24,6 +26,12 @@ namespace CBA.LevelGeneration
         private Room _currentRoom => _roomsDict[_currentCell];
 
         private bool _isTransitioning;
+
+        private void Start()
+        {
+            _transitionCanvas.alpha = 1;
+            _isTransitioning = true;
+        }
 
         private void OnEnable()
         {
@@ -56,10 +64,10 @@ namespace CBA.LevelGeneration
 
             _playerReference.transform.position = _currentRoom.Exits[0].SpawnPoint.position;
             _playerReference.gameObject.SetActive(true);
-
-            _mapRenderer?.RevealRoom(_currentCell);
-
+            _mapRenderer?.SetCurrentRoom(_currentCell);
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
+
+            _transitionCanvas.DOFade(0, 2f).OnComplete(() => _isTransitioning = false);
         }
 
         public void TransitionToRoom(EExitDirection exitDirection)
@@ -91,7 +99,7 @@ namespace CBA.LevelGeneration
 
             _currentCell = nextCell;
             _currentRoom.gameObject.SetActive(true);
-            _mapRenderer?.RevealRoom(_currentCell);
+            _mapRenderer?.SetCurrentRoom(_currentCell);
 
             Exit entrance = _currentRoom.GetEntrance(nextRoomEntrance);
             _playerReference.transform.position = entrance.SpawnPoint.position;

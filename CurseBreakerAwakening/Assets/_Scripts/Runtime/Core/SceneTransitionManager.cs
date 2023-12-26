@@ -25,7 +25,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
         this.SetDontDestroyOnLoad(true);
     }
 
-    public void TransitionToScene(SceneField scene, bool useLoadingBar = false)
+
+    public void LoadSceneWithTransition(SceneField scene, bool useLoadingBar = false)
     {
         if (_loadSceneCO != null)
         {

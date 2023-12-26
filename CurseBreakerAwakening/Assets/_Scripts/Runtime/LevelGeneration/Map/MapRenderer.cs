@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace CBA.LevelGeneration
         [SerializeField] private RectTransform _iconContainer;
         [SerializeField] private RoomIcon _roomIconPrefab;
         [SerializeField] private SO_MapIcons _mapIcons;
+        [SerializeField] private RectTransform _currentRoomIndicator;
+        [SerializeField] private Image _indicatorImage1;
+        [SerializeField] private Image _indicatorImage2;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private Vector2 _roomOffset;
@@ -24,6 +28,13 @@ namespace CBA.LevelGeneration
         [SerializeField] private bool _revealAllOnStart = false;
 
         private Dictionary<Cell, RoomIcon> _iconDict = new Dictionary<Cell, RoomIcon>();
+
+        private void Start()
+        {
+            _indicatorImage1.rectTransform.DORotate(Vector3.forward * 360, 2f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
+            _indicatorImage1.rectTransform.DOScale(0.5f, 0.5f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+            _indicatorImage2.rectTransform.DORotate(Vector3.forward * 360, 2f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
+        }
 
         private void OnEnable()
         {
@@ -79,10 +90,11 @@ namespace CBA.LevelGeneration
             _viewport.sizeDelta = new Vector2(maxHorizontalSize * _roomOffset.x + _containerPadding * 2, maxVerticalSize * _roomOffset.y + _containerPadding* 2);
         }
 
-        public void RevealRoom(Cell cell)
+        public void SetCurrentRoom(Cell cell)
         {
             if (_iconDict.ContainsKey(cell))
             {
+                _currentRoomIndicator.anchoredPosition = _iconDict[cell].Root.anchoredPosition;
                 _iconDict[cell].gameObject.SetActive(true);
             }
         }
