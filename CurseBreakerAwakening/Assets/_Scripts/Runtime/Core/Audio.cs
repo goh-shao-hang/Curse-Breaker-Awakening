@@ -19,7 +19,7 @@ namespace CBA.Core
         public float Pitch => _pitch;
         public float PitchVariation => _pitchVariation;
 
-        public AudioClip Play()
+        public AudioClip GetClip()
         {
             int random = Random.Range(0, AudioClips.Length);
             return AudioClips[random];

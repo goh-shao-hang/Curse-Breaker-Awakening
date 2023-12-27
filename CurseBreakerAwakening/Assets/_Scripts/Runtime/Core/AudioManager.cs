@@ -11,7 +11,8 @@ namespace CBA.Core
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private SO_AudioDatabase _database;
-        [SerializeField] private AudioSource _globalBGMAudioSource;
+        [SerializeField] private AudioSource _globalBGMAudioSource1;
+        [SerializeField] private AudioSource _globalBGMAudioSource2;
         [SerializeField] private AudioSource _globalSFXAudioSource;
         [field: SerializeField] public AudioMixerGroup BgmMixerGroup { get; private set; }
         [field: SerializeField] public AudioMixerGroup SfxMixerGroup { get; private set; }
@@ -19,6 +20,10 @@ namespace CBA.Core
 
         private Dictionary<string, Audio> _musicDictionary = new Dictionary<string, Audio>();
         private Dictionary<string, Audio> _soundEffectsDictionary = new Dictionary<string, Audio>();
+
+        private Dictionary<string, float> _musicTimeDictionary = new Dictionary<string, float>();
+
+        private Audio _currentBGM;
 
         protected override void Awake()
         {
@@ -57,11 +62,13 @@ namespace CBA.Core
             {
                 Audio audio = _musicDictionary[audioName];
 
-                _globalBGMAudioSource.clip = audio.Play();
-                _globalBGMAudioSource.volume = audio.Volume;
-                _globalBGMAudioSource.pitch = audio.Pitch + Random.Range(-audio.PitchVariation * 0.5f, audio.PitchVariation * 0.5f);
+                _globalBGMAudioSource1.clip = audio.GetClip();
+                _globalBGMAudioSource1.volume = audio.Volume;
+                _globalBGMAudioSource1.pitch = audio.Pitch + Random.Range(-audio.PitchVariation * 0.5f, audio.PitchVariation * 0.5f);
 
-                _globalBGMAudioSource.Play();
+                _globalBGMAudioSource1.Play();
+
+                _currentBGM = audio;
             }
             else
             {
@@ -69,17 +76,91 @@ namespace CBA.Core
             }
         }
 
+        public void CrossFadeBGM(string audioName, float duration = 2f)
+        {
+            if (!_musicDictionary.ContainsKey(audioName))
+            {
+                Debug.LogError($"Music of name {audioName} not found!");
+                return;
+            }
+
+            Audio music = _musicDictionary[audioName];
+
+            _globalBGMAudioSource1.DOKill(true);
+            _globalBGMAudioSource2.DOKill(true);
+
+            if (_globalBGMAudioSource1.isPlaying)
+            {
+                if (_currentBGM != null)
+                {
+                    if (!_musicTimeDictionary.ContainsKey(_currentBGM.Name))
+                    {
+                        _musicTimeDictionary.Add(_currentBGM.Name, _globalBGMAudioSource1.time);
+                    }
+                    else
+                    {
+                        _musicTimeDictionary[_currentBGM.Name] = _globalBGMAudioSource1.time;
+                    }
+                }
+
+                _globalBGMAudioSource2.clip = music.GetClip();
+                _globalBGMAudioSource2.pitch = music.Pitch + Random.Range(-music.PitchVariation * 0.5f, music.PitchVariation * 0.5f);
+                _globalBGMAudioSource2.volume = 0f;
+
+                if (_musicTimeDictionary.ContainsKey(audioName))
+                {
+                    _globalBGMAudioSource2.time = _musicTimeDictionary[audioName];
+                }
+
+                _globalBGMAudioSource2.Play();
+
+                _globalBGMAudioSource1.DOFade(0, duration).OnComplete(() => _globalBGMAudioSource1.Stop());
+                _globalBGMAudioSource2.DOFade(music.Volume, duration);
+            }
+            else
+            {
+                if (_currentBGM != null)
+                {
+                    if (!_musicTimeDictionary.ContainsKey(_currentBGM.Name))
+                    {
+                        _musicTimeDictionary.Add(_currentBGM.Name, _globalBGMAudioSource2.time);
+                    }
+                    else
+                    {
+                        _musicTimeDictionary[_currentBGM.Name] = _globalBGMAudioSource2.time;
+                    }
+                }
+
+                _globalBGMAudioSource1.clip = music.GetClip();
+                _globalBGMAudioSource1.pitch = music.Pitch + Random.Range(-music.PitchVariation * 0.5f, music.PitchVariation * 0.5f);
+                _globalBGMAudioSource1.volume = 0f;
+
+                if (_musicTimeDictionary.ContainsKey(audioName))
+                {
+                    _globalBGMAudioSource1.time = _musicTimeDictionary[audioName];
+                }
+
+                _globalBGMAudioSource1.Play();
+
+                _globalBGMAudioSource2.DOFade(0, duration).OnComplete(() => _globalBGMAudioSource2.Stop());
+                _globalBGMAudioSource1.DOFade(music.Volume, duration);
+            }
+
+            _currentBGM = music;
+        }
+
         public async void StopBGM(float fadeOutTime = 0f)
         {
-            if (!_globalBGMAudioSource.isPlaying)
+            if (!_globalBGMAudioSource1.isPlaying)
                 return;
 
             if (fadeOutTime > 0f) 
             {
-                await DOVirtual.Float(_globalBGMAudioSource.volume, 0, fadeOutTime, (volume) => _globalBGMAudioSource.volume = volume).AsyncWaitForCompletion();
+                await DOVirtual.Float(_globalBGMAudioSource1.volume, 0, fadeOutTime, (volume) => _globalBGMAudioSource1.volume = volume).AsyncWaitForCompletion();
             }
 
-            _globalBGMAudioSource.Stop();
+            _globalBGMAudioSource1.Stop();
+            _currentBGM = null;
         }
 
         public void PlayGlobalSFX(string audioName)
@@ -91,7 +172,7 @@ namespace CBA.Core
                 _globalSFXAudioSource.volume = audio.Volume;
                 _globalSFXAudioSource.pitch = audio.Pitch + Random.Range(-audio.PitchVariation * 0.5f, audio.PitchVariation * 0.5f);
 
-                _globalSFXAudioSource.PlayOneShot(audio.Play());
+                _globalSFXAudioSource.PlayOneShot(audio.GetClip());
             }
             else
             {

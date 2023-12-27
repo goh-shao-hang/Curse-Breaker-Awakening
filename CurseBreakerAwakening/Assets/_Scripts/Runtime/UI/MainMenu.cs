@@ -4,6 +4,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,27 +23,20 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private float _titleTweenDuration = 1f;
 
     [Header("Buttons")]
-    [SerializeField] private CanvasGroup _buttonsCanvasGroup;
-    [SerializeField] private float _buttonsTweenDuration = 1f;
-
-    private Button[] _buttons;
+    [SerializeField] private ButtonScrollList _buttons;
 
     private void Start()
     {
-        _buttonsCanvasGroup.alpha = 0f;
-        _buttonsCanvasGroup.interactable = false;
+        _buttons.DisableButtons();
 
         _title.rectTransform.DOAnchorPosY(_titleFinalYPosition, _titleTweenDuration).SetEase(Ease.InOutSine);
-        _title.rectTransform.DOScale(_titleFinalScale, _titleTweenDuration).SetEase(Ease.InOutSine).OnComplete(ShowButtons);
-    }
-
-    private void ShowButtons()
-    {
-        _buttonsCanvasGroup.DOFade(1, _buttonsTweenDuration).OnComplete(() => _buttonsCanvasGroup.interactable = true);
+        _title.rectTransform.DOScale(_titleFinalScale, _titleTweenDuration).SetEase(Ease.InOutSine).OnComplete(_buttons.ShowButtons);
     }
 
     public void NewGame()
     {
+        _buttons.SetInteractable(false);
+
         //TODO
         //DO THIS WHENEVER LOADING TO OTHER SCENE
         DOTween.KillAll();
@@ -54,6 +48,8 @@ public class MainMenu : MonoBehaviour
 
     public void Continue()
     {
+        _buttons.SetInteractable(false);
+
         NewGame();
     }
 

@@ -19,6 +19,24 @@ MonoBehaviour:
     _volume: 0.5
     _pitch: 1
     _pitchVariation: 0
+  - <Name>k__BackingField: BattleTheme_1
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 5fe0b19fc95328346bb1b474e775daec, type: 3}
+    _volume: 0.4
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: BossTheme_1
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 9c627bd87b066bd40ad54e2df60189f1, type: 3}
+    _volume: 0.5
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: ExplorationTheme_1
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 3254518fc865550499a8dfe4ab01e96b, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
   <SoundEffects>k__BackingField:
   - <Name>k__BackingField: RevealTitle
     <AudioClips>k__BackingField:
@@ -53,13 +71,13 @@ MonoBehaviour:
   - <Name>k__BackingField: Gate_Open
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: bd3ea3203aa62cf4a886c48d0da956ba, type: 3}
-    _volume: 0.5
+    _volume: 1
     _pitch: 1
     _pitchVariation: 0.1
   - <Name>k__BackingField: Gate_Close
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 735a6803ee240e2449f3968747a2b238, type: 3}
-    _volume: 0.5
+    _volume: 1
     _pitch: 1
     _pitchVariation: 0.1
   - <Name>k__BackingField: Sword_Attack

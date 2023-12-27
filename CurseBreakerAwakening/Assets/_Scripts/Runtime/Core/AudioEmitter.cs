@@ -30,7 +30,7 @@ namespace CBA.Core
             _audioSource.volume = soundEffect.Volume;
             _audioSource.pitch = soundEffect.Pitch + Random.Range(-soundEffect.PitchVariation * 0.5f, soundEffect.PitchVariation * 0.5f);
 
-            _audioSource.PlayOneShot(soundEffect.Play());
+            _audioSource.PlayOneShot(soundEffect.GetClip());
         }
     }
 }

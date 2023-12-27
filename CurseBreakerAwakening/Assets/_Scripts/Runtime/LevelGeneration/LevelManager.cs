@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
 using System.Collections;
@@ -66,6 +67,8 @@ namespace CBA.LevelGeneration
             _playerReference.gameObject.SetActive(true);
             _mapRenderer?.SetCurrentRoom(_currentCell);
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
+
+            AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1");
 
             _transitionCanvas.DOFade(0, 2f).OnComplete(() => _isTransitioning = false);
         }
