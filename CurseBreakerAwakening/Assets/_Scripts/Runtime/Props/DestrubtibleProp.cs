@@ -2,6 +2,7 @@ using CBA.Core;
 using CBA.Entities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 namespace CBA
@@ -12,11 +13,15 @@ namespace CBA
         [SerializeField] private GameObject _destroyedPieces;
         [SerializeField] private AudioEmitter _audioEmitter;
 
+        [Header("Optional")]
+        [SerializeField] private GrabbableObject _grabbableObject;
+
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _randomScaleOnStart;
         [SerializeField] private float _minScale = 1;
         [SerializeField] private float _maxScale = 1.5f;
         [SerializeField] private string _destroyedSfxName = "PropsDestroyed_Wood";
+        [SerializeField] private bool _destroyedWhenThrown;
 
         [Header("Explosion")]
         [SerializeField] private float _explosionForce = 2.0f;
@@ -37,6 +42,22 @@ namespace CBA
                 return;
 
             transform.localScale = Vector3.one * Random.Range(_minScale, _maxScale);
+        }
+
+        private void OnEnable()
+        {
+            if (_grabbableObject == null)
+                return;
+
+            _grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(1f));
+        }
+
+        private void OnDisable()
+        {
+            if (_grabbableObject == null)
+                return;
+
+            _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f));
         }
 
         private void Update()

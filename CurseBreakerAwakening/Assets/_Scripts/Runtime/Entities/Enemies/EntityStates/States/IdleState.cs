@@ -1,5 +1,6 @@
 using CBA;
 using CBA.Entities;
+using CBA.Modules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,6 @@ public class IdleState : EnemyState
     {
         base.Enter();
 
-        _context.NavMeshAgentModule.StopFollow();
+        _context.ModuleManager.GetModule<AINavigationModule>().StopFollow();
     }
 }

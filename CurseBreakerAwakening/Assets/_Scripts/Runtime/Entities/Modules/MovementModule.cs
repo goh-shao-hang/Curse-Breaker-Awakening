@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameCells.Entities
 {
-    public class MovementModule : MonoBehaviour
+    public class MovementModule : Module
     {
         [SerializeField] private Rigidbody _movementRigidbody;
 

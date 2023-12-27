@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
 
     public void ShowOptions()
     {
-        Debug.Log("ShowOptions");
+            Debug.Log("ShowOptions");
     }
 
     public void ShowCredits()

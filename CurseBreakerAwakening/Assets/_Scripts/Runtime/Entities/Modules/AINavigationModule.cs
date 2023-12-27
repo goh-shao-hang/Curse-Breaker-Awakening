@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-namespace CBA.Entities
+namespace CBA.Modules
 {
-    public class AINavigationModule : MonoBehaviour
+    public class AINavigationModule : Module
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -102,13 +102,13 @@ namespace CBA.Entities
         public void Enable()
         {
             _navMeshAgent.enabled = true;
-            this.enabled = true;
+            enabled = true;
         }
 
         public void Disable()
         {
             _navMeshAgent.enabled = false;
-            this.enabled = false;
+            enabled = false;
         }
     }
 }

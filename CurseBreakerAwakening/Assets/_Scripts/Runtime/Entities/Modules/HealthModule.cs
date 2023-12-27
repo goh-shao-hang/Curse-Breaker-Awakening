@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace CBA.Entities
 {
-    public class HealthModule : MonoBehaviour
+    public class HealthModule : Module
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Entity _entity;

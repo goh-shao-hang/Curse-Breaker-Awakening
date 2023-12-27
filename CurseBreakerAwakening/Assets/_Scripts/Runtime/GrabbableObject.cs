@@ -3,17 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine.UI;
+using CBA.Entities;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
 {
-    [Header(GameData.DEPENDENCIES)]
     [SerializeField] private Rigidbody _grabRigidbody;
 
     [Header(GameData.SETTINGS)]
     [SerializeField] private bool _startKinematic = true;
     [SerializeField] private bool _startGrabbable = true;
-    [SerializeField] private float _thrownForce = 5f;
+    [SerializeField] private float _thrownForce = 10f;
+    [SerializeField] private float _thrownSelfDamage = 5f;
+    [SerializeField] private float _thrownInflictedDamage = 5f;
     [SerializeField] private Vector3 _grabbedOffset;
+    [SerializeField] private LayerMask _canCollideWith;
 
     public bool IsGrabbable { get; private set; }
 
@@ -24,7 +29,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     public UnityEvent OnStopHighlight;
     [HideInInspector] public UnityEvent OnGrabbed;
     [HideInInspector] public UnityEvent OnThrown;
-    [HideInInspector] public UnityEvent OnTerrainCollision;
+    [HideInInspector] public UnityEvent OnThrowCollision;
 
     private bool _thrown = false;
 
@@ -42,11 +47,20 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         if (!_thrown)
             return;
 
-        if (collision.collider.gameObject.layer == GameData.TERRAIN_LAYER_INDEX)
+        if ((_canCollideWith & (1 << collision.gameObject.layer)) != 0)
         {
-            OnTerrainCollision?.Invoke();
+            OnThrowCollision?.Invoke();
+
+            GetComponent<IDamageable>()?.TakeDamage(_thrownSelfDamage);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_thrownInflictedDamage);
+
             _thrown = false;
         }
+
+        /*if (collision.gameObject.layer == GameData.TERRAIN_LAYER_INDEX)
+        {
+            
+        }*/
     }
 
     public void SetIsGrabbable(bool isGrabbable)

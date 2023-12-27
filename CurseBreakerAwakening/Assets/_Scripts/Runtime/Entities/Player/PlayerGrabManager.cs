@@ -89,7 +89,7 @@ namespace CBA.Entities.Player
                 Vector3 direction = (targetPosition - _grabTransform.position).normalized;
 
                 //_currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
-                _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, _movementModule.CurrentVelocity);
+                _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, Vector3.zero);//TODO _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
             }
             else if (_currentGrabbedObject == null && _currentSelection != null)

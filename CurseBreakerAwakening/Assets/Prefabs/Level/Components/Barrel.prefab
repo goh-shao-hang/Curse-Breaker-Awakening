@@ -1947,6 +1947,9 @@ MonoBehaviour:
   _startGrabbable: 1
   _thrownForce: 5
   _grabbedOffset: {x: 0, y: 0, z: 0.8}
+  _canCollideWith:
+    serializedVersion: 2
+    m_Bits: 192
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1979,10 +1982,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyedPieces: {fileID: 1066818409094530388}
   _audioEmitter: {fileID: 6462752040590596731}
+  _grabbableObject: {fileID: 439908737}
   _randomScaleOnStart: 1
   _minScale: 1
   _maxScale: 1.5
   _destroyedSfxName: PropsDestroyed_Wood
+  _destroyedWhenThrown: 0
   _explosionForce: 0.2
   _explosionRadius: 5
   _upForceMin: 0

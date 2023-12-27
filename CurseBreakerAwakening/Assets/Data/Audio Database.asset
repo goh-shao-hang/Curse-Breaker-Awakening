@@ -52,7 +52,7 @@ MonoBehaviour:
     _pitchVariation: 0
   - <Name>k__BackingField: GameStartNarration
     <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: a832b76d3f946da45bf2b416491a9ced, type: 3}
+    - {fileID: 8300000, guid: 3c97260490aff9d4fa2fb54a30a61a44, type: 3}
     _volume: 1
     _pitch: 1
     _pitchVariation: 0

@@ -8486,7 +8486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are the <b><color=red>Curse Breaker</b></color>.
+  m_text: You are the <b><color=red>Curse Breaker.</b></color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edac87c04df41234195fb3c5547ccd31, type: 2}
   m_sharedMaterial: {fileID: 6824726107829239818, guid: edac87c04df41234195fb3c5547ccd31,
@@ -8496,8 +8496,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 0
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

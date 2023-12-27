@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 namespace CBA.Entities
@@ -21,5 +22,6 @@ namespace CBA.Entities
         {
             OnDeath?.Invoke();
         }
+
     }
 }

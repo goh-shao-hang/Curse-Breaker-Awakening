@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace CBA.Entities
 {
-    public class GuardModule : MonoBehaviour
+    public class GuardModule : Module
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Entity _entity;

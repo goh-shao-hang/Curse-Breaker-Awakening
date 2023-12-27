@@ -1,3 +1,4 @@
+using CBA.Modules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,20 @@ namespace CBA.Entities
     {
         private AttackData _attackData;
 
+        private readonly AINavigationModule _navigationModule;
+
         public MeleeAttackState(Entity entity, EnemyStateMachine context, AttackData attackData) : base(entity, context)
         {
             this._attackData = attackData;
+
+            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
         {
             base.Enter();
 
-            _context.NavMeshAgentModule.StopFollow();
+            _navigationModule.StopFollow();
             _context.Animator.SetTrigger(GameData.ATTACK_HASH);
             _attackData.Hitbox.SetDamage(_attackData.Damage);
         }

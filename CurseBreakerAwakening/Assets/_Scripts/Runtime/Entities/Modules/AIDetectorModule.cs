@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class AIDetectorModule : MonoBehaviour
+    public class AIDetectorModule : Module
     {
         [SerializeField] private float _detectionRange;
         [SerializeField] private LayerMask _targetLayer;

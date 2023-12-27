@@ -1,3 +1,4 @@
+using CBA.Modules;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,14 @@ namespace CBA.Entities
     {
         private GrabbableObject _grabbableObject;
 
+        private readonly AINavigationModule _navigationModule;
+        private readonly GuardModule _guardModule;
+
         public StunnedState(Entity entity, EnemyStateMachine context, GrabbableObject grabbableObject) : base(entity, context)
         {
             this._grabbableObject = grabbableObject;
+
+            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
@@ -20,7 +26,7 @@ namespace CBA.Entities
             _context.Hurtbox.SetDamagedAnimationWeight(1f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
 
-            _context.NavMeshAgentModule?.Disable();
+            _navigationModule?.Disable();
 
             //TODO set this when exiting some sort of guard state instead
             _context.Hurtbox.SetIsGuarding(false);
@@ -35,11 +41,11 @@ namespace CBA.Entities
             _context.Hurtbox.SetDamagedAnimationWeight(0.3f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, false);
 
-            _context.NavMeshAgentModule?.Enable();
+            _navigationModule?.Enable();
 
             _grabbableObject?.SetIsGrabbable(false);
 
-            _context.GuardModule?.ReplenishGuard();
+            _guardModule?.ReplenishGuard();
         }
     }
 }

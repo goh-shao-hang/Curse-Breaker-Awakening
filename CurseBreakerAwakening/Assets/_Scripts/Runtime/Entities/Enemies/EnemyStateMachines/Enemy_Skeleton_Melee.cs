@@ -1,11 +1,10 @@
-using CBA.Entities.Player.Weapons;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using UnityEngine;
 
 namespace CBA.Entities
 {
-    public class Skeleton_Melee : EnemyStateMachine
+    public class Enemy_Skeleton_Melee : EnemyStateMachine
     {
         [SerializeField] private PhysicsQuery _playerDetector;
         [SerializeField] private PhysicsQuery _attackRangeDetector;
@@ -43,25 +42,25 @@ namespace CBA.Entities
         {
             //State Machine Initialization
             //1. State Initialization
-            _idleState = new IdleState(_entity, this);
-            _chaseState = new ChaseState(_entity, this);
-            _meleeAttackState = new MeleeAttackState(_entity, this, meleeAttack);
-            _stunnedState = new StunnedState(_entity, this, _grabbableObject);
-            _grabbedState = new GrabbedState(_entity, this, _grabbableObject);
-            _recoverState = new RecoverState(_entity, this);
-            _deathState = new DeathState(_entity, this, _ragdollController);
+            _idleState = new IdleState(entity, this);
+            _chaseState = new ChaseState(entity, this);
+            _meleeAttackState = new MeleeAttackState(entity, this, meleeAttack);
+            _stunnedState = new StunnedState(entity, this, _grabbableObject);
+            _grabbedState = new GrabbedState(entity, this, _grabbableObject);
+            _recoverState = new RecoverState(entity, this);
+            _deathState = new DeathState(entity, this, _ragdollController);
 
             //2. Condition Initialization
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
             _meleeAttackTimerCondition = new Condition_Timer(_meleeAttackDuration);
-            _guardBrokenCondition = new Condition_GuardBroken(GuardModule);
-            _stunTimerCondition = new Condition_Timer(_entity.EntityData.BaseStunDuration);
+            _guardBrokenCondition = new Condition_GuardBroken(this.ModuleManager.GetModule<GuardModule>());
+            _stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
             _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
             _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
-            _healthDepletedCondition = new Condition_HealthDepleted(HealthModule);
+            _healthDepletedCondition = new Condition_HealthDepleted(this.ModuleManager.GetModule<HealthModule>());
 
             //3. Setting up transitions
             _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);
@@ -84,4 +83,5 @@ namespace CBA.Entities
             Initialize(_idleState);
         }
     }
+
 }

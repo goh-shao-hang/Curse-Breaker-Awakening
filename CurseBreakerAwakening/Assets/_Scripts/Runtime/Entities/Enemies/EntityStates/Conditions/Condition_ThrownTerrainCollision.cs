@@ -19,7 +19,7 @@ namespace CBA.Entities
         {
             base.Enter();
 
-            _grabbableObject.OnTerrainCollision.AddListener(OnTerrainCollision);
+            _grabbableObject.OnThrowCollision.AddListener(OnTerrainCollision);
             _collidedWithTerrain = false;
         }
 
@@ -27,7 +27,7 @@ namespace CBA.Entities
         {
             base.Exit();
 
-            _grabbableObject.OnTerrainCollision.RemoveListener(OnTerrainCollision);
+            _grabbableObject.OnThrowCollision.RemoveListener(OnTerrainCollision);
             _collidedWithTerrain = false;
         }
 

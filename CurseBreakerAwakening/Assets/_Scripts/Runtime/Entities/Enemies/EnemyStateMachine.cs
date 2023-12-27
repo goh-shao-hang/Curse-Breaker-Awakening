@@ -5,17 +5,16 @@ using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CBA.Modules;
 
 public class EnemyStateMachine : StateMachine
 {
-    [Header(GameData.DEPENDENCIES)]
-    [field: SerializeField] public Entity _entity;
+    private Entity _entity;
+    protected Entity entity => _entity ??= GetComponent<Entity>();
 
     [Header(GameData.MODULES)]
-    [field: SerializeField] public AINavigationModule NavMeshAgentModule;
+    [field: SerializeField] public ModuleManager ModuleManager;
     [field: SerializeField] public Animator Animator;
     [field: SerializeField] public EnemyHurtbox Hurtbox;
-    [field: SerializeField] public HealthModule HealthModule;
-    [field: SerializeField] public GuardModule GuardModule;
     
 }

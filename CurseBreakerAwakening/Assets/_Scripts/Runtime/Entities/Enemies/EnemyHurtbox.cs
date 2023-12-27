@@ -47,12 +47,14 @@ namespace CBA.Entities
                 _healthModule.TakeDamage(amount);
             }
 
-            _animator.SetTrigger(GameData.HIT_HASH);
+            if (_animator != null)
+                _animator.SetTrigger(GameData.HIT_HASH);
         }
 
         public void SetDamagedAnimationWeight(float weight)
         {
-            _animator.SetLayerWeight((int)GameData.EEnemyAnimatorLayers.Damage, weight);
+            if (_animator != null)
+                _animator.SetLayerWeight((int)GameData.EEnemyAnimatorLayers.Damage, weight);
         }
 
         public void Enable()

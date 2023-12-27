@@ -218,7 +218,7 @@ namespace CBA.Entities.Player
             }
 
             float finalMovementForce = _movementForce * (IsGrounded ? 1 : _airMovementMultiplier); //TODO * (IsChargingAttack ? 0.5f : 1);
-            _movementModule.AddForce(_moveDirection * finalMovementForce, ForceMode.Force);
+            _movementModule.AddForce(_moveDirection * finalMovementForce, ForceMode.Acceleration);
         }
 
         private void LimitMaxSpeed()
