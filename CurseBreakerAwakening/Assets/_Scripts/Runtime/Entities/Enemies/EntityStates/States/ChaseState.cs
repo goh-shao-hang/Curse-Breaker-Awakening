@@ -1,24 +1,25 @@
-using CBA;
-using CBA.Entities;
 using CBA.Modules;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ChaseState : EnemyState
+namespace CBA.Entities
 {
-    private readonly AINavigationModule _navigationModule;
-
-    public ChaseState(Entity entity, EnemyStateMachine context) : base(entity, context)
+    public class ChaseState : EnemyState
     {
-        _navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+        private readonly AINavigationModule _navigationModule;
+        private readonly float _chaseSpeed;
+
+        public ChaseState(Entity entity, EnemyStateMachine context, float chaseSpeed = 1f) : base(entity, context)
+        {
+            _navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+            _chaseSpeed = chaseSpeed;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+
+            _navigationModule.SetFollowPosition(_entity._playerPos);
+            _navigationModule.SetSpeed(_chaseSpeed);
+        }
+
     }
-
-    public override void Enter()
-    {
-        base.Enter();
-
-        _navigationModule.SetFollowPosition(_entity._playerPos);
-    }
-
 }

@@ -6,76 +6,54 @@ using UnityEngine;
 public class CharacterOutlineController : MonoBehaviour
 {
     [Header(GameData.DEPENDENCIES)]
-    [SerializeField] private SkinnedMeshRenderer[] _meshRenderers;
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
 
     [Header(GameData.SETTINGS)]
-    [SerializeField] private float _initialThickness = 0f;
+    [ColorUsage(true, true)] [SerializeField] private Color _color;
+    [SerializeField] private float _thickness = 0.01f;
     [SerializeField] private bool _startWithOutline = false;
 
-    public const string OUTLINE_NAME = "3DOutline (Instance)";
+    public const string OUTLINE_NAME = "Mat_3DOutline (Instance)";
     public const string COLOR = "_Color";
     public const string THICKNESS = "_Thickness";
     public const string ACTIVE = "_Active";
 
-    private List<Material> _outlineMaterials = new List<Material>();
+    private Material _outlineMaterial;
 
     private void Awake()
     {
-        for (int i = 0; i < _meshRenderers.Length; i++)
+        var materials = _meshRenderer.materials;
+
+        for (int i = 0; i < materials.Length; i++)
         {
-            var materials = _meshRenderers[i].materials;
-
-            for (int j = 0; j < materials.Length; j++)
+            if (materials[i].name == OUTLINE_NAME)
             {
-                if (materials[j].name == OUTLINE_NAME)
-                {
-                    _outlineMaterials.Add(materials[j]);
-                    break;
-                }
-            }
-
-            if (_outlineMaterials == null)
-            {
-                Debug.LogError($"No outline material is found on {gameObject.name}!");
-            }
-            else
-            {
-                _outlineMaterials[i].SetFloat(THICKNESS, _initialThickness);
-
-                if (!_startWithOutline)
-                {
-                    EnableOutline(false);
-                }
+                _outlineMaterial = _meshRenderer.materials[i];
+                break;
             }
         }
 
-        
-    }
-
-    public void SetThickness(float thickness)
-    {
-        for (int i = 0; i < _meshRenderers.Length; i++)
+        if (_outlineMaterial == null)
         {
-            _outlineMaterials[i].SetFloat(THICKNESS, thickness);
+            Debug.LogWarning($"No outline material is found on {gameObject.name}!");
+            return;
         }
+
+        _outlineMaterial.SetColor(COLOR, _color);
+        _outlineMaterial.SetFloat(THICKNESS, _thickness);
+        _outlineMaterial.SetInt(ACTIVE, 0);
     }
 
     public void EnableOutline(bool show)
     {
-        for (int i = 0; i < _meshRenderers.Length; i++)
-        {
-            _outlineMaterials[i].SetInt(ACTIVE, show ? 1 : 0);
-        }
+        _outlineMaterial?.SetInt(ACTIVE, show ? 1 : 0);
     }
 
     public void SetAlpha(float alpha)
     {
-        for (int i = 0; i < _meshRenderers.Length; i++)
-        {
-            Color color = _outlineMaterials[i].color;
-            color.a = alpha;
+        Color color = _outlineMaterial.color;
+        color.a = alpha;
 
-            _outlineMaterials[i].SetColor(COLOR, color);
-        }
+        _outlineMaterial.SetColor(COLOR, color);
     }
 }

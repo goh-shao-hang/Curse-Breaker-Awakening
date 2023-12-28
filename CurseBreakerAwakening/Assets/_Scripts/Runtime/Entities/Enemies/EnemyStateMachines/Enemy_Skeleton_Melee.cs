@@ -15,6 +15,7 @@ namespace CBA.Entities
         [SerializeField] private AttackData meleeAttack;
 
         [Header(GameData.CUSTOMIZATION)]
+        [SerializeField] private float _chaseSpeed = 1f;
         [SerializeField] private float _meleeAttackDuration = 1f;
 
         #region States and Conditions
@@ -43,7 +44,7 @@ namespace CBA.Entities
             //State Machine Initialization
             //1. State Initialization
             _idleState = new IdleState(entity, this);
-            _chaseState = new ChaseState(entity, this);
+            _chaseState = new ChaseState(entity, this, _chaseSpeed);
             _meleeAttackState = new MeleeAttackState(entity, this, meleeAttack);
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);

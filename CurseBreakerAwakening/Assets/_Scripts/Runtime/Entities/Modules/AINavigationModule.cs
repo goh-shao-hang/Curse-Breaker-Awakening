@@ -71,6 +71,10 @@ namespace CBA.Modules
             _navMeshAgent.SetDestination(FollowPosition.Value);
         }
 
+        public void SetSpeed(float speed)
+        {
+            _navMeshAgent.speed = speed;
+        }
 
         public void SetOneTimeDestination(Vector3 position)
         {

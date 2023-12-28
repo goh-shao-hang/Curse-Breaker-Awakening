@@ -13,7 +13,7 @@ namespace CBA
         private MeshRenderer _meshRenderer;
         private GrabbableObject _grabbableObject;
 
-        public const string OUTLINE_NAME = "3DOutline (Instance)";
+        public const string OUTLINE_NAME = "Mat_3DOutline (Instance)";
         public const string COLOR = "_Color";
         public const string THICKNESS = "_Thickness";
         public const string ACTIVE = "_Active";

@@ -12,6 +12,7 @@ namespace CBA.Entities
         [SerializeField] private GrabbableObject _grabbableObject;
 
         [Header(GameData.CUSTOMIZATION)]
+        [SerializeField] private float _chaseSpeed = 1f;
         [SerializeField] private float _explosionTimer = 3f;
 
         #region States and Conditions
@@ -36,7 +37,7 @@ namespace CBA.Entities
             //State Machine Initialization
             //1. State Initialization
             _idleState = new IdleState(entity, this);
-            _chaseState = new ChaseState(entity, this);
+            _chaseState = new ChaseState(entity, this, _chaseSpeed);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
             _deathState = new DeathState(entity, this);
             _prepareExplodeState = new PrepareExplodeState(entity, this);
@@ -67,11 +68,5 @@ namespace CBA.Entities
             Initialize(_idleState);
         }
 
-        protected override void Update()
-        {
-            base.Update();
-
-            Debug.Log(_currentState);
-        }
     }
 }

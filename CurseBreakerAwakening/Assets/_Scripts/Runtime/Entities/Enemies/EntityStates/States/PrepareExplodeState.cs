@@ -1,3 +1,4 @@
+using CBA;
 using CBA.Entities;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ public class PrepareExplodeState : EnemyState
         base.Enter();
 
         Debug.LogWarning("IM GONNA EXPLODE");
+        _context.Animator.SetTrigger(GameData.PREPAREEXPLODE_HASH);
     }
 }

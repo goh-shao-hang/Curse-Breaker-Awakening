@@ -13,6 +13,6 @@ public class ExplodeState : EnemyState
     {
         base.Enter();
 
-        Debug.LogError("EXPLODED");
+        //Debug.LogError("EXPLODED");
     }
 }

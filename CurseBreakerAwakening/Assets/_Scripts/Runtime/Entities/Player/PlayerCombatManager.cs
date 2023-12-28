@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities.Player.Weapons;
 using GameCells;
 using GameCells.Utilities;
@@ -109,12 +110,17 @@ namespace CBA.Entities.Player
             if (CurrentWeapon != null)
             {
                 //Unsubscribe from events
-                //_currentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
+                CurrentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
                 Destroy(CurrentWeapon.gameObject);
             }
             CurrentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform).Initialize(this);
             //Subscribe to events
-            //_currentWeapon.OnWeaponHit += TriggerOnPlayerWeaponHit;
+            CurrentWeapon.OnWeaponHit += TriggerOnPlayerWeaponHit;
+        }
+
+        private void TriggerOnPlayerWeaponHit()
+        {
+            GameEventsManager.Instance.CameraShake(Vector3.one, 0.3f);
         }
     }
 }

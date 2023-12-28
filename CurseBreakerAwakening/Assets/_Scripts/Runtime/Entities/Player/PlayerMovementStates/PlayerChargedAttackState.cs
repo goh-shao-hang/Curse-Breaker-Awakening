@@ -10,8 +10,11 @@ namespace CBA.Entities.Player
         private Vector3 _chargedAttackDirection;
         private bool _chargeAttackEnded;
 
-        public PlayerChargedAttackState(EPlayerMovementState key, PlayerController playerController) : base(key, playerController)
+        private readonly PlayerCameraController _playerCameraController;
+
+        public PlayerChargedAttackState(EPlayerMovementState key, PlayerController playerController, PlayerCameraController playerCameraController) : base(key, playerController)
         {
+            this._playerCameraController = playerCameraController;
         }
 
         public override void Enter()
@@ -30,7 +33,7 @@ namespace CBA.Entities.Player
             _chargedAttackMovementSpeed = Mathf.Lerp(_playerController.MinChargedAttackMovementSpeed, _playerController.MaxChargedAttackMovementSpeed, 
                 _playerController.LastChargePercentage);
 
-            _chargedAttackDirection = _playerController.CameraRootTransform.forward;
+            _chargedAttackDirection = _playerCameraController.transform.forward;
 
             _playerController.MovementModule.SetVelocity(_chargedAttackDirection * _chargedAttackMovementSpeed);
             _playerController.SetIsLimitingMaxSpeed(false);

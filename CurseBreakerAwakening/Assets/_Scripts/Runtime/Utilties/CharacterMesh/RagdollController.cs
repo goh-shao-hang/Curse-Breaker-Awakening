@@ -20,7 +20,7 @@ namespace GameCells.Utilities
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private StartMode _startMode;
-        [SerializeField] private LayerMask _layersToExcludeWhenSearching;
+        [SerializeField] private LayerMask _ragdollLayer;
 
 
         private Rigidbody[] _rigidbodies;
@@ -29,7 +29,7 @@ namespace GameCells.Utilities
 
         private void Awake()
         {
-            _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>().Where(x => ((_layersToExcludeWhenSearching.value) & (1 << x.gameObject.layer)) == 0).ToArray();
+            _rigidbodies = _ragdollRootTransform.GetComponentsInChildren<Rigidbody>().Where(x => ((_ragdollLayer.value) & (1 << x.gameObject.layer)) != 0).ToArray();
 
             List<Collider> colliders = new List<Collider>();
             foreach (var rigidbody in _rigidbodies)

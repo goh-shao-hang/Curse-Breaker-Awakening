@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace CBA.Entities
 
         public event Action<float> OnHurt;
 
+        private SkinnedMeshRenderer _skinnedMeshRenderer;
+        private SkinnedMeshRenderer skinnedMeshRenderer => _skinnedMeshRenderer ??= GetComponentInChildren<SkinnedMeshRenderer>();
+
         private void Awake()
         {
             _hurtboxCollider = GetComponent<Collider>();
@@ -45,6 +49,15 @@ namespace CBA.Entities
             else
             {
                 _healthModule.TakeDamage(amount);
+
+            }
+
+            if (skinnedMeshRenderer != null)
+            {
+                skinnedMeshRenderer.material.DOKill(true);
+
+                skinnedMeshRenderer.material.SetFloat(GameData.DAMAGE_STRENGTH, 1);
+                skinnedMeshRenderer.material.DOFloat(0, GameData.DAMAGE_STRENGTH, GameData.DAMAGE_EFFECT_DURATION);
             }
 
             if (_animator != null)

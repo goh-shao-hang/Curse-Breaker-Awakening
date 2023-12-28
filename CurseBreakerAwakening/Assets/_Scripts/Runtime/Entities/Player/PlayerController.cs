@@ -10,6 +10,7 @@ namespace CBA.Entities.Player
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private PlayerInputHandler _playerInputHandler;
+        [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private PlayerCombatManager _playerCombatManager;
         [SerializeField] private Transform _cameraRootTransform;
         [SerializeField] private MovementModule _movementModule;
@@ -44,13 +45,13 @@ namespace CBA.Entities.Player
         [SerializeField] private float _wallRunCameraTilt = 10f;
 
         [Header("Charge Attack")]
-        [SerializeField] private float _chargingMoveForce = 30f;
         [SerializeField] private float _minChargedAttackMovementSpeed = 10f;
         [SerializeField] private float _maxChargedAttackMovementSpeed = 15f;
 
         #region Getters
         //Dependencies
         public PlayerInputHandler PlayerInputHandler => _playerInputHandler;
+        public PlayerCameraController PlayerCameraController => _playerCameraController;
         public PlayerCombatManager PlayerCombatManager => _playerCombatManager;
         public MovementModule MovementModule => _movementModule;
         public CapsuleCollider PlayerCollider => _playerCollider;
@@ -97,7 +98,6 @@ namespace CBA.Entities.Player
         public RaycastHit runnableWallHitInfo;
 
         //Charged Attack
-        public float ChargingMoveForce => _chargingMoveForce;
         public float MinChargedAttackMovementSpeed => _minChargedAttackMovementSpeed;
         public float MaxChargedAttackMovementSpeed => _maxChargedAttackMovementSpeed;
         public bool IsChargingAttack { get; private set; }
@@ -141,7 +141,7 @@ namespace CBA.Entities.Player
             _StatesDict.Add(EPlayerMovementState.Sprint, new PlayerSprintState(EPlayerMovementState.Sprint, this));
             _StatesDict.Add(EPlayerMovementState.Crouch, new PlayerCrouchState(EPlayerMovementState.Crouch, this));
             _StatesDict.Add(EPlayerMovementState.WallRun, new PlayerWallRunState(EPlayerMovementState.WallRun, this));
-            _StatesDict.Add(EPlayerMovementState.ChargedAttack, new PlayerChargedAttackState(EPlayerMovementState.ChargedAttack, this));
+            _StatesDict.Add(EPlayerMovementState.ChargedAttack, new PlayerChargedAttackState(EPlayerMovementState.ChargedAttack, this, this._playerCameraController));
 
             _currentState = _StatesDict[EPlayerMovementState.Walk];
 
@@ -169,6 +169,8 @@ namespace CBA.Entities.Player
         protected override void Update()
         {
             base.Update();
+
+            Debug.Log(_currentState);
 
             _movementModule.SetDrag(IsGrounded ? _groundDrag : 0f);
 
