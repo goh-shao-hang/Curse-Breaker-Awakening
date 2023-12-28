@@ -11,6 +11,7 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private PlayerInputHandler _playerInputHandler;
+        [SerializeField] private PlayerCombatManager _playerCombatManager;
         [SerializeField] private Transform _grabTransform;
         [SerializeField] private MovementModule _movementModule;
 
@@ -21,6 +22,8 @@ namespace CBA.Entities.Player
         [SerializeField] private LayerMask _terrainlayer;
 
         public bool CanInteract { get; private set; } = true;
+        public bool CanGrab => !_playerCombatManager.CurrentWeapon.IsPerformingCombatAction;
+        public bool IsGrabbing => _currentGrabbedObject != null;
 
         private RaycastHit _raycastHit;
         private GrabbableObject _currentGrabbedObject = null;
@@ -77,6 +80,9 @@ namespace CBA.Entities.Player
 
         private void TryGrab()
         {
+            if (!CanGrab)
+                return;
+
             if (_currentGrabbedObject != null)
             {
                 RaycastHit hit;

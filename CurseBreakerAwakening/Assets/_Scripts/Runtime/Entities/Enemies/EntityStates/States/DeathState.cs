@@ -9,16 +9,17 @@ namespace CBA.Entities
     public class DeathState : EnemyState
     {
         //TODO make ragdoll controller subsribe to entity on death instead
-        private RagdollController _ragdollController = null; //Optional
+        private readonly RagdollController _ragdollController = null; //Optional
+        private readonly GrabbableObject _grabbableObject = null;
 
         private readonly AINavigationModule _navigationModule;
 
-        public DeathState(Entity entity, EnemyStateMachine context, RagdollController ragdollController = null) : base(entity, context)
+        public DeathState(Entity entity, EnemyStateMachine context, RagdollController ragdollController = null, GrabbableObject grabbableObject = null) : base(entity, context)
         {
-            if (ragdollController != null)
-                this._ragdollController = ragdollController;
-
             this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+
+            this._ragdollController = ragdollController;
+            this._grabbableObject = grabbableObject;
         }
 
         public override void Enter()
@@ -26,8 +27,11 @@ namespace CBA.Entities
             base.Enter();
 
             _navigationModule?.Disable();
+            _grabbableObject?.SetIsGrabbable(false);
             _context.Hurtbox.Disable();
             _ragdollController?.EnableRagdoll();
+
+            _context.Animator.SetTrigger(GameData.DIE_HASH);
 
             _entity.Die();
         }

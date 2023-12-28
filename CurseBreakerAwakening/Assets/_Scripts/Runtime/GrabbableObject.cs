@@ -39,7 +39,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     {
         EnableThrowPhysics(_startKinematic);
 
-        IsGrabbable = _startGrabbable;
+        SetIsGrabbable(_startGrabbable);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -52,7 +52,7 @@ namespace CBA.Modules
 
         private void UpdateAnimation()
         {
-            _animator.SetFloat(GameData.VELOCITY_HASH, _navMeshAgent.velocity.magnitude, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
+            _animator.SetFloat(GameData.SPEED_HASH, _navMeshAgent.velocity.magnitude, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
         }
 
         private void UpdateOverridenRotation()

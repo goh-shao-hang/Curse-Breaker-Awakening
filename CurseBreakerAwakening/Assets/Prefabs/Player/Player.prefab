@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInputHandler: {fileID: 980999762061052820}
+  _playerCameraController: {fileID: 0}
   _playerCombatManager: {fileID: 980999762061052822}
   _cameraRootTransform: {fileID: 980999763275670245}
   _movementModule: {fileID: 980999762728581201}
@@ -142,9 +143,8 @@ MonoBehaviour:
   _minWallRunHeight: 2
   _wallRunGravity: 3
   _wallRunCameraTilt: 15
-  _chargingMoveForce: 30
-  _minChargedAttackMovementSpeed: 10
-  _maxChargedAttackMovementSpeed: 25
+  _minChargedAttackMovementSpeed: 15
+  _maxChargedAttackMovementSpeed: 20
 --- !u!114 &980999762061052822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 53d21ffd46b7fd145978a4b9a2d3a13a, type: 2}
   _playerInputHandler: {fileID: 980999762061052820}
   _playerCameraController: {fileID: 0}
+  _playerGrabManager: {fileID: 8346056967299136009}
   _weaponHolderTransform: {fileID: 980999763820017703}
   ChargedAttackHitbox: {fileID: 747243636247433320}
   PlayerHurtbox: {fileID: 8423231553689615740}
@@ -202,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCameraController: {fileID: 0}
   _playerInputHandler: {fileID: 980999762061052820}
+  _playerCombatManager: {fileID: 980999762061052822}
   _grabTransform: {fileID: 0}
   _movementModule: {fileID: 980999762728581201}
   _maxGrabDistance: 1.5
@@ -505,7 +507,7 @@ MonoBehaviour:
   _visualize: 1
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1527
   _offset: {x: 0, y: -1, z: 0}
   _radius: 0.2
 --- !u!1 &980999764022817687

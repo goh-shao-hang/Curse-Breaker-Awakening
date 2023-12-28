@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9187086578839646632}
   - component: {fileID: 2951433280134672247}
   - component: {fileID: 7156578325564024720}
+  - component: {fileID: 2249551303878577257}
   m_Layer: 6
   m_Name: Door_Collider
   m_TagString: Untagged
@@ -135,6 +136,20 @@ MonoBehaviour:
   _lockDownBar: {fileID: 5983876623304856856}
   _lockdownBarVisual: {fileID: 6288692622316523894}
   _doorAudioEmitter: {fileID: 1977169456521015838}
+--- !u!64 &2249551303878577257
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2151054207344552446}
+  m_Material: {fileID: 13400000, guid: b06a5da3213358940b98a6aaf641cdd2, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: ce8cc834ba277844da67143cfc370fa8, type: 3}
 --- !u!1 &7023598261397171739
 GameObject:
   m_ObjectHideFlags: 0

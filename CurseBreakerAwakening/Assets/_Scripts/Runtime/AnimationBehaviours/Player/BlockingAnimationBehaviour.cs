@@ -44,6 +44,12 @@ public class BlockingAnimationBehaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        bool isBlocking = animator.GetCurrentAnimatorStateInfo(0).IsName("Block Success");
+        bool isParrying = animator.GetCurrentAnimatorStateInfo(0).IsName("Parry");
+
+        if (isBlocking || isParrying)
+            return;
+
         _playerHurtbox.SetIsParrying(false);
         _playerHurtbox.SetIsBlocking(false);
     }

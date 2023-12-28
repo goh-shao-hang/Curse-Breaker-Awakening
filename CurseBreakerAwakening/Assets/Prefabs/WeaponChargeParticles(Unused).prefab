@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2342357582984832339}
   - component: {fileID: 2342357582984832338}
   m_Layer: 8
-  m_Name: Particle System
+  m_Name: WeaponChargeParticles(Unused)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

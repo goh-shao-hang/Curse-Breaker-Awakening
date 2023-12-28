@@ -704,7 +704,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!195 &376674859392112426
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -847,6 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModuleManager: {fileID: 757509509176203011}
   Animator: {fileID: 8431452190722270293}
+  MeshRenderer: {fileID: 0}
   Hurtbox: {fileID: 376674859392112429}
   _playerDetector: {fileID: 376674859219954636}
   _attackRangeDetector: {fileID: 376674859149691218}
@@ -1398,7 +1399,7 @@ Rigidbody:
   m_GameObject: {fileID: 8381912684676286453}
   serializedVersion: 2
   m_Mass: 0.15625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1433,7 +1434,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382025229794619241}
   serializedVersion: 2
   m_Mass: 0.0625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1515,7 +1516,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382395779387723145}
   serializedVersion: 2
   m_Mass: 0.09375
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1597,7 +1598,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382412851869976301}
   serializedVersion: 2
   m_Mass: 0.0625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1743,7 +1744,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382450261740102351}
   serializedVersion: 2
   m_Mass: 0.09375
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1825,7 +1826,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382579043354773791}
   serializedVersion: 2
   m_Mass: 0.09375
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1907,7 +1908,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382648875011558867}
   serializedVersion: 2
   m_Mass: 0.0625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1988,7 +1989,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382796051507217491}
   serializedVersion: 2
   m_Mass: 0.15625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -2072,9 +2073,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c19849f350ffe499ce41835ea4fb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshRenderers:
-  - {fileID: 8482072974597649771}
-  _initialThickness: 0.02
+  _meshRenderer: {fileID: 8482072974597649771}
+  _color: {r: 5.992157, g: 5.992157, b: 0, a: 1}
+  _thickness: 0.005
   _startWithOutline: 0
 --- !u!114 &376674858730808268
 MonoBehaviour:
@@ -2206,7 +2207,7 @@ Rigidbody:
   m_GameObject: {fileID: 8382807335254947831}
   serializedVersion: 2
   m_Mass: 0.0625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -2288,7 +2289,7 @@ Rigidbody:
   m_GameObject: {fileID: 8383323228823090185}
   serializedVersion: 2
   m_Mass: 0.09375
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -2370,7 +2371,7 @@ Rigidbody:
   m_GameObject: {fileID: 8383407139401735873}
   serializedVersion: 2
   m_Mass: 0.0625
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0

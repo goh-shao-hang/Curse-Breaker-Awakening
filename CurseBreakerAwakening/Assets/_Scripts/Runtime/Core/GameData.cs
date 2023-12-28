@@ -43,8 +43,9 @@ namespace CBA
         public static readonly int CHARGERELEASED_HASH = Animator.StringToHash("chargeReleased");
         public static readonly int CHARGEDATTACKENDED_HASH = Animator.StringToHash("chargedAttackEnded");
         public static readonly int HIT_HASH = Animator.StringToHash("hit");
-        public static readonly int PREPAREEXPLODE_HASH = Animator.StringToHash("prepareExplode");
-        public static readonly int VELOCITY_HASH = Animator.StringToHash("velocity");
+        public static readonly int DIE_HASH = Animator.StringToHash("die");
+        public static readonly int PREPARINGEXPLODE_HASH = Animator.StringToHash("preparingExplode");
+        public static readonly int SPEED_HASH = Animator.StringToHash("speed");
         public static readonly int XVELOCITY_HASH = Animator.StringToHash("xVelocity");
         public static readonly int ZVELOCITY_HASH = Animator.StringToHash("zVelocity");
         public static readonly int ISSTUNNED_HASH = Animator.StringToHash("isStunned");

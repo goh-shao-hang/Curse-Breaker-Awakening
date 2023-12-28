@@ -120,3 +120,9 @@ MonoBehaviour:
     _volume: 0.75
     _pitch: 1
     _pitchVariation: 0.15
+  - <Name>k__BackingField: Beetle_Explosion
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 2792a6dae52ebb24cb7698cc77eb65cd, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0.15

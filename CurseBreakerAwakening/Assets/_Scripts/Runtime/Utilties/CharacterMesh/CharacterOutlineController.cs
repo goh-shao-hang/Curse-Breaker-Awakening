@@ -10,7 +10,7 @@ public class CharacterOutlineController : MonoBehaviour
 
     [Header(GameData.SETTINGS)]
     [ColorUsage(true, true)] [SerializeField] private Color _color;
-    [SerializeField] private float _thickness = 0.01f;
+    [SerializeField] private float _thickness = 0.005f;
     [SerializeField] private bool _startWithOutline = false;
 
     public const string OUTLINE_NAME = "Mat_3DOutline (Instance)";
@@ -41,7 +41,7 @@ public class CharacterOutlineController : MonoBehaviour
 
         _outlineMaterial.SetColor(COLOR, _color);
         _outlineMaterial.SetFloat(THICKNESS, _thickness);
-        _outlineMaterial.SetInt(ACTIVE, 0);
+        _outlineMaterial.SetInt(ACTIVE, _startWithOutline ? 1 : 0);
     }
 
     public void EnableOutline(bool show)

@@ -39,8 +39,8 @@ namespace CBA.Entities
             _idleState = new IdleState(entity, this);
             _chaseState = new ChaseState(entity, this, _chaseSpeed);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
-            _deathState = new DeathState(entity, this);
-            _prepareExplodeState = new PrepareExplodeState(entity, this);
+            _deathState = new DeathState(entity, this, null, this._grabbableObject);
+            _prepareExplodeState = new PrepareExplodeState(entity, this, _explosionTimer);
             _explodeState = new ExplodeState(entity, this);
 
             //2. Condition Initialization
@@ -68,5 +68,11 @@ namespace CBA.Entities
             Initialize(_idleState);
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            //Debug.LogError(_currentState);
+        }
     }
 }

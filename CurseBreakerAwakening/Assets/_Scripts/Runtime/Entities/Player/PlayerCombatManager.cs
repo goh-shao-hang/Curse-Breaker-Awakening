@@ -19,6 +19,7 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private PlayerCameraController _playerCameraController;
+        [SerializeField] private PlayerGrabManager _playerGrabManager;
         [SerializeField] private Transform _weaponHolderTransform;
         [field: SerializeField] public BoxCollider ChargedAttackHitbox;
         [field: SerializeField] public PlayerHurtbox PlayerHurtbox;
@@ -37,6 +38,7 @@ namespace CBA.Entities.Player
         [SerializeField] private bool _equipWeapon = true;
 
         public bool AttackBuffer { get; private set; } = false;
+        public bool CanPerformCombatActions => !_playerGrabManager.IsGrabbing;
 
         public UnityEvent OnPlayerWeaponHit; //Trigger things like camera shakes
 
@@ -78,9 +80,11 @@ namespace CBA.Entities.Player
             _playerInputHandler.OnBlockReleasedInput -= OnBlockReleased;
         }
 
-
         private void OnAttackPressed()
         {
+            if (!CanPerformCombatActions)
+                return;
+
             CurrentWeapon.PrepareAttack();
             CurrentWeapon.PrepareCharge();
         }
@@ -92,6 +96,9 @@ namespace CBA.Entities.Player
 
         private void OnBlockPressed()
         {
+            if (!CanPerformCombatActions)
+                return;
+
             CurrentWeapon.StartBlocking();
         }
 
@@ -111,6 +118,7 @@ namespace CBA.Entities.Player
             {
                 //Unsubscribe from events
                 CurrentWeapon.OnWeaponHit -= TriggerOnPlayerWeaponHit;
+                    
                 Destroy(CurrentWeapon.gameObject);
             }
             CurrentWeapon = Instantiate(weaponData.WeaponPrefab, _weaponHolderTransform).Initialize(this);

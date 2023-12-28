@@ -26,6 +26,8 @@ namespace CBA.Entities.Player.Weapons
         private PlayerCombatManager _playerCombatManager;
         private BoxCollider _chargedAttackHitbox;
 
+        public bool IsPerformingCombatAction { get; private set; } = false;
+
         [Header("Effects")]
         [SerializeField] private AudioEmitter _weaponAudioEmitter;
         [SerializeField] private GameObject _chargingVFX;
@@ -50,6 +52,8 @@ namespace CBA.Entities.Player.Weapons
         private float _currentBlockTime = 0f;
         private float _currentChargeTime;
         private float _currentChargedAttackDamage;
+
+        private float _blockAndParryAnimationCooldown = 0f;
 
         private Material _originalMaterial;
 
@@ -99,12 +103,13 @@ namespace CBA.Entities.Player.Weapons
 
         private void Update()
         {
+            _blockAndParryAnimationCooldown -= Time.deltaTime;
+
             if (_isBlockPressed)
             {
                 _currentBlockTime += Time.deltaTime;
             }
-
-            if (_normalAttackBuffer)
+            else if (_normalAttackBuffer)
             {
                 Attack();
             }
@@ -139,7 +144,7 @@ namespace CBA.Entities.Player.Weapons
 
                 if (_hitVFX != null)
                 {
-                    Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity);
+                    Destroy(Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity), 1f);
                 }
             }
         }
@@ -164,7 +169,7 @@ namespace CBA.Entities.Player.Weapons
 
                 if (_hitVFX != null)
                 {
-                    Instantiate(_hitVFX, _chargedAttackHitbox.transform.position, Quaternion.identity);
+                    Destroy(Instantiate(_hitVFX, _hitbox.transform.position, Quaternion.identity), 1f);
                 }
             }
         }
@@ -188,6 +193,8 @@ namespace CBA.Entities.Player.Weapons
         {
             if (!NextComboInputAllowed)
                 return;
+
+            IsPerformingCombatAction = true;
 
             _weaponAnimator.SetInteger(GameData.COMBO_HASH, _currentCombo);
             _weaponAnimator.SetTrigger(GameData.ATTACK_HASH);
@@ -217,6 +224,8 @@ namespace CBA.Entities.Player.Weapons
         public void AllowNextComboInput()
         {
             NextComboInputAllowed = true;
+
+            IsPerformingCombatAction = false;
         }
 
         public void ResetCombo()
@@ -271,6 +280,8 @@ namespace CBA.Entities.Player.Weapons
             _weaponMeshRenderer.material = _originalMaterial;
             _chargingVFX.SetActive(false);
             _fullyChargedVFX.SetActive(false);
+
+            IsPerformingCombatAction = false;
         }
 
         private IEnumerator ChargingCO()
@@ -296,6 +307,8 @@ namespace CBA.Entities.Player.Weapons
 
         public void OnChargedAttackReady()
         {
+            IsPerformingCombatAction = true;
+
             _playerCombatManager.OnChargingStarted?.Invoke();
 
             _weaponAnimator.SetBool(GameData.ISCHARGING_HASH, true);
@@ -355,6 +368,8 @@ namespace CBA.Entities.Player.Weapons
             _weaponMeshRenderer.material = _originalMaterial;
 
             _fullyChargedVFX.SetActive(false);
+
+            IsPerformingCombatAction = false;
         }
         #endregion
 
@@ -366,6 +381,8 @@ namespace CBA.Entities.Player.Weapons
             {
                 InterruptCharging();
             }
+
+            IsPerformingCombatAction = true;
 
             _isBlockPressed = true;
             _currentBlockTime = 0f;
@@ -388,6 +405,8 @@ namespace CBA.Entities.Player.Weapons
             {
                 _isBlockPressed = false;
                 _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, false);
+
+                IsPerformingCombatAction = false;
             }
         }
 
@@ -397,34 +416,43 @@ namespace CBA.Entities.Player.Weapons
 
             _isBlockPressed = false;
             _weaponAnimator.SetBool(GameData.ISBlOCKING_HASH, false);
+
+            IsPerformingCombatAction = false;
         }
 
         public void OnParrySuccess()
         {
+            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Parry");
             if (_parrySuccessVFX != null)
             {
                 _parrySuccessVFX.Play();
             }
 
+            if (_blockAndParryAnimationCooldown > 0f)
+                return;
+
+            _blockAndParryAnimationCooldown = 1f;
+
             _weaponAnimator.SetTrigger(GameData.PARRY_HASH);
-            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Parry");
         }
 
         public void OnBlockSuccess()
         {
+            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Block");
             if (_blockSuccessVFX != null)
             {
                 _blockSuccessVFX.Play();
             }
 
+            if (_blockAndParryAnimationCooldown > 0f)
+                return;
+
+            _blockAndParryAnimationCooldown = 1f;
+
             _weaponAnimator.SetTrigger(GameData.BLOCKSUCCESS_HASH);
-            _weaponAudioEmitter?.PlayOneShotSfx("Sword_Block");
 
         }
         #endregion
-
-
-
 
     }
 }
