@@ -17,6 +17,8 @@ namespace CBA.Entities.Player
         [SerializeField] private Image _healthBarWhite;
         [SerializeField] private Image _staminaBarFill;
         [SerializeField] private Image _staminaBarWhite;
+        [SerializeField] private Image _crossHair;
+        private PlayerGrabManager _playerGrabManager;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _shakeStrength = 5f;
@@ -26,15 +28,27 @@ namespace CBA.Entities.Player
 
         private const float _staminaTweenDifferenceThreshold = 0.1f; //Minimum stamina percentage change to use tweening
 
+        private const float _crosshairTweenDuration = 0.2f;
+
+        private void Awake()
+        {
+            _playerGrabManager = _playerController.GetComponent<PlayerGrabManager>();
+        }
+
         private void OnEnable()
         {
             _playerHealthModule.OnHealthChanged.AddListener(UpdateHealthUI);
             _playerController.OnStaminaChanged += UpdateStaminaUI;
+            _playerGrabManager.OnGrab += ShowCrosshair;
+            _playerGrabManager.OnThrow += HideCrosshair;
         }
 
         private void OnDisable()
         {
+            _playerHealthModule.OnHealthChanged.RemoveListener(UpdateHealthUI);
             _playerController.OnStaminaChanged -= UpdateStaminaUI;
+            _playerGrabManager.OnGrab -= ShowCrosshair;
+            _playerGrabManager.OnThrow -= HideCrosshair;
         }
 
         private void Update()
@@ -76,5 +90,19 @@ namespace CBA.Entities.Player
             
             _staminaBarFill.fillAmount = staminaPercentage;
         }
+
+        private void ShowCrosshair()
+        {
+            _crossHair.rectTransform.DOKill(true);
+            _crossHair.DOFade(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHair.rectTransform.DOScale(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
+        }
+
+        private void HideCrosshair()
+        {
+            _crossHair.DOFade(0, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHair.rectTransform.DOScale(2, _crosshairTweenDuration).SetEase(Ease.OutSine);
+        }
+
     }
 }

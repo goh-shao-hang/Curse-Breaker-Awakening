@@ -1946,7 +1946,9 @@ MonoBehaviour:
   _startKinematic: 1
   _startGrabbable: 1
   _thrownForce: 5
-  _grabbedOffset: {x: 0, y: 0, z: 0.8}
+  _thrownSelfDamage: 5
+  _thrownInflictedDamage: 5
+  _grabbedOffset: {x: -0.3, y: -0.5, z: 0.8}
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 192
@@ -1965,7 +1967,7 @@ MonoBehaviour:
   OnThrown:
     m_PersistentCalls:
       m_Calls: []
-  OnTerrainCollision:
+  OnThrowCollision:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1066671628316380488

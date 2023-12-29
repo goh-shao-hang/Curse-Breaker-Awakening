@@ -1,5 +1,6 @@
 using CBA;
 using GameCells.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,10 @@ namespace CBA.Entities.Player
         private RaycastHit _raycastHit;
         private GrabbableObject _currentGrabbedObject = null;
         private GrabbableObject _currentSelection = null;
+
+        public event Action OnGrab;
+        public event Action OnThrow;
+
 
         private void OnEnable()
         {
@@ -97,6 +102,8 @@ namespace CBA.Entities.Player
                 //_currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
                 _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, Vector3.zero);//TODO _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
+
+                OnThrow?.Invoke();
             }
             else if (_currentGrabbedObject == null && _currentSelection != null)
             {
@@ -107,6 +114,8 @@ namespace CBA.Entities.Player
 
                     _currentSelection.OnDeselect();
                     _currentSelection = null;
+
+                    OnGrab?.Invoke();
                 }
             }
         }

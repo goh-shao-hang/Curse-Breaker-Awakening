@@ -317,7 +317,7 @@ MonoBehaviour:
   _thrownForce: 5
   _thrownSelfDamage: 5
   _thrownInflictedDamage: 5
-  _grabbedOffset: {x: 0, y: 0, z: 0.8}
+  _grabbedOffset: {x: -0.1, y: -0.3, z: 0.8}
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 192
