@@ -1943,7 +1943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabRigidbody: {fileID: 1066671628316380503}
-  _startKinematic: 1
+  _startKinematic: 0
   _startGrabbable: 1
   _thrownForce: 5
   _thrownSelfDamage: 5
@@ -1952,6 +1952,7 @@ MonoBehaviour:
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 192
+  _skinnedMeshRenderer: {fileID: 0}
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls: []

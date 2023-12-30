@@ -24,8 +24,8 @@ namespace GameCells.Utilities
 
 
         private Rigidbody[] _rigidbodies;
-        private Joint[] joints;
         private Collider[] _colliders;
+        //private Joint[] joints;
 
         private void Awake()
         {
@@ -38,7 +38,7 @@ namespace GameCells.Utilities
             }
             _colliders = colliders.ToArray();
 
-            joints = GetComponentsInChildren<Joint>();
+            //joints = GetComponentsInChildren<Joint>();
 
             if (_startMode == StartMode.Animator)
             {
@@ -65,10 +65,11 @@ namespace GameCells.Utilities
                 collider.enabled = false;
             }
 
-            foreach (Joint joint in joints)
+            /*foreach (Joint joint in joints)
             {
-                joint.enableCollision = false;
-            }
+                if (joint.enableCollision)
+                    joint.enableCollision = false;
+            }*/
         }
 
         public void EnableRagdoll()
@@ -86,10 +87,11 @@ namespace GameCells.Utilities
                 collider.enabled = true;
             }
 
-            foreach (Joint joint in joints)
+            /*foreach (Joint joint in joints)
             {
-                joint.enableCollision = true;
-            }
+                if (!joint.enableCollision)
+                    joint.enableCollision = true;
+            }*/
         }
     }
 }

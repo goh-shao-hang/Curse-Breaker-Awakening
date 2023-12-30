@@ -16,7 +16,7 @@ namespace CBA.Modules
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _overrideAgentRotation = true;
         //The reason to override the navmeshagent's rotation is to create a dynamic rotation system that rotates faster if the facing direction too far from target angle.
-        [SerializeField] private float _overrideRotationFactor = 0.5f;
+        [SerializeField] private float _overrideRotationFactor = 3f;
 
         [Header("Animation")]
         [SerializeField] private Animator _animator;
@@ -57,10 +57,11 @@ namespace CBA.Modules
 
         private void UpdateOverridenRotation()
         {
-            Vector3 targetDirection = (_navMeshAgent.destination - _navMeshAgent.transform.position).normalized;
+            Vector3 targetDirection = (_navMeshAgent.destination - _navMeshAgent.transform.position);
             targetDirection.y = 0;
-            if (targetDirection != Vector3.zero)
+            if (targetDirection.sqrMagnitude > 0.01f)
             {
+                targetDirection = targetDirection.normalized;
                 Quaternion targetRot = Quaternion.LookRotation(targetDirection);
                 _navMeshAgent.transform.rotation = Quaternion.Slerp(_navMeshAgent.transform.rotation, targetRot, _overrideRotationFactor * Time.deltaTime);
             }

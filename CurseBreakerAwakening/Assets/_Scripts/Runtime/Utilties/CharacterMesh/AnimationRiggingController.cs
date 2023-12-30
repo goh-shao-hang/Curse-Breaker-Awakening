@@ -14,7 +14,7 @@ namespace GameCells.Utilities
 
         private SO_GlobalPosition _targetPosition;
 
-        private void Awake()
+        private void Start()
         {
             SetWeight(0f);
         }

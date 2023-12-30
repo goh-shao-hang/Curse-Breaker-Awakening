@@ -35,7 +35,7 @@ public class CharacterOutlineController : MonoBehaviour
 
         if (_outlineMaterial == null)
         {
-            Debug.LogWarning($"No outline material is found on {gameObject.name}!");
+            Debug.LogWarning($"No outline material is found on {gameObject.transform.parent.name}!");
             return;
         }
 

@@ -170,8 +170,6 @@ namespace CBA.Entities.Player
         {
             base.Update();
 
-            Debug.Log(_currentState);
-
             _movementModule.SetDrag(IsGrounded ? _groundDrag : 0f);
 
             if (JumpBuffer && IsGrounded)

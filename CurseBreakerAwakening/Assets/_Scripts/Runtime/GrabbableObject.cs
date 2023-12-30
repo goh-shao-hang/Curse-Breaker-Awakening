@@ -19,10 +19,13 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [SerializeField] private float _thrownInflictedDamage = 5f;
     [SerializeField] private Vector3 _grabbedOffset;
     [SerializeField] private LayerMask _canCollideWith;
+    [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
 
     public bool IsGrabbable { get; private set; }
 
     private Transform _grabTransform;
+    private int _originalLayerIndex;
+    private int _meshOriginalLayerIndex;
 
     public UnityEvent<bool> OnGrabbableStateChanged;
     public UnityEvent OnStartHighlight;
@@ -37,7 +40,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        EnableThrowPhysics(_startKinematic);
+        EnableThrowPhysics(!_startKinematic);
 
         SetIsGrabbable(_startGrabbable);
     }
@@ -83,6 +86,15 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     {
         this._grabTransform = grabTransform;
 
+        _originalLayerIndex = this.gameObject.layer;
+        this.gameObject.layer = GameData.WEAPON_LAYER_INDEX;
+
+        if (_skinnedMeshRenderer != null)
+        {
+            _meshOriginalLayerIndex = _skinnedMeshRenderer.gameObject.layer;
+            _skinnedMeshRenderer.gameObject.layer = GameData.WEAPON_LAYER_INDEX;
+        }
+
         _originalParent = transform.parent;
 
         transform.SetParent(_grabTransform);
@@ -99,6 +111,12 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     public void Throw(Vector3 direction, Vector3 carriedVelocity)
     {
         this._grabTransform = null;
+
+        this.gameObject.layer = _originalLayerIndex;
+        if (_skinnedMeshRenderer != null)
+        {
+            _skinnedMeshRenderer.gameObject.layer = _meshOriginalLayerIndex;
+        }
 
         transform.SetParent(_originalParent == null ? null : _originalParent);
 

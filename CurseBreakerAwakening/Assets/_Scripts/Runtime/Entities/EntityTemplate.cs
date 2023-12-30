@@ -1,4 +1,6 @@
+using CBA.Entities.Player.Weapons;
 using CBA.Modules;
+using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +24,25 @@ namespace CBA.Entities
         [ContextMenu("Setup Enemy Modules Template")]
         public void SetupEnemyModulesTemplate()
         {
-            gameObject.AddComponent<HealthModule>();
-            gameObject.AddComponent<GuardModule>();
-            gameObject.AddComponent<AINavigationModule>();
+            GameObject module = transform.Find("Modules").gameObject;
+
+            module.AddComponent<ModuleManager>();
+            module.AddComponent<HealthModule>();
+            module.AddComponent<GuardModule>();
+            module.AddComponent<AINavigationModule>();
+        }
+
+        [ContextMenu("Setup Humanoid Mesh Components")]
+        public void SetupHumanoidMeshComponents()
+        {
+            GameObject mesh = transform.Find("Mesh").gameObject;
+
+            gameObject.AddComponent<CharacterOutlineController>();
+            gameObject.AddComponent<RagdollController>();
+            gameObject.AddComponent<CombatAnimationEventHander>();
+            gameObject.AddComponent<CharacterOutlineController>();
+            gameObject.AddComponent<AnimationRiggingController>();
+
         }
     }
 }
