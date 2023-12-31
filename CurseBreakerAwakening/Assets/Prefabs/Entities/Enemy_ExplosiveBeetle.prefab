@@ -497,7 +497,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: c8d725e98ba56de40abb74916a9ec934, type: 2}
-  _playerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
+  PlayerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3890483341122565124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +539,8 @@ MonoBehaviour:
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 192
-  _skinnedMeshRenderer: {fileID: 0}
+  _skinnedMeshRenderers:
+  - {fileID: 3752692399489386252}
   OnGrabbableStateChanged:
     m_PersistentCalls:
       m_Calls:

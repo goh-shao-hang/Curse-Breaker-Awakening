@@ -12,7 +12,8 @@ namespace CBA.Modules
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private NavMeshAgent _navMeshAgent;
-
+        public NavMeshAgent NavMeshAgent => _navMeshAgent;
+        
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _overrideAgentRotation = true;
         //The reason to override the navmeshagent's rotation is to create a dynamic rotation system that rotates faster if the facing direction too far from target angle.

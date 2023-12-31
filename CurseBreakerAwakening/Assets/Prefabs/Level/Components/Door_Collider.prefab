@@ -52,6 +52,7 @@ Transform:
   - {fileID: 2337950558840953496}
   - {fileID: 7876292808800101696}
   - {fileID: 8674371508381325334}
+  - {fileID: 8298625917091581490}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Direction>k__BackingField: 0
-  <SpawnPoint>k__BackingField: {fileID: 0}
+  <SpawnPoint>k__BackingField: {fileID: 8298625917091581490}
   _lockDownBar: {fileID: 5983876623304856856}
   _lockdownBarVisual: {fileID: 6288692622316523894}
   _doorAudioEmitter: {fileID: 1977169456521015838}
@@ -247,6 +248,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8455920903346641525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8298625917091581490}
+  m_Layer: 6
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8298625917091581490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455920903346641525}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4649235894529672737}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &262180038821243729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1689,6 +1721,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3196831616177464571, guid: bffdd4484a7838e46b5bab05664a2f5a,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b06a5da3213358940b98a6aaf641cdd2,
+        type: 2}
     - target: {fileID: 5967684003476942518, guid: bffdd4484a7838e46b5bab05664a2f5a,
         type: 3}
       propertyPath: m_Name

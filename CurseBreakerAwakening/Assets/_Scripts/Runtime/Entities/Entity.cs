@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace CBA.Entities
@@ -14,14 +15,13 @@ namespace CBA.Entities
         [field: SerializeField] public SO_EntityData EntityData;
 
         //TODO
-        [field: SerializeField] public SO_GlobalPosition _playerPos;
+        [FormerlySerializedAs("_playerPos")] [field: SerializeField] public SO_GlobalPosition PlayerPos;
 
-        public event Action OnDeath;
+        public UnityEvent OnDeath;
 
         public void Die()
         {
             OnDeath?.Invoke();
         }
-
     }
 }

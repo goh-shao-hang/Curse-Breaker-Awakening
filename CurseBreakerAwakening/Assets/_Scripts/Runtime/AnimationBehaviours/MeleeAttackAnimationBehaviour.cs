@@ -14,6 +14,7 @@ public class MeleeAttackAnimationBehaviour : StateMachineBehaviour
             _combatAnimationEventHander = animator.GetComponent<CombatAnimationEventHander>();
         }
 
+        //Prevents interruption such as being stunned, in those cases the animation wont reach the end thus not tregerring these animation events
         _combatAnimationEventHander.DeactivateHitbox();
         _combatAnimationEventHander.StopEmitTrail();
     }

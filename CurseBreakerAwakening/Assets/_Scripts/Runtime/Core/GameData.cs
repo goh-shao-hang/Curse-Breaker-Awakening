@@ -33,6 +33,7 @@ namespace CBA
         public const float ANIMATIONDAMPTIME = 0.2f;
 
         public static readonly int ATTACK_HASH = Animator.StringToHash("attack");
+        public static readonly int RANGEDATTACK_HASH = Animator.StringToHash("rangedAttack");
         public static readonly int COMBO_HASH = Animator.StringToHash("combo");
         public static readonly int ISMOVING_HASH = Animator.StringToHash("isMoving");
         public static readonly int ISBlOCKING_HASH = Animator.StringToHash("isBlocking");

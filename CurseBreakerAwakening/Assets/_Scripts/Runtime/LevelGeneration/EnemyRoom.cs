@@ -32,7 +32,7 @@ namespace CBA.LevelGeneration
 
             foreach (Entity enemy in _enemies)
             {
-                enemy.OnDeath += () => OnAnyEnemyDeath(enemy);
+                enemy.OnDeath.AddListener(() => OnAnyEnemyDeath(enemy));
             }
         }
 

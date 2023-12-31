@@ -17,7 +17,7 @@ namespace CBA.Entities.Player
         [SerializeField] private Image _healthBarWhite;
         [SerializeField] private Image _staminaBarFill;
         [SerializeField] private Image _staminaBarWhite;
-        [SerializeField] private Image _crossHair;
+        [SerializeField] private CanvasGroup _crossHairCanvasGroup;
         private PlayerGrabManager _playerGrabManager;
 
         [Header(GameData.SETTINGS)]
@@ -51,15 +51,6 @@ namespace CBA.Entities.Player
             _playerGrabManager.OnThrow -= HideCrosshair;
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-            {
-                _healthBarRoot.rectTransform.DOKill(true);
-                _healthBarRoot.rectTransform.DOShakeAnchorPos(0.5f, _shakeStrength, _shakeVibrato);
-            }
-        }
-
         private void UpdateHealthUI()
         {
             float healthPercentage = Mathf.Clamp01(_playerHealthModule.CurrentHealth / _playerHealthModule.MaxHealth);
@@ -69,7 +60,7 @@ namespace CBA.Entities.Player
 
             _healthBarFill.fillAmount = healthPercentage;
 
-            _healthBarWhite.DOKill();
+            _healthBarWhite.DOKill(true);
             _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
             //_healthBarFill.fillAmount = healthPercentage;
         }
@@ -93,15 +84,15 @@ namespace CBA.Entities.Player
 
         private void ShowCrosshair()
         {
-            _crossHair.rectTransform.DOKill(true);
-            _crossHair.DOFade(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
-            _crossHair.rectTransform.DOScale(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHairCanvasGroup.DOKill(true);
+            _crossHairCanvasGroup.DOFade(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHairCanvasGroup.transform.DOScale(1, _crosshairTweenDuration).SetEase(Ease.OutSine);
         }
 
         private void HideCrosshair()
         {
-            _crossHair.DOFade(0, _crosshairTweenDuration).SetEase(Ease.OutSine);
-            _crossHair.rectTransform.DOScale(2, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHairCanvasGroup.DOFade(0, _crosshairTweenDuration).SetEase(Ease.OutSine);
+            _crossHairCanvasGroup.transform.DOScale(2, _crosshairTweenDuration).SetEase(Ease.OutSine);
         }
 
     }

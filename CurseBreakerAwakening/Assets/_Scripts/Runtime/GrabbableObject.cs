@@ -1,10 +1,7 @@
 using CBA;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using UnityEngine.UI;
 using CBA.Entities;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
@@ -12,6 +9,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [SerializeField] private Rigidbody _grabRigidbody;
 
     [Header(GameData.SETTINGS)]
+    [Tooltip("Should this object interact with environment upon game start?")]
     [SerializeField] private bool _startKinematic = true;
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 10f;
@@ -19,13 +17,13 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     [SerializeField] private float _thrownInflictedDamage = 5f;
     [SerializeField] private Vector3 _grabbedOffset;
     [SerializeField] private LayerMask _canCollideWith;
-    [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+    [SerializeField] private SkinnedMeshRenderer[] _skinnedMeshRenderers;
 
     public bool IsGrabbable { get; private set; }
 
     private Transform _grabTransform;
     private int _originalLayerIndex;
-    private int _meshOriginalLayerIndex;
+    private List<int> _meshOriginalLayerIndices = new List<int>();
 
     public UnityEvent<bool> OnGrabbableStateChanged;
     public UnityEvent OnStartHighlight;
@@ -89,10 +87,10 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         _originalLayerIndex = this.gameObject.layer;
         this.gameObject.layer = GameData.WEAPON_LAYER_INDEX;
 
-        if (_skinnedMeshRenderer != null)
+        for (int i = 0; i < _skinnedMeshRenderers.Length; i++)
         {
-            _meshOriginalLayerIndex = _skinnedMeshRenderer.gameObject.layer;
-            _skinnedMeshRenderer.gameObject.layer = GameData.WEAPON_LAYER_INDEX;
+            _meshOriginalLayerIndices.Add(_skinnedMeshRenderers[i].gameObject.layer);
+            _skinnedMeshRenderers[i].gameObject.layer = GameData.WEAPON_LAYER_INDEX;
         }
 
         _originalParent = transform.parent;
@@ -113,9 +111,10 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         this._grabTransform = null;
 
         this.gameObject.layer = _originalLayerIndex;
-        if (_skinnedMeshRenderer != null)
+
+        for (int i = 0; i < _skinnedMeshRenderers.Length; i++)
         {
-            _skinnedMeshRenderer.gameObject.layer = _meshOriginalLayerIndex;
+            _skinnedMeshRenderers[i].gameObject.layer = _meshOriginalLayerIndices[i];
         }
 
         transform.SetParent(_originalParent == null ? null : _originalParent);

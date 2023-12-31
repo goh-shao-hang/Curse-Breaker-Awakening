@@ -1,69 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &39790371854236187
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 112406515674627898}
-  m_Layer: 0
-  m_Name: SpawnPoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &112406515674627898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39790371854236187}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5058240742923361460}
-  - {fileID: 1957295180170175585}
-  m_Father: {fileID: 8408015851019220781}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1132517771726257126
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5058240742923361460}
-  m_Layer: 6
-  m_Name: SpawnPoint_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5058240742923361460
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132517771726257126}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 1, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 112406515674627898}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1680014717841159122
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,39 +71,8 @@ Transform:
   - {fileID: 6533309937010015623}
   - {fileID: 7639568431695755309}
   m_Father: {fileID: 8408015851019220781}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6172440982839140055
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1957295180170175585}
-  m_Layer: 6
-  m_Name: SpawnPoint_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1957295180170175585
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6172440982839140055}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 2, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 112406515674627898}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1 &8408015849654922475
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +227,6 @@ Transform:
   - {fileID: 8408015850722391649}
   - {fileID: 8408015850662897301}
   - {fileID: 2863093826760774133}
-  - {fileID: 112406515674627898}
   - {fileID: 2473114532332701585}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -757,7 +661,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <SpawnPoint>k__BackingField
       value: 
-      objectReference: {fileID: 5058240742923361460}
+      objectReference: {fileID: 6201586594447755430}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5b924d5f25ab942b44119168612779, type: 3}
 --- !u!114 &5074312657599389956 stripped
@@ -772,6 +676,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f81d4072ff99804ba2f0040f5bba724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6201586594447755430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8298625917091581490, guid: 0c5b924d5f25ab942b44119168612779,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682687888511600276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7331777739106926773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4649235894529672737, guid: 0c5b924d5f25ab942b44119168612779,
@@ -1379,7 +1289,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <SpawnPoint>k__BackingField
       value: 
-      objectReference: {fileID: 1957295180170175585}
+      objectReference: {fileID: 3910817754501061555}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5b924d5f25ab942b44119168612779, type: 3}
 --- !u!4 &426090591091446688 stripped
@@ -1400,6 +1310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f81d4072ff99804ba2f0040f5bba724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3910817754501061555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8298625917091581490, guid: 0c5b924d5f25ab942b44119168612779,
+    type: 3}
+  m_PrefabInstance: {fileID: 5002549531264128385}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5072053278144320923
 PrefabInstance:
   m_ObjectHideFlags: 0

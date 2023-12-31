@@ -26,10 +26,5 @@ namespace CBA.Entities
             _context.Animator.SetTrigger(GameData.ATTACK_HASH);
             _attackData.Hitbox.SetDamage(_attackData.Damage);
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
     }
 }

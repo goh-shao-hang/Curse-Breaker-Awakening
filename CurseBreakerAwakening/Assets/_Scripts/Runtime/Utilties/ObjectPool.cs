@@ -1,12 +1,9 @@
-using GameCells.Utilities;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : Singleton<ObjectPool<T>> where T : MonoBehaviour
+public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] private int _amountPerGrowth = 1;
+    [SerializeField] private int _growAmount = 10;
     [SerializeField] private T objectToPool;
 
     private Queue<T> _availableObjects = new Queue<T>();
@@ -18,7 +15,7 @@ public class ObjectPool<T> : Singleton<ObjectPool<T>> where T : MonoBehaviour
 
     private void GrowPool()
     {
-        for (int i = 0; i < _amountPerGrowth; i++)
+        for (int i = 0; i < _growAmount; i++)
         {
             var instance = Instantiate(objectToPool);
             instance.transform.SetParent(transform);
