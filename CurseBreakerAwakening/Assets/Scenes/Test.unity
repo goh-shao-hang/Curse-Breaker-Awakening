@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15896621, g: 0.51753515, b: 1.0392404, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -369,8 +369,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: -1, y: 0, z: 0}
   _maxDistance: 0.6
+  _useParentForward: 0
 --- !u!1 &139311954
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,14 +937,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInputHandler: {fileID: 343571997}
+  _playerCameraController: {fileID: 0}
+  _playerCombatManager: {fileID: 0}
+  _cameraRootTransform: {fileID: 0}
   _movementModule: {fileID: 1836201688}
+  _playerCollider: {fileID: 0}
   _groundChecker: {fileID: 561648917}
+  _slopeChecker: {fileID: 0}
   _walkMovementForce: 50
   _sprintMovementForce: 100
+  _crouchMovementForce: 30
   _maxSpeed: 8
   _groundDrag: 7
   _jumpForce: 6
+  _jumpBufferDuration: 0.2
   _airMovementMultiplier: 0.1
+  _maxSlopeAngle: 45
+  _maxStamina: 100
+  _staminaRegenRate: 20
+  _sprintingStaminaConsumption: 10
+  _wallRunStaminaConsumption: 5
+  _staminaRegenDelay: 1
+  _canWallRun: 1
+  _wallRunMovementForce: 50
+  _wallCheckDistance: 0.5
+  _minWallRunHeight: 0
+  _wallRunGravity: 3
+  _wallRunCameraTilt: 10
+  _minChargedAttackMovementSpeed: 10
+  _maxChargedAttackMovementSpeed: 15
 --- !u!114 &343571997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,8 +1266,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 1, y: 0, z: 0}
   _maxDistance: 0.6
+  _useParentForward: 0
 --- !u!1 &523196963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,8 +1702,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 0, y: -1, z: 0}
   _maxDistance: 0.5
+  _useParentForward: 0
 --- !u!1 &697531431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2204,8 +2231,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 0, y: -1, z: 0}
   _maxDistance: 0.5
+  _useParentForward: 0
 --- !u!1 &913828183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2388,8 +2417,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc36c789887e50742bf501ba506b64a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEventsManager: {fileID: 0}
   _playerCamera: {fileID: 2126531302}
-  _cameraFollowTarget: {fileID: 708773829}
+  _playerVirtualCamera: {fileID: 0}
+  _playerController: {fileID: 0}
+  _cinemachineImpulseSource: {fileID: 0}
+  _sensitivity: 0
+  _invertXAxis: 0
+  _invertYAxis: 0
+  _maxCameraVerticalAngle: 0
 --- !u!4 &1066109369
 Transform:
   m_ObjectHideFlags: 0
@@ -2481,8 +2517,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae54785096714ee479c85eb1b60eac3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fpsText: {fileID: 0}
   _targetFrameRate: 120
   _setOnAwake: 1
+  _displayFPS: 0
 --- !u!1 &1170225938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,8 +3159,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 1, y: 0, z: 0}
   _maxDistance: 0.6
+  _useParentForward: 0
 --- !u!1 &1767273911
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,8 +3542,10 @@ MonoBehaviour:
   _targetLayers:
     serializedVersion: 2
     m_Bits: 64
+  _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: -1, y: 0, z: 0}
   _maxDistance: 0.6
+  _useParentForward: 0
 --- !u!1 &1954417224
 GameObject:
   m_ObjectHideFlags: 0

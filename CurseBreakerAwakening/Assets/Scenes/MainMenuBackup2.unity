@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11031,12 +11031,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa62b473572c364f822aa3ea7b9b286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _introScene:
+    _sceneAsset: {fileID: 0}
+    _sceneName: 
   _title: {fileID: 1209619655}
   _titleFinalYPosition: 300
   _titleFinalScale: 0.85
   _titleTweenDuration: 1
-  _buttonsCanvasGroup: {fileID: 1624544818}
-  _buttonsTweenDuration: 1
+  _buttons: {fileID: 0}
 --- !u!1 &936789077
 GameObject:
   m_ObjectHideFlags: 0
@@ -11341,7 +11343,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16372,7 +16374,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21772,7 +21774,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: 908b701775297504787f71f0f1016303, type: 2}
   m_sharedMaterial: {fileID: -4461718933691360447, guid: 908b701775297504787f71f0f1016303,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -4461718933691360447, guid: 908b701775297504787f71f0f1016303, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -21946,7 +21949,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26758,7 +26761,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

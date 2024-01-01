@@ -90,7 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: 90c501bb7fd6b17439643c8ef88e96f2, type: 2}
-  _playerPos: {fileID: 0}
+  PlayerPos: {fileID: 0}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &980999762061052820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +335,7 @@ MonoBehaviour:
   _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 0, y: -1, z: 0}
   _maxDistance: 2
+  _useParentForward: 0
 --- !u!1 &980999762728581200
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +766,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 816765433, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 816765434, guid: ae6ac6c875ff37a489edd983d905b673, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1
