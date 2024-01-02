@@ -63,7 +63,9 @@ namespace CBA.LevelGeneration
                 
             }
 
-            _playerReference.transform.position = _currentRoom.Exits[0].SpawnPoint.position;
+            _playerReference.transform.position = _currentRoom.Exits[1].SpawnPoint.position;
+            _playerCameraReference.ResetCameraRotation();
+            _playerCameraReference.SetCameraRotation(_currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, _currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
             _playerReference.gameObject.SetActive(true);
             _mapRenderer?.SetCurrentRoom(_currentCell);
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
