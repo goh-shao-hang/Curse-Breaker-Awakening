@@ -25,19 +25,15 @@ namespace CBA.Entities
         private void Update()
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-                StartCasting();
+                Cast();
         }
 
-        public override void StartCasting()
+        public override void Cast()
         {
-            base.StartCasting();
-        }
-
-        public override void OnCastComplete()
-        {
-            base.OnCastComplete();
+            base.Cast();
 
             Projectile projectile = _projectilePool.GetFromPool().InitializeWithDelay(this._entity.gameObject, _projectilePool, _spawnTransform.position, _entity.PlayerPos, _targetLayers, _spawnTransform);
         }
+
     }
 }

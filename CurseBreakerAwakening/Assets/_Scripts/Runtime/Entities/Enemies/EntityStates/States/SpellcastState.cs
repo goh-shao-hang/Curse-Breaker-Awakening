@@ -36,7 +36,8 @@ namespace CBA.Entities
             }
 
             _context.Animator.SetTrigger(_animationHash);
-            _spell.StartCasting();
+            //TODO
+            //_spell.StartCasting();
         }
 
         public override void Exit()

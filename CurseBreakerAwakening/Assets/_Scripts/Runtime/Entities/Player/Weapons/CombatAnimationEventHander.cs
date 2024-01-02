@@ -15,6 +15,7 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnEmitTrail;
         public event Action OnStopEmitTrail;
         public event Action<int> OnSpellCast;
+        public event Action<int> OnSpellComplete;
 
         public void ActivateHitbox()
         {
@@ -50,7 +51,13 @@ namespace CBA.Entities.Player.Weapons
         {
             OnSpellCast?.Invoke(spellIndex);
         }
-        
+
+        public void CompleteSpell(int spellIndex)
+        {
+            OnSpellComplete?.Invoke(spellIndex);
+            Debug.LogError($"{spellIndex} completed!");
+        }
+
         //Shake using default values
         /*public void CameraShakeDefault()
         {

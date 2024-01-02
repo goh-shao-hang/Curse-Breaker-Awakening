@@ -26,14 +26,9 @@ namespace CBA.Entities
             _projectilePool.GrowPool();
         }
 
-        public override void StartCasting()
+        public async override void Cast()
         {
-            base.StartCasting();
-        }
-
-        public async override void OnCastComplete()
-        {
-            base.OnCastComplete();
+            base.Cast();
 
             Vector3 offset;
 
@@ -49,5 +44,6 @@ namespace CBA.Entities
                 await Task.Delay((int)(_spawnDelay * 1000f));
             }
         }
+
     }
 }

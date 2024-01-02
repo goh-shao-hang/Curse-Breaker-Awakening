@@ -31,14 +31,9 @@ namespace CBA.Entities
             _shieldMaterial.SetFloat(GameData.DISSOLVE, 0);
         }
 
-        public override void StartCasting()
+        public override void Cast()
         {
-            base.StartCasting();
-        }
-
-        public override void OnCastComplete()
-        {
-            base.OnCastComplete();
+            base.Cast();
 
             _shieldCollider.enabled = true;
             _shieldMaterial.DOFloat(1, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);

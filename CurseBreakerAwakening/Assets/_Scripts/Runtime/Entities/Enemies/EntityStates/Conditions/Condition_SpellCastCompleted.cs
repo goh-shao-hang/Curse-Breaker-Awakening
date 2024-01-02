@@ -19,7 +19,7 @@ public class Condition_SpellCastCompleted : Condition
         base.Enter();
 
         _castCompleted = false;
-        this._spell.OnCastCompleted += SetCastComplete;
+        this._spell.OnSpellCompleted += SetCastComplete;
     }
 
     private void SetCastComplete()
@@ -31,7 +31,7 @@ public class Condition_SpellCastCompleted : Condition
     {
         base.Exit();
 
-        this._spell.OnCastCompleted -= SetCastComplete;
+        this._spell.OnSpellCompleted -= SetCastComplete;
     }
 
     public override bool Evaluate()

@@ -12,20 +12,21 @@ public abstract class Spell : MonoBehaviour
     [SerializeField] protected float _castTime = 3f;
     [SerializeField] protected float _cooldown = 10f;
 
-    public event Action OnCastCompleted;
+    public event Action OnSpellCompleted;
 
     public bool IsAvailable { get; protected set; } = true;
 
-    public virtual void StartCasting() 
+    public virtual void Cast() 
     {
         IsAvailable = false;
-        DOVirtual.DelayedCall(_castTime, OnCastComplete);
+        StartCooldown();
+
+        //DOVirtual.DelayedCall(_castTime, OnCastComplete);
     }
 
-    public virtual void OnCastComplete() 
+    public virtual void Complete() 
     {
-        OnCastCompleted?.Invoke();
-        StartCooldown();
+        OnSpellCompleted?.Invoke();
     }
 
     protected virtual void StartCooldown()

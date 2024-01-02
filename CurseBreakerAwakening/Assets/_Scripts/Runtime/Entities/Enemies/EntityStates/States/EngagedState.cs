@@ -24,6 +24,8 @@ namespace CBA.Entities
         {
             base.Enter();
 
+            _navigationModule.SetLookTarget(_entity.PlayerPos);
+
             float distance = Vector3.Distance(_context.transform.position, _entity.PlayerPos.Value);
             if (distance > _targetDistance + _bias)
             {
@@ -71,6 +73,13 @@ namespace CBA.Entities
                 _navigationModule.SetFollowPosition(_entity.PlayerPos);
                 _navigationModule.SetSpeed(0f);
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            _navigationModule.SetLookTarget(null);
         }
     }
 }

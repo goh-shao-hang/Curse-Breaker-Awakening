@@ -30,6 +30,7 @@ namespace CBA.Modules
         }
 
         public SO_GlobalPosition FollowPosition { get; private set; } = null;
+        public SO_GlobalPosition LookTargetPosition { get; private set; } = null;
 
         //For effects only eg. animation rigging
         public event Action OnTargetSet;
@@ -71,10 +72,25 @@ namespace CBA.Modules
             }
         }
 
+        public void SetLookTarget(SO_GlobalPosition positionToFace)
+        {
+            LookTargetPosition = positionToFace;
+        }
+
         private void UpdateOverridenRotation()
         {
-            Vector3 targetDirection = (_navMeshAgent.destination - _navMeshAgent.transform.position);
+            Vector3 targetDirection;
+            if (LookTargetPosition != null)
+            {
+                targetDirection = (LookTargetPosition.Value - _navMeshAgent.transform.position);
+            }
+            else
+            {
+                targetDirection = (_navMeshAgent.destination - _navMeshAgent.transform.position);
+            }
+
             targetDirection.y = 0;
+
             if (targetDirection.sqrMagnitude > 0.01f)
             {
                 targetDirection = targetDirection.normalized;
