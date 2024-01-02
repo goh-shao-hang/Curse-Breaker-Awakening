@@ -26,6 +26,8 @@ namespace CBA.Entities
         {
             base.Enter();
 
+            Debug.Log($"ENTERED SPELL {_spell.name}");
+
             if (!_canMoveWhenCasting)
             {
                 _navigationModule.StopFollow();
@@ -34,6 +36,13 @@ namespace CBA.Entities
 
             _context.Animator.SetTrigger(_animationHash);
             _spell.Activate();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            Debug.Log($"EXITED SPELL {_spell.name}");
         }
     }
 }

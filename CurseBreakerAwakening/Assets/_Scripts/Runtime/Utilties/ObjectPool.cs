@@ -1,29 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
+public class ObjectPool<T> where T : MonoBehaviour
 {
-    [SerializeField] private int _growAmount = 10;
-    [SerializeField] private T objectToPool;
+    private int _growAmount = 10;
+    private T _objectToPool;
 
     private Queue<T> _availableObjects = new Queue<T>();
 
-    private void Awake()
+    public ObjectPool(T objectToPool, int growAmount)
     {
-        GrowPool();
+        this._growAmount = growAmount;
+        this._objectToPool = objectToPool;
     }
 
-    private void GrowPool()
+    public void GrowPool()
     {
         for (int i = 0; i < _growAmount; i++)
         {
-            var instance = Instantiate(objectToPool);
-            instance.transform.SetParent(transform);
-            ReturnToPool(instance);
+            var instance = GameObject.Instantiate(_objectToPool);
+            AddToPool(instance);
         }
     }
 
-    public void ReturnToPool(T instance)
+    public void AddToPool(T instance)
     {
         instance.gameObject.SetActive(false);
         _availableObjects.Enqueue(instance);

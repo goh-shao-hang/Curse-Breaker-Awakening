@@ -51,6 +51,7 @@ namespace GameCells.StateMachine
                 if (allConditionsMet)
                 {
                     SwitchState(transition.TargetState);
+                    break;
                 }
             }
 
@@ -72,6 +73,7 @@ namespace GameCells.StateMachine
                 if (allConditionsMet)
                 {
                     SwitchState(transition.TargetState);
+                    break;
                 }
             }
         }

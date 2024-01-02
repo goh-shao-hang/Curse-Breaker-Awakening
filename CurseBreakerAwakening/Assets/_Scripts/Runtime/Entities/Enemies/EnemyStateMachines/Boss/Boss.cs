@@ -10,10 +10,12 @@ namespace CBA.Entities
         [SerializeField] private PhysicsQuery _attackRangeDetector;
         [SerializeField] private GrabbableObject _grabbableObject;
         [SerializeField] private RagdollController _ragdollController;
-        [SerializeField] private Spell_Shield _shield;
 
         [Header("Spells")]
+        [SerializeField] private Spell_Shield _shield;
         [SerializeField] private float _shieldCastTimer = 2f;
+        [SerializeField] private Spell_Multishot _multishot;
+        [SerializeField] private float _multishotCastTimer = 2f;
 
         [Header(GameData.CUSTOMIZATION)]
         [SerializeField] private float _engagedMoveSpeed = 1f;
@@ -22,7 +24,8 @@ namespace CBA.Entities
 
         #region States and Conditions
         private IdleState _idleState;
-        private SpellcastState _shieldState;
+        private SpellcastState _shieldSpellState;
+        private SpellcastState _multishotSpellState;
         private EngagedState _phase1EngagedState;
         //private MeleeAttackState _meleeAttackState;
         private StunnedState _stunnedState;
@@ -43,7 +46,9 @@ namespace CBA.Entities
 
         //Spells
         private Condition_SpellAvailable _shieldAvailableCondition;
-        private Condition _shieldCastTimerCondition;
+        private Condition_Timer _shieldCastTimerCondition;
+        private Condition_SpellAvailable _multishotAvailableCondition;
+        private Condition_Timer _multishotCastTimerCondition;
         #endregion
 
         private void Awake()
@@ -52,7 +57,8 @@ namespace CBA.Entities
             //1. State Initialization
             _idleState = new IdleState(entity, this);
             _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _engagedMoveSpeed);
-            _shieldState = new SpellcastState(entity, this, _shield, GameData.ACTIVATESHIELD_HASH);
+            _shieldSpellState = new SpellcastState(entity, this, _shield, GameData.CASTSHIELD_HASH);
+            _multishotSpellState = new SpellcastState(entity, this, _multishot, GameData.CASTMULTISHOT_HASH);
             //_meleeAttackState = new MeleeAttackState(entity, this, meleeAttack);
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
@@ -73,14 +79,18 @@ namespace CBA.Entities
 
             _shieldAvailableCondition = new Condition_SpellAvailable(_shield);
             _shieldCastTimerCondition = new Condition_Timer(_shieldCastTimer);
+            _multishotAvailableCondition = new Condition_SpellAvailable(_multishot);
+            _multishotCastTimerCondition = new Condition_Timer(_multishotCastTimer);
 
             //3. Setting up transitions
             //_idleState.AddTransition(_shieldState , new[] { _shieldAvailableCondition, _playerInDetectionRangeCondition});
             _idleState.AddTransition(_phase1EngagedState, _playerInDetectionRangeCondition);
 
-            _phase1EngagedState.AddTransition(_shieldState, _shieldAvailableCondition);
+            _phase1EngagedState.AddTransition(_shieldSpellState, _shieldAvailableCondition);
+            _phase1EngagedState.AddTransition(_stunnedState, _multishotAvailableCondition);
 
-            _shieldState.AddTransition(_phase1EngagedState, _shieldCastTimerCondition);
+            _shieldSpellState.AddTransition(_phase1EngagedState, _shieldCastTimerCondition);
+            //_multishotSpellState.AddTransition(_phase1EngagedState, _multishotCastTimerCondition);
 
             //_chaseState.AddTransition(_idleState, _playerOutOfDetectionRangeCondition);
             //_chaseState.AddTransition(_meleeAttackState, _playerInAttackRangeCondition);
@@ -103,8 +113,6 @@ namespace CBA.Entities
         protected override void Update()
         {
             base.Update();
-
-            Debug.LogError(_currentState);
         }
     }
 }

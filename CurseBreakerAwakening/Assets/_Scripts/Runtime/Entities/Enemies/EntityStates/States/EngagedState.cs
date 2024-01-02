@@ -68,6 +68,7 @@ namespace CBA.Entities
             }
             else
             {
+                _navigationModule.SetFollowPosition(_entity.PlayerPos);
                 _navigationModule.SetSpeed(0f);
             }
         }

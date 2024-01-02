@@ -1,5 +1,6 @@
 using CBA;
 using CBA.Entities;
+using DG.Tweening;
 using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,35 +15,78 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _damage = 20f;
     [SerializeField] private float _lifetime = 5f;
     [SerializeField] private float _speed = 2f;
+    [SerializeField] private float _delay = 0f;
     [SerializeField] private bool _pierce = false;
 
-    private RangedAttack _owner;
+    private GameObject _owner;
+    private ObjectPool<Projectile> _pool;
     private LayerMask _targetLayers;
+
+    private SO_GlobalPosition _target; //Delayed / homing only
 
     private Coroutine _lifetimeCO;
 
-    public Projectile Initialize(RangedAttack owner, Vector3 position, Vector3 direction, LayerMask targetLayers)
+    public Projectile Initialize(GameObject owner, ObjectPool<Projectile> pool, Vector3 position, Vector3 direction, LayerMask targetLayers)
     {
         this._owner = owner;
+
+        this._pool = pool;
         this.transform.position = position;
         this.transform.forward = direction;
-        this._rigidbody.velocity = transform.forward * _speed;
         this._targetLayers = targetLayers;
-        return this;
-    }
 
-    private void OnEnable()
-    {
+        #region Fire
+        this._rigidbody.velocity = transform.forward * _speed;
+
         if (_lifetimeCO != null)
         {
             StopCoroutine(_lifetimeCO);
         }
 
         _lifetimeCO = StartCoroutine(LifetimeCO());
+        #endregion
+
+        return this;
+    }
+
+    public Projectile InitializeWithDelay(GameObject owner, ObjectPool<Projectile> pool, Vector3 position, SO_GlobalPosition target, LayerMask targetLayers)
+    {
+        this._owner = owner;
+
+        this._pool = pool;
+        this.transform.position = position;
+        this._target = target;
+        this._targetLayers = targetLayers;
+
+        this._rigidbody.detectCollisions = false;
+        this._rigidbody.velocity = Vector3.zero;
+
+        if (_lifetimeCO != null)
+        {
+            StopCoroutine(_lifetimeCO);
+        }
+
+        StartCoroutine(DelayedFire());
+
+        return this;
+    }
+
+    private IEnumerator DelayedFire()
+    {
+        yield return new WaitForSeconds(_delay);
+
+        this._rigidbody.detectCollisions = true;
+        this.transform.forward = (_target.Value - transform.position).normalized;
+        this._rigidbody.velocity = transform.forward * _speed;
+
+        _lifetimeCO = StartCoroutine(LifetimeCO());
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject == _owner)
+            return;
+
         if (((1 << other.gameObject.layer) & _targetLayers) != 0)
         {
             other.GetComponent<IDamageable>()?.TakeDamage(_damage);
@@ -52,7 +96,8 @@ public class Projectile : MonoBehaviour
 
             StopCoroutine(_lifetimeCO);
             _lifetimeCO = null;
-            _owner.AddToPool(this);
+            _pool.AddToPool(this);
+            gameObject.SetActive(false);
         }
     }
 
@@ -60,7 +105,8 @@ public class Projectile : MonoBehaviour
     {
         yield return WaitHandler.GetWaitForSeconds(_lifetime);
 
-        _owner.AddToPool(this);
+        _pool.AddToPool(this);
+        gameObject.SetActive(false);
 
         _lifetimeCO = null;
     }

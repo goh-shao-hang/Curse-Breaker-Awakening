@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2326496061920117626}
   - component: {fileID: 4035676462842582849}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: DelayedProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,5 +131,5 @@ MonoBehaviour:
   _damage: 20
   _lifetime: 2
   _speed: 5
-  _delay: 0
+  _delay: 2
   _pierce: 0

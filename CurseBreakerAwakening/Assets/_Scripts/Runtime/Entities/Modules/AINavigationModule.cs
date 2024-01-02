@@ -21,6 +21,13 @@ namespace CBA.Modules
 
         [Header("Animation")]
         [SerializeField] private Animator _animator;
+        [SerializeField] private AnimationType _animationType;
+
+        public enum AnimationType
+        {
+            Speed,
+            BlendTree
+        }
 
         public SO_GlobalPosition FollowPosition { get; private set; } = null;
 
@@ -53,7 +60,15 @@ namespace CBA.Modules
 
         private void UpdateAnimation()
         {
-            _animator.SetFloat(GameData.SPEED_HASH, _navMeshAgent.velocity.magnitude, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
+            if (_animationType == AnimationType.Speed)
+                _animator.SetFloat(GameData.SPEED_HASH, _navMeshAgent.velocity.magnitude, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
+            else
+            {
+                Vector3 currentvelocity = _navMeshAgent.velocity;
+                currentvelocity = transform.InverseTransformDirection(currentvelocity).normalized;
+                _animator.SetFloat(GameData.XVELOCITY_HASH, currentvelocity.x, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
+                _animator.SetFloat(GameData.ZVELOCITY_HASH, currentvelocity.z, GameData.ANIMATIONDAMPTIME, Time.deltaTime);
+            }
         }
 
         private void UpdateOverridenRotation()

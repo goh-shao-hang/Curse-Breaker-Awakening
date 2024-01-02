@@ -6,11 +6,11 @@ using DG.Tweening;
 public class RangedAttackState : EnemyState
 {
     private readonly AINavigationModule _navigationModule;
-    private readonly RangedAttack _rangedAttack;
+    private readonly ProjectileShooter _rangedAttack;
     private readonly float _delay;
     private Tween _fireTween = null;
 
-    public RangedAttackState(Entity entity, EnemyStateMachine context, RangedAttack rangedAttack, float delay) : base(entity, context)
+    public RangedAttackState(Entity entity, EnemyStateMachine context, ProjectileShooter rangedAttack, float delay) : base(entity, context)
     {
         this._rangedAttack = rangedAttack;
         this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();

@@ -31,10 +31,10 @@ namespace CBA.Entities
 
         public override void Activate()
         {
+            base.Activate();
+
             _shieldCollider.enabled = true;
             _shieldMaterial.DOFloat(1, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
-
-            this.IsAvailable = false;
 
             DOVirtual.DelayedCall(_deactivateTimer, Deactivate);
         }
@@ -44,7 +44,7 @@ namespace CBA.Entities
             _shieldCollider.enabled = false;
             _shieldMaterial.DOFloat(0, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
 
-            this.StartCooldown(this._cooldown);
+            this.StartCooldown();
         }
 
 

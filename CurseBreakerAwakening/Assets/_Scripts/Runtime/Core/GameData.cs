@@ -53,7 +53,8 @@ namespace CBA
         public static readonly int ISGRABBED_HASH = Animator.StringToHash("isGrabbed");
 
         //BOSS
-        public static readonly int ACTIVATESHIELD_HASH = Animator.StringToHash("activateShield");
+        public static readonly int CASTSHIELD_HASH = Animator.StringToHash("castShield");
+        public static readonly int CASTMULTISHOT_HASH = Animator.StringToHash("castMultishot");
 
         public const string LOCOMOTION_ANIM = "Locomotion";
         public const string ATTACK_ANIM = "Attack";

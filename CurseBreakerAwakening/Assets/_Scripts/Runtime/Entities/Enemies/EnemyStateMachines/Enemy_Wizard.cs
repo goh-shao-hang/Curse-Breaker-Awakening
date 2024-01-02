@@ -12,7 +12,7 @@ namespace CBA.Entities
         [SerializeField] private RagdollController _ragdollController;
 
         [Header("Attacks")]
-        [SerializeField] private RangedAttack _rangedAttack;
+        [SerializeField] private ProjectileShooter _rangedAttack;
 
         [Header(GameData.CUSTOMIZATION)]
         [SerializeField] private float _chaseSpeed = 1f;
