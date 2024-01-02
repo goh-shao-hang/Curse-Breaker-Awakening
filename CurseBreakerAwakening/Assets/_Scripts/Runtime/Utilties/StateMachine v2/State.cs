@@ -57,6 +57,8 @@ namespace GameCells.StateMachine
         /// <param name="condition"></param>
         public void AddTransition(State targetState, Condition condition) => _transitions.Add(new Transition(targetState, condition));
 
+        public void AddTransition(State targetState, Condition[] conditions) => _transitions.Add(new Transition(targetState, conditions));
+
         public void AddTransition(Transition transition) => _transitions.Add(transition);
     }
 }

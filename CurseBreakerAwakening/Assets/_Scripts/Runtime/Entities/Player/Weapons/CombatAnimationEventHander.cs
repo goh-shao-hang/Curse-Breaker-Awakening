@@ -33,8 +33,6 @@ namespace CBA.Entities.Player.Weapons
         public void CameraShake(SO_CameraShakeData cameraShakeData)
         {
             GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
-            //_cameraShakeGameEvent?.Invoke(cameraShakeData);
-            //GameEventsManager.Instance?.CameraShake(cameraShakeData.Direction, cameraShakeData.Strength);
         }
 
         public void EmitTrail()

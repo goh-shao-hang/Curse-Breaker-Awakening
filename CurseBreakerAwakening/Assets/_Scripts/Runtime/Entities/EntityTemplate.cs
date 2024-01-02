@@ -37,11 +37,11 @@ namespace CBA.Entities
         {
             GameObject mesh = transform.Find("Mesh").gameObject;
 
-            gameObject.AddComponent<CharacterOutlineController>();
-            gameObject.AddComponent<RagdollController>();
-            gameObject.AddComponent<CombatAnimationEventHander>();
-            gameObject.AddComponent<CharacterOutlineController>();
-            gameObject.AddComponent<AnimationRiggingController>();
+            mesh.AddComponent<CharacterOutlineController>();
+            mesh.AddComponent<RagdollController>();
+            mesh.AddComponent<CombatAnimationEventHander>();
+            mesh.AddComponent<CharacterOutlineController>();
+            mesh.AddComponent<AnimationRiggingController>();
 
         }
     }

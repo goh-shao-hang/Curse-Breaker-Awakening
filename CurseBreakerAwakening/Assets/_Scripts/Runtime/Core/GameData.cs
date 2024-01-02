@@ -52,6 +52,9 @@ namespace CBA
         public static readonly int ISSTUNNED_HASH = Animator.StringToHash("isStunned");
         public static readonly int ISGRABBED_HASH = Animator.StringToHash("isGrabbed");
 
+        //BOSS
+        public static readonly int ACTIVATESHIELD_HASH = Animator.StringToHash("activateShield");
+
         public const string LOCOMOTION_ANIM = "Locomotion";
         public const string ATTACK_ANIM = "Attack";
         public const string STUNNED_ANIM = "Stunned";
@@ -72,6 +75,8 @@ namespace CBA
 
         public const string DAMAGE_STRENGTH = "_DamageStrength";
         public const string GLOW_STRENGTH = "_GlowStrength";
+
+        public const string DISSOLVE = "_Dissolve";
         #endregion
 
         #region Layers
