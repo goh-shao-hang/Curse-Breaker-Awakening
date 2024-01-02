@@ -55,6 +55,7 @@ namespace CBA
         //BOSS
         public static readonly int CASTSHIELD_HASH = Animator.StringToHash("castShield");
         public static readonly int CASTMULTISHOT_HASH = Animator.StringToHash("castMultishot");
+        public static readonly int CASTSINGLESHOT_HASH = Animator.StringToHash("castSingleShot");
 
         public const string LOCOMOTION_ANIM = "Locomotion";
         public const string ATTACK_ANIM = "Attack";

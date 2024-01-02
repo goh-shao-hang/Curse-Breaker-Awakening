@@ -16,6 +16,7 @@ namespace CBA.Entities
         public SpellcastState(Entity entity, EnemyStateMachine context, Spell shield, int animationHash, bool canMoveWhenCasting = false) : base(entity, context)
         {
             _spell = shield;
+
             _animationHash = animationHash;
             _canMoveWhenCasting = canMoveWhenCasting;
 
@@ -35,7 +36,7 @@ namespace CBA.Entities
             }
 
             _context.Animator.SetTrigger(_animationHash);
-            _spell.Activate();
+            _spell.StartCasting();
         }
 
         public override void Exit()

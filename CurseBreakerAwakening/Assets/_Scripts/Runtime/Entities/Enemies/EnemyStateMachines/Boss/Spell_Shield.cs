@@ -1,6 +1,8 @@
 using DG.Tweening;
+using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,9 +10,9 @@ namespace CBA.Entities
 {
     public class Spell_Shield : Spell
     {
-        [SerializeField] private float _deactivateTimer = 5f;
+        [SerializeField] private float _shieldDuration;
 
-        private const float _shieldTween = 2f;
+        private const float _shieldTween = 1f;
 
         private MeshRenderer _meshRenderer;
         private Material _shieldMaterial;
@@ -29,24 +31,27 @@ namespace CBA.Entities
             _shieldMaterial.SetFloat(GameData.DISSOLVE, 0);
         }
 
-        public override void Activate()
+        public override void StartCasting()
         {
-            base.Activate();
+            base.StartCasting();
+        }
+
+        public override void OnCastComplete()
+        {
+            base.OnCastComplete();
 
             _shieldCollider.enabled = true;
             _shieldMaterial.DOFloat(1, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
 
-            DOVirtual.DelayedCall(_deactivateTimer, Deactivate);
+            StartCoroutine(ShieldDurationCO());
         }
 
-        public override void Deactivate()
+        private IEnumerator ShieldDurationCO()
         {
+            yield return WaitHandler.GetWaitForSeconds(_shieldDuration);
+
             _shieldCollider.enabled = false;
             _shieldMaterial.DOFloat(0, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
-
-            this.StartCooldown();
         }
-
-
     }
 }

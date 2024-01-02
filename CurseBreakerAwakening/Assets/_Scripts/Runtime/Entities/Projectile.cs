@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
         return this;
     }
 
-    public Projectile InitializeWithDelay(GameObject owner, ObjectPool<Projectile> pool, Vector3 position, SO_GlobalPosition target, LayerMask targetLayers)
+    public Projectile InitializeWithDelay(GameObject owner, ObjectPool<Projectile> pool, Vector3 position, SO_GlobalPosition target, LayerMask targetLayers, Transform parent = null)
     {
         this._owner = owner;
 
@@ -57,6 +57,9 @@ public class Projectile : MonoBehaviour
         this.transform.position = position;
         this._target = target;
         this._targetLayers = targetLayers;
+
+        if (parent != null)
+            this.transform.SetParent(parent);
 
         this._rigidbody.detectCollisions = false;
         this._rigidbody.velocity = Vector3.zero;
@@ -75,6 +78,7 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(_delay);
 
+        this.transform.SetParent(null);
         this._rigidbody.detectCollisions = true;
         this.transform.forward = (_target.Value - transform.position).normalized;
         this._rigidbody.velocity = transform.forward * _speed;

@@ -26,15 +26,14 @@ namespace CBA.Entities
             _projectilePool.GrowPool();
         }
 
-        private void Update()
+        public override void StartCasting()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-                Activate();
+            base.StartCasting();
         }
 
-        public async override void Activate()
+        public async override void OnCastComplete()
         {
-            base.Activate();
+            base.OnCastComplete();
 
             Vector3 offset;
 
@@ -49,8 +48,6 @@ namespace CBA.Entities
 
                 await Task.Delay((int)(_spawnDelay * 1000f));
             }
-
-            this.StartCooldown();
         }
     }
 }
