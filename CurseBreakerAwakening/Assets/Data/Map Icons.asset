@@ -15,13 +15,13 @@ MonoBehaviour:
   icons:
   - IconName: Entrance
     RoomType: 0
-    Sprite: {fileID: 21300000, guid: 041f9e686e8f32146a29611cdf0b9d8f, type: 3}
+    Sprite: {fileID: 21300000, guid: c501817a169fa2f44bf105a22606763e, type: 3}
   - IconName: Normal
     RoomType: 1
-    Sprite: {fileID: 21300000, guid: 8bee69ddc9edd254cb303475a4c71dbb, type: 3}
+    Sprite: {fileID: 21300000, guid: 96c2585e3b2743541ac25c111dd5ef7c, type: 3}
   - IconName: Treasure
     RoomType: 2
-    Sprite: {fileID: 21300000, guid: b5b79825fd7748946905058b88042a31, type: 3}
+    Sprite: {fileID: 21300000, guid: 2356afd79c3d94c448d46fc04fb8542a, type: 3}
   - IconName: Boss
     RoomType: 3
-    Sprite: {fileID: 21300000, guid: 765b6b53e3fdbb84fa8209c4f9a10c3d, type: 3}
+    Sprite: {fileID: 21300000, guid: a8af1ce53c4c7524a86273d7adbdf178, type: 3}

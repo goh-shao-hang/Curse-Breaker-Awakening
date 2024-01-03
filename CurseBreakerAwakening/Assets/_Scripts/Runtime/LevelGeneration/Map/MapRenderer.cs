@@ -29,6 +29,8 @@ namespace CBA.LevelGeneration
 
         private Dictionary<Cell, RoomIcon> _iconDict = new Dictionary<Cell, RoomIcon>();
 
+        private RoomIcon _currentRoomIcon;
+
         private void Start()
         {
             _indicatorImage1.rectTransform.DORotate(Vector3.forward * 360, 2f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
@@ -69,9 +71,19 @@ namespace CBA.LevelGeneration
                         roomIcon.UpdateExits(currentCell);
                         roomIcon.IconImage.sprite = _mapIcons.GetIcon(_roomSpawner.GetRoomType(currentCell));
 
-                        if (!_revealAllOnStart && _levelGenerator.GetCellIndex(currentCell) != 1)
+                        if (!_revealAllOnStart)
                         {
-                            roomIcon.gameObject.SetActive(false);
+                            if (_levelGenerator.GetCellIndex(currentCell) == 1)
+                            {
+                                _currentRoomIcon = _iconDict[currentCell];
+                                _currentRoomIndicator.anchoredPosition = _currentRoomIcon.Root.anchoredPosition;
+                                _currentRoomIcon.gameObject.SetActive(true);
+                                _currentRoomIcon.IconImage.rectTransform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+                            }
+                            else
+                            {
+                                roomIcon.gameObject.SetActive(false);
+                            }
                         }
 
                         if (j > maxVerticalSize)
@@ -94,8 +106,12 @@ namespace CBA.LevelGeneration
         {
             if (_iconDict.ContainsKey(cell))
             {
-                _currentRoomIndicator.anchoredPosition = _iconDict[cell].Root.anchoredPosition;
-                _iconDict[cell].gameObject.SetActive(true);
+                _currentRoomIcon?.IconImage.rectTransform.DOKill(true);
+
+                _currentRoomIcon = _iconDict[cell];
+                _currentRoomIndicator.anchoredPosition = _currentRoomIcon.Root.anchoredPosition;
+                _currentRoomIcon.gameObject.SetActive(true);
+                _currentRoomIcon.IconImage.rectTransform.DOScale(1.2f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
             }
         }
     }
