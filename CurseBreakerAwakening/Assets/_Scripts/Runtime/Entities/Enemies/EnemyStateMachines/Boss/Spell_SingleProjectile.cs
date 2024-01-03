@@ -25,12 +25,6 @@ namespace CBA.Entities
             _projectilePool.GrowPool();
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-                Cast();
-        }
-
         public override void Cast()
         {
             base.Cast();

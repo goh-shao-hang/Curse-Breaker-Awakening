@@ -75,7 +75,6 @@ namespace CBA.Entities
             foreach (var entry in _spellManager.SpellDictionary)
             {
                 Spell spell = entry.Value;
-                Debug.LogError(spell.name);
 
                 SpellcastState spellcastState = new SpellcastState(entity, this, _spellManager, spell);
                 _spellcastStates.Add(spellcastState);

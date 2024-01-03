@@ -21,13 +21,11 @@ public abstract class Spell : MonoBehaviour
     public virtual void Cast() 
     {
         IsAvailable = false;
-        StartCooldown();
-
-        //DOVirtual.DelayedCall(_castTime, OnCastComplete);
     }
 
     public virtual void Complete() 
     {
+        StartCooldown();
         OnSpellCompleted?.Invoke();
     }
 
