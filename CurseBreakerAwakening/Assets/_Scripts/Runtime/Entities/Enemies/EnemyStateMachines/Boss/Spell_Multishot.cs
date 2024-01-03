@@ -16,6 +16,8 @@ namespace CBA.Entities
         [SerializeField] private float _spawnDelay = 0.25f;
         [SerializeField] private LayerMask _targetLayers;
 
+        public override int SpellAnimationHash => GameData.CASTMULTISHOT_HASH;
+
         private ObjectPool<Projectile> _projectilePool;
 
         public Queue<Projectile> ProjectilePool { get; private set; } = new Queue<Projectile>();

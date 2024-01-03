@@ -8,18 +8,14 @@ namespace CBA.Entities
 {
     public class SpellcastState : EnemyState
     {
+        private readonly SpellManager _spellManager;
         private readonly Spell _spell;
-        private readonly int _animationHash;
-        private readonly bool _canMoveWhenCasting;
-        private AINavigationModule _navigationModule;
+        private readonly AINavigationModule _navigationModule;
 
-        public SpellcastState(Entity entity, EnemyStateMachine context, Spell shield, int animationHash, bool canMoveWhenCasting = false) : base(entity, context)
+        public SpellcastState(Entity entity, EnemyStateMachine context, SpellManager spellManager, Spell spell) : base(entity, context)
         {
-            _spell = shield;
-
-            _animationHash = animationHash;
-            _canMoveWhenCasting = canMoveWhenCasting;
-
+            _spellManager = spellManager;
+            _spell = spell;
             _navigationModule = _context.GetModule<AINavigationModule>();
         }
 
@@ -29,15 +25,15 @@ namespace CBA.Entities
 
             Debug.Log($"ENTERED SPELL {_spell.name}");
 
-            if (!_canMoveWhenCasting)
+            _spellManager.SetCurrentSpell(_spell);
+
+            if (!_spell.CanMoveWhileCasting)
             {
                 _navigationModule.StopFollow();
                 _navigationModule.SetSpeed(0f);
             }
 
-            _context.Animator.SetTrigger(_animationHash);
-            //TODO
-            //_spell.StartCasting();
+            _context.Animator.SetTrigger(_spell.SpellAnimationHash);
         }
 
         public override void Exit()

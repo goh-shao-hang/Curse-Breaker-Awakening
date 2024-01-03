@@ -12,11 +12,13 @@ namespace CBA.Entities
     {
         [SerializeField] private float _shieldDuration;
 
-        private const float _shieldTween = 1f;
+        private const float _shieldTween = 0.5f;
 
         private MeshRenderer _meshRenderer;
         private Material _shieldMaterial;
         private Collider _shieldCollider;
+
+        public override int SpellAnimationHash => GameData.CASTSHIELD_HASH;
 
         private void Awake()
         {
@@ -37,6 +39,14 @@ namespace CBA.Entities
 
             _shieldCollider.enabled = true;
             _shieldMaterial.DOFloat(1, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
+
+            foreach (var item in Physics.OverlapSphere(transform.position, _shieldCollider.bounds.extents.x))
+            {
+                if (item.TryGetComponent(out Rigidbody rigidbody))
+                {
+                    rigidbody.WakeUp();
+                }
+            }    
 
             StartCoroutine(ShieldDurationCO());
         }

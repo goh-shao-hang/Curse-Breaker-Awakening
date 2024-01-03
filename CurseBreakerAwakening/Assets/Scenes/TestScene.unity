@@ -894,7 +894,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _castTime: 0.5
-  _cooldown: 4
+  _cooldown: 3
+  CanMoveWhileCasting: 0
   _entity: {fileID: 2105286828}
   _spawnTransform: {fileID: 1852576806049042760}
   _projectilePrefab: {fileID: 4035676462842582849, guid: 26194cae14a6c684f8dabbfff642e524,
@@ -1317,7 +1318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _castTime: 0.66
-  _cooldown: 8
+  _cooldown: 4
+  CanMoveWhileCasting: 0
   _entity: {fileID: 2105286828}
   _spawnTransform: {fileID: 1852576806049042760}
   _multishotRoot: {fileID: 1844798439}
@@ -1545,6 +1547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _castTime: 1.3
   _cooldown: 20
+  CanMoveWhileCasting: 0
   _shieldDuration: 15
 --- !u!54 &1064985958
 Rigidbody:
@@ -2976,11 +2979,9 @@ MonoBehaviour:
   _attackRangeDetector: {fileID: 1072875055}
   _grabbableObject: {fileID: 2105286827}
   _ragdollController: {fileID: 1657122437}
-  _shield: {fileID: 1064985957}
-  _multishot: {fileID: 889985133}
-  _singleProjectile: {fileID: 680879637}
-  _minSpellInterval: 3
-  _maxSpellInterval: 3
+  _spellManager: {fileID: 324847410}
+  _minSpellInterval: 1
+  _maxSpellInterval: 2
   _engagedMoveSpeed: 1
   _engageDistance: 8
   _meleeAttackDuration: 1
@@ -3232,6 +3233,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 376674858730808267, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: _thickness
+      value: 0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 376674859392112423, guid: 20439b170f1f6a3428f5df00b0a48ca3,
         type: 3}
       propertyPath: m_Name
@@ -3296,6 +3302,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: OnStopHighlight.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112431, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: OnStartHighlight.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20439b170f1f6a3428f5df00b0a48ca3, type: 3}

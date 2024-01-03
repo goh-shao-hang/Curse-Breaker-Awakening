@@ -12,9 +12,12 @@ namespace CBA.Entities
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private LayerMask _targetLayers;
 
+        public override int SpellAnimationHash => GameData.CASTSINGLESHOT_HASH;
+
         private ObjectPool<Projectile> _projectilePool;
 
         public Queue<Projectile> ProjectilePool { get; private set; } = new Queue<Projectile>();
+
 
         private void Awake()
         {

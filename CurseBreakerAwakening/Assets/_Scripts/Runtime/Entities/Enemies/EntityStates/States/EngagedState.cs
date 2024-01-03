@@ -74,12 +74,5 @@ namespace CBA.Entities
                 _navigationModule.SetSpeed(0f);
             }
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-
-            _navigationModule.SetLookTarget(null);
-        }
     }
 }
