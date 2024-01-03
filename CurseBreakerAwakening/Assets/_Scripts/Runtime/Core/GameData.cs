@@ -45,6 +45,7 @@ namespace CBA
         public static readonly int CHARGEDATTACKENDED_HASH = Animator.StringToHash("chargedAttackEnded");
         public static readonly int HIT_HASH = Animator.StringToHash("hit");
         public static readonly int DIE_HASH = Animator.StringToHash("die");
+        public static readonly int BOSSTRANSITION_HASH = Animator.StringToHash("bossTransition");
         public static readonly int PREPARINGEXPLODE_HASH = Animator.StringToHash("preparingExplode");
         public static readonly int SPEED_HASH = Animator.StringToHash("speed");
         public static readonly int XVELOCITY_HASH = Animator.StringToHash("xVelocity");
@@ -57,6 +58,7 @@ namespace CBA
         public static readonly int CASTMULTISHOT_HASH = Animator.StringToHash("castMultishot");
         public static readonly int CASTSINGLESHOT_HASH = Animator.StringToHash("castSingleShot");
         public static readonly int CASTSUMMON_HASH = Animator.StringToHash("castSummon");
+        public static readonly int CASTBLAST_HASH = Animator.StringToHash("castBlast");
 
         public const string LOCOMOTION_ANIM = "Locomotion";
         public const string ATTACK_ANIM = "Attack";

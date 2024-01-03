@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
 {
     [Header(GameData.DEPENDENCIES)]
     [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private GameObject _onHitVfx;
 
     [Header(GameData.SETTINGS)]
     [SerializeField] private float _damage = 20f;
@@ -100,8 +101,14 @@ public class Projectile : MonoBehaviour
 
             StopCoroutine(_lifetimeCO);
             _lifetimeCO = null;
+
             _pool.AddToPool(this);
             gameObject.SetActive(false);
+
+            if (_onHitVfx != null)
+            {
+                Instantiate(_onHitVfx, transform.position, Quaternion.identity);
+            }
         }
     }
 
@@ -109,9 +116,14 @@ public class Projectile : MonoBehaviour
     {
         yield return WaitHandler.GetWaitForSeconds(_lifetime);
 
+        _lifetimeCO = null;
+
         _pool.AddToPool(this);
         gameObject.SetActive(false);
 
-        _lifetimeCO = null;
+        if (_onHitVfx != null)
+        {
+            Instantiate(_onHitVfx, transform.position, Quaternion.identity);
+        }
     }
 }

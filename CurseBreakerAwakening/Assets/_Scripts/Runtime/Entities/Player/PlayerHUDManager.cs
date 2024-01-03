@@ -37,7 +37,7 @@ namespace CBA.Entities.Player
 
         private void OnEnable()
         {
-            _playerHealthModule.OnHealthChanged.AddListener(UpdateHealthUI);
+            _playerHealthModule.OnHealthDecreased.AddListener(UpdateHealthUI);
             _playerController.OnStaminaChanged += UpdateStaminaUI;
             _playerGrabManager.OnGrab += ShowCrosshair;
             _playerGrabManager.OnThrow += HideCrosshair;
@@ -45,7 +45,7 @@ namespace CBA.Entities.Player
 
         private void OnDisable()
         {
-            _playerHealthModule.OnHealthChanged.RemoveListener(UpdateHealthUI);
+            _playerHealthModule.OnHealthDecreased.RemoveListener(UpdateHealthUI);
             _playerController.OnStaminaChanged -= UpdateStaminaUI;
             _playerGrabManager.OnGrab -= ShowCrosshair;
             _playerGrabManager.OnThrow -= HideCrosshair;
@@ -62,7 +62,6 @@ namespace CBA.Entities.Player
 
             _healthBarWhite.DOKill(true);
             _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
-            //_healthBarFill.fillAmount = healthPercentage;
         }
 
         private void UpdateStaminaUI(float staminaPercentage)

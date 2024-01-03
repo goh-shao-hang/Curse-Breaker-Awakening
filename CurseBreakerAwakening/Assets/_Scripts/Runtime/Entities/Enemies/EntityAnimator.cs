@@ -17,12 +17,12 @@ namespace CBA.Entities
 
         private void OnEnable()
         {
-            _healthModule.OnHealthChanged.AddListener(PlayHitAnimation);
+            _healthModule.OnHealthDecreased.AddListener(PlayHitAnimation);
         }
 
         private void OnDisable()
         {
-            _healthModule.OnHealthChanged.RemoveListener(PlayHitAnimation);
+            _healthModule.OnHealthDecreased.RemoveListener(PlayHitAnimation);
         }
 
         private void PlayHitAnimation()

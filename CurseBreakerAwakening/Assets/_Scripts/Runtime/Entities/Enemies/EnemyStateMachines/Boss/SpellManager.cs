@@ -12,16 +12,18 @@ namespace CBA.Entities
 
         private Spell _currentSpell = null;
 
+
+        public bool IsActive { get; private set; } = true;
+
         private void Awake()
         {
             SpellDictionary = new Dictionary<int, Spell>();
 
-            var spells = GetComponentsInChildren<Spell>();
+            var spells = GetComponentsInChildren<Spell>(false);
 
             for (int i = 0; i < spells.Length; i++)
             {
                 SpellDictionary.Add(i, spells[i]);
-                Debug.Log($"Spell {i}: {spells[i].name}");
             }
         }
 
@@ -37,6 +39,11 @@ namespace CBA.Entities
             _combatAnimationEventHander.OnSpellComplete -= CompleteSpell;
         }
 
+        public void SetActive(bool active)
+        {
+            this.IsActive = active;
+        }
+
         public void SetCurrentSpell(Spell spell)
         {
             _currentSpell = spell;
@@ -44,9 +51,12 @@ namespace CBA.Entities
 
         public void CastSpell()
         {
+            if (!IsActive)
+                return;
+
             if (_currentSpell == null)
             {
-                Debug.LogError("No spell assigned but CastSpell is called!");
+                Debug.LogWarning("No spell assigned but CastSpell is called!");
                 return;
             }
 
@@ -63,9 +73,12 @@ namespace CBA.Entities
 
         public void CompleteSpell()
         {
+            if (!IsActive)
+                return;
+
             if (_currentSpell == null)
             {
-                Debug.LogError("No spell assigned but CompleteSpell is called!");
+                Debug.LogWarning("No spell assigned but CompleteSpell is called!");
                 return;
             }
 

@@ -113,5 +113,10 @@ namespace GameCells.StateMachine
         {
             _anyTransitions.Add(new Transition(targetState, condition));
         }
+
+        protected void AddAnyTransition(State targetState, Condition[] conditions)
+        {
+            _anyTransitions.Add(new Transition(targetState, conditions));
+        }
     }
 }

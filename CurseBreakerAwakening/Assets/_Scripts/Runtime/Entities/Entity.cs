@@ -17,11 +17,11 @@ namespace CBA.Entities
         //TODO
         [FormerlySerializedAs("_playerPos")] [field: SerializeField] public SO_GlobalPosition PlayerPos;
 
-        public UnityEvent OnDeath;
+        public UnityEvent<Entity> OnDeath;
 
         public void Die()
         {
-            OnDeath?.Invoke();
+            OnDeath?.Invoke(this);
         }
     }
 }

@@ -9,18 +9,19 @@ using UnityEngine;
 public abstract class Spell : MonoBehaviour
 {
     [Header(GameData.SETTINGS)]
-    [SerializeField] protected float _castTime = 3f;
     [SerializeField] protected float _cooldown = 10f;
     [field: SerializeField] public bool CanMoveWhileCasting = false;
 
     public abstract int SpellAnimationHash { get; }
     public event Action OnSpellCompleted;
 
-    public bool IsAvailable { get; protected set; } = true;
+    public virtual bool IsAvailable => !this.isOnCooldown; //Condition can be overriden
+
+    protected bool isOnCooldown = false;
 
     public virtual void Cast() 
     {
-        IsAvailable = false;
+
     }
 
     public virtual void Complete() 
@@ -31,7 +32,8 @@ public abstract class Spell : MonoBehaviour
 
     protected virtual void StartCooldown()
     {
-        DOVirtual.DelayedCall(_cooldown, () => IsAvailable = true);
+        isOnCooldown = true;
+        DOVirtual.DelayedCall(_cooldown, () => isOnCooldown = false);
     }
 
 }

@@ -16,6 +16,8 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnStopEmitTrail;
         public event Action OnSpellCast;
         public event Action OnSpellComplete;
+        public event Action OnTransitionEvent;
+        public event Action OnTransitionComplete;
 
         public void ActivateHitbox()
         {
@@ -55,6 +57,16 @@ namespace CBA.Entities.Player.Weapons
         public void CompleteSpell()
         {
             OnSpellComplete?.Invoke();
+        }
+
+        public void TransitionEvent()
+        {
+            OnTransitionEvent?.Invoke();
+        }
+
+        public void TransitionComplete()
+        {
+            OnTransitionComplete?.Invoke();
         }
 
         //Shake using default values

@@ -1,8 +1,11 @@
+using CBA.Entities.Player.Weapons;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using System.Collections.Generic;
 using Unity.Plastic.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using static UnityEngine.EventSystems.EventTrigger;
 
 namespace CBA.Entities
@@ -13,41 +16,43 @@ namespace CBA.Entities
         [SerializeField] private PhysicsQuery _attackRangeDetector;
         [SerializeField] private GrabbableObject _grabbableObject;
         [SerializeField] private RagdollController _ragdollController;
+        [SerializeField] private CombatAnimationEventHander _combatAnimationEventHander;
 
         [Header("Spells")]
-        [SerializeField] private SpellManager _spellManager;
-        //[SerializeField] private Spell_Shield _shield;
-        //[SerializeField] private Spell_Multishot _multishot;
-        //[SerializeField] private Spell_SingleProjectile _singleProjectile;
+        [SerializeField] private SpellManager _phase1Spells;
+        [SerializeField] private SpellManager _phase2Spells;
 
         [Header(GameData.CUSTOMIZATION)]
+        [SerializeField] private int _phaseCount = 2;
         [SerializeField] private float _minSpellInterval = 5f;
         [SerializeField] private float _maxSpellInterval = 8f;
-        [SerializeField] private float _engagedMoveSpeed = 1f;
+        [SerializeField] private float _phase1EngagedMoveSpeed = 1f;
+        [SerializeField] private float _phase2EngagedMoveSpeed = 2f;
         [SerializeField] private float _engageDistance = 3f;
-        [SerializeField] private float _meleeAttackDuration = 1f;
+        public UnityEvent OnPhase2TransitionEvent;
 
         #region States and Conditions
         private IdleState _idleState;
-        /*private SpellcastState _shieldSpellState;
-        private SpellcastState _multishotSpellState;
-        private SpellcastState _singleShotSpellState;*/
         private EngagedState _phase1EngagedState;
-        //private MeleeAttackState _meleeAttackState;
+        private EngagedState _phase2EngagedState;
         private StunnedState _stunnedState;
         private GrabbedState _grabbedState;
         private RecoverState _recoverState;
+        private BossPhaseTransitionState _bossPhase2TransitionState;
         private DeathState _deathState;
 
         //Spell states
-        private List<SpellcastState> _spellcastStates = new List<SpellcastState>();
-        private List<Condition> _spellAvailableConditions = new List<Condition>();
-        private List<Condition> _spellCompletedConditions = new List<Condition>();
+        private List<SpellcastState> _phase1SpellcastStates = new List<SpellcastState>();
+        private List<Condition> _phase1SpellAvailableConditions = new List<Condition>();
+        private List<Condition> _phase1SpellCompletedConditions = new List<Condition>();
+
+        private List<SpellcastState> _phase2SpellcastStates = new List<SpellcastState>();
+        private List<Condition> _phase2SpellAvailableConditions = new List<Condition>();
+        private List<Condition> _phase2SpellCompletedConditions = new List<Condition>();
 
         private Condition _playerInDetectionRangeCondition;
         private Condition _playerOutOfDetectionRangeCondition;
         private Condition _playerInAttackRangeCondition;
-        private Condition _meleeAttackTimerCondition;
         private Condition _guardBrokenCondition;
         private Condition _stunTimerCondition;
         private Condition _grabbedCondition;
@@ -57,38 +62,54 @@ namespace CBA.Entities
 
         //Spells
         private Condition _spellIntervalCondition;
-        /*private Condition_SpellAvailable _shieldAvailableCondition;
-        private Condition_SpellCastCompleted _shieldCastCompletedCondition;
-        private Condition_SpellAvailable _multishotAvailableCondition;
-        private Condition_SpellCastCompleted _multishotCastCompletedCondition;
-        private Condition_SpellAvailable _singleShotAvailableCondition;
-        private Condition_SpellCastCompleted _singleShotCastCompletedCondition;*/
+
+        //Boss specific
+        private Condition_BossTransitionCompleted _bossTransitionCompletedCondition;
+        private Condition_HasRemainingPhases _bossHasRemainingPhaseCondition;
+
         #endregion
 
         private void Awake()
         {
             //State Machine Initialization
             //1. State Initialization
-            _idleState = new IdleState(entity, this);
-            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _engagedMoveSpeed);
+            OnEnterPhase1();
 
-            foreach (var entry in _spellManager.SpellDictionary)
+            _idleState = new IdleState(entity, this);
+            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _phase1EngagedMoveSpeed);
+            _phase2EngagedState = new EngagedState(entity, this, _engageDistance, _phase2EngagedMoveSpeed);
+
+            //Phase 1 Spells
+            foreach (var entry in _phase1Spells.SpellDictionary)
             {
                 Spell spell = entry.Value;
 
-                SpellcastState spellcastState = new SpellcastState(entity, this, _spellManager, spell);
-                _spellcastStates.Add(spellcastState);
+                SpellcastState spellcastState = new SpellcastState(entity, this, _phase1Spells, spell);
+                _phase1SpellcastStates.Add(spellcastState);
 
                 Condition spellAvailableCondition = new Condition_SpellAvailable(spell);
-                _spellAvailableConditions.Add(spellAvailableCondition);
+                _phase1SpellAvailableConditions.Add(spellAvailableCondition);
 
                 Condition spellCompletedCondition = new Condition_SpellCastCompleted(spell);
-                _spellCompletedConditions.Add(spellCompletedCondition);
+                _phase1SpellCompletedConditions.Add(spellCompletedCondition);
             }
 
-            /*_shieldSpellState = new SpellcastState(entity, this, _shield, GameData.CASTSHIELD_HASH);
-            _multishotSpellState = new SpellcastState(entity, this, _multishot, GameData.CASTMULTISHOT_HASH);
-            _singleShotSpellState = new SpellcastState(entity, this, _singleProjectile, GameData.CASTSINGLESHOT_HASH, true);*/
+            //Phase 2 Spells
+            foreach (var entry in _phase2Spells.SpellDictionary)
+            {
+                Spell spell = entry.Value;
+
+                SpellcastState spellcastState = new SpellcastState(entity, this, _phase2Spells, spell);
+                _phase2SpellcastStates.Add(spellcastState);
+
+                Condition spellAvailableCondition = new Condition_SpellAvailable(spell);
+                _phase2SpellAvailableConditions.Add(spellAvailableCondition);
+
+                Condition spellCompletedCondition = new Condition_SpellCastCompleted(spell);
+                _phase2SpellCompletedConditions.Add(spellCompletedCondition);
+            }
+
+            _bossPhase2TransitionState = new BossPhaseTransitionState(entity, this, _combatAnimationEventHander);
 
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
@@ -99,7 +120,6 @@ namespace CBA.Entities
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
-            _meleeAttackTimerCondition = new Condition_Timer(_meleeAttackDuration);
             _guardBrokenCondition = new Condition_GuardBroken(this.ModuleManager.GetModule<GuardModule>());
             _stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
@@ -108,32 +128,35 @@ namespace CBA.Entities
             _healthDepletedCondition = new Condition_HealthDepleted(this.ModuleManager.GetModule<HealthModule>());
 
             _spellIntervalCondition = new Condition_Timer_Random(_minSpellInterval, _maxSpellInterval);
-            /*_shieldAvailableCondition = new Condition_SpellAvailable(_shield);
-            _shieldCastCompletedCondition = new Condition_SpellCastCompleted(_shield);
-            _multishotAvailableCondition = new Condition_SpellAvailable(_multishot);
-            _multishotCastCompletedCondition = new Condition_SpellCastCompleted(_multishot);
-            _singleShotAvailableCondition = new Condition_SpellAvailable(_singleProjectile);
-            _singleShotCastCompletedCondition = new Condition_SpellCastCompleted(_singleProjectile);*/
+
+            _bossTransitionCompletedCondition = new Condition_BossTransitionCompleted(_combatAnimationEventHander);
+            _bossHasRemainingPhaseCondition = new Condition_HasRemainingPhases(_phaseCount, this.GetModule<HealthModule>());
 
             //3. Setting up transitions
             _idleState.AddTransition(_phase1EngagedState, _playerInDetectionRangeCondition);
 
-            for (int i = 0; i < _spellcastStates.Count; i++)
+            #region Phase 1 Transitions
+            for (int i = 0; i < _phase1SpellcastStates.Count; i++)
             {
                 //Transition from engaged to cast
-                _phase1EngagedState.AddTransition(_spellcastStates[i], new[] { _spellIntervalCondition, _spellAvailableConditions[i]});
+                _phase1EngagedState.AddTransition(_phase1SpellcastStates[i], new[] { _spellIntervalCondition, _phase1SpellAvailableConditions[i]});
 
                 //Transition from cast back to engaged
-                _spellcastStates[i].AddTransition(_phase1EngagedState, _spellCompletedConditions[i]);
+                _phase1SpellcastStates[i].AddTransition(_phase1EngagedState, _phase1SpellCompletedConditions[i]);
             }
+            #endregion
 
-            /*_phase1EngagedState.AddTransition(_shieldSpellState, new[] { _spellIntervalCondition, _shieldAvailableCondition });
-            _phase1EngagedState.AddTransition(_multishotSpellState, new[] { _spellIntervalCondition, _multishotAvailableCondition });
-            _phase1EngagedState.AddTransition(_singleShotSpellState, new[] { _spellIntervalCondition, _singleShotAvailableCondition});*/
+            #region Phase 2 Transitions
+            for (int i = 0; i < _phase2SpellcastStates.Count; i++)
+            {
+                //Transition from engaged to cast
+                _phase2EngagedState.AddTransition(_phase2SpellcastStates[i], new[] { _spellIntervalCondition, _phase2SpellAvailableConditions[i] });
 
-            /*_shieldSpellState.AddTransition(_phase1EngagedState, _shieldCastCompletedCondition);
-            _multishotSpellState.AddTransition(_phase1EngagedState, _multishotCastCompletedCondition);
-            _singleShotSpellState.AddTransition(_phase1EngagedState, _singleShotCastCompletedCondition);*/
+                //Transition from cast back to engaged
+                _phase2SpellcastStates[i].AddTransition(_phase2EngagedState, _phase2SpellCompletedConditions[i]);
+            }
+            #endregion
+
 
             _stunnedState.AddTransition(_idleState, _stunTimerCondition);
             _stunnedState.AddTransition(_grabbedState, _grabbedCondition);
@@ -142,15 +165,48 @@ namespace CBA.Entities
 
             _recoverState.AddTransition(_idleState, _recoverAnimationFinishedCondition);
 
+            _bossPhase2TransitionState.AddTransition(_phase2EngagedState, _bossTransitionCompletedCondition);
+
             this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
+            this.AddAnyTransition(_bossPhase2TransitionState, new[] {_healthDepletedCondition, _bossHasRemainingPhaseCondition});
             this.AddAnyTransition(_deathState, _healthDepletedCondition);
 
             Initialize(_idleState);
         }
 
-        protected override void Update()
+        private void OnEnable()
         {
-            base.Update();
+            _bossPhase2TransitionState.OnTransitionStart += OnEnterPhase2;
+            _bossPhase2TransitionState.OnTransitionEvent += Phase2TransitionEvent;
         }
+
+        private void OnDisable()
+        {
+            _bossPhase2TransitionState.OnTransitionStart -= OnEnterPhase2;
+            _bossPhase2TransitionState.OnTransitionEvent -= Phase2TransitionEvent;
+        }
+
+        private void Start()
+        {
+            OnEnterPhase1();
+        }
+
+        private void OnEnterPhase1()
+        {
+            _phase1Spells.SetActive(true);
+            _phase2Spells.SetActive(false);
+        }
+
+        private void OnEnterPhase2()
+        {
+            _phase1Spells.SetActive(false);
+            _phase2Spells.SetActive(true);
+        }
+
+        private void Phase2TransitionEvent()
+        {
+            OnPhase2TransitionEvent?.Invoke();
+        }
+
     }
 }

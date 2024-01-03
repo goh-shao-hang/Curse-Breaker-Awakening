@@ -11,11 +11,14 @@ namespace CBA.Entities
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Entity _entity;
 
-        public UnityEvent OnHealthChanged;
+        public UnityEvent OnHealthIncreased;
+        public UnityEvent OnHealthDecreased;
         public UnityEvent OnHealthDepleted;
 
         public float CurrentHealth { get; private set; }
         public float MaxHealth { get; private set; }
+
+        public bool IsInvincible { get; private set; } = false;
 
         private void Start()
         {
@@ -23,13 +26,31 @@ namespace CBA.Entities
             CurrentHealth = _entity.EntityData.Health;
         }
 
+        public void SetInvincibility(bool invincible)
+        {
+            IsInvincible = invincible;
+        }
+
+        public void RestoreHealth(float amount)
+        {
+            CurrentHealth += amount;
+            if (CurrentHealth > MaxHealth)
+                CurrentHealth = MaxHealth;
+
+            OnHealthIncreased?.Invoke();
+        }
+
         public void TakeDamage(float amount)
         {
+            if (IsInvincible)
+                return;
+
             CurrentHealth -= amount;
-            OnHealthChanged?.Invoke();
+            OnHealthDecreased?.Invoke();
 
             if (CurrentHealth <= 0f)
             {
+                CurrentHealth = 0f;
                 OnHealthDepleted?.Invoke();
             }
         }
