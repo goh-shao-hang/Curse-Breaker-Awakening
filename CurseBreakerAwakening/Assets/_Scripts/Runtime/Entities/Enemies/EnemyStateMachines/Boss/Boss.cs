@@ -2,11 +2,8 @@ using CBA.Entities.Player.Weapons;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using System.Collections.Generic;
-using Unity.Plastic.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace CBA.Entities
 {

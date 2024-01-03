@@ -20,12 +20,13 @@ namespace CBA.Entities
         private Collider[] _colliderCache = new Collider[10];
 
 #if UNITY_EDITOR
+        [Header(GameData.DEBUG)]
         [SerializeField] private bool _visualize = true;
 #endif
 
         public override int SpellAnimationHash => GameData.CASTBLAST_HASH;
 
-
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (!_visualize)
@@ -34,6 +35,7 @@ namespace CBA.Entities
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, _blastRadius);
         }
+#endif
 
         public override void Cast()
         {
@@ -52,7 +54,7 @@ namespace CBA.Entities
                 Instantiate(_completeVFX, _vfxPosition.position, Quaternion.identity);
             }
 
-            int caughtInBlast = Physics.OverlapSphereNonAlloc(transform.position, _blastRadius, _colliderCache);
+            int caughtInBlast = Physics.OverlapSphereNonAlloc(transform.position, _blastRadius, _colliderCache, _targetLayers);
             for (int i = 0; i < caughtInBlast; i++)
             {
                 if (_colliderCache[i].gameObject == _owner.gameObject)

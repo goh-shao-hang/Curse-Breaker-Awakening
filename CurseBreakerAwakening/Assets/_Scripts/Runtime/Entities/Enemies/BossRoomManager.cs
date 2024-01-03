@@ -59,8 +59,8 @@ namespace CBA.Entities
         {
             float healthPercentage = Mathf.Clamp01(_bossHealth.CurrentHealth / _bossHealth.MaxHealth);
 
-            _healthBarFill.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo);
-            _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo);
+            _healthBarFill.DOFillAmount(healthPercentage, 1f).SetEase(Ease.OutExpo);
+            _healthBarWhite.DOFillAmount(healthPercentage, 1f).SetEase(Ease.OutExpo);
 
         }
 

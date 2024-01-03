@@ -28,7 +28,7 @@ namespace CBA.Entities
             for (int i = 0; i < _summonPoints.Length; i++)
             {
                 if (_summons.Count >= _maxConcurrentSummons)
-                    break; 
+                    break;
 
                 if (_summonVfx != null)
                 {
