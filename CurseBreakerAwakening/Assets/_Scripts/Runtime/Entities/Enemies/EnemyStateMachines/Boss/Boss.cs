@@ -1,8 +1,11 @@
 using CBA.Entities.Player.Weapons;
+using CBA.Modules;
+using DG.Tweening;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace CBA.Entities
@@ -26,6 +29,7 @@ namespace CBA.Entities
         [SerializeField] private float _phase1EngagedMoveSpeed = 1f;
         [SerializeField] private float _phase2EngagedMoveSpeed = 2f;
         [SerializeField] private float _engageDistance = 3f;
+        [SerializeField] private float _engageDistanceBias = 1f;
         public UnityEvent OnPhase2TransitionEvent;
 
         #region States and Conditions
@@ -73,8 +77,8 @@ namespace CBA.Entities
             OnEnterPhase1();
 
             _idleState = new IdleState(entity, this);
-            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _phase1EngagedMoveSpeed);
-            _phase2EngagedState = new EngagedState(entity, this, _engageDistance, _phase2EngagedMoveSpeed);
+            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase1EngagedMoveSpeed);
+            _phase2EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase2EngagedMoveSpeed);
 
             //Phase 1 Spells
             foreach (var entry in _phase1Spells.SpellDictionary)
@@ -205,5 +209,14 @@ namespace CBA.Entities
             OnPhase2TransitionEvent?.Invoke();
         }
 
+        public void TeleportToPosition(Transform teleportTransform)
+        {
+            NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.enabled = false;
+
+            transform.position = teleportTransform.position;
+
+            DOVirtual.DelayedCall(1, () => navMeshAgent.enabled = true);
+        }
     }
 }

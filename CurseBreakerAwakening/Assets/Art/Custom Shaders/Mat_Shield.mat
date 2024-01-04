@@ -36,7 +36,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Dissolve: 1
-    - _Fill: 0.03
+    - _Fill: 0.005
     - _FresnelPower: 5
     - _GradientScale: 20
     - _Offset: 0.6
@@ -44,7 +44,7 @@ Material:
     - _QueueOffset: 0
     - _ScrollSpeed: 0.05
     m_Colors:
-    - _EmissionColor: {r: 8.370769, g: 1.7739892, b: 1.2950995, a: 0}
+    - _EmissionColor: {r: 23.968628, g: 5.145098, b: 3.764706, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5489864806634795754
 MonoBehaviour:

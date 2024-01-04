@@ -210,7 +210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: {fileID: 376674859392112427}
-  OnHealthChanged:
+  OnHealthIncreased:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthDecreased:
     m_PersistentCalls:
       m_Calls: []
   OnHealthDepleted:
@@ -251,6 +254,7 @@ MonoBehaviour:
   _overrideAgentRotation: 1
   _overrideRotationFactor: 3
   _animator: {fileID: 8431452190722270293}
+  _animationType: 0
 --- !u!1 &376674858841146327
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +785,7 @@ MonoBehaviour:
   _grabbedOffset: {x: 0, y: -1.3, z: 0}
   _canCollideWith:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 4288
   _skinnedMeshRenderers:
   - {fileID: 8482072974597649771}
   OnGrabbableStateChanged:

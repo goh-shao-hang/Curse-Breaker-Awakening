@@ -8,7 +8,7 @@ namespace CBA.Entities
     public class SpellManager : MonoBehaviour
     {
         [SerializeField] private CombatAnimationEventHander _combatAnimationEventHander;
-        public Dictionary<int, Spell> SpellDictionary { get; private set; }
+        public Dictionary<int, Spell> SpellDictionary { get; private set; } = new Dictionary<int, Spell>();
 
         private Spell _currentSpell = null;
 
@@ -17,8 +17,6 @@ namespace CBA.Entities
 
         private void Awake()
         {
-            SpellDictionary = new Dictionary<int, Spell>();
-
             var spells = GetComponentsInChildren<Spell>(false);
 
             for (int i = 0; i < spells.Length; i++)

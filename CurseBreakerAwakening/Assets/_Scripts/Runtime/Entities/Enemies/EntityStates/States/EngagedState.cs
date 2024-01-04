@@ -1,22 +1,20 @@
 using CBA.Modules;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CBA.Entities
 {
     public class EngagedState : EnemyState
     {
-        private readonly float _targetDistance;
+        private readonly float _engageDistance;
+        private readonly float _engageDistanceBias = 1f;
         private readonly float _moveSpeed;
         private readonly AINavigationModule _navigationModule;
 
-        private const float _bias = 1f;
 
-        public EngagedState(Entity entity, EnemyStateMachine context, float targetDistance, float moveSpeed) : base(entity, context)
+        public EngagedState(Entity entity, EnemyStateMachine context, float engageDistance, float engageDistanceBias, float moveSpeed) : base(entity, context)
         {
-            this._targetDistance = targetDistance;
+            this._engageDistance = engageDistance;
+            this._engageDistanceBias = engageDistanceBias;
             this._moveSpeed = moveSpeed;
             this._navigationModule = _context.GetModule<AINavigationModule>();
         }
@@ -28,13 +26,13 @@ namespace CBA.Entities
             _navigationModule.SetLookTarget(_entity.PlayerPos);
 
             float distance = Vector3.Distance(_context.transform.position, _entity.PlayerPos.Value);
-            if (distance > _targetDistance + _bias)
+            if (distance > _engageDistance + _engageDistanceBias)
             {
                 _navigationModule.SetSpeed(_moveSpeed);
 
                 _navigationModule.SetFollowPosition(_entity.PlayerPos);
             }
-            else if (distance < _targetDistance - _bias)
+            else if (distance < _engageDistance - _engageDistanceBias)
             {
                 _navigationModule.SetSpeed(_moveSpeed);
 
@@ -54,13 +52,13 @@ namespace CBA.Entities
             base.Update();
 
             float distance = Vector3.Distance(_context.transform.position, _entity.PlayerPos.Value);
-            if (distance > _targetDistance + _bias)
+            if (distance > _engageDistance + _engageDistanceBias)
             {
                 _navigationModule.SetSpeed(_moveSpeed);
 
                 _navigationModule.SetFollowPosition(_entity.PlayerPos);
             }
-            else if (distance < _targetDistance - _bias)
+            else if (distance < _engageDistance - _engageDistanceBias)
             {
                 _navigationModule.SetSpeed(_moveSpeed);
 

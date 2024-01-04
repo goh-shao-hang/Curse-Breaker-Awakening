@@ -15,6 +15,7 @@ namespace CBA.Entities
         [SerializeField] private float _blastRadius;
         [SerializeField] private float _damage = 30f;
         [SerializeField] private LayerMask _targetLayers;
+        [SerializeField] private LayerMask _destroyLayers;
         [SerializeField] private float _completeDelay = 0.5f;
 
         private Collider[] _colliderCache = new Collider[10];
@@ -61,6 +62,12 @@ namespace CBA.Entities
                     continue;
 
                 _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_damage);
+            }
+
+            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1.5f, _destroyLayers))
+            {
+                Debug.LogError(hit.collider.gameObject.name);
+                hit.collider.gameObject.SetActive(false);
             }
 
             await Task.Delay((int)(_completeDelay * 1000));
