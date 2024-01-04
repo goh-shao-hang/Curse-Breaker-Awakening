@@ -45208,6 +45208,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 9083007479036133037, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9083007479036133039, guid: af943e1d17aa5174683da0d06d533a76,
         type: 3}
       propertyPath: m_RootOrder
