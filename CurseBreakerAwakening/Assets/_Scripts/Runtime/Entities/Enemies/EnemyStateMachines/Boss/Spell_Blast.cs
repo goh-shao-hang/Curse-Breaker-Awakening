@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 namespace CBA.Entities
 {
@@ -13,6 +14,7 @@ namespace CBA.Entities
         [SerializeField] private GameObject _startVFX;
         [SerializeField] private GameObject _completeVFX;
         [SerializeField] private float _blastRadius;
+        [SerializeField] private float _destructionRadius;
         [SerializeField] private float _damage = 30f;
         [SerializeField] private LayerMask _targetLayers;
         [SerializeField] private LayerMask _destroyLayers;
@@ -35,6 +37,9 @@ namespace CBA.Entities
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, _blastRadius);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _destructionRadius);
         }
 #endif
 
@@ -64,11 +69,16 @@ namespace CBA.Entities
                 _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_damage);
             }
 
-            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1.5f, _destroyLayers))
+            int caughtInDestroy = Physics.OverlapSphereNonAlloc(transform.position, _destructionRadius, _colliderCache, _destroyLayers);
+            for (int i = 0; i < caughtInDestroy; i++)
             {
-                Debug.LogError(hit.collider.gameObject.name);
-                hit.collider.gameObject.SetActive(false);
+                _colliderCache[i].gameObject.SetActive(false);
             }
+
+            /* if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1.5f, _destroyLayers))
+             {
+                 hit.collider.gameObject.SetActive(false);
+             }*/
 
             await Task.Delay((int)(_completeDelay * 1000));
 

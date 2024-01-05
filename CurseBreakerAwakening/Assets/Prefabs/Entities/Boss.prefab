@@ -22895,6 +22895,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  _roomTransitionDestroyVfx: {fileID: 0}
 --- !u!1 &9083007479094987160
 GameObject:
   m_ObjectHideFlags: 0
@@ -23151,7 +23152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 3
-  CanMoveWhileCasting: 1
+  CanMoveWhileCasting: 0
   _entity: {fileID: 9083007479036133033}
   _spawnTransform: {fileID: 7474004953501552461}
   _projectilePrefab: {fileID: 4035676462842582849, guid: 26194cae14a6c684f8dabbfff642e524,
@@ -23819,6 +23820,7 @@ MonoBehaviour:
     type: 3}
   _completeVFX: {fileID: 0}
   _blastRadius: 4
+  _destructionRadius: 1
   _damage: 30
   _targetLayers:
     serializedVersion: 2
@@ -23978,7 +23980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cooldown: 3
-  CanMoveWhileCasting: 1
+  CanMoveWhileCasting: 0
   _entity: {fileID: 9083007479036133033}
   _spawnTransform: {fileID: 7474004953501552461}
   _projectilePrefab: {fileID: 4035676462842582849, guid: 26194cae14a6c684f8dabbfff642e524,

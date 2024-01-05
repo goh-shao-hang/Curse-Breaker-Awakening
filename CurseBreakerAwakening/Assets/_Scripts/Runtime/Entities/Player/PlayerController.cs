@@ -43,6 +43,7 @@ namespace CBA.Entities.Player
         [SerializeField] private float _minWallRunHeight;
         [SerializeField] private float _wallRunGravity = 3f;
         [SerializeField] private float _wallRunCameraTilt = 10f;
+        [SerializeField] private LayerMask _wallRunLayers;
 
         [Header("Charge Attack")]
         [SerializeField] private float _minChargedAttackMovementSpeed = 10f;
@@ -78,16 +79,16 @@ namespace CBA.Entities.Player
         {
             get
             {
-                if (Physics.Raycast(transform.position, Vector3.down, _minWallRunHeight, GameData.TERRAIN_LAYER))
+                if (Physics.Raycast(transform.position, Vector3.down, _minWallRunHeight, _wallRunLayers))
                 {
                     return false;
                 }
 
-                if (Physics.Raycast(transform.position, _cameraRootTransform.right, out runnableWallHitInfo, _wallCheckDistance, GameData.TERRAIN_LAYER))
+                if (Physics.Raycast(transform.position, _cameraRootTransform.right, out runnableWallHitInfo, _wallCheckDistance, _wallRunLayers))
                 {
                     return true;
                 }
-                else if (Physics.Raycast(transform.position, -_cameraRootTransform.right, out runnableWallHitInfo, _wallCheckDistance, GameData.TERRAIN_LAYER))
+                else if (Physics.Raycast(transform.position, -_cameraRootTransform.right, out runnableWallHitInfo, _wallCheckDistance, _wallRunLayers))
                 {
                     return true;
                 }

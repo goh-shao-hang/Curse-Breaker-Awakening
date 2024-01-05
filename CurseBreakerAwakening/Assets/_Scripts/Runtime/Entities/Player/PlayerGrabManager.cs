@@ -20,7 +20,7 @@ namespace CBA.Entities.Player
         [SerializeField] private float _maxGrabDistance = 2f;
         [SerializeField] private float _throwUpwardAdjustment = 0.5f;
         [SerializeField] private LayerMask _interactableLayer;
-        [SerializeField] private LayerMask _terrainlayer;
+        [SerializeField] private LayerMask _damageableLayer;
 
         public bool CanInteract { get; private set; } = true;
         public bool CanGrab => !_playerCombatManager.CurrentWeapon.IsPerformingCombatAction;
@@ -99,7 +99,8 @@ namespace CBA.Entities.Player
 
                 Vector3 direction = (targetPosition - _grabTransform.position).normalized;
 
-                //_currentGrabbedObject.Throw(_playerCameraController.PlayerCamera.transform.forward);
+                _currentGrabbedObject.GetComponentInChildren<ExplosiveModule>()?.SetTargetLayers(_damageableLayer);
+
                 _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, Vector3.zero);//TODO _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
 

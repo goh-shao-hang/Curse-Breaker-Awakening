@@ -109,7 +109,7 @@ namespace CBA.Entities
             _healthBarFill.fillAmount = healthPercentage;
 
             _healthBarWhite.DOKill();
-            _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
+            _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay).OnComplete(() => _healthBarWhite.fillAmount = healthPercentage);
         }
 
         /*private void OnValidate()

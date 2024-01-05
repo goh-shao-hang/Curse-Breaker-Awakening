@@ -31,6 +31,8 @@ namespace CBA.Entities
         [SerializeField] private float _engageDistance = 3f;
         [SerializeField] private float _engageDistanceBias = 1f;
         public UnityEvent OnPhase2TransitionEvent;
+        [SerializeField] private GameObject _roomTransitionDestroyVfx;
+
 
         #region States and Conditions
         private IdleState _idleState;
@@ -215,6 +217,7 @@ namespace CBA.Entities
             navMeshAgent.enabled = false;
 
             transform.position = teleportTransform.position;
+            transform.rotation = teleportTransform.rotation;
 
             DOVirtual.DelayedCall(1, () => navMeshAgent.enabled = true);
         }

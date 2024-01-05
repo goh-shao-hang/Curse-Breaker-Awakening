@@ -22,6 +22,7 @@ namespace CBA
         [SerializeField] private float _maxScale = 1.5f;
         [SerializeField] private string _destroyedSfxName = "PropsDestroyed_Wood";
         [SerializeField] private bool _destroyedWhenThrown;
+        [SerializeField] private bool _destroyAfterDelay = true;
 
         [Header("Explosion")]
         [SerializeField] private float _explosionForce = 2.0f;
@@ -76,7 +77,9 @@ namespace CBA
             foreach (var rigidbody in _destroyedPiecesRigidbodies)
             {
                 rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, Random.Range(_upForceMin, _upForceMax), ForceMode.Impulse);
-                Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
+
+                if (_destroyAfterDelay)
+                    Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
             }
 
             _audioEmitter.transform.SetParent(null);

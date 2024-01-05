@@ -14,7 +14,7 @@ namespace CBA
 
         #region Hidden Variables
 
-        public const float LEVEL_TRANSITION_TIME = 5f;
+        public const float GAME_START_NARRATION_DELAY = 5f;
         public const float SCENE_TRANSITION_DURATION = 2f;
         public const float PROPS_DESTROYED_DELAY = 5f;
 

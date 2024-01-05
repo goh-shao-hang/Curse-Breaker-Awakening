@@ -747,7 +747,19 @@ MonoBehaviour:
   PlayerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 376674858582616410}
+        m_TargetAssemblyTypeName: CBA.Entities.Player.Weapons.WeaponTrail, CBA.Runtime
+        m_MethodName: StopTrailEmission
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &376674859392112429
 MonoBehaviour:
   m_ObjectHideFlags: 0

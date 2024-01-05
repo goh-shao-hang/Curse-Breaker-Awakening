@@ -1,13 +1,15 @@
 using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
+using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CBA.LevelGeneration
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : Singleton<LevelManager>
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private LevelGenerator _levelGenerator;
@@ -17,16 +19,24 @@ namespace CBA.LevelGeneration
         [SerializeField] private PlayerCameraController _playerCameraReference;
         [SerializeField] private CanvasGroup _transitionCanvas;
 
-        public PlayerCameraController PlayerCameraReference => _playerCameraReference;
-
-
         private const float _roomTransitionDuration = 0.5f;
 
         private Dictionary<Cell, Room> _roomsDict;
         private Cell _currentCell;
         private Room _currentRoom => _roomsDict[_currentCell];
+        private Transform _safePoint; //Last entrance used will be determined as the safepoint.
+
+        public PlayerCameraController PlayerCameraReference => _playerCameraReference;
 
         private bool _isTransitioning;
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.T))
+            {
+                TeleportPlayerToSafePoint();
+            }
+        }
 
         private void Start()
         {
@@ -67,8 +77,13 @@ namespace CBA.LevelGeneration
             _playerCameraReference.ResetCameraRotation();
             _playerCameraReference.SetCameraRotation(_currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, _currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
             _playerReference.gameObject.SetActive(true);
+
+
             _mapRenderer?.SetCurrentRoom(_currentCell);
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
+            _currentRoom.OnPlayerEnter();
+
+            _safePoint = _currentRoom.Exits[1].SpawnPoint;
 
             AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1");
 
@@ -112,6 +127,8 @@ namespace CBA.LevelGeneration
             _playerCameraReference.SetCameraRotation(entrance.SpawnPoint.rotation.eulerAngles.y, entrance.SpawnPoint.rotation.eulerAngles.x);
             //_playerReference.gameObject.SetActive(true);
 
+            _safePoint = entrance.SpawnPoint;
+
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
             _currentRoom.OnPlayerEnter();
 
@@ -133,6 +150,24 @@ namespace CBA.LevelGeneration
                 default:
                     return _currentCell;
             }
+        }
+
+        public async void TeleportPlayerToSafePoint()
+        {
+            if (_isTransitioning)
+                return;
+
+            _isTransitioning = true;
+
+            await _transitionCanvas.DOFade(1, _roomTransitionDuration).AsyncWaitForCompletion();
+
+            _playerReference.transform.position = _safePoint.position;
+            _playerCameraReference.ResetCameraRotation();
+            _playerCameraReference.SetCameraRotation(_safePoint.rotation.eulerAngles.y, _safePoint.rotation.eulerAngles.x);
+
+            await _transitionCanvas.DOFade(0, _roomTransitionDuration).AsyncWaitForCompletion();
+
+            _isTransitioning = false;
         }
     }
 }

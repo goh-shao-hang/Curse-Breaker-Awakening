@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f517b230f046f64097fd0dd298c80e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testSceneToLoad:
-    _sceneAsset: {fileID: 102900000, guid: 19bd005d606707946a95db06bc27e09f, type: 3}
-    _sceneName: Generation
+  _levels:
+  - LevelName: Floor 0
+    FloorScene:
+      _sceneAsset: {fileID: 102900000, guid: 19bd005d606707946a95db06bc27e09f, type: 3}
+      _sceneName: Generation
+    BossScene:
+      _sceneAsset: {fileID: 102900000, guid: 158a52f736a4a2748ac3bed1ee8c5dbf, type: 3}
+      _sceneName: BossNew

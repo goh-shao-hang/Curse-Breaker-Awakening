@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RoomShape>k__BackingField: 0
+  <Exits>k__BackingField:
+  - {fileID: 0}
 --- !u!1 &4585534665586209534
 GameObject:
   m_ObjectHideFlags: 0

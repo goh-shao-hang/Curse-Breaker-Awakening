@@ -146,6 +146,9 @@ MonoBehaviour:
   _minWallRunHeight: 2
   _wallRunGravity: 3
   _wallRunCameraTilt: 15
+  _wallRunLayers:
+    serializedVersion: 2
+    m_Bits: 4160
   _minChargedAttackMovementSpeed: 15
   _maxChargedAttackMovementSpeed: 20
 --- !u!114 &980999762061052822
@@ -331,7 +334,7 @@ MonoBehaviour:
   _visualize: 1
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4289
   _offset: {x: 0, y: 0, z: 0}
   _raycastDirection: {x: 0, y: -1, z: 0}
   _maxDistance: 2
@@ -395,7 +398,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entity: {fileID: 7276995258556810002}
-  OnHealthChanged:
+  OnHealthIncreased:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthDecreased:
     m_PersistentCalls:
       m_Calls: []
   OnHealthDepleted:
@@ -511,7 +517,7 @@ MonoBehaviour:
   _visualize: 1
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 1527
+    m_Bits: 4289
   _offset: {x: 0, y: -1, z: 0}
   _radius: 0.2
 --- !u!1 &980999764022817687
@@ -706,7 +712,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8256
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: fce1def721180724ba79b02b2be47ca8, type: 2}
   m_TargetDisplay: 0

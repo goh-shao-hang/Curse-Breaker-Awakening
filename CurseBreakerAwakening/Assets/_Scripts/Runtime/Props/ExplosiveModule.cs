@@ -29,6 +29,11 @@ namespace CBA
             Gizmos.DrawSphere(transform.position, _explosionRadius);
         }
 
+        public void SetTargetLayers(LayerMask targetLayers)
+        {
+            this._targetLayers = targetLayers;
+        }
+
         public void TriggerExplosion()
         {
             int caughtInExplosion = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _colliderCache, _targetLayers);

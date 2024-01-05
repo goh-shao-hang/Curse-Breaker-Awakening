@@ -28,12 +28,12 @@ namespace CBA.Entities.Player.Weapons
             _weaponAnimationEventHander.OnStopEmitTrail -= StopTrailEmission;
         }
 
-        private void StartTrailEmission()
+        public void StartTrailEmission()
         {
             _trailRenderer.emitting = true;
         }
 
-        private void StopTrailEmission()
+        public void StopTrailEmission()
         {
             _trailRenderer.emitting = false;
         }
