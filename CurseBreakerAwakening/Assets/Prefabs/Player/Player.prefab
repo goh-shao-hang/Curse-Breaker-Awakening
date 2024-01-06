@@ -212,14 +212,14 @@ MonoBehaviour:
   _playerCombatManager: {fileID: 980999762061052822}
   _grabTransform: {fileID: 0}
   _movementModule: {fileID: 980999762728581201}
-  _maxGrabDistance: 1.5
+  _maxGrabDistance: 2
   _throwUpwardAdjustment: 0.5
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 128
-  _terrainlayer:
+  _damageableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!114 &8423231553689615740
 MonoBehaviour:
   m_ObjectHideFlags: 0

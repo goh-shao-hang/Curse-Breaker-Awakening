@@ -101,7 +101,7 @@ namespace CBA.Entities.Player
 
                 _currentGrabbedObject.GetComponentInChildren<ExplosiveModule>()?.SetTargetLayers(_damageableLayer);
 
-                _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, Vector3.zero);//TODO _movementModule.CurrentVelocity);
+                _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, _movementModule.CurrentVelocity);
                 _currentGrabbedObject = null;
 
                 OnThrow?.Invoke();
