@@ -28345,7 +28345,7 @@ PrefabInstance:
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
@@ -41384,6 +41384,11 @@ PrefabInstance:
       propertyPath: _playerHealthModule
       value: 
       objectReference: {fileID: 1711357233}
+    - target: {fileID: 297096987095406751, guid: 49e3c53f69c71e548afbd8823d265261,
+        type: 3}
+      propertyPath: _playerCameraController
+      value: 
+      objectReference: {fileID: 1235770140}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e3c53f69c71e548afbd8823d265261, type: 3}
 --- !u!1001 &1483364853

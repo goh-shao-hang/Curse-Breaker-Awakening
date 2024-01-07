@@ -40,4 +40,17 @@ public class ObjectPool<T> where T : MonoBehaviour
         instance.gameObject.SetActive(true);
         return instance;
     }
+
+    public T GetFromPool(Vector3 position, Quaternion rotation)
+    {
+        if (_availableObjects.Count == 0)
+        {
+            GrowPool();
+        }
+
+        var instance = _availableObjects.Dequeue();
+        instance.gameObject.SetActive(true);
+        instance.transform.SetPositionAndRotation(position, rotation);
+        return instance;
+    }
 }

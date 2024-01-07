@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
 {
     [Header(GameData.DEPENDENCIES)]
     [SerializeField] private SceneField _introScene;
+    //TODO
+    [SerializeField] private SceneField _empty;
 
     [Header("Title")]
     [SerializeField] private Image _title;
@@ -50,12 +52,19 @@ public class MainMenu : MonoBehaviour
     {
         _buttons.SetInteractable(false);
 
-        NewGame();
+        DOTween.KillAll();
+
+        AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
+        AudioManager.Instance?.StopBGM(2f);
+        SceneTransitionManager.Instance.LoadSceneWithTransition(_empty, false);
+
+        //TODO
+        DOVirtual.DelayedCall(5f, GameManager.Instance.StartRun);
     }
 
     public void ShowOptions()
     {
-            Debug.Log("ShowOptions");
+        Debug.Log("ShowOptions");
     }
 
     public void ShowCredits()

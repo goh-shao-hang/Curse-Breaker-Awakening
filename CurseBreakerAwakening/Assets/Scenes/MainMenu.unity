@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11195,6 +11195,9 @@ MonoBehaviour:
   _introScene:
     _sceneAsset: {fileID: 102900000, guid: f7080665154f3164f8f20d01a59241dc, type: 3}
     _sceneName: Intro
+  _empty:
+    _sceneAsset: {fileID: 102900000, guid: 184028f3a4b791f42bbcc19ebadf0b18, type: 3}
+    _sceneName: EmptyScene
   _title: {fileID: 1209619655}
   _titleFinalYPosition: 300
   _titleFinalScale: 0.85

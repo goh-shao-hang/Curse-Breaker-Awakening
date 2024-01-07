@@ -12,6 +12,9 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private HealthModule _playerHealthModule;
         [SerializeField] private PlayerController _playerController;
+        //TODO
+        [SerializeField] private Slider _sensitivitySlider;
+        [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private Image _healthBarRoot;
         [SerializeField] private Image _healthBarFill;
         [SerializeField] private Image _healthBarWhite;
@@ -21,6 +24,7 @@ namespace CBA.Entities.Player
         private PlayerGrabManager _playerGrabManager;
 
         [Header(GameData.SETTINGS)]
+        [ColorUsage(true, true)] [SerializeField] private Color _healColor;
         [SerializeField] private float _shakeStrength = 5f;
         [SerializeField] private int _shakeVibrato = 5;
         [SerializeField] private float _tweenDuration = 0.5f;
@@ -37,7 +41,8 @@ namespace CBA.Entities.Player
 
         private void OnEnable()
         {
-            _playerHealthModule.OnHealthDecreased.AddListener(UpdateHealthUI);
+            _playerHealthModule.OnHealthIncreased.AddListener(OnHealthIncrease);
+            _playerHealthModule.OnHealthDecreased.AddListener(OnHealthDecrease);
             _playerController.OnStaminaChanged += UpdateStaminaUI;
             _playerGrabManager.OnGrab += ShowCrosshair;
             _playerGrabManager.OnThrow += HideCrosshair;
@@ -45,22 +50,39 @@ namespace CBA.Entities.Player
 
         private void OnDisable()
         {
-            _playerHealthModule.OnHealthDecreased.RemoveListener(UpdateHealthUI);
+            _playerHealthModule.OnHealthIncreased.AddListener(OnHealthIncrease);
+            _playerHealthModule.OnHealthDecreased.RemoveListener(OnHealthDecrease);
             _playerController.OnStaminaChanged -= UpdateStaminaUI;
             _playerGrabManager.OnGrab -= ShowCrosshair;
             _playerGrabManager.OnThrow -= HideCrosshair;
         }
 
-        private void UpdateHealthUI()
+        private void OnHealthIncrease()
+        {
+            float healthPercentage = Mathf.Clamp01(_playerHealthModule.CurrentHealth / _playerHealthModule.MaxHealth);
+
+            _healthBarWhite.DOKill(true);
+            _healthBarFill.DOKill(true);
+
+            _healthBarWhite.color = _healColor;
+            _healthBarWhite.fillAmount = healthPercentage;
+
+            _healthBarFill.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
+        }
+
+        private void OnHealthDecrease()
         {
             float healthPercentage = Mathf.Clamp01(_playerHealthModule.CurrentHealth / _playerHealthModule.MaxHealth);
 
             _healthBarRoot.rectTransform.DOKill(true);
+            _healthBarWhite.DOKill(true);
+            _healthBarFill.DOKill(true);
+
             _healthBarRoot.rectTransform.DOShakeAnchorPos(0.5f, _shakeStrength, _shakeVibrato);
 
             _healthBarFill.fillAmount = healthPercentage;
 
-            _healthBarWhite.DOKill(true);
+            _healthBarWhite.color = Color.white;
             _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
         }
 
@@ -92,6 +114,12 @@ namespace CBA.Entities.Player
         {
             _crossHairCanvasGroup.DOFade(0, _crosshairTweenDuration).SetEase(Ease.OutSine);
             _crossHairCanvasGroup.transform.DOScale(2, _crosshairTweenDuration).SetEase(Ease.OutSine);
+        }
+
+        //TODO
+        public void ChangeSensitivity()
+        {
+            _playerCameraController.SetSensitivity(_sensitivitySlider.value);
         }
 
     }

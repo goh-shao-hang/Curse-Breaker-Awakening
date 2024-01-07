@@ -2094,7 +2094,7 @@ MonoBehaviour:
   _indicatorImage2: {fileID: 1295461263}
   _roomOffset: {x: 200, y: 200}
   _containerPadding: 250
-  _revealAllOnStart: 1
+  _revealAllOnStart: 0
 --- !u!114 &1525639404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2477,6 +2477,21 @@ PrefabInstance:
       propertyPath: _playerHealthModule
       value: 
       objectReference: {fileID: 2100129304}
+    - target: {fileID: 297096987095406751, guid: 49e3c53f69c71e548afbd8823d265261,
+        type: 3}
+      propertyPath: _playerCameraController
+      value: 
+      objectReference: {fileID: 1515540772}
+    - target: {fileID: 1614754664171155346, guid: 49e3c53f69c71e548afbd8823d265261,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844980204140391518, guid: 49e3c53f69c71e548afbd8823d265261,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e3c53f69c71e548afbd8823d265261, type: 3}
 --- !u!1 &1779017216
@@ -2999,7 +3014,7 @@ PrefabInstance:
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.71999997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
@@ -3009,7 +3024,7 @@ PrefabInstance:
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.93
+      value: 5.77
       objectReference: {fileID: 0}
     - target: {fileID: 980999762061052906, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}

@@ -321,7 +321,7 @@ MonoBehaviour:
   _grabbedOffset: {x: -0.1, y: -0.3, z: 0.8}
   _canCollideWith:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 6336
   _skinnedMeshRenderers: []
   OnGrabbableStateChanged:
     m_PersistentCalls:

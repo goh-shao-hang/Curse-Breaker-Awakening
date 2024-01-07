@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 376674859392112429}
   - component: {fileID: 376674859392112431}
   - component: {fileID: 376674859392112432}
+  - component: {fileID: 9024230008125344770}
   m_Layer: 7
   m_Name: Enemy_Skeleton1
   m_TagString: Untagged
@@ -879,6 +880,18 @@ MonoBehaviour:
     Damage: 20
   _chaseSpeed: 1
   _meleeAttackDuration: 1
+--- !u!114 &9024230008125344770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376674859392112423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e511e1bbdb93d2343b74aef74cb08186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &376674857671843016
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,6 +26,14 @@ namespace CBA.Entities
             CurrentHealth = _entity.EntityData.Health;
         }
 
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+            {
+                TakeDamage(50);
+            }
+        }
+
         public void SetInvincibility(bool invincible)
         {
             IsInvincible = invincible;

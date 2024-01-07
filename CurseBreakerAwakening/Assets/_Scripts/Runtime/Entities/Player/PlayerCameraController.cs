@@ -66,6 +66,11 @@ namespace CBA.Entities.Player
             transform.SetPositionAndRotation(_playerController.CameraRootTransform.transform.position, Quaternion.Euler(_pitch, _yaw, _tiltRotation));
         }
 
+        public void SetSensitivity(float sensitivity)
+        {
+            this._sensitivity = Mathf.Lerp(0.05f, 0.5f, sensitivity);
+        }
+
         public void ResetCameraRotation()
         {
             _yaw = 0f;

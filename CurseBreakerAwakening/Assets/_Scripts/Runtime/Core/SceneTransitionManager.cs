@@ -56,7 +56,6 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
             {
                 progress = loadOperation.progress;
                 _loadingBarFill.fillAmount = progress / 0.9f;
-                Debug.Log(_loadingBarFill.fillAmount);
             }
 
             yield return null;
