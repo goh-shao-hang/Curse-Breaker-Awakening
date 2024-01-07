@@ -17,6 +17,7 @@ namespace CBA
         public const float GAME_START_NARRATION_DELAY = 5f;
         public const float SCENE_TRANSITION_DURATION = 2f;
         public const float PROPS_DESTROYED_DELAY = 5f;
+        public const float LOOT_SPAWN_DELAY = 0.05f;
         public const float LOOT_FOLLOW_DELAY = 2f;
 
         #endregion

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ee360e486515c49b9be01bdefe189c, type: 3}
   m_Name: Loot_Coin
   m_EditorClassIdentifier: 
-  <_lootPrefab>k__BackingField: {fileID: 0}
-  _dropChance: 0
+  <_lootPrefab>k__BackingField: {fileID: 2916089276542740830, guid: ae69a17ffeb8eb14d9840aa71d372ecf,
+    type: 3}
+  _dropChance: 1

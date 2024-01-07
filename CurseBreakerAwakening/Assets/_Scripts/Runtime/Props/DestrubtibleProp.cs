@@ -15,6 +15,7 @@ namespace CBA
 
         [Header("Optional")]
         [SerializeField] private GrabbableObject _grabbableObject;
+        [SerializeField] private LootDropModule _lootDropModule;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _randomScaleOnStart;
@@ -84,6 +85,8 @@ namespace CBA
 
             _audioEmitter.transform.SetParent(null);
             _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
+
+            _lootDropModule?.Drop();
 
             Destroy(gameObject);
         }

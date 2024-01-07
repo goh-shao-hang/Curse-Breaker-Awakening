@@ -19,6 +19,8 @@ public abstract class Loot : MonoBehaviour
 
     private ObjectPool<Loot> _pool;
 
+    public abstract Type GetLootType();
+
     private void OnEnable()
     {
         lootCollider.isTrigger = false;
