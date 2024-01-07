@@ -32,7 +32,9 @@ namespace CBA
         [SerializeField] private float _upForceMax = 0.5f;
 
         private Rigidbody[] _destroyedPiecesRigidbodies;
-        
+
+        private bool _broken;
+
         private void Awake()
         {
             _destroyedPiecesRigidbodies = _destroyedPieces.GetComponentsInChildren<Rigidbody>();
@@ -62,16 +64,13 @@ namespace CBA
             _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f));
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.B))
-            {
-                _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
-            }
-        }
-
         public void TakeDamage(float amount)
         {
+            if (_broken)
+                return;
+
+            _broken = true;
+
             _destroyedPieces.SetActive(true);
             _destroyedPieces.transform.SetParent(null);
 
@@ -83,10 +82,15 @@ namespace CBA
                     Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
             }
 
-            _audioEmitter.transform.SetParent(null);
+            _audioEmitter?.transform.SetParent(null);
             _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
 
-            _lootDropModule?.Drop();
+            if (_lootDropModule != null)
+            {
+                _lootDropModule.transform.SetParent(null);
+                _lootDropModule.Drop();
+                Destroy(_lootDropModule, GameData.PROPS_DESTROYED_DELAY);
+            }
 
             Destroy(gameObject);
         }

@@ -2496,7 +2496,7 @@ PrefabInstance:
     - target: {fileID: 376674859392112423, guid: 20439b170f1f6a3428f5df00b0a48ca3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 376674859392112424, guid: 20439b170f1f6a3428f5df00b0a48ca3,
         type: 3}
@@ -2634,7 +2634,6 @@ MonoBehaviour:
   _launchForce: 2
   _minDrops: 5
   _maxDrops: 10
-  _spawnDelay: 0.05
 --- !u!1 &414117464166638338
 GameObject:
   m_ObjectHideFlags: 0

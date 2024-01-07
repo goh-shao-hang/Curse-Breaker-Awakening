@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &324342173712762732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4042613796194629491}
+  - component: {fileID: 1470741896129896699}
+  m_Layer: 7
+  m_Name: LootDrop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4042613796194629491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324342173712762732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1063871837350347152}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470741896129896699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324342173712762732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd680c691d31604a942ed7487209391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootTable:
+  - <lootPrefab>k__BackingField: {fileID: 2916089276542740830, guid: ae69a17ffeb8eb14d9840aa71d372ecf,
+      type: 3}
+    _dropChance: 0.95
+  - <lootPrefab>k__BackingField: {fileID: 4117496607631864789, guid: 56d1a07c1655dd446892dfb8701ab6c0,
+      type: 3}
+    _dropChance: 0.05
+  _dropOffset: {x: 0, y: 1, z: 0}
+  _launchForce: 2
+  _minDrops: 0
+  _maxDrops: 5
 --- !u!1 &1066818405485428962
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +201,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1063871837350347152}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1060783960879117292
 MeshFilter:
@@ -1844,6 +1899,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 131668149358205007}
+  - {fileID: 4042613796194629491}
   - {fileID: 1063871834823739676}
   - {fileID: 1063871839026972750}
   m_Father: {fileID: 0}
@@ -1986,6 +2042,7 @@ MonoBehaviour:
   _destroyedPieces: {fileID: 1066818409094530388}
   _audioEmitter: {fileID: 6462752040590596731}
   _grabbableObject: {fileID: 439908737}
+  _lootDropModule: {fileID: 1470741896129896699}
   _randomScaleOnStart: 0
   _minScale: 1
   _maxScale: 1.5
@@ -2639,7 +2696,7 @@ Transform:
   - {fileID: 1063871838527421312}
   - {fileID: 1063871838243042212}
   m_Father: {fileID: 1063871837350347152}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1066818409172906296
 GameObject:

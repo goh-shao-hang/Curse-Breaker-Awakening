@@ -21,14 +21,6 @@ namespace CBA
 
         private Vector3 _lootLaunchForce;
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-            {
-                Drop();
-            }
-        }
-
         public async void Drop()
         {
             if (lootManager == null || _lootTable.Length < 1)
@@ -42,7 +34,7 @@ namespace CBA
 
                 Loot loot = GetRandomLootFromTable();
 
-                lootManager.SpawnLoot(loot, transform.position + _dropOffset, Quaternion.identity)
+                lootManager?.SpawnLoot(loot, transform.position + _dropOffset, Quaternion.identity)
                     .Initialize(_lootLaunchForce, transform.position + _dropOffset, lootManager.GetPool(loot.GetLootType()));
 
                 await Task.Delay((int)(GameData.LOOT_SPAWN_DELAY * 1000f));
