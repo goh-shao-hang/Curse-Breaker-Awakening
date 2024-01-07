@@ -51,7 +51,7 @@ MonoBehaviour:
   - <lootPrefab>k__BackingField: {fileID: 4117496607631864789, guid: 56d1a07c1655dd446892dfb8701ab6c0,
       type: 3}
     _dropChance: 0.05
-  _dropOffset: {x: 0, y: 1, z: 0}
+  _dropOffset: {x: 0, y: 0, z: 0}
   _launchForce: 2
   _minDrops: 0
   _maxDrops: 5

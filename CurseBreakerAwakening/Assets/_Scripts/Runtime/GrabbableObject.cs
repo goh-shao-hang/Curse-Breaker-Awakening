@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using CBA.Entities;
+using CBA.Entities.Player;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
 {
@@ -57,27 +58,25 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
             _thrown = false;
         }
-
-        /*if (collision.gameObject.layer == GameData.TERRAIN_LAYER_INDEX)
-        {
-            
-        }*/
     }
 
     public void SetIsGrabbable(bool isGrabbable)
     {
         IsGrabbable = isGrabbable;
         OnGrabbableStateChanged.Invoke(isGrabbable);
-
-        /*if (!isGrabbable)
-        {
-            _grabRigidbody.isKinematic = true;
-        }*/
     }
 
     public void EnableThrowPhysics(bool enabled)
     {
         _grabRigidbody.isKinematic = !enabled;
+    }
+
+    public void OnInteract(PlayerGrabManager playerGrabManager)
+    {
+        if (!IsGrabbable)
+            return;
+
+        playerGrabManager.Grab(this);
     }
 
     public void StartGrabbing(Transform grabTransform, Transform _grabberTransform)
@@ -135,6 +134,9 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     public void OnSelect()
     {
+        if (!IsGrabbable)
+            return;
+
         OnStartHighlight?.Invoke();
     }
 
@@ -143,8 +145,5 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         OnStopHighlight?.Invoke();
     }
 
-    public void OnInteract()
-    {
-        throw new System.NotImplementedException();
-    }
+
 }

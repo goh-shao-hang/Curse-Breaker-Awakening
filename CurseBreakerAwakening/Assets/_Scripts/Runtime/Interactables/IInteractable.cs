@@ -1,3 +1,4 @@
+using CBA.Entities.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,5 +7,5 @@ public interface IInteractable
 {
     public void OnSelect();
     public void OnDeselect();
-    public void OnInteract();
+    public void OnInteract(PlayerGrabManager playerGrabManager);
 }
