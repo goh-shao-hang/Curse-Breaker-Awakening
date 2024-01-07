@@ -4,19 +4,13 @@ using CBA.LevelGeneration;
 using System;
 using UnityEngine;
 
-public class Lava : MonoBehaviour
+public class LavaMaterialController : MonoBehaviour
 {
     [Header("Material")]
     [SerializeField] private bool _overrideMaterialSettings;
     [SerializeField] private MaterialSettings _materialSettings;
 
-    [Header(GameData.SETTINGS)]
-    [SerializeField] private float _damageToPlayer = 10f;
-    [SerializeField] private LayerMask _playerLayer;
-    [SerializeField] private LayerMask _killLayers;
-
     private Material _lavaMaterial;
-
     private void Awake()
     {
         _lavaMaterial = GetComponent<MeshRenderer>().material;
@@ -36,19 +30,6 @@ public class Lava : MonoBehaviour
         _lavaMaterial.SetVector("_DisplacementSpeed", _materialSettings.DisplacementSpeed);
         _lavaMaterial.SetFloat("_DisplacementStrength", _materialSettings.DisplacementStrength);
         _lavaMaterial.SetFloat("_FoamOffset", _materialSettings.FoamOffset);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (((1 << collision.gameObject.layer) & _playerLayer) != 0)
-        {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_damageToPlayer);
-            LevelManager.Instance?.TeleportPlayerToSafePoint();
-        }
-        else if (((1 << collision.gameObject.layer) & _killLayers) != 0)
-        {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(99);
-        }
     }
 
     [Serializable]
