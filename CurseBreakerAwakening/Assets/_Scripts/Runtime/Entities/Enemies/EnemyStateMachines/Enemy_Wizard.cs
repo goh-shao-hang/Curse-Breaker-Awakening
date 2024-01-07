@@ -54,7 +54,7 @@ namespace CBA.Entities
             _retreatState = new RetreatState(entity, this, _retreatSpeed);
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
-            _recoverState = new RecoverState(entity, this);
+            _recoverState = new RecoverState(entity, this, _grabbableObject);
             _deathState = new DeathState(entity, this, _ragdollController);
 
             //2. Condition Initialization

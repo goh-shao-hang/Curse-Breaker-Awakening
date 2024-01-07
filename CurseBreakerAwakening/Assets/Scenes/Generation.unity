@@ -964,11 +964,11 @@ MonoBehaviour:
   - RoomTypeName: Treasure
     RoomType: 2
     RoomPrefabs:
-    - {fileID: -9061896951187281405, guid: b007041de47ac1a4c837a69433d8054d, type: 3}
-    - {fileID: -8549445220517054011, guid: a8bbb9d1dcf100a43bcb65f8c284330a, type: 3}
-    - {fileID: -1155610660044828048, guid: 0152f5127347d324586046e4cb84b94e, type: 3}
-    - {fileID: 3259637781907372472, guid: eaa5e5cd96aeec04a9bfdff0bdfdbbdb, type: 3}
-    - {fileID: -7721312874975349721, guid: 7b01969b46fc1bf48bbd4423cf4bf2fc, type: 3}
+    - {fileID: 5605829379486455899, guid: 5eadf475a222ba744b9ca62eedefcb9b, type: 3}
+    - {fileID: 5605829379486455899, guid: 351b0faa2712b6c44ba0bf3aed060a14, type: 3}
+    - {fileID: 5605829379486455899, guid: da78a51683dd5a34f9b50a845f8a0b8b, type: 3}
+    - {fileID: 5605829379486455899, guid: 6e8b56026e6355547848cc4c82c38319, type: 3}
+    - {fileID: 5605829379486455899, guid: 80fd388d26dbf05478a3a040cc288c9d, type: 3}
   _rules:
   - ruleName: Entrance
     roomType: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
     roomType: 2
     MinSpawnIndex: 2
     MaxSpawnIndex: 19
-    SpawnChance: 0
+    SpawnChance: 0.1
   _roomOffset: {x: 0, y: 0}
   _visualizeGeneration: 0
 --- !u!1 &716039336
@@ -2301,7 +2301,7 @@ MonoBehaviour:
   _indicatorImage2: {fileID: 1295461263}
   _roomOffset: {x: 200, y: 200}
   _containerPadding: 250
-  _revealAllOnStart: 0
+  _revealAllOnStart: 1
 --- !u!114 &1525639404
 MonoBehaviour:
   m_ObjectHideFlags: 0

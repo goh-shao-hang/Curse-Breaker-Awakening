@@ -175,7 +175,7 @@ MonoBehaviour:
   TargetLayers:
     serializedVersion: 2
     m_Bits: 128
-  _attackBufferDuration: 0.2
+  _attackBufferDuration: 0.25
   _duration: 0.15
   _strength: 0.5
   _vibrato: 10
@@ -216,7 +216,7 @@ MonoBehaviour:
   _throwUpwardAdjustment: 0.5
   _interactableLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 32896
   _damageableLayer:
     serializedVersion: 2
     m_Bits: 0

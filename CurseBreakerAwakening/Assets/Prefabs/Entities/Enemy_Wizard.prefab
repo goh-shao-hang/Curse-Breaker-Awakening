@@ -155,7 +155,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!195 &9057472768732177738
 NavMeshAgent:
@@ -501,7 +501,6 @@ MonoBehaviour:
   _launchForce: 2
   _minDrops: 5
   _maxDrops: 10
-  _spawnDelay: 0.1
 --- !u!1 &9057472769500025588
 GameObject:
   m_ObjectHideFlags: 0

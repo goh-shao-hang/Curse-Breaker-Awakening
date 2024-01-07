@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using CBA.Entities;
 using CBA.Entities.Player;
+using System;
+using GameCells.Utilities;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
 {
+    [Header(GameData.DEPENDENCIES)]
     [SerializeField] private Rigidbody _grabRigidbody;
 
     [Header(GameData.SETTINGS)]
@@ -36,6 +39,9 @@ public class GrabbableObject : MonoBehaviour, IInteractable
     private bool _thrown = false;
 
     private Transform _originalParent;
+
+    public event Action OnSelected;
+    public event Action OnDeselected;
 
     private void Start()
     {
@@ -138,11 +144,14 @@ public class GrabbableObject : MonoBehaviour, IInteractable
             return;
 
         OnStartHighlight?.Invoke();
+        OnSelected?.Invoke();
     }
 
     public void OnDeselect()
     {
         OnStopHighlight?.Invoke();
+        OnDeselected?.Invoke();
+
     }
 
 

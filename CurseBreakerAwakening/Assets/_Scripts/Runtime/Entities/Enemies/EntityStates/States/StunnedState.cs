@@ -26,7 +26,9 @@ namespace CBA.Entities
             _context.Hurtbox.SetDamagedAnimationWeight(1f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
 
-            _navigationModule?.Disable();
+            _navigationModule?.SetFollowPosition(null);
+            _navigationModule?.SetLookTarget(null);
+            _navigationModule?.SetSpeed(0);
 
             //TODO set this when exiting some sort of guard state instead
             _context.Hurtbox.SetIsGuarding(false);
@@ -40,8 +42,6 @@ namespace CBA.Entities
 
             _context.Hurtbox.SetDamagedAnimationWeight(0.3f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, false);
-
-            _navigationModule?.Enable();
 
             _grabbableObject?.SetIsGrabbable(false);
 

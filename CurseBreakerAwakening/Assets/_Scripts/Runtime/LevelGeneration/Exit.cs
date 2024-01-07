@@ -31,6 +31,8 @@ public class Exit : MonoBehaviour
 
     private void Update()
     {
+        //TODO
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.L))
         {
             Lock();
@@ -40,12 +42,13 @@ public class Exit : MonoBehaviour
         {
             Unlock();
         }
+#endif
     }
 
     public void Lock()
     {
         _lockDownBar.enabled = true;
-        _lockdownBarVisual.transform.DOMoveY(lockdownBarLockedYPos, lockTweenDuration).SetEase(Ease.OutBounce);
+        _lockdownBarVisual.transform.DOLocalMoveY(lockdownBarLockedYPos, lockTweenDuration).SetEase(Ease.OutBounce);
 
         _doorAudioEmitter?.PlayOneShotSfx("Gate_Close");
     }
@@ -53,7 +56,7 @@ public class Exit : MonoBehaviour
     public void Unlock()
     {
         _lockDownBar.enabled = false;
-        _lockdownBarVisual.transform.DOMoveY(lockdownBarOpenedYPos, lockTweenDuration).SetEase(Ease.InSine);
+        _lockdownBarVisual.transform.DOLocalMoveY(lockdownBarOpenedYPos, lockTweenDuration).SetEase(Ease.InSine);
 
         _doorAudioEmitter?.PlayOneShotSfx("Gate_Open");
     }

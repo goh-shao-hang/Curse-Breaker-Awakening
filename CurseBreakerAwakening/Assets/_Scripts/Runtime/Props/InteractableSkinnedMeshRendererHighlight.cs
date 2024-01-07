@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace CBA
 {
-    public class GrabbableHighlight : MonoBehaviour
+    public class InteractableSkinnedMeshRendererHighlight : MonoBehaviour
     {
+        [Header(GameData.DEPENDENCIES)]
+        [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+
         [Header(GameData.SETTINGS)]
-        [ColorUsage(true, true)] [SerializeField] private Color _color;
+        [ColorUsage(true, true)][SerializeField] private Color _color;
         [SerializeField] private float _thickness = 0.05f;
 
-        private MeshRenderer _meshRenderer;
-        private GrabbableObject _grabbableObject;
+        private IInteractable _interactable;
 
         public const string OUTLINE_NAME = "Mat_3DOutline (Instance)";
         public const string COLOR = "_Color";
@@ -22,14 +24,13 @@ namespace CBA
 
         private void Awake()
         {
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _grabbableObject = GetComponent<GrabbableObject>();
+            _interactable = GetComponent<IInteractable>();
 
-            for (int i = 0; i < _meshRenderer.materials.Length; i++)
+            for (int i = 0; i < _skinnedMeshRenderer.materials.Length; i++)
             {
-                if (_meshRenderer.materials[i].name == OUTLINE_NAME)
+                if (_skinnedMeshRenderer.materials[i].name == OUTLINE_NAME)
                 {
-                    _outlineMaterial = _meshRenderer.materials[i];
+                    _outlineMaterial = _skinnedMeshRenderer.materials[i];
                     break;
                 }
             }
@@ -47,14 +48,14 @@ namespace CBA
 
         private void OnEnable()
         {
-            _grabbableObject.OnStartHighlight.AddListener(Highlight);
-            _grabbableObject.OnStopHighlight.AddListener(StopHighlight);
+            _interactable.OnSelected += Highlight;
+            _interactable.OnDeselected += StopHighlight;
         }
 
         private void OnDisable()
         {
-            _grabbableObject.OnStartHighlight.RemoveListener(Highlight);
-            _grabbableObject.OnStopHighlight.RemoveListener(StopHighlight);
+            _interactable.OnSelected -= Highlight;
+            _interactable.OnDeselected -= StopHighlight;
         }
 
         private void Highlight()

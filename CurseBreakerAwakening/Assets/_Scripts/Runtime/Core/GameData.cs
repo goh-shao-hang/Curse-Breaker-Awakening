@@ -54,6 +54,8 @@ namespace CBA
         public static readonly int ZVELOCITY_HASH = Animator.StringToHash("zVelocity");
         public static readonly int ISSTUNNED_HASH = Animator.StringToHash("isStunned");
         public static readonly int ISGRABBED_HASH = Animator.StringToHash("isGrabbed");
+        public static readonly int OPEN_HASH = Animator.StringToHash("open");
+        public static readonly int OPENED_HASH = Animator.StringToHash("opened");
 
         //BOSS
         public static readonly int CASTSHIELD_HASH = Animator.StringToHash("castShield");

@@ -210,8 +210,8 @@ GameObject:
   - component: {fileID: 4016283001857211228}
   - component: {fileID: 4016283001856311108}
   - component: {fileID: 4016283001193617904}
-  - component: {fileID: 8134996641201758913}
   - component: {fileID: 2101624461}
+  - component: {fileID: 6060434223300857690}
   m_Layer: 7
   m_Name: Crate
   m_TagString: Untagged
@@ -343,20 +343,6 @@ MonoBehaviour:
   _explosionRadius: 5
   _upForceMin: 0
   _upForceMax: 0.5
---- !u!114 &8134996641201758913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4016283001859454582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1970d6e8a2f431d4b9a0f19e21955728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color: {r: 2.9960785, g: 2.9960785, b: 0, a: 1}
-  _thickness: 0.005
 --- !u!114 &2101624461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +384,20 @@ MonoBehaviour:
   OnThrowCollision:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6060434223300857690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016283001859454582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037ca8de344d911479b24c84fa2bd81e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _color: {r: 2.9960785, g: 2.9960785, b: 0, a: 1}
+  _thickness: 0.005
 --- !u!1 &5554319356726698616
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,11 @@ namespace GameCells.Utilities
             _offset = offset;
         }
 
+        public void SetLayerMask(LayerMask layerMask)
+        {
+            this._targetLayers = layerMask;
+        }
+
         public abstract bool Hit();
 
         public abstract void OnVisualize();
