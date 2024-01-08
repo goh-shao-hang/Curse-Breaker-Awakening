@@ -6,6 +6,7 @@ using GameCells.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder(0)]
@@ -118,6 +119,7 @@ public class UIManager : Singleton<UIManager>
         _deathScreenButtonsCanvas.interactable = true;
         _deathScreenButtonsCanvas.blocksRaycasts = true;
 
+        EventSystem.current.GetComponent<InputSystemUIInputModule>().deselectOnBackgroundClick = false;
         EventSystem.current.SetSelectedGameObject(_deathScreenButtons[0].gameObject);
     }
 
