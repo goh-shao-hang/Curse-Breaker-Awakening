@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
 using System;
@@ -11,12 +12,14 @@ namespace CBA.Entities
     public class BossRoomManager : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
+        [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private HealthModule _bossHealth;
         [SerializeField] private CanvasGroup _bossCanvasGroup;
         [SerializeField] private Image _healthBarRoot;
         [SerializeField] private Image _healthBarWhite;
         [SerializeField] private Image _healthBarFill;
         [SerializeField] private TMP_Text _victoryText;
+        [SerializeField] private string _bossBGMName;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private int _phases;
@@ -27,13 +30,29 @@ namespace CBA.Entities
         [SerializeField] private float _tweenDelay = 1f;
 
         private int _currentPhase;
+        private bool _bossFightStarted = false;
+
+        private PlayerManager _playerManager;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_bossFightStarted) return;
+
+            if (((1 << other.gameObject.layer) & GameData.PLAYER_LAYER) != 0)
+            {
+                StartBossFight();
+            }
+        }
 
         private void Start()
         {
-            _bossCanvasGroup.alpha = 0f;
+            _playerManager = GameManager.Instance.PlayerManager;
+            _playerManager.PlayerController.transform.position = _playerSpawnPoint.position;
+            _playerManager.PlayerCameraController.SetCameraRotation(_playerSpawnPoint.rotation.eulerAngles.y, _playerSpawnPoint.rotation.eulerAngles.x);
 
-            //TODO call somewhere else
-            StartBossFight();
+            _playerManager.ActivateComponents(true);
+
+            _bossCanvasGroup.alpha = 0f;
         }
 
         private void OnEnable()
@@ -50,9 +69,13 @@ namespace CBA.Entities
 
         public void StartBossFight()
         {
+            _bossFightStarted = true;
+
             _currentPhase = 1;
 
             _bossCanvasGroup.DOFade(1, _canvasGroupTween);
+
+            AudioManager.Instance.PlayBGM(_bossBGMName);
         }
 
         private void OnBossHealthIncreased()

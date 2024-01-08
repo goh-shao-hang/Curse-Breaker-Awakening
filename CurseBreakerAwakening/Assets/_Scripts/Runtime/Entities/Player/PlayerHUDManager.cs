@@ -34,6 +34,8 @@ namespace CBA.Entities.Player
 
         private const float _crosshairTweenDuration = 0.2f;
 
+        private Tween _lowHealthAnimationTween;
+
         private void Awake()
         {
             _playerGrabManager = _playerController.GetComponent<PlayerGrabManager>();
@@ -46,6 +48,7 @@ namespace CBA.Entities.Player
             _playerController.OnStaminaChanged += UpdateStaminaUI;
             _playerGrabManager.OnGrab += ShowCrosshair;
             _playerGrabManager.OnThrow += HideCrosshair;
+
         }
 
         private void OnDisable()
@@ -68,6 +71,8 @@ namespace CBA.Entities.Player
             _healthBarWhite.fillAmount = healthPercentage;
 
             _healthBarFill.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
+
+            _healthBarRoot.DOColor(_healColor, 0.5f).SetLoops(2, LoopType.Yoyo).OnComplete(() => LowHealthWarning(healthPercentage));
         }
 
         private void OnHealthDecrease()
@@ -84,6 +89,19 @@ namespace CBA.Entities.Player
 
             _healthBarWhite.color = Color.white;
             _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
+
+            _healthBarRoot.DOColor(Color.red, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() => LowHealthWarning(healthPercentage));
+        }
+
+        private void LowHealthWarning(float healthPercentage)
+        {
+            _lowHealthAnimationTween.Kill();
+            _healthBarRoot.color = Color.white;
+
+            if (healthPercentage <= 0.5f)
+            {
+                _lowHealthAnimationTween = _healthBarRoot.DOColor(Color.red, 1f).SetLoops(-1, LoopType.Yoyo);
+            }
         }
 
         private void UpdateStaminaUI(float staminaPercentage)

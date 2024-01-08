@@ -45,10 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels:
-  - LevelName: Floor 0
+  - LevelName: Floor 1
     FloorScene:
       _sceneAsset: {fileID: 102900000, guid: 19bd005d606707946a95db06bc27e09f, type: 3}
       _sceneName: Generation
     BossScene:
       _sceneAsset: {fileID: 102900000, guid: 158a52f736a4a2748ac3bed1ee8c5dbf, type: 3}
       _sceneName: BossNew
+  _endingScene:
+    _sceneAsset: {fileID: 102900000, guid: 184028f3a4b791f42bbcc19ebadf0b18, type: 3}
+    _sceneName: EmptyScene
+  _playerManagerPrefab: {fileID: 2704379496730885695, guid: df216d89841805943995817a5c62a9c7,
+    type: 3}

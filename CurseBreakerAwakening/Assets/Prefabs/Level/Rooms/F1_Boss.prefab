@@ -8885,7 +8885,7 @@ PrefabInstance:
     - target: {fileID: 4675315989611977937, guid: 58c1bbaf4082abd4987acce2ad5f1946,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4675315989611977937, guid: 58c1bbaf4082abd4987acce2ad5f1946,
         type: 3}
@@ -8936,6 +8936,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor_Red (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681118000364224277, guid: 58c1bbaf4082abd4987acce2ad5f1946,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58c1bbaf4082abd4987acce2ad5f1946, type: 3}
@@ -9441,6 +9446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944552435402832044, guid: 287850189b577a74e8d6b79b974e0ba6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9113460985635853545, guid: 287850189b577a74e8d6b79b974e0ba6,
         type: 3}

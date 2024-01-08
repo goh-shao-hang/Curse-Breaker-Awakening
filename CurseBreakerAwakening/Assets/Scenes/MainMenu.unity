@@ -5458,7 +5458,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 533579007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a68b29466c109404e9291eba792be020, type: 3}
+  m_Script: {fileID: 11500000, guid: 724eddc01ea28344fa822e3653eae4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &609297003
@@ -11045,7 +11045,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 811111446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a68b29466c109404e9291eba792be020, type: 3}
+  m_Script: {fileID: 11500000, guid: 724eddc01ea28344fa822e3653eae4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &849907625
@@ -11217,7 +11217,7 @@ GameObject:
   - component: {fileID: 936789079}
   - component: {fileID: 936789082}
   m_Layer: 5
-  m_Name: Continue
+  m_Name: QuickStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11290,7 +11290,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 914901018}
         m_TargetAssemblyTypeName: MainMenu, CBA.Runtime
-        m_MethodName: Continue
+        m_MethodName: QuickStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11347,7 +11347,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 936789077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a68b29466c109404e9291eba792be020, type: 3}
+  m_Script: {fileID: 11500000, guid: 724eddc01ea28344fa822e3653eae4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &961739749
@@ -21689,7 +21689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1206872703}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a68b29466c109404e9291eba792be020, type: 3}
+  m_Script: {fileID: 11500000, guid: 724eddc01ea28344fa822e3653eae4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1209619653
@@ -31773,7 +31773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CONTINUE
+  m_text: QUICK START
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 908b701775297504787f71f0f1016303, type: 2}
   m_sharedMaterial: {fileID: -4461718933691360447, guid: 908b701775297504787f71f0f1016303,
@@ -33113,7 +33113,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1961042687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a68b29466c109404e9291eba792be020, type: 3}
+  m_Script: {fileID: 11500000, guid: 724eddc01ea28344fa822e3653eae4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2089200619746880523

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CBA.LevelGeneration
 {
-    public class BossRoomEntrance : MonoBehaviour
+    public class Portal : MonoBehaviour
     {
         private bool _collided = false;
 
@@ -17,7 +17,7 @@ namespace CBA.LevelGeneration
             if (((1 << other.gameObject.layer) & GameData.PLAYER_LAYER) != 0)
             {
                 _collided = true;
-                GameManager.Instance?.EnterBossRoom();
+                GameManager.Instance?.EndLevel();
             }
         }
 

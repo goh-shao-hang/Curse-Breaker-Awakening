@@ -2,6 +2,7 @@ using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
 using GameCells.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,6 @@ namespace CBA.LevelGeneration
         [SerializeField] private LevelGenerator _levelGenerator;
         [SerializeField] private RoomSpawner _roomSpawner;
         [SerializeField] private MapRenderer _mapRenderer;
-        [SerializeField] private GameObject _playerReference;
-        [SerializeField] private PlayerCameraController _playerCameraReference;
         [SerializeField] private CanvasGroup _transitionCanvas;
 
         private const float _roomTransitionDuration = 0.5f;
@@ -26,7 +25,10 @@ namespace CBA.LevelGeneration
         private Room _currentRoom => _roomsDict[_currentCell];
         private Transform _safePoint; //Last entrance used will be determined as the safepoint.
 
-        public PlayerCameraController PlayerCameraReference => _playerCameraReference;
+        private PlayerManager _player;
+        private PlayerController _playerController => _player.PlayerController;
+        private PlayerCameraController _playerCameraController => _player.PlayerCameraController;
+
 
         private bool _isTransitioning;
 
@@ -73,11 +75,14 @@ namespace CBA.LevelGeneration
                 
             }
 
-            _playerReference.transform.position = _currentRoom.Exits[1].SpawnPoint.position;
-            _playerCameraReference.ResetCameraRotation();
-            _playerCameraReference.SetCameraRotation(_currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, _currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
-            _playerReference.gameObject.SetActive(true);
+            #region Initialize Player
+            _player = GameManager.Instance.PlayerManager;
+            _player.ActivateComponents(true);
 
+            _playerController.transform.position = _currentRoom.Exits[1].SpawnPoint.position;
+            _playerCameraController.SetCameraRotation(_currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, _currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
+            _playerController.gameObject.SetActive(true);
+            #endregion
 
             _mapRenderer?.SetCurrentRoom(_currentCell);
             _currentRoom.OnPlayerExitRoom += TransitionToRoom;
@@ -122,9 +127,8 @@ namespace CBA.LevelGeneration
             _mapRenderer?.SetCurrentRoom(_currentCell);
 
             Exit entrance = _currentRoom.GetEntrance(nextRoomEntrance);
-            _playerReference.transform.position = entrance.SpawnPoint.position;
-            _playerCameraReference.ResetCameraRotation();
-            _playerCameraReference.SetCameraRotation(entrance.SpawnPoint.rotation.eulerAngles.y, entrance.SpawnPoint.rotation.eulerAngles.x);
+            _playerController.transform.position = entrance.SpawnPoint.position;
+            _playerCameraController.SetCameraRotation(entrance.SpawnPoint.rotation.eulerAngles.y, entrance.SpawnPoint.rotation.eulerAngles.x);
             //_playerReference.gameObject.SetActive(true);
 
             _safePoint = entrance.SpawnPoint;
@@ -161,9 +165,8 @@ namespace CBA.LevelGeneration
 
             await _transitionCanvas.DOFade(1, _roomTransitionDuration).AsyncWaitForCompletion();
 
-            _playerReference.transform.position = _safePoint.position;
-            _playerCameraReference.ResetCameraRotation();
-            _playerCameraReference.SetCameraRotation(_safePoint.rotation.eulerAngles.y, _safePoint.rotation.eulerAngles.x);
+            _playerController.transform.position = _safePoint.position;
+            _playerCameraController.SetCameraRotation(_safePoint.rotation.eulerAngles.y, _safePoint.rotation.eulerAngles.x);
 
             await _transitionCanvas.DOFade(0, _roomTransitionDuration).AsyncWaitForCompletion();
 

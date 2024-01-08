@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MainMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class CustomButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     private TextMeshProUGUI _textMeshProUGUI;
     public RectTransform RectTransform {  get; private set; }

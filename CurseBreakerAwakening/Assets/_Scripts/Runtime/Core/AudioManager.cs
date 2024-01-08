@@ -151,16 +151,30 @@ namespace CBA.Core
 
         public async void StopBGM(float fadeOutTime = 0f)
         {
-            if (!_globalBGMAudioSource1.isPlaying)
+            if (!_globalBGMAudioSource1.isPlaying && !_globalBGMAudioSource2.isPlaying)
                 return;
 
-            if (fadeOutTime > 0f) 
+            if (_globalBGMAudioSource1.isPlaying)
             {
-                await DOVirtual.Float(_globalBGMAudioSource1.volume, 0, fadeOutTime, (volume) => _globalBGMAudioSource1.volume = volume).AsyncWaitForCompletion();
-            }
+                if (fadeOutTime > 0f)
+                {
+                    await DOVirtual.Float(_globalBGMAudioSource1.volume, 0, fadeOutTime, (volume) => _globalBGMAudioSource1.volume = volume).AsyncWaitForCompletion();
+                }
 
-            _globalBGMAudioSource1.Stop();
-            _currentBGM = null;
+                _globalBGMAudioSource1.Stop();
+                _currentBGM = null;
+            }
+            else
+            {
+                if (fadeOutTime > 0f)
+                {
+                    await DOVirtual.Float(_globalBGMAudioSource2.volume, 0, fadeOutTime, (volume) => _globalBGMAudioSource2.volume = volume).AsyncWaitForCompletion();
+                }
+
+                _globalBGMAudioSource2.Stop();
+                _currentBGM = null;
+            }
+            
         }
 
         public void PlayGlobalSFX(string audioName)

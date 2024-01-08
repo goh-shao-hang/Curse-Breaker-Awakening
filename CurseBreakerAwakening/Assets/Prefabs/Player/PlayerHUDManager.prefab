@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 297096986321211799}
   - component: {fileID: 297096986321211800}
   - component: {fileID: 297096986321211801}
-  - component: {fileID: 297096986321211798}
+  - component: {fileID: 5136547594958849507}
   m_Layer: 0
   m_Name: PlayerHUDCanvas
   m_TagString: Untagged
@@ -107,7 +107,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 297096986938061110}
   - {fileID: 297096987455400570}
   - {fileID: 6949263385260027486}
   - {fileID: 59912812159262012}
@@ -139,7 +138,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 12
   m_TargetDisplay: 0
 --- !u!114 &297096986321211801
 MonoBehaviour:
@@ -164,7 +163,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &297096986321211798
+--- !u!114 &5136547594958849507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,6 +267,7 @@ GameObject:
   - component: {fileID: 297096986938061110}
   - component: {fileID: 297096986938061112}
   - component: {fileID: 297096986938061113}
+  - component: {fileID: 846689985302383562}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -289,7 +289,7 @@ RectTransform:
   m_Children:
   - {fileID: 297096986587444287}
   - {fileID: 297096987666865319}
-  m_Father: {fileID: 297096986321211799}
+  m_Father: {fileID: 6949263385260027486}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -335,6 +335,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!223 &846689985302383562
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297096986938061111}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 11
+  m_TargetDisplay: 0
 --- !u!1 &297096986964358097
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,13 +481,13 @@ MonoBehaviour:
   _playerController: {fileID: 0}
   _sensitivitySlider: {fileID: 5425011481183905561}
   _playerCameraController: {fileID: 0}
-  _healthBarRoot: {fileID: 297096986938061113}
+  _healthBarRoot: {fileID: 1808360632867972233}
   _healthBarFill: {fileID: 297096987666865318}
   _healthBarWhite: {fileID: 297096986587444417}
   _staminaBarFill: {fileID: 297096986964358099}
   _staminaBarWhite: {fileID: 297096987388033356}
   _crossHairCanvasGroup: {fileID: 9193667579474913132}
-  _healColor: {r: 0.32027078, g: 0.754717, b: 0.244927, a: 1}
+  _healColor: {r: 0.627451, g: 0.90588236, b: 0.5764706, a: 1}
   _shakeStrength: 25
   _shakeVibrato: 100
   _tweenDuration: 0.5
@@ -580,7 +601,7 @@ RectTransform:
   - {fileID: 297096987388033357}
   - {fileID: 297096986964358096}
   m_Father: {fileID: 297096986321211799}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -734,7 +755,7 @@ RectTransform:
   m_Children:
   - {fileID: 837303831524840164}
   m_Father: {fileID: 297096986321211799}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -976,7 +997,7 @@ RectTransform:
   - {fileID: 5425402980606146562}
   - {fileID: 1620387540808267551}
   m_Father: {fileID: 297096986321211799}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1149,9 +1170,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 297096986938061110}
   m_Father: {fileID: 297096986321211799}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1179,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8773585, g: 0.8558384, b: 0.8558384, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

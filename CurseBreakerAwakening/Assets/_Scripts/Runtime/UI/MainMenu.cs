@@ -41,25 +41,23 @@ public class MainMenu : MonoBehaviour
 
         //TODO
         //DO THIS WHENEVER LOADING TO OTHER SCENE
-        DOTween.KillAll();
+        //DOTween.KillAll();
 
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
         AudioManager.Instance?.StopBGM(2f);
         SceneTransitionManager.Instance.LoadSceneWithTransition(_introScene, true);
     }
 
-    public void Continue()
+    public void QuickStart()
     {
         _buttons.SetInteractable(false);
-
-        DOTween.KillAll();
 
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
         AudioManager.Instance?.StopBGM(2f);
         SceneTransitionManager.Instance.LoadSceneWithTransition(_empty, false);
 
         //TODO
-        DOVirtual.DelayedCall(5f, GameManager.Instance.StartRun);
+        GameManager.Instance.StartRun(5f);
     }
 
     public void ShowOptions()

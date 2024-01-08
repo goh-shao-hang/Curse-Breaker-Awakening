@@ -8,7 +8,7 @@ using DG.Tweening;
 
 public class ButtonScrollList : MonoBehaviour
 {
-    [SerializeField] private List<MainMenuButton> _buttons;
+    [SerializeField] private List<CustomButton> _buttons;
     [SerializeField] private CanvasGroup _buttonsCanvasGroup;
     [FormerlySerializedAs("_scrollRect")][SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private RectTransform _contentRect;
@@ -51,7 +51,7 @@ public class ButtonScrollList : MonoBehaviour
 
 
     private Tween _scrollTween = null;
-    public void ScrollToButton(MainMenuButton button)
+    public void ScrollToButton(CustomButton button)
     {
         float targetValue = 1 - (float)_buttons.IndexOf(button) / _buttons.Count;
 

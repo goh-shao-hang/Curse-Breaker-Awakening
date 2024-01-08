@@ -26,6 +26,22 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
     }
 
 
+    private void OnEnable()
+    {
+        SceneManager.sceneUnloaded += OnAnySceneUnloaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneUnloaded -= OnAnySceneUnloaded;
+    }
+
+    private void OnAnySceneUnloaded(Scene scene)
+    {
+        //TODO not sure if this is safe
+        DOTween.KillAll();
+    }
+
     public void LoadSceneWithTransition(SceneField scene, bool useLoadingBar = false)
     {
         if (_loadSceneCO != null)

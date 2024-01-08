@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,21 @@ namespace CBA.Entities.Player
 
         public UnityEvent OnParrySuccess;
         public UnityEvent OnBlockSuccess;
+
+        private void OnEnable()
+        {
+            _healthModule.OnHealthDepleted.AddListener(PlayerDeath);
+        }
+
+        private void OnDisable()
+        {
+            _healthModule.OnHealthDepleted.RemoveListener(PlayerDeath);
+        }
+
+        private void PlayerDeath()
+        {
+            GameManager.Instance?.PlayerDeath();
+        }
 
         public void SetIsBlocking(bool isBlocking)
         {

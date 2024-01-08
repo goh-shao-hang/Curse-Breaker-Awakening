@@ -126,3 +126,9 @@ MonoBehaviour:
     _volume: 1
     _pitch: 1
     _pitchVariation: 0.15
+  - <Name>k__BackingField: Player_Death
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 5632c8bac48227348be531d1c7a2d832, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
