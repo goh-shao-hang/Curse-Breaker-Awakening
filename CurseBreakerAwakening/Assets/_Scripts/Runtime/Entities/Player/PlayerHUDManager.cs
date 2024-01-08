@@ -70,6 +70,9 @@ namespace CBA.Entities.Player
 
             _healthBarFill.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay);
 
+            _healthBarRoot.DOKill();
+            _healthBarRoot.color = Color.white;
+
             _healthBarRoot.DOColor(_healColor, 0.25f).SetLoops(2, LoopType.Yoyo).OnComplete(() => LowHealthWarning(healthPercentage));
         }
 
@@ -102,9 +105,9 @@ namespace CBA.Entities.Player
             }
         }
 
-        private void UpdateStaminaUI(float staminaPercentage)
+        private void UpdateStaminaUI()
         {
-            staminaPercentage = Mathf.Clamp01(staminaPercentage);
+            float staminaPercentage = Mathf.Clamp01(_playerController.CurrentStamina / _playerController.MaxStamina);
 
             if (staminaPercentage < _staminaBarFill.fillAmount)
             {

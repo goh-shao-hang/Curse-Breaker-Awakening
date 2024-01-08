@@ -1,4 +1,6 @@
 using CBA.Core;
+using CBA.Entities;
+using CBA.Entities.Player;
 using DG.Tweening;
 using GameCells.Utilities;
 using TMPro;
@@ -11,6 +13,10 @@ public class UIManager : Singleton<UIManager>
 {
     [Header("Pause")]
     [SerializeField] private CanvasGroup _pauseCanvas;
+    [SerializeField] private Image _playerHealthFill;
+    [SerializeField] private Image _playerStaminaFill;
+    [SerializeField] private TMP_Text _playerHealthText;
+    [SerializeField] private TMP_Text _playerStaminaText;
 
     [Header("Death")]
     [SerializeField] private CanvasGroup _deathCanvas;
@@ -26,9 +32,14 @@ public class UIManager : Singleton<UIManager>
     private bool _canPause = true;
     private bool _paused = false;
 
+    private PlayerController _playerController;
+    private HealthModule _playerHealthModule;
+
     private void OnEnable()
     {
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
+        _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
+        _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
     }
 
     private void OnDisable()
@@ -60,6 +71,26 @@ public class UIManager : Singleton<UIManager>
         _pauseCanvas.alpha = _paused ? 1 : 0;
         _pauseCanvas.interactable = _paused;
         _pauseCanvas.blocksRaycasts = _paused;
+
+        if (_paused)
+        {
+            UpdateHealth();
+            UpdateStamina();
+        }
+    }
+
+    private void UpdateHealth()
+    {
+        float healthPercentage = Mathf.Clamp01(_playerHealthModule.CurrentHealth / _playerHealthModule.MaxHealth);
+        _playerHealthFill.fillAmount = healthPercentage;
+        _playerHealthText.SetText($"{_playerHealthModule.CurrentHealth} / {_playerHealthModule.MaxHealth}");
+    }
+
+    private void UpdateStamina()
+    {
+        float staminaPercentage = Mathf.Clamp01(_playerController.CurrentStamina / _playerController.MaxStamina);
+        _playerStaminaFill.fillAmount = staminaPercentage;
+        _playerStaminaText.SetText($"{(int)_playerController.CurrentStamina} / {(int)_playerController.MaxStamina}");
     }
 
     public void ShowDeathScreen()

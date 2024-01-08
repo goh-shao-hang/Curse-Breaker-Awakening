@@ -128,7 +128,7 @@ namespace CBA.Entities.Player
         #endregion
 
         #region Events
-        public event Action<float> OnStaminaChanged;
+        public event Action OnStaminaChanged;
         public event Action<bool> OnWallRunStarted;
         public event Action OnWallRunEnded;
         #endregion
@@ -319,7 +319,7 @@ namespace CBA.Entities.Player
         {
             CurrentStamina = Mathf.Clamp(value, 0f, MaxStamina);
 
-            OnStaminaChanged?.Invoke(CurrentStamina / MaxStamina);
+            OnStaminaChanged?.Invoke();
         }
 
         public void StartStaminaRegenTimer()
