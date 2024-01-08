@@ -14,6 +14,8 @@ namespace CBA.Core
 
         private int _currentLevel = 1;
 
+        public int CurrentCoins { get; private set; } = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -37,6 +39,12 @@ namespace CBA.Core
         public void EnterBossRoom()
         {
             SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel - 1].BossScene, true);
+        }
+
+        public void ObtainCoin(int amount)
+        {
+            CurrentCoins += amount;
+            Debug.Log($"You have {CurrentCoins} coins.");
         }
 
         private void OnValidate()

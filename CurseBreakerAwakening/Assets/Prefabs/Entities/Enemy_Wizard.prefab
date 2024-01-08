@@ -595,6 +595,46 @@ PrefabInstance:
       propertyPath: _healthModule
       value: 
       objectReference: {fileID: 9057472768883550523}
+    - target: {fileID: 6787050962052900850, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050962571182826, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963112433137, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963251695331, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963336208617, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963594071945, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963770715731, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787050963877971009, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6788049875586639399, guid: 5bb043625ca65ac489c4d2c1afb8a288,
         type: 3}
       propertyPath: m_IsActive

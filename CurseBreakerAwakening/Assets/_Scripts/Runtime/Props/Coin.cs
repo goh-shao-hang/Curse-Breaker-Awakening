@@ -1,3 +1,4 @@
+using CBA.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace CBA
 
         protected override void OnCollected(GameObject _playerGameObject)
         {
-            InGameResourceManager.Instance?.ObtainCoin(1);
+            GameManager.Instance?.ObtainCoin(1);
         }
     }
 }
