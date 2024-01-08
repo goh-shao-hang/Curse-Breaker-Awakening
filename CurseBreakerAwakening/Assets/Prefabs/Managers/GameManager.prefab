@@ -53,7 +53,7 @@ MonoBehaviour:
       _sceneAsset: {fileID: 102900000, guid: 158a52f736a4a2748ac3bed1ee8c5dbf, type: 3}
       _sceneName: BossNew
   _endingScene:
-    _sceneAsset: {fileID: 102900000, guid: 184028f3a4b791f42bbcc19ebadf0b18, type: 3}
-    _sceneName: EmptyScene
+    _sceneAsset: {fileID: 102900000, guid: a533dcdfd330fac4498b3dc2531e99d3, type: 3}
+    _sceneName: Ending
   _playerManagerPrefab: {fileID: 2704379496730885695, guid: df216d89841805943995817a5c62a9c7,
     type: 3}

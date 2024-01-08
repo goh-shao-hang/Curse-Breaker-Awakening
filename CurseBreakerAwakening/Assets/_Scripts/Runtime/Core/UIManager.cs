@@ -73,7 +73,7 @@ public class UIManager : Singleton<UIManager>
 
         deathSequence.Append(_deathCanvas.DOFade(1, 1f));
         deathSequence.Join(_deathText.DOFade(1, 1f));
-        deathSequence.Join(spacingTweenRef.transform.DOLocalMoveX(23, 3f).OnUpdate(() => UpdateDeathTextSpacing(spacingTweenRef.transform.position.x)));
+        deathSequence.Join(spacingTweenRef.transform.DOLocalMoveX(23, 5f).OnUpdate(() => UpdateDeathTextSpacing(spacingTweenRef.transform.position.x)));
         deathSequence.AppendInterval(1f);
         deathSequence.Append(_deathText.rectTransform.DOAnchorPosY(250f, 1.5f).SetEase(Ease.OutSine).SetUpdate(true));
         deathSequence.Append(_deathScreenButtonsCanvas.DOFade(1, 1f));
