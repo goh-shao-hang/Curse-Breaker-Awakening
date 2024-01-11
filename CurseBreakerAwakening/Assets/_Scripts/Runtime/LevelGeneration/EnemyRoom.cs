@@ -45,7 +45,7 @@ namespace CBA.LevelGeneration
             {
                 _roomCleared = true;
                 _room.UnlockRoom();
-                AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1");
+                AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1", 2f, true);
             }
         }
 
@@ -56,7 +56,7 @@ namespace CBA.LevelGeneration
 
             _room.LockRoom();
 
-            AudioManager.Instance.CrossFadeBGM("BattleTheme_1");
+            AudioManager.Instance.CrossFadeBGM("BattleTheme_1", 2f, true);
         }
         
     }

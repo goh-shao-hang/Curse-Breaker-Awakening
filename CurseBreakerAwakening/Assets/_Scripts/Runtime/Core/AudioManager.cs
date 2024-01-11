@@ -1,6 +1,5 @@
 using DG.Tweening;
 using GameCells.Utilities;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -60,11 +59,15 @@ namespace CBA.Core
         {
             if (_musicDictionary.ContainsKey(audioName))
             {
+                _globalBGMAudioSource2.Stop();
+
                 Audio audio = _musicDictionary[audioName];
 
                 _globalBGMAudioSource1.clip = audio.GetClip();
                 _globalBGMAudioSource1.volume = audio.Volume;
                 _globalBGMAudioSource1.pitch = audio.Pitch + Random.Range(-audio.PitchVariation * 0.5f, audio.PitchVariation * 0.5f);
+
+                _globalBGMAudioSource1.time = 0f;
 
                 _globalBGMAudioSource1.Play();
 
@@ -76,7 +79,7 @@ namespace CBA.Core
             }
         }
 
-        public void CrossFadeBGM(string audioName, float duration = 2f)
+        public void CrossFadeBGM(string audioName, float duration = 2f, bool continueIfPlayedBefore = false)
         {
             if (!_musicDictionary.ContainsKey(audioName))
             {
@@ -107,7 +110,7 @@ namespace CBA.Core
                 _globalBGMAudioSource2.pitch = music.Pitch + Random.Range(-music.PitchVariation * 0.5f, music.PitchVariation * 0.5f);
                 _globalBGMAudioSource2.volume = 0f;
 
-                if (_musicTimeDictionary.ContainsKey(audioName))
+                if (continueIfPlayedBefore && _musicTimeDictionary.ContainsKey(audioName))
                 {
                     _globalBGMAudioSource2.time = _musicTimeDictionary[audioName];
                 }
@@ -135,7 +138,7 @@ namespace CBA.Core
                 _globalBGMAudioSource1.pitch = music.Pitch + Random.Range(-music.PitchVariation * 0.5f, music.PitchVariation * 0.5f);
                 _globalBGMAudioSource1.volume = 0f;
 
-                if (_musicTimeDictionary.ContainsKey(audioName))
+                if (continueIfPlayedBefore && _musicTimeDictionary.ContainsKey(audioName))
                 {
                     _globalBGMAudioSource1.time = _musicTimeDictionary[audioName];
                 }
@@ -174,7 +177,7 @@ namespace CBA.Core
                 _globalBGMAudioSource2.Stop();
                 _currentBGM = null;
             }
-            
+
         }
 
         public void PlayGlobalSFX(string audioName)

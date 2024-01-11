@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 using GameCells.Utilities;
-using UnityEngine.Serialization;
 
 namespace CBA.LevelGeneration
 {

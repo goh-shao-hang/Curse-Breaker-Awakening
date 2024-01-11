@@ -2,11 +2,8 @@ using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
 using GameCells.Utilities;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CBA.LevelGeneration
 {
@@ -31,14 +28,6 @@ namespace CBA.LevelGeneration
 
 
         private bool _isTransitioning;
-
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.T))
-            {
-                TeleportPlayerToSafePoint();
-            }
-        }
 
         private void Start()
         {
@@ -90,7 +79,7 @@ namespace CBA.LevelGeneration
 
             _safePoint = _currentRoom.Exits[1].SpawnPoint;
 
-            AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1");
+            AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1", 2f, false);
 
             _transitionCanvas.DOFade(0, 2f).OnComplete(() => _isTransitioning = false);
         }

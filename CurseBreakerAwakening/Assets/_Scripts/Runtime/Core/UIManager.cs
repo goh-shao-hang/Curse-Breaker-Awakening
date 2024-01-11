@@ -38,6 +38,9 @@ public class UIManager : Singleton<UIManager>
 
     private void OnEnable()
     {
+        _pauseCanvas.gameObject.SetActive(false);
+        _deathCanvas.gameObject.SetActive(false);
+
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
         _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
@@ -66,9 +69,11 @@ public class UIManager : Singleton<UIManager>
             return;
 
         _paused = !_paused;
+
         Helper.LockAndHideCursor(!_paused);
         Time.timeScale = _paused ? 0 : 1;
 
+        _pauseCanvas.gameObject.SetActive(_paused);
         _pauseCanvas.alpha = _paused ? 1 : 0;
         _pauseCanvas.interactable = _paused;
         _pauseCanvas.blocksRaycasts = _paused;
@@ -96,6 +101,8 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowDeathScreen()
     {
+        _deathCanvas.gameObject.SetActive(true);
+
         _canPause = false;
 
         Helper.LockAndHideCursor(false);
@@ -105,9 +112,9 @@ public class UIManager : Singleton<UIManager>
 
         deathSequence.Append(_deathCanvas.DOFade(1, 1f));
         deathSequence.Join(_deathText.DOFade(1, 1f));
-        deathSequence.Join(spacingTweenRef.transform.DOLocalMoveX(23, 5f).OnUpdate(() => UpdateDeathTextSpacing(spacingTweenRef.transform.position.x)));
+        deathSequence.Join(spacingTweenRef.transform.DOLocalMoveX(23, 3f).OnUpdate(() => UpdateDeathTextSpacing(spacingTweenRef.transform.position.x)));
         deathSequence.AppendInterval(1f);
-        deathSequence.Append(_deathText.rectTransform.DOAnchorPosY(250f, 1.5f).SetEase(Ease.OutSine).SetUpdate(true));
+        deathSequence.Append(_deathText.rectTransform.DOAnchorPosY(250f, 1f).SetEase(Ease.OutSine).SetUpdate(true));
         deathSequence.Append(_deathScreenButtonsCanvas.DOFade(1, 1f));
 
         deathSequence.OnComplete(ActivateDeathScreenButtons);
