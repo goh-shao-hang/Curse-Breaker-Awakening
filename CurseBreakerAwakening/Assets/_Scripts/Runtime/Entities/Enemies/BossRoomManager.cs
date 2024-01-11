@@ -1,5 +1,6 @@
 using CBA.Core;
 using CBA.Entities.Player;
+using CBA.LevelGeneration;
 using DG.Tweening;
 using System;
 using TMPro;
@@ -14,11 +15,18 @@ namespace CBA.Entities
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private HealthModule _bossHealth;
-        [SerializeField] private CanvasGroup _bossCanvasGroup;
+        [SerializeField] private Portal _portalToNextLevel;
+
+        [Header("UI")]
+        [SerializeField] private CanvasGroup _bossHealthCanvasGroup;
+        [SerializeField] private CanvasGroup _victoryTextCanvasGroup;
         [SerializeField] private Image _healthBarRoot;
         [SerializeField] private Image _healthBarWhite;
         [SerializeField] private Image _healthBarFill;
-        [SerializeField] private TMP_Text _victoryText;
+        [SerializeField] private TMP_Text _victoryText1;
+        [SerializeField] private TMP_Text _victoryText2;
+        [SerializeField] private TMP_Text _portalPrompt;
+        [SerializeField] private GameObject _textSpacingReference;
         [SerializeField] private string _bossBGMName;
 
         [Header(GameData.SETTINGS)]
@@ -52,7 +60,13 @@ namespace CBA.Entities
 
             _playerManager.ActivateComponents(true);
 
-            _bossCanvasGroup.alpha = 0f;
+            _portalToNextLevel.gameObject.SetActive(false);
+
+            _bossHealthCanvasGroup.alpha = 0f;
+            _victoryTextCanvasGroup.alpha = 0f;
+            _portalPrompt.alpha = 0f;
+
+            _textSpacingReference.transform.position = Vector3.zero;
         }
 
         private void OnEnable()
@@ -73,7 +87,7 @@ namespace CBA.Entities
 
             _currentPhase = 1;
 
-            _bossCanvasGroup.DOFade(1, _canvasGroupTween);
+            _bossHealthCanvasGroup.DOFade(1, _canvasGroupTween);
 
             AudioManager.Instance.PlayBGM(_bossBGMName);
         }
@@ -111,15 +125,23 @@ namespace CBA.Entities
 
         private void BossDefeated()
         {
-            _victoryText.rectTransform.DOScale(2, 6f);
-
             var sequnce = DOTween.Sequence();
-            sequnce.Append(_victoryText.DOFade(1, 1f));
-            sequnce.AppendInterval(1f);
-            sequnce.Append(_victoryText.DOColor(Color.red, 3f));
-            sequnce.AppendInterval(1f);
-            sequnce.Append(_victoryText.DOFade(0, 1f));
+
+            sequnce.Append(_bossHealthCanvasGroup.DOFade(0, _canvasGroupTween));
+            sequnce.Join(_victoryTextCanvasGroup.DOFade(1, 2f));
+            sequnce.Join(_textSpacingReference.transform.DOLocalMoveX(23, 5f).OnUpdate(UpdateVictoryTextSpacing));
+            sequnce.Join(_portalPrompt.DOFade(1, 1f).SetDelay(1f));
+            sequnce.Append(_victoryTextCanvasGroup.DOFade(0, 2f));
+
+            sequnce.OnComplete(ActivatePortalToNextLevel);
             sequnce.Play();
+
+            AudioManager.Instance.CrossFadeBGM("VictoryTheme", 2f, false);
+        }
+
+        private void ActivatePortalToNextLevel()
+        {
+            _portalToNextLevel.gameObject.SetActive(true);
         }
 
         private void UpdateBossHealthUI()
@@ -133,6 +155,13 @@ namespace CBA.Entities
 
             _healthBarWhite.DOKill();
             _healthBarWhite.DOFillAmount(healthPercentage, _tweenDuration).SetEase(Ease.OutExpo).SetDelay(_tweenDelay).OnComplete(() => _healthBarWhite.fillAmount = healthPercentage);
+        }
+
+        private void UpdateVictoryTextSpacing()
+        {
+            _victoryText1.characterSpacing = _textSpacingReference.transform.position.x;
+            _victoryText2.characterSpacing = _textSpacingReference.transform.position.x;
+            _portalPrompt.characterSpacing = _textSpacingReference.transform.position.x;
         }
 
         /*private void OnValidate()

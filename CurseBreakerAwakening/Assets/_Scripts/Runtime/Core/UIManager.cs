@@ -28,7 +28,6 @@ public class UIManager : Singleton<UIManager>
 
     //TODO
     [SerializeField] private SceneField _mainMenuScene;
-    [SerializeField] private SceneField _emptyScene;
 
     private bool _canPause = true;
     private bool _paused = false;
@@ -36,12 +35,21 @@ public class UIManager : Singleton<UIManager>
     private PlayerController _playerController;
     private HealthModule _playerHealthModule;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        this.SetDontDestroyOnLoad(true);
+    }
+
     private void OnEnable()
     {
         _pauseCanvas.gameObject.SetActive(false);
         _deathCanvas.gameObject.SetActive(false);
 
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
+        GameManager.Instance.OnGameEnded += () => Destroy(this.gameObject);
+
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
         _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
     }
@@ -49,6 +57,7 @@ public class UIManager : Singleton<UIManager>
     private void OnDisable()
     {
         GameManager.Instance.OnPlayerDeath -= ShowDeathScreen;
+        GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
     }
 
     private void Update()
@@ -110,8 +119,12 @@ public class UIManager : Singleton<UIManager>
         var deathSequence = DOTween.Sequence();
         GameObject spacingTweenRef = new GameObject();
 
+        _deathText.alpha = 0;
+        _deathText2.alpha = 0;
+
         deathSequence.Append(_deathCanvas.DOFade(1, 1f));
-        deathSequence.Join(_deathText.DOFade(1, 1f));
+        deathSequence.Join(_deathText.DOFade(1, 2f));
+        deathSequence.Join(_deathText2.DOFade(0.08f, 2f));
         deathSequence.Join(spacingTweenRef.transform.DOLocalMoveX(23, 3f).OnUpdate(() => UpdateDeathTextSpacing(spacingTweenRef.transform.position.x)));
         deathSequence.AppendInterval(1f);
         deathSequence.Append(_deathText.rectTransform.DOAnchorPosY(250f, 1f).SetEase(Ease.OutSine).SetUpdate(true));
@@ -142,10 +155,10 @@ public class UIManager : Singleton<UIManager>
 
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
         AudioManager.Instance?.StopBGM(2f);
-        SceneTransitionManager.Instance.LoadSceneWithTransition(_emptyScene, false);
 
-        //TODO
         GameManager.Instance.StartRun(5f);
+
+        Destroy(this.gameObject);
     }
 
     public void ReturnToMainMenu()

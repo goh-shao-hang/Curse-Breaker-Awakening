@@ -14,6 +14,9 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
     [SerializeField] private CanvasGroup _loadingBarCanvasGroup;
     [SerializeField] private Image _loadingBarFill;
 
+    //Low priority cam that ensures audio can be heard. No sure if this is the best way tho.
+    [SerializeField] private Camera _camera;
+
     private Coroutine _loadSceneCO = null;
 
     private const float _loadingBarFadeDuration = 1f;
@@ -50,6 +53,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
             return;
         }
 
+        _camera.gameObject.SetActive(true);
+
         _transitionCanvasGroup.blocksRaycasts = true;
         _transitionCanvasGroup.DOFade(1, GameData.SCENE_TRANSITION_DURATION).OnComplete(() => _loadSceneCO = StartCoroutine(LoadSceneCO(scene, useLoadingBar)));
     }
@@ -76,6 +81,8 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
 
             yield return null;
         }
+
+        _camera.gameObject.SetActive(false);
 
         if (useLoadingBar)
         {

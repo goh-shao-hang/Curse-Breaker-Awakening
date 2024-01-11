@@ -1,7 +1,9 @@
 using CBA;
+using CBA.Core;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +17,21 @@ namespace CBA.Entities.Player
         //TODO
         [SerializeField] private Slider _sensitivitySlider;
         [SerializeField] private PlayerCameraController _playerCameraController;
+
+        [Header("Health")]
         [SerializeField] private Image _healthBarRoot;
         [SerializeField] private Image _healthBarFill;
         [SerializeField] private Image _healthBarWhite;
+
+        [Header("Stamina")]
         [SerializeField] private Image _staminaBarFill;
         [SerializeField] private Image _staminaBarWhite;
+
+        [Header("Currecy")]
+        [SerializeField] private RawImage _coins;
+        [SerializeField] private TMP_Text _coinText;
+
+        [Header("Crosshair")]
         [SerializeField] private CanvasGroup _crossHairCanvasGroup;
         private PlayerGrabManager _playerGrabManager;
 
@@ -47,6 +59,7 @@ namespace CBA.Entities.Player
             _playerGrabManager.OnGrab += ShowCrosshair;
             _playerGrabManager.OnThrow += HideCrosshair;
 
+            GameManager.Instance.OnCoinChanged += UpdateCoins;
         }
 
         private void OnDisable()
@@ -120,6 +133,32 @@ namespace CBA.Entities.Player
             }
             
             _staminaBarFill.fillAmount = staminaPercentage;
+        }
+
+        #region Coin Variables
+        private bool _coinShowing = false;
+        private const float _coinHiddenYPos = -150;
+        private const float _coinShownYPos = 75;
+        private Tween _coinScaleTween;
+        private Tween _hideCoinsTween;
+        #endregion
+        private void UpdateCoins()
+        {
+            if (_coinScaleTween != null)
+                _coinScaleTween.Kill(true);
+
+            _coinScaleTween = _coins.rectTransform.DOScale(1.25f, 0.1f).SetLoops(2, LoopType.Yoyo);
+
+            if (!_coinShowing)
+                _coins.rectTransform.DOAnchorPosY(_coinShownYPos, 0.5f);
+
+            _coinShowing = true;
+            _coinText.SetText(GameManager.Instance.CurrentCoins.ToString());
+
+            if (_hideCoinsTween != null)
+                _hideCoinsTween.Kill();
+
+            _hideCoinsTween = _coins.rectTransform.DOAnchorPosY(_coinHiddenYPos, 0.5f).SetDelay(3.5f).OnPlay(() => _coinShowing = false);
         }
 
         private void ShowCrosshair()

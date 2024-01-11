@@ -4,6 +4,7 @@ using DG.Tweening;
 using GameCells.StateMachine;
 using GameCells.Utilities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -211,8 +212,10 @@ namespace CBA.Entities
             OnPhase2TransitionEvent?.Invoke();
         }
 
-        public void TeleportToPosition(Transform teleportTransform)
+        public async void TeleportToPosition(Transform teleportTransform)
         {
+            await Task.Delay(100); //Wait 0.1 second
+
             NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
             navMeshAgent.enabled = false;
 

@@ -55,5 +55,8 @@ MonoBehaviour:
   _endingScene:
     _sceneAsset: {fileID: 102900000, guid: a533dcdfd330fac4498b3dc2531e99d3, type: 3}
     _sceneName: Ending
+  _emptyScene:
+    _sceneAsset: {fileID: 102900000, guid: 184028f3a4b791f42bbcc19ebadf0b18, type: 3}
+    _sceneName: EmptyScene
   _playerManagerPrefab: {fileID: 2704379496730885695, guid: df216d89841805943995817a5c62a9c7,
     type: 3}

@@ -15,11 +15,14 @@ namespace CBA.Core
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Level[] _levels;
         [SerializeField] private SceneField _endingScene;
+        [SerializeField] private SceneField _emptyScene;
 
         [Space]
         [SerializeField] private PlayerManager _playerManagerPrefab;
 
+        public event Action OnCoinChanged;
         public event Action OnPlayerDeath;
+        public event Action OnGameEnded;
 
         private PlayerManager _playerManager;
         public PlayerManager PlayerManager
@@ -50,6 +53,8 @@ namespace CBA.Core
 
         public async void StartRun(float delay = 0f)
         {
+            SceneTransitionManager.Instance.LoadSceneWithTransition(_emptyScene, false);
+
             if (delay > 0f)
                 await Task.Delay((int)(delay * 1000f));
 
@@ -80,17 +85,23 @@ namespace CBA.Core
             }
         }
 
-        public void LoadNextLevel()
+        public async void LoadNextLevel()
         {
-            PlayerManager.ActivateComponents(false);
             SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel - 1].FloorScene, true);
+
+            await Task.Delay(1000);
+            PlayerManager.ActivateComponents(false);
         }
 
-        public void LoadEnding()
+        public async void LoadEnding()
         {
-            Destroy(_playerManager.gameObject);
+            OnGameEnded?.Invoke();
 
             SceneTransitionManager.Instance.LoadSceneWithTransition(_endingScene, false);
+
+            await Task.Delay(1000);
+            Destroy(_playerManager.gameObject);
+
         }
 
         public void EnterBossRoom()
@@ -113,6 +124,8 @@ namespace CBA.Core
         {
             CurrentCoins += amount;
             Debug.Log($"You have {CurrentCoins} coins.");
+
+            OnCoinChanged?.Invoke();
         }
 
         private void OnValidate()

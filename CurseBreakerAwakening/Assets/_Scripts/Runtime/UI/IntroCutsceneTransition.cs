@@ -33,7 +33,7 @@ namespace CBA
 
         private void StartRun()
         {
-            GameManager.Instance.StartRun();
+            GameManager.Instance.StartRun(5f);
         }
     }
 }

@@ -1341,11 +1341,8 @@ MonoBehaviour:
   _deathText: {fileID: 4101697755316964279}
   _deathText2: {fileID: 4101697755402953141}
   _mainMenuScene:
-    _sceneAsset: {fileID: 102900000, guid: 0acfece4dc8614d44afc6c510b320966, type: 3}
+    _sceneAsset: {fileID: 102900000, guid: 19e52e587a987ff4ab6fb23bd7652a39, type: 3}
     _sceneName: MainMenu
-  _emptyScene:
-    _sceneAsset: {fileID: 102900000, guid: 184028f3a4b791f42bbcc19ebadf0b18, type: 3}
-    _sceneName: EmptyScene
 --- !u!1 &4101697753700901649
 GameObject:
   m_ObjectHideFlags: 0
@@ -12623,7 +12620,7 @@ GameObject:
   - component: {fileID: 4101697755504237666}
   - component: {fileID: 4101697755504237693}
   m_Layer: 0
-  m_Name: RawImage
+  m_Name: SinParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

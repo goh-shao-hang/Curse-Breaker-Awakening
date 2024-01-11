@@ -45387,10 +45387,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3604455788805262035, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239038588348739778, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6696463649572030313, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6696463649572030313, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 9083007479036133033, guid: af943e1d17aa5174683da0d06d533a76,
         type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9083007479036133033, guid: af943e1d17aa5174683da0d06d533a76,
         type: 3}
@@ -45455,7 +45475,7 @@ PrefabInstance:
     - target: {fileID: 9083007479036133039, guid: af943e1d17aa5174683da0d06d533a76,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9083007479036133039, guid: af943e1d17aa5174683da0d06d533a76,
         type: 3}
@@ -48518,7 +48538,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
@@ -56964,30 +56984,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2134943383341633327, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943383341633327, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_Color.b
+    - target: {fileID: 1426941310, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6, type: 3}
+      propertyPath: m_Alpha
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943383341633327, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943383341633327, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: _phases
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
         type: 3}
@@ -56996,14 +56995,14 @@ PrefabInstance:
       objectReference: {fileID: 1504513224}
     - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
         type: 3}
-      propertyPath: _bossBGMName
-      value: BossTheme_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
       propertyPath: _playerSpawnPoint
       value: 
       objectReference: {fileID: 1872917374}
+    - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+        type: 3}
+      propertyPath: _portalToNextLevel
+      value: 
+      objectReference: {fileID: 838565326}
     - target: {fileID: 2134943383815966998, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
         type: 3}
       propertyPath: m_RootOrder
@@ -57064,32 +57063,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossRoomManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2134943383815966999, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+    - target: {fileID: 2134943384106213297, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: m_FillAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134943384106213298, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134943384106213298, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134943384479031970, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997439378350506166, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6, type: 3}
---- !u!1 &1813474098 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2134943383815966999, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1813474097}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1813474099
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813474098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 25, y: 1, z: 12.5}
-  m_Center: {x: 0, y: 22, z: 4.5}
 --- !u!1001 &1815005925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71857,7 +71857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!198 &1023463299377245335
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -76921,7 +76921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4003685427081125635
 Transform:
   m_ObjectHideFlags: 0

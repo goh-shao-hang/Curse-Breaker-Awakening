@@ -54,9 +54,7 @@ public class MainMenu : MonoBehaviour
 
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
         AudioManager.Instance?.StopBGM(2f);
-        SceneTransitionManager.Instance.LoadSceneWithTransition(_empty, false);
 
-        //TODO
         GameManager.Instance.StartRun(5f);
     }
 
