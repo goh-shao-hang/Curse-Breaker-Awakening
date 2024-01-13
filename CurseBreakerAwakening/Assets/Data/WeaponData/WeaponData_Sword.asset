@@ -18,7 +18,6 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
     type: 3}
   AttackDamage: 3
-  AttackGuardDamage: 3
   MinChargingTime: 0.5
   MaxChargingTime: 2
   ChargedAttackDuration: 0.5

@@ -55,6 +55,8 @@ namespace CBA.Entities.Player.Weapons
 
         private float _blockAndParryAnimationCooldown = 0f;
 
+        private DamageData _damageData;
+
         private Material _originalMaterial;
 
         public bool NextComboInputAllowed { get; private set; } = true;
@@ -136,7 +138,8 @@ namespace CBA.Entities.Player.Weapons
 
                 _hitTargetCache.Add(collider);
 
-                collider.GetComponentInChildren<IDamageable>()?.TakeDamage(WeaponData.AttackDamage);
+                _damageData.Set(WeaponData.AttackDamage, _playerCombatManager.gameObject);
+                collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_damageData);
 
                 OnWeaponHit?.Invoke();
 
@@ -161,7 +164,8 @@ namespace CBA.Entities.Player.Weapons
 
                 _hitTargetCache.Add(collider);
 
-                collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_currentChargedAttackDamage);
+                _damageData.Set(_currentChargedAttackDamage, _playerCombatManager.gameObject);
+                collider.GetComponentInChildren<IDamageable>()?.TakeDamage(_damageData);
 
                 OnWeaponHit?.Invoke();
 

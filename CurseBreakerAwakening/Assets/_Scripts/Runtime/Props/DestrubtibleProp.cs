@@ -33,6 +33,8 @@ namespace CBA
 
         private Rigidbody[] _destroyedPiecesRigidbodies;
 
+        private DamageData _damageData;
+
         private bool _broken;
 
         private void Awake()
@@ -53,7 +55,7 @@ namespace CBA
             if (_grabbableObject == null)
                 return;
 
-            _grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(1f));
+            //_grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(1f, this.gameObject));
         }
 
         private void OnDisable()
@@ -61,10 +63,11 @@ namespace CBA
             if (_grabbableObject == null)
                 return;
 
-            _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f));
+            //TODO
+            //_grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f, this.gameObject));
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(DamageData damageData)
         {
             if (_broken)
                 return;

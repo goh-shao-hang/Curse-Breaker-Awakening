@@ -40,6 +40,8 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     private Transform _originalParent;
 
+    private DamageData _thrownDamageData;
+
     public event Action OnSelected;
     public event Action OnDeselected;
 
@@ -59,8 +61,11 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         {
             OnThrowCollision?.Invoke();
 
-            GetComponent<IDamageable>()?.TakeDamage(_thrownSelfDamage);
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_thrownInflictedDamage);
+            _thrownDamageData.Set(_thrownSelfDamage, this.gameObject);
+            GetComponent<IDamageable>()?.TakeDamage(_thrownDamageData);
+
+            _thrownDamageData.Set(_thrownInflictedDamage, this.gameObject);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_thrownDamageData);
 
             _thrown = false;
         }

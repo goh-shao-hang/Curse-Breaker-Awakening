@@ -279,7 +279,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64503
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -3144,6 +3144,11 @@ PrefabInstance:
     - target: {fileID: 376674859392112425, guid: 20439b170f1f6a3428f5df00b0a48ca3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 376674859392112429, guid: 20439b170f1f6a3428f5df00b0a48ca3,
+        type: 3}
+      propertyPath: <IsGuarding>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 376674859392112432, guid: 20439b170f1f6a3428f5df00b0a48ca3,

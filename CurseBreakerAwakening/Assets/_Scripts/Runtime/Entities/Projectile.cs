@@ -23,6 +23,8 @@ public class Projectile : MonoBehaviour
     private ObjectPool<Projectile> _pool;
     private LayerMask _targetLayers;
 
+    private DamageData _damageData;
+
     private SO_GlobalPosition _target; //Delayed / homing only
 
     private Coroutine _lifetimeCO;
@@ -94,7 +96,8 @@ public class Projectile : MonoBehaviour
 
         if (((1 << other.gameObject.layer) & _targetLayers) != 0)
         {
-            other.GetComponent<IDamageable>()?.TakeDamage(_damage);
+            _damageData.Set(_damage, _owner);
+            other.GetComponent<IDamageable>()?.TakeDamage(_damageData);
 
             if (_pierce)
                 return;

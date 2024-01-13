@@ -22,6 +22,8 @@ namespace CBA.Entities
 
         private Collider[] _colliderCache = new Collider[10];
 
+        private DamageData _spellDamageData;
+
 #if UNITY_EDITOR
         [Header(GameData.DEBUG)]
         [SerializeField] private bool _visualize = true;
@@ -66,7 +68,8 @@ namespace CBA.Entities
                 if (_colliderCache[i].gameObject == _owner.gameObject)
                     continue;
 
-                _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_damage);
+                _spellDamageData.Set(_damage, _owner.gameObject);
+                _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_spellDamageData);
             }
 
             int caughtInDestroy = Physics.OverlapSphereNonAlloc(transform.position, _destructionRadius, _colliderCache, _destroyLayers);

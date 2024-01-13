@@ -37,18 +37,18 @@ namespace CBA.Entities
             IsGuarding = isGuarding;
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(DamageData damageData)
         {
-            OnHurt?.Invoke(amount);
+            OnHurt?.Invoke(damageData.DamageAmount);
 
             if (_guardModule != null && !_guardModule.IsGuardBroken)
             {
-                _guardModule.TakeDamage(amount);
+                _guardModule.TakeDamage(damageData.DamageAmount);
             }
 
-            if (!IsGuarding)
+            if (!IsGuarding && !damageData.IsGuardDamage)
             {
-                _healthModule.TakeDamage(amount);
+                _healthModule.TakeDamage(damageData.DamageAmount);
             }
 
             if (skinnedMeshRenderer != null)

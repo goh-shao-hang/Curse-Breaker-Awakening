@@ -1738,6 +1738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a79ffb52fa6fde40be757b703300103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _entity: {fileID: 376674859392112427}
   _collider: {fileID: 376674858582616407}
   _healthModule: {fileID: 376674858771273601}
   _combatAnimationEventHander: {fileID: 376674858730808269}

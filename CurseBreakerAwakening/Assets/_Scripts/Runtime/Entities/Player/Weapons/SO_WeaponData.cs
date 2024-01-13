@@ -28,6 +28,7 @@ namespace CBA.Entities.Player.Weapons
         [Header("Block")]
         public float ParryDuration = 0.2f;
         public float MinBlockTime = 0.1f;
+        public float ParryGuardDamage = 8f;
 
         [Header("Combo")]
         public int MaxCombo = 3;

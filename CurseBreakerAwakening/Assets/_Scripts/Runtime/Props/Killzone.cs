@@ -17,6 +17,7 @@ public class Killzone : MonoBehaviour
     private float _playerDamageTick = 0f;
 
     private IDamageable _playerDamageable = null;
+    private DamageData _damageData;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -24,7 +25,8 @@ public class Killzone : MonoBehaviour
         {
             if (_teleportsPlayer)
             {
-                collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_damageToPlayer);
+                _damageData.Set(_damageToPlayer, this.gameObject, false);
+                collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_damageData);
                 LevelManager.Instance?.TeleportPlayerToSafePoint();
             }
             else
@@ -36,7 +38,8 @@ public class Killzone : MonoBehaviour
         }
         else if (((1 << collision.gameObject.layer) & _killLayers) != 0)
         {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(99);
+            _damageData.Set(float.MaxValue, this.gameObject, false);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(_damageData);
         }
     }
 
@@ -47,7 +50,8 @@ public class Killzone : MonoBehaviour
 
         if (_playerDamageTick <= 0f)
         {
-            _playerDamageable.TakeDamage(_damageToPlayer);
+            _damageData.Set(_damageToPlayer, this.gameObject, false);
+            _playerDamageable.TakeDamage(_damageData);
             _playerDamageTick = _playerDamageInterval;
         }
         else

@@ -78,8 +78,8 @@ namespace CBA.Entities
 
             _recoverState.AddTransition(_idleState, _recoverAnimationFinishedCondition);
 
+            this.AddAnyTransition(_deathState, _healthDepletedCondition); //Higher priority than stun
             this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
-            this.AddAnyTransition(_deathState, _healthDepletedCondition);
 
             Initialize(_idleState);
         }

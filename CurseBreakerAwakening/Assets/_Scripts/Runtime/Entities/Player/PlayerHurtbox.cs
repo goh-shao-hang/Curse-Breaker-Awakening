@@ -20,6 +20,8 @@ namespace CBA.Entities.Player
         public UnityEvent OnParrySuccess;
         public UnityEvent OnBlockSuccess;
 
+        private DamageData _parryDamageData;
+
         private void OnEnable()
         {
             _healthModule.OnHealthDepleted.AddListener(PlayerDeath);
@@ -47,10 +49,13 @@ namespace CBA.Entities.Player
             CancelInvoke();
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(DamageData damageData)
         {
             if (IsParrying && _playerController.CurrentStamina > 0)
             {
+                _parryDamageData.Set(_playerCombatManager.CurrentWeapon.WeaponData.ParryGuardDamage, this.gameObject, false, true); 
+
+                damageData.Attacker.GetComponent<IDamageable>()?.TakeDamage(_parryDamageData);
                 OnParrySuccess?.Invoke();
             }
             else if (IsBlocking && _playerController.CurrentStamina > 0)
@@ -68,7 +73,7 @@ namespace CBA.Entities.Player
             }
             else
             {
-                _healthModule.TakeDamage(amount);
+                _healthModule.TakeDamage(damageData.DamageAmount);
             }
         }
 

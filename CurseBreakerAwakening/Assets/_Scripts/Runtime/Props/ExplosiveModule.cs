@@ -18,8 +18,9 @@ namespace CBA
         [Header(GameData.DEBUG)]
         [SerializeField] private bool _gizmos;
 
-
         private Collider[] _colliderCache = new Collider[10];
+
+        private DamageData _explosionDamageData;
 
         private void OnDrawGizmos()
         {
@@ -39,7 +40,8 @@ namespace CBA
             int caughtInExplosion = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _colliderCache, _targetLayers);
             for (int i = 0; i < caughtInExplosion; i++) 
             {
-                _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_explosionDamage);
+                _explosionDamageData.Set(_explosionDamage, this.gameObject);
+                _colliderCache[i].GetComponent<IDamageable>()?.TakeDamage(_explosionDamageData);
             }
 
             if (_explosionVfx != null)

@@ -8,6 +8,7 @@ namespace CBA.Entities
     public class EntityWeapon : MonoBehaviour
     {
         [Header(GameData.DEPENDENCIES)]
+        [SerializeField] private Entity _entity;
         [SerializeField] private Collider _collider;
         [SerializeField] private HealthModule _healthModule;
         [SerializeField] private CombatAnimationEventHander _combatAnimationEventHander;
@@ -19,6 +20,8 @@ namespace CBA.Entities
         private float _currentAttackDamage;
 
         private Rigidbody _rigidbody;
+
+        private DamageData _damageData;
 
         private void OnEnable()
         {
@@ -70,7 +73,8 @@ namespace CBA.Entities
         {
             if (other.gameObject.layer == GameData.PLAYER_LAYER_INDEX)
             {
-                other.GetComponent<IDamageable>()?.TakeDamage(_currentAttackDamage);
+                _damageData.Set(_currentAttackDamage, _entity.gameObject);
+                other.GetComponent<IDamageable>()?.TakeDamage(_damageData);
             }
         }
 
