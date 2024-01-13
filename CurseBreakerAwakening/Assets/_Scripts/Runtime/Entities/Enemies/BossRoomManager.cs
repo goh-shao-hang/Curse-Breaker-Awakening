@@ -130,10 +130,9 @@ namespace CBA.Entities
             sequnce.Append(_bossHealthCanvasGroup.DOFade(0, _canvasGroupTween));
             sequnce.Join(_victoryTextCanvasGroup.DOFade(1, 2f));
             sequnce.Join(_textSpacingReference.transform.DOLocalMoveX(23, 5f).OnUpdate(UpdateVictoryTextSpacing));
-            sequnce.Join(_portalPrompt.DOFade(1, 1f).SetDelay(1f));
+            sequnce.Join(_portalPrompt.DOFade(1, 1f).SetDelay(1f)).OnPlay(ActivatePortalToNextLevel);
             sequnce.Append(_victoryTextCanvasGroup.DOFade(0, 2f));
 
-            sequnce.OnComplete(ActivatePortalToNextLevel);
             sequnce.Play();
 
             AudioManager.Instance.CrossFadeBGM("VictoryTheme", 2f, false);

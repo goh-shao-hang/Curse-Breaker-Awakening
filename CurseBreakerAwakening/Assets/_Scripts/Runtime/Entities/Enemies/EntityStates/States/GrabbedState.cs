@@ -18,8 +18,8 @@ namespace CBA.Entities
         {
             this._grabbable = grabbable;
 
-            this._guardModule = _context.ModuleManager.GetModule<GuardModule>();
-            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+            this._guardModule = _entity.ModuleManager.GetModule<GuardModule>();
+            this._navigationModule = _entity.ModuleManager.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
@@ -37,7 +37,7 @@ namespace CBA.Entities
             _navigationModule?.Disable();
 
             //TODO mind this, and the one below
-            _guardModule?.SetGuard(0f);
+            _guardModule?.SetCanRecoverFromGuardBreak(false);
         }
 
         public override void Exit()
@@ -51,6 +51,7 @@ namespace CBA.Entities
 
             _context.Animator.SetBool(GameData.ISGRABBED_HASH, false);
 
+            _guardModule?.SetCanRecoverFromGuardBreak(true);
             _guardModule?.ReplenishGuard();
         }
 

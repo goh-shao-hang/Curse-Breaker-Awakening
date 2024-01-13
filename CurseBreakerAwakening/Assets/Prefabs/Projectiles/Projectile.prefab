@@ -4944,7 +4944,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 2326496061920117626}
   _onHitVfx: {fileID: 358637981425055526, guid: da03e07793ce2de428676d7bcbe6529d,
     type: 3}
-  _damage: 20
+  _damage: 3
   _lifetime: 2
   _speed: 5
   _delay: 0

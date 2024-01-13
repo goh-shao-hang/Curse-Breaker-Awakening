@@ -124,17 +124,17 @@ namespace CBA.Entities
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
-            _guardBrokenCondition = new Condition_GuardBroken(this.ModuleManager.GetModule<GuardModule>());
+            _guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
             _stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
             _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
             _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
-            _healthDepletedCondition = new Condition_HealthDepleted(this.ModuleManager.GetModule<HealthModule>());
+            _healthDepletedCondition = new Condition_HealthDepleted(this.entity.GetModule<HealthModule>());
 
             _spellIntervalCondition = new Condition_Timer_Random(_minSpellInterval, _maxSpellInterval);
 
             _bossTransitionCompletedCondition = new Condition_BossTransitionCompleted(_combatAnimationEventHander);
-            _bossHasRemainingPhaseCondition = new Condition_HasRemainingPhases(_phaseCount, this.GetModule<HealthModule>());
+            _bossHasRemainingPhaseCondition = new Condition_HasRemainingPhases(_phaseCount, this.entity.GetModule<HealthModule>());
 
             //3. Setting up transitions
             _idleState.AddTransition(_phase1EngagedState, _playerInDetectionRangeCondition);

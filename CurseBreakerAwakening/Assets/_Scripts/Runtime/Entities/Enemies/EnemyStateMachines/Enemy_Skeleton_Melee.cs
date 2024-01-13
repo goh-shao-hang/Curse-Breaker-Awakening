@@ -32,7 +32,7 @@ namespace CBA.Entities
         private Condition _playerInAttackRangeCondition;
         private Condition _meleeAttackTimerCondition;
         private Condition _guardBrokenCondition;
-        private Condition _stunTimerCondition;
+        private Condition _guardRecoverCondition;
         private Condition _grabbedCondition;
         private Condition _thrownTerrainCollisionCondition;
         private Condition _recoverAnimationFinishedCondition;
@@ -56,12 +56,12 @@ namespace CBA.Entities
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
             _meleeAttackTimerCondition = new Condition_Timer(_meleeAttackDuration);
-            _guardBrokenCondition = new Condition_GuardBroken(this.ModuleManager.GetModule<GuardModule>());
-            _stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
+            _guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
+            _guardRecoverCondition = new Condition_GuardRecovered(this.entity.GetModule<GuardModule>());
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
             _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
             _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
-            _healthDepletedCondition = new Condition_HealthDepleted(this.ModuleManager.GetModule<HealthModule>());
+            _healthDepletedCondition = new Condition_HealthDepleted(this.entity.GetModule<HealthModule>());
 
             //3. Setting up transitions
             _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);
@@ -71,7 +71,7 @@ namespace CBA.Entities
 
             _meleeAttackState.AddTransition(_chaseState, _meleeAttackTimerCondition);
 
-            _stunnedState.AddTransition(_idleState, _stunTimerCondition);
+            _stunnedState.AddTransition(_idleState, _guardRecoverCondition);
             _stunnedState.AddTransition(_grabbedState, _grabbedCondition);
 
             _grabbedState.AddTransition(_recoverState, _thrownTerrainCollisionCondition);

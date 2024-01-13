@@ -69,6 +69,17 @@ namespace CBA.Core
             DOVirtual.DelayedCall(GameData.GAME_START_NARRATION_DELAY, () => LoadNextLevel());
         }
 
+        public void StartBossTrail()
+        {
+            _currentLevel = 1;
+
+            _playerManager = Instantiate(_playerManagerPrefab, Vector3.zero, Quaternion.identity);
+            DontDestroyOnLoad(_playerManager.gameObject);
+            _playerManager.ActivateComponents(false);
+
+            EnterBossRoom();
+        }
+
         public void EndLevel()
         {
             AudioManager.Instance.StopBGM(2f);

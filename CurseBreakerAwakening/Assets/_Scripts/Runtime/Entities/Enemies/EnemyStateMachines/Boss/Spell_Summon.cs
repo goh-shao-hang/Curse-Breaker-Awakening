@@ -10,6 +10,7 @@ namespace CBA.Entities
         [SerializeField] private Entity[] _summonPrefabs;
         [SerializeField] private int _maxConcurrentSummons = 4;
         [SerializeField] private GameObject _summonVfx;
+        [SerializeField] private Transform _summonParent;
 
         public override bool IsAvailable => !this.isOnCooldown && (this._summons.Count < _maxConcurrentSummons);
 
@@ -35,7 +36,7 @@ namespace CBA.Entities
                     Instantiate(_summonVfx, _summonPoints[i].position, Quaternion.identity);
                 }
 
-                var summon = Instantiate(_summonPrefabs[Random.Range(0, _summonPrefabs.Length)], _summonPoints[i].position, Quaternion.identity);
+                var summon = Instantiate(_summonPrefabs[Random.Range(0, _summonPrefabs.Length)], _summonPoints[i].position, Quaternion.identity, _summonParent);
                 summon.OnDeath.AddListener(OnSummonDied);
                 summon.gameObject.SetActive(false);
                 _summons.Add(summon);

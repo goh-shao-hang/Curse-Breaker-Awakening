@@ -15,7 +15,7 @@ namespace CBA.Entities
         {
             this._attackData = attackData;
 
-            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+            this._navigationModule = _entity.ModuleManager.GetModule<AINavigationModule>();
         }
 
         public override void Enter()

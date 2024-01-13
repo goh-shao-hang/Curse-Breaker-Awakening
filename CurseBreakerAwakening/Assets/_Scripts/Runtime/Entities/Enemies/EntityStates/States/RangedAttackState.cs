@@ -13,7 +13,7 @@ public class RangedAttackState : EnemyState
     public RangedAttackState(Entity entity, EnemyStateMachine context, ProjectileShooter rangedAttack, float delay) : base(entity, context)
     {
         this._rangedAttack = rangedAttack;
-        this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+        this._navigationModule = _entity.ModuleManager.GetModule<AINavigationModule>();
         this._delay = delay;
     }
 

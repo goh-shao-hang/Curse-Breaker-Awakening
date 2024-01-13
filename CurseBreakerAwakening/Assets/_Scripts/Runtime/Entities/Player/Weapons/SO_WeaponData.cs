@@ -15,7 +15,6 @@ namespace CBA.Entities.Player.Weapons
 
         [Header("Basic Attack")]
         public float AttackDamage = 3f;
-        public float AttackGuardDamage = 3f;
 
         [Header("Charged Attack")]
         public float MinChargingTime = 0.5f;

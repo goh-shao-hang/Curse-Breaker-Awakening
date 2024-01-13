@@ -9,7 +9,7 @@ namespace CBA.Entities
 
         public ChaseState(Entity entity, EnemyStateMachine context, float chaseSpeed = 1f) : base(entity, context)
         {
-            _navigationModule = _context.GetModule<AINavigationModule>();
+            _navigationModule = _entity.GetModule<AINavigationModule>();
             _chaseSpeed = chaseSpeed;
         }
 
@@ -18,6 +18,7 @@ namespace CBA.Entities
             base.Enter();
 
             _navigationModule.SetFollowPosition(_entity.PlayerPos);
+            _navigationModule.SetLookTarget(_entity.PlayerPos);
             _navigationModule.SetSpeed(_chaseSpeed);
         }
 

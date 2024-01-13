@@ -75,6 +75,13 @@ namespace CBA.Modules
         public void SetLookTarget(SO_GlobalPosition positionToFace)
         {
             LookTargetPosition = positionToFace;
+            OnTargetSet?.Invoke();
+        }
+
+        public void RemoveLookTarget()
+        {
+            LookTargetPosition = null;
+            OnTargetRemoved?.Invoke();
         }
 
         private void UpdateOverridenRotation()
@@ -124,16 +131,12 @@ namespace CBA.Modules
         public void SetFollowPosition(SO_GlobalPosition position)
         {
             FollowPosition = position;
-
-            OnTargetSet?.Invoke();
         }
 
         public void StopFollow()
         {
             FollowPosition = null;
             _navMeshAgent.SetDestination(_navMeshAgent.transform.position);
-
-            OnTargetRemoved?.Invoke();
         }
 
         public void Enable()

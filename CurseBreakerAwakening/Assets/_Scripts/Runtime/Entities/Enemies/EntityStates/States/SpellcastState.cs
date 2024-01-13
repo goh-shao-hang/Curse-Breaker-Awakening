@@ -16,7 +16,7 @@ namespace CBA.Entities
         {
             _spellManager = spellManager;
             _spell = spell;
-            _navigationModule = _context.GetModule<AINavigationModule>();
+            _navigationModule = _entity.GetModule<AINavigationModule>();
         }
 
         public override void Enter()

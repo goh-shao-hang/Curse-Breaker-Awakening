@@ -50,7 +50,7 @@ namespace CBA.Entities
             _explosionReadyCondition = new Condition_Timer(_explosionTimer);
             _grabbedCondition = new Condition_Grabbed(_grabbableObject);
             _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
-            _healthDepletedCondition = new Condition_HealthDepleted(ModuleManager.GetModule<HealthModule>());
+            _healthDepletedCondition = new Condition_HealthDepleted(entity.GetModule<HealthModule>());
 
             //3. Setting up transitions
             _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);

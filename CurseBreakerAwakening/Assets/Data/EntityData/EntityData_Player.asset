@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b55705ff3a99b04ca48a393851a1a48, type: 3}
   m_Name: EntityData_Player
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 20
   Attack: 5
   Speed: 5
   Guard: 10

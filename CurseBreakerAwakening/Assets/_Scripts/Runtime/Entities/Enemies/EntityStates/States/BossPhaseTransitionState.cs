@@ -17,8 +17,8 @@ public class BossPhaseTransitionState : EnemyState
 
     public BossPhaseTransitionState(Entity entity, EnemyStateMachine context, CombatAnimationEventHander combatAnimationEventHander) : base(entity, context)
     {
-        this._healthModule = _context.GetModule<HealthModule>();
-        this._navigationModule = _context.GetModule<AINavigationModule>();
+        this._healthModule = _entity.GetModule<HealthModule>();
+        this._navigationModule = _entity.GetModule<AINavigationModule>();
         this._combatAnimationEventHander = combatAnimationEventHander;
 
     }
@@ -28,7 +28,7 @@ public class BossPhaseTransitionState : EnemyState
         base.Enter();
 
         _navigationModule.StopFollow();
-        _navigationModule.SetLookTarget(null);
+        _navigationModule.RemoveLookTarget();
         _navigationModule.SetSpeed(0);
 
         _context.Animator.SetTrigger(GameData.BOSSTRANSITION_HASH);

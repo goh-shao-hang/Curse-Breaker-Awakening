@@ -41,15 +41,14 @@ namespace CBA.Entities
         {
             OnHurt?.Invoke(amount);
 
-            if (_guardModule != null && IsGuarding)
+            if (_guardModule != null && !_guardModule.IsGuardBroken)
             {
                 _guardModule.TakeDamage(amount);
-                
             }
-            else
+
+            if (!IsGuarding)
             {
                 _healthModule.TakeDamage(amount);
-
             }
 
             if (skinnedMeshRenderer != null)

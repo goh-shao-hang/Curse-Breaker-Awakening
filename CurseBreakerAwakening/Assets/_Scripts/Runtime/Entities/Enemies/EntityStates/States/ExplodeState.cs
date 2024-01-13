@@ -15,9 +15,9 @@ public class ExplodeState : EnemyState
 
     public ExplodeState(Entity entity, EnemyStateMachine context) : base(entity, context)
     {
-        this._navigationModule = _context.GetModule<AINavigationModule>();
-        this._audioEmitterModule = _context.GetModule<AudioEmitterModule>();
-        this._explosive = _context.GetModule<ExplosiveModule>();
+        this._navigationModule = _entity.GetModule<AINavigationModule>();
+        this._audioEmitterModule = _entity.GetModule<AudioEmitterModule>();
+        this._explosive = _entity.GetModule<ExplosiveModule>();
     }
 
     public override void Enter()

@@ -16,7 +16,7 @@ namespace CBA.Entities
         {
             this._grabbableObject = grabbableObject;
 
-            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+            this._navigationModule = _entity.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
@@ -26,8 +26,8 @@ namespace CBA.Entities
             _context.Hurtbox.SetDamagedAnimationWeight(1f);
             _context.Animator.SetBool(GameData.ISSTUNNED_HASH, true);
 
-            _navigationModule?.SetFollowPosition(null);
-            _navigationModule?.SetLookTarget(null);
+            _navigationModule?.StopFollow();
+            _navigationModule?.RemoveLookTarget();
             _navigationModule?.SetSpeed(0);
 
             //TODO set this when exiting some sort of guard state instead
@@ -45,7 +45,7 @@ namespace CBA.Entities
 
             _grabbableObject?.SetIsGrabbable(false);
 
-            _guardModule?.ReplenishGuard();
+            //_guardModule?.ReplenishGuard();
         }
     }
 }

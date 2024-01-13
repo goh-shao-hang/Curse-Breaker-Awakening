@@ -12,7 +12,7 @@ namespace CBA.Entities
 
         public RetreatState(Entity entity, EnemyStateMachine context, float retreatSpeed) : base(entity, context)
         {
-            _navigationModule = _context.GetModule<AINavigationModule>();
+            _navigationModule = _entity.GetModule<AINavigationModule>();
             _retreatSpeed = retreatSpeed;
         }
 

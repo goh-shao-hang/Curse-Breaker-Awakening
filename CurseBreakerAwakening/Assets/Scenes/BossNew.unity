@@ -45627,6 +45627,16 @@ PrefabInstance:
       propertyPath: OnPhase2TransitionEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 9083007480288316732, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: _summonParent
+      value: 
+      objectReference: {fileID: 1813474098}
+    - target: {fileID: 9083007480482714570, guid: af943e1d17aa5174683da0d06d533a76,
+        type: 3}
+      propertyPath: _summonParent
+      value: 
+      objectReference: {fileID: 1813474098}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af943e1d17aa5174683da0d06d533a76, type: 3}
 --- !u!4 &1613160578 stripped
@@ -56984,10 +56994,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1426941310, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2134943383815966997, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
         type: 3}
       propertyPath: _bossHealth
@@ -57063,33 +57069,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossRoomManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2134943384106213297, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943384106213298, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943384106213298, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134943384479031970, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7997439378350506166, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
-        type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6, type: 3}
+--- !u!4 &1813474098 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2134943383815966998, guid: 6129c9aa5aaf2554a8d2cc26b370c7e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1813474097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1815005925
 PrefabInstance:
   m_ObjectHideFlags: 0

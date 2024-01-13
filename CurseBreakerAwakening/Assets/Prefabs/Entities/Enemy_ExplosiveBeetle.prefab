@@ -501,6 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: c8d725e98ba56de40abb74916a9ec934, type: 2}
+  ModuleManager: {fileID: 3890483339604079871}
   PlayerPos: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
   OnDeath:
     m_PersistentCalls:
@@ -611,7 +612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249988e00613e8046aacd18e73725a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleManager: {fileID: 3890483339604079871}
   Animator: {fileID: 3796360166711153384}
   MeshRenderer: {fileID: 3752692399489386252}
   Hurtbox: {fileID: 3890483341122565124}

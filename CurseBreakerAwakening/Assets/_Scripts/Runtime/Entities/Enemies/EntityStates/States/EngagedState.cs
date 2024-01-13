@@ -16,7 +16,7 @@ namespace CBA.Entities
             this._engageDistance = engageDistance;
             this._engageDistanceBias = engageDistanceBias;
             this._moveSpeed = moveSpeed;
-            this._navigationModule = _context.GetModule<AINavigationModule>();
+            this._navigationModule = _entity.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
@@ -69,7 +69,6 @@ namespace CBA.Entities
             }
             else
             {
-                _navigationModule.SetFollowPosition(_entity.PlayerPos);
                 _navigationModule.SetSpeed(0f);
             }
         }

@@ -15,8 +15,6 @@ public class MainMenu : MonoBehaviour
 {
     [Header(GameData.DEPENDENCIES)]
     [SerializeField] private SceneField _introScene;
-    //TODO
-    [SerializeField] private SceneField _empty;
 
     [Header("Title")]
     [SerializeField] private Image _title;
@@ -56,6 +54,13 @@ public class MainMenu : MonoBehaviour
         AudioManager.Instance?.StopBGM(2f);
 
         GameManager.Instance.StartRun(5f);
+    }
+
+    public void BossTrail()
+    {
+        AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
+
+        GameManager.Instance.StartBossTrail();
     }
 
     public void ShowOptions()

@@ -8,7 +8,7 @@ namespace CBA.Entities
 
         public IdleState(Entity entity, EnemyStateMachine context) : base(entity, context)
         {
-            _navigationModule = _context.GetModule<AINavigationModule>();
+            _navigationModule = _entity.GetModule<AINavigationModule>();
         }
 
         public override void Enter()
@@ -17,7 +17,7 @@ namespace CBA.Entities
 
             _navigationModule.SetSpeed(0f);
             _navigationModule.StopFollow();
-            _navigationModule.SetLookTarget(null);
+            _navigationModule.RemoveLookTarget();
         }
     }
 }

@@ -85,7 +85,7 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         playerGrabManager.Grab(this);
     }
 
-    public void StartGrabbing(Transform grabTransform, Transform _grabberTransform)
+    public void StartGrabbing(Transform grabTransform)
     {
         this._grabTransform = grabTransform;
 
@@ -98,17 +98,24 @@ public class GrabbableObject : MonoBehaviour, IInteractable
             _skinnedMeshRenderers[i].gameObject.layer = GameData.WEAPON_LAYER_INDEX;
         }
 
-        _originalParent = transform.parent;
-
-        transform.SetParent(_grabTransform);
-        transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
 
         EnableThrowPhysics(false);
-
         //TODO use some other way
         _grabRigidbody.detectCollisions = false; //Prevent attacking this object or colliding with other objects
 
+        _originalParent = transform.parent;
+        transform.SetParent(_grabTransform);
+        transform.localPosition = Vector3.zero;
+        transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
+        Debug.Log(transform.localPosition);
+
         OnGrabbed?.Invoke();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_grabTransform != null)
+            transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
     }
 
     public void Throw(Vector3 direction, Vector3 carriedVelocity)

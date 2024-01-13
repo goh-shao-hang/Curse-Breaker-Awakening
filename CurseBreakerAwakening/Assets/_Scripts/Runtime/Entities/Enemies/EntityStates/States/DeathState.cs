@@ -16,7 +16,7 @@ namespace CBA.Entities
 
         public DeathState(Entity entity, EnemyStateMachine context, RagdollController ragdollController = null, GrabbableObject grabbableObject = null) : base(entity, context)
         {
-            this._navigationModule = _context.ModuleManager.GetModule<AINavigationModule>();
+            this._navigationModule = _entity.GetModule<AINavigationModule>();
 
             this._ragdollController = ragdollController;
             this._grabbableObject = grabbableObject;

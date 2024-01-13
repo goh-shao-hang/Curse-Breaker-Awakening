@@ -93,7 +93,7 @@ namespace CBA.Entities.Player
 
         public void Grab(GrabbableObject grabbableObject)
         {
-            grabbableObject.StartGrabbing(_grabTransform, this.transform);
+            grabbableObject.StartGrabbing(_grabTransform);
             _currentGrabbedObject = grabbableObject;
 
             _currentSelection.OnDeselect();

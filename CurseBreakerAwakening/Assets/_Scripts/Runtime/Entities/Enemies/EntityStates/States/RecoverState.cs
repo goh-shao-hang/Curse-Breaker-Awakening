@@ -12,7 +12,7 @@ namespace CBA.Entities
 
         public RecoverState(Entity entity, EnemyStateMachine context, GrabbableObject grabbableObject) : base(entity, context)
         {
-            _navigationModule = _context.GetModule<AINavigationModule>();
+            _navigationModule = _entity.GetModule<AINavigationModule>();
             _grabbableObject = grabbableObject;
         }
 
@@ -20,6 +20,7 @@ namespace CBA.Entities
         {
             base.Enter();
 
+            _context.transform.rotation = Quaternion.Euler(0f, _context.transform.rotation.eulerAngles.y, 0f);
             _context.Animator.CrossFade(GameData.RECOVER_ANIM, 0f, 0);
         }
 

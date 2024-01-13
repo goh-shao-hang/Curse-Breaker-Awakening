@@ -54,6 +54,8 @@ namespace GameCells.Utilities
         {
             _targetPosition = null;
             SetWeight(0f);
+
+            _target.transform.position = Vector3.zero;
         }
     }
 }
