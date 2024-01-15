@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6bc7efe02ed884cbb6c66f3c14589b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionDamage: 10
+  _explosionDamage: 5
   _explosionRadius: 2.5
   _targetLayers:
     serializedVersion: 2
@@ -411,6 +411,7 @@ GameObject:
   - component: {fileID: 3890483341122565124}
   - component: {fileID: 3890483341122565125}
   - component: {fileID: 3890483341122565120}
+  - component: {fileID: -1849130146705227985}
   m_Layer: 7
   m_Name: Enemy_ExplosiveBeetle
   m_TagString: Untagged
@@ -620,6 +621,18 @@ MonoBehaviour:
   _grabbableObject: {fileID: 3890483341122565125}
   _chaseSpeed: 8
   _explosionTimer: 3
+--- !u!114 &-1849130146705227985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890483341122565144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f365bb9737076a64da946f850f13b00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3890483341297230200
 PrefabInstance:
   m_ObjectHideFlags: 0

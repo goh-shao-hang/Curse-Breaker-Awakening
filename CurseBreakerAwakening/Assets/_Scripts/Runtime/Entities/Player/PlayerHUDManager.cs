@@ -27,7 +27,14 @@ namespace CBA.Entities.Player
         [SerializeField] private Image _staminaBarFill;
         [SerializeField] private Image _staminaBarWhite;
 
-        [Header("Currecy")]
+        [Header("Entity Info")]
+        [SerializeField] private CanvasGroup _entityInfoCanvasGroup;
+        [SerializeField] private TMP_Text _entityName;
+        [SerializeField] private Image _entityHealthValue;
+        [SerializeField] private RectTransform _entityGuardRoot;
+        [SerializeField] private Image _entityGuardValue;
+
+        [Header("Currency")]
         [SerializeField] private RawImage _coins;
         [SerializeField] private TMP_Text _coinText;
 
@@ -172,6 +179,30 @@ namespace CBA.Entities.Player
         {
             _crossHairCanvasGroup.DOFade(0, _crosshairTweenDuration).SetEase(Ease.OutSine);
             _crossHairCanvasGroup.transform.DOScale(2, _crosshairTweenDuration).SetEase(Ease.OutSine);
+        }
+
+        public void ShowEntityInfo(EntityInfo info)
+        {
+            _entityInfoCanvasGroup.alpha = 1;
+
+            _entityName.text = info.EntityName;
+            _entityHealthValue.fillAmount = info.HealthModule.CurrentHealth / info.HealthModule.MaxHealth;
+
+            if (info.GuardModule != null)
+            {
+                _entityGuardRoot.gameObject.SetActive(true);
+
+                _entityGuardValue.fillAmount = info.GuardModule.CurrentGuardMeter / info.GuardModule.MaxGuardMeter;
+            }
+            else
+            {
+                _entityGuardRoot.gameObject.SetActive(false);
+            }
+        }
+
+        public void HideEntityInfo()
+        {
+            _entityInfoCanvasGroup.alpha = 0;
         }
 
         //TODO

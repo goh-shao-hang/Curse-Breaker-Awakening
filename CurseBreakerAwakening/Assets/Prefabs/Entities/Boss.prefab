@@ -32590,7 +32590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthModule: {fileID: 9083007480472136912}
-  _guardModule: {fileID: 9083007480472136913}
+  _guardModule: {fileID: 0}
   _animator: {fileID: 8272051470981828055}
   <IsGuarding>k__BackingField: 0
 --- !u!114 &9083007479036133045
@@ -32619,7 +32619,9 @@ MonoBehaviour:
   _minSpellInterval: 1
   _maxSpellInterval: 2
   _phase1EngagedMoveSpeed: 1
+  _phase1EngagedStrafeSpeed: 0.5
   _phase2EngagedMoveSpeed: 2
+  _phase2EngagedStrafeSpeed: 1
   _engageDistance: 4
   _engageDistanceBias: 0.5
   OnPhase2TransitionEvent:
@@ -33584,7 +33586,6 @@ GameObject:
   - component: {fileID: 9083007480472136919}
   - component: {fileID: 9083007480472136915}
   - component: {fileID: 9083007480472136912}
-  - component: {fileID: 9083007480472136913}
   - component: {fileID: 9083007480472136918}
   m_Layer: 7
   m_Name: Modules
@@ -33640,25 +33641,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnHealthDepleted:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &9083007480472136913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9083007480472136916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9db899ca4778f14990eb62f99c4ea56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entity: {fileID: 9083007479036133033}
-  OnGuardMeterChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnGuardBroken:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &9083007480472136918

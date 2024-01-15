@@ -52,16 +52,16 @@ namespace CBA
 
         private void OnEnable()
         {
-            if (_grabbableObject == null)
-                return;
+            //if (_grabbableObject == null)
+                //return;
 
             //_grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(1f, this.gameObject));
         }
 
         private void OnDisable()
         {
-            if (_grabbableObject == null)
-                return;
+            //if (_grabbableObject == null)
+                //return;
 
             //TODO
             //_grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f, this.gameObject));

@@ -13,10 +13,13 @@ namespace CBA.Entities.Player
         [SerializeField] private PlayerCameraController _playerCameraController;
         [SerializeField] private PlayerInputHandler _playerInputHandler;
         [SerializeField] private PlayerCombatManager _playerCombatManager;
+        [SerializeField] private PlayerHUDManager _playerHUDManager;
         [SerializeField] private Transform _grabTransform;
         [SerializeField] private MovementModule _movementModule;
 
         [Header(GameData.SETTINGS)]
+        [SerializeField] private float _entityInfoCheckDistance = 5f;
+        [SerializeField] private float _entityInfoCheckSphereRadius = 2f;
         [SerializeField] private float _maxGrabDistance = 2f;
         [SerializeField] private float _throwUpwardAdjustment = 0.5f;
         [SerializeField] private LayerMask _interactableLayer;
@@ -52,6 +55,40 @@ namespace CBA.Entities.Player
             }
             _currentSelection = null;
             
+            //TODO
+            //Manage Showing Entity Info
+            if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _entityInfoCheckDistance,
+                _interactableLayer))
+            {
+                if (_raycastHit.transform.TryGetComponent(out EntityInfo entityInfo))
+                {
+                    _playerHUDManager.ShowEntityInfo(entityInfo);
+                }
+                else
+                {
+                    _playerHUDManager.HideEntityInfo();
+                }
+            }
+            else
+            {
+                if (Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _entityInfoCheckSphereRadius, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _entityInfoCheckDistance,
+                _interactableLayer))
+                {
+                    if (_raycastHit.transform.TryGetComponent(out EntityInfo entityInfo))
+                    {
+                        _playerHUDManager.ShowEntityInfo(entityInfo);
+                    }
+                    else
+                    {
+                        _playerHUDManager.HideEntityInfo();
+                    }
+                }
+                else
+                {
+                    _playerHUDManager.HideEntityInfo();
+                }
+            }
+
             //Manage selection
             //Only check for highlight if the player is not already grabbing something
             if (!IsGrabbing && Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
@@ -62,15 +99,6 @@ namespace CBA.Entities.Player
                     interactable.OnSelect();
                     _currentSelection = interactable;
                 }
-
-                /*if (_raycastHit.transform.TryGetComponent(out GrabbableObject grabbableObject))
-                {
-                    if (grabbableObject.IsGrabbable)
-                    {
-                        grabbableObject.OnSelect();
-                        _currentSelection = grabbableObject;
-                    }
-                }*/
             }
         }
 

@@ -96,7 +96,7 @@ public class Projectile : MonoBehaviour
 
         if (((1 << other.gameObject.layer) & _targetLayers) != 0)
         {
-            _damageData.Set(_damage, _owner);
+            _damageData.Set(_damage, null);
             other.GetComponent<IDamageable>()?.TakeDamage(_damageData);
 
             if (_pierce)

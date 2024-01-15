@@ -28,7 +28,9 @@ namespace CBA.Entities
         [SerializeField] private float _minSpellInterval = 5f;
         [SerializeField] private float _maxSpellInterval = 8f;
         [SerializeField] private float _phase1EngagedMoveSpeed = 1f;
+        [SerializeField] private float _phase1EngagedStrafeSpeed = 1f;
         [SerializeField] private float _phase2EngagedMoveSpeed = 2f;
+        [SerializeField] private float _phase2EngagedStrafeSpeed = 1f;
         [SerializeField] private float _engageDistance = 3f;
         [SerializeField] private float _engageDistanceBias = 1f;
         public UnityEvent OnPhase2TransitionEvent;
@@ -39,9 +41,9 @@ namespace CBA.Entities
         private IdleState _idleState;
         private EngagedState _phase1EngagedState;
         private EngagedState _phase2EngagedState;
-        private StunnedState _stunnedState;
+       /* private StunnedState _stunnedState;
         private GrabbedState _grabbedState;
-        private RecoverState _recoverState;
+        private RecoverState _recoverState;*/
         private BossPhaseTransitionState _bossPhase2TransitionState;
         private DeathState _deathState;
 
@@ -80,8 +82,8 @@ namespace CBA.Entities
             OnEnterPhase1();
 
             _idleState = new IdleState(entity, this);
-            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase1EngagedMoveSpeed);
-            _phase2EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase2EngagedMoveSpeed);
+            _phase1EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase1EngagedMoveSpeed, _phase1EngagedStrafeSpeed);
+            _phase2EngagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _phase2EngagedMoveSpeed, _phase2EngagedStrafeSpeed);
 
             //Phase 1 Spells
             foreach (var entry in _phase1Spells.SpellDictionary)
@@ -115,20 +117,20 @@ namespace CBA.Entities
 
             _bossPhase2TransitionState = new BossPhaseTransitionState(entity, this, _combatAnimationEventHander);
 
-            _stunnedState = new StunnedState(entity, this, _grabbableObject);
+            /*_stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
-            _recoverState = new RecoverState(entity, this, _grabbableObject);
+            _recoverState = new RecoverState(entity, this, _grabbableObject);*/
             _deathState = new DeathState(entity, this, _ragdollController);
 
             //2. Condition Initialization
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
-            _guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
-            _stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
-            _grabbedCondition = new Condition_Grabbed(_grabbableObject);
-            _thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
-            _recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
+            //_guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
+            //_stunTimerCondition = new Condition_Timer(entity.EntityData.BaseStunDuration);
+            //_grabbedCondition = new Condition_Grabbed(_grabbableObject);
+            //_thrownTerrainCollisionCondition = new Condition_ThrownTerrainCollision(_grabbableObject);
+            //_recoverAnimationFinishedCondition = new Condition_OnAnimationFinished(Animator);
             _healthDepletedCondition = new Condition_HealthDepleted(this.entity.GetModule<HealthModule>());
 
             _spellIntervalCondition = new Condition_Timer_Random(_minSpellInterval, _maxSpellInterval);
@@ -162,16 +164,16 @@ namespace CBA.Entities
             #endregion
 
 
-            _stunnedState.AddTransition(_idleState, _stunTimerCondition);
+            /*_stunnedState.AddTransition(_idleState, _stunTimerCondition);
             _stunnedState.AddTransition(_grabbedState, _grabbedCondition);
 
             _grabbedState.AddTransition(_recoverState, _thrownTerrainCollisionCondition);
 
-            _recoverState.AddTransition(_idleState, _recoverAnimationFinishedCondition);
+            _recoverState.AddTransition(_idleState, _recoverAnimationFinishedCondition);*/
 
             _bossPhase2TransitionState.AddTransition(_phase2EngagedState, _bossTransitionCompletedCondition);
 
-            this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
+           //this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
             this.AddAnyTransition(_bossPhase2TransitionState, new[] {_healthDepletedCondition, _bossHasRemainingPhaseCondition});
             this.AddAnyTransition(_deathState, _healthDepletedCondition);
 

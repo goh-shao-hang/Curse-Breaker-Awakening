@@ -20,6 +20,10 @@ namespace CBA.Entities
 
         public override int SpellAnimationHash => GameData.CASTSHIELD_HASH;
 
+        public override bool IsAvailable => !isOnCooldown && _shieldDurationCO == null;
+
+        private Coroutine _shieldDurationCO = null;
+
         private void Awake()
         {
             _meshRenderer = GetComponent<MeshRenderer>();
@@ -48,7 +52,7 @@ namespace CBA.Entities
                 }
             }    
 
-            StartCoroutine(ShieldDurationCO());
+            _shieldDurationCO = StartCoroutine(ShieldDurationCO());
         }
 
         private IEnumerator ShieldDurationCO()
@@ -57,6 +61,8 @@ namespace CBA.Entities
 
             _shieldCollider.enabled = false;
             _shieldMaterial.DOFloat(0, GameData.DISSOLVE, _shieldTween).SetEase(Ease.OutSine);
+
+            _shieldDurationCO = null;
         }
     }
 }

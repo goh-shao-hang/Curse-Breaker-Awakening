@@ -370,9 +370,19 @@ PrefabInstance:
       objectReference: {fileID: 7235777751338469035}
     - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
         type: 3}
+      propertyPath: _playerHUDManager
+      value: 
+      objectReference: {fileID: 6950502994226410207}
+    - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
       propertyPath: _playerCameraController
       value: 
       objectReference: {fileID: 9155186181012854028}
+    - target: {fileID: 8346056967299136009, guid: a9e72aa30a367574eb8e0984971dc2be,
+        type: 3}
+      propertyPath: _entityInfoCheckDistance
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9e72aa30a367574eb8e0984971dc2be, type: 3}
 --- !u!114 &7635733946328613246 stripped

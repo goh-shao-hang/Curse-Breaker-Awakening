@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityData: {fileID: 11400000, guid: 90c501bb7fd6b17439643c8ef88e96f2, type: 2}
+  ModuleManager: {fileID: 0}
   PlayerPos: {fileID: 0}
   OnDeath:
     m_PersistentCalls:
@@ -210,8 +211,10 @@ MonoBehaviour:
   _playerCameraController: {fileID: 0}
   _playerInputHandler: {fileID: 980999762061052820}
   _playerCombatManager: {fileID: 980999762061052822}
+  _playerHUDManager: {fileID: 0}
   _grabTransform: {fileID: 0}
   _movementModule: {fileID: 980999762728581201}
+  _entityInfoCheckDistance: 8
   _maxGrabDistance: 2
   _throwUpwardAdjustment: 0.5
   _interactableLayer:

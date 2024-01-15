@@ -134,10 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd0239dcf8958e42936793a8c20de86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageToPlayer: 10
+  _damageToPlayer: 5
+  _playerDamageInterval: 1
   _playerLayer:
     serializedVersion: 2
     m_Bits: 512
   _killLayers:
     serializedVersion: 2
     m_Bits: 128
+  _teleportsPlayer: 1

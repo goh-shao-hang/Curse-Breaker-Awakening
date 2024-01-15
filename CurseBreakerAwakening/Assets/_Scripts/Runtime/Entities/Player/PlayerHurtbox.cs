@@ -55,7 +55,11 @@ namespace CBA.Entities.Player
             {
                 _parryDamageData.Set(_playerCombatManager.CurrentWeapon.WeaponData.ParryGuardDamage, this.gameObject, false, true); 
 
-                damageData.Attacker.GetComponent<IDamageable>()?.TakeDamage(_parryDamageData);
+                if (damageData.Attacker != null) //Dont deal parry damage to things like projectile
+                {
+                    damageData.Attacker.GetComponent<IDamageable>()?.TakeDamage(_parryDamageData);
+                }
+
                 OnParrySuccess?.Invoke();
             }
             else if (IsBlocking && _playerController.CurrentStamina > 0)

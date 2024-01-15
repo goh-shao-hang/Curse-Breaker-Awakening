@@ -39,7 +39,7 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
 
-        this.SetDontDestroyOnLoad(true);
+        //this.SetDontDestroyOnLoad(true);
     }
 
     private void OnEnable()
@@ -48,6 +48,8 @@ public class UIManager : Singleton<UIManager>
         _deathCanvas.gameObject.SetActive(false);
 
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
+
+        //TODO
         GameManager.Instance.OnGameEnded += () => Destroy(this.gameObject);
 
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
@@ -57,6 +59,8 @@ public class UIManager : Singleton<UIManager>
     private void OnDisable()
     {
         GameManager.Instance.OnPlayerDeath -= ShowDeathScreen;
+
+        //TODO
         GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
     }
 
@@ -65,10 +69,6 @@ public class UIManager : Singleton<UIManager>
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenPauseMenu();
-        }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            ShowDeathScreen();
         }
     }
 
