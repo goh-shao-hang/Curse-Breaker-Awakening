@@ -17,9 +17,14 @@ namespace CBA.Entities
         [Header(GameData.CUSTOMIZATION)]
         [SerializeField] private float _chaseSpeed = 1f;
         [SerializeField] private float _meleeAttackDuration = 1f;
+        [SerializeField] private float _engageDistance = 2f;
+        [SerializeField] private float _engageDistanceBias = 1f;
+        [SerializeField] private float _engagedMoveSpeed = 1f;
+        [SerializeField] private float _engagedStrafeSpeed = 1f;
 
         #region States and Conditions
         private IdleState _idleState;
+        private EngagedState _engagedState;
         private ChaseState _chaseState;
         private MeleeAttackState _meleeAttackState;
         private StunnedState _stunnedState;
@@ -29,6 +34,7 @@ namespace CBA.Entities
 
         private Condition _playerInDetectionRangeCondition;
         private Condition _playerOutOfDetectionRangeCondition;
+        private Condition _engagedTimerCondition;
         private Condition _playerInAttackRangeCondition;
         private Condition _meleeAttackTimerCondition;
         private Condition _guardBrokenCondition;
@@ -44,6 +50,7 @@ namespace CBA.Entities
             //State Machine Initialization
             //1. State Initialization
             _idleState = new IdleState(entity, this);
+            _engagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _engagedMoveSpeed, _engagedStrafeSpeed);
             _chaseState = new ChaseState(entity, this, _chaseSpeed);
             _meleeAttackState = new MeleeAttackState(entity, this, meleeAttack);
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
@@ -54,6 +61,7 @@ namespace CBA.Entities
             //2. Condition Initialization
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
+            _engagedTimerCondition = new Condition_Timer_Random(3, 5);
             _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
             _meleeAttackTimerCondition = new Condition_Timer(_meleeAttackDuration);
             _guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
@@ -64,12 +72,14 @@ namespace CBA.Entities
             _healthDepletedCondition = new Condition_HealthDepleted(this.entity.GetModule<HealthModule>());
 
             //3. Setting up transitions
-            _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);
+            _idleState.AddTransition(_engagedState, _playerInDetectionRangeCondition);
 
-            _chaseState.AddTransition(_idleState, _playerOutOfDetectionRangeCondition);
+            _engagedState.AddTransition(_idleState, _playerOutOfDetectionRangeCondition);
+            _engagedState.AddTransition(_chaseState, _engagedTimerCondition);
+
             _chaseState.AddTransition(_meleeAttackState, _playerInAttackRangeCondition);
 
-            _meleeAttackState.AddTransition(_chaseState, _meleeAttackTimerCondition);
+            _meleeAttackState.AddTransition(_engagedState, _meleeAttackTimerCondition);
 
             _stunnedState.AddTransition(_idleState, _guardRecoverCondition);
             _stunnedState.AddTransition(_grabbedState, _grabbedCondition);

@@ -49,7 +49,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _offset: {x: 0, y: 1, z: 0}
-  _radius: 7
+  _radius: 20
 --- !u!1 &9057472768607006756
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +337,10 @@ MonoBehaviour:
   _grabbableObject: {fileID: 9057472768732177751}
   _ragdollController: {fileID: 2561664625858819442}
   _rangedAttack: {fileID: 9057472768732177741}
-  _chaseSpeed: 2
+  _engageDistance: 5
+  _engageDistanceBias: 0.5
+  _engagedMoveSpeed: 2
+  _engagedStrafeSpeed: 1
   _retreatSpeed: 1
   _attackDuration: 2
   _attackDelay: 0.5

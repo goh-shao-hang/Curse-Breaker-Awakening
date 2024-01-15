@@ -58,10 +58,14 @@ public class UIManager : Singleton<UIManager>
 
     private void OnDisable()
     {
-        GameManager.Instance.OnPlayerDeath -= ShowDeathScreen;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnPlayerDeath -= ShowDeathScreen;
 
-        //TODO
-        GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
+            //TODO
+            GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
+        }
+
     }
 
     private void Update()

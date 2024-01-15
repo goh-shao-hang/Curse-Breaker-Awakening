@@ -134,7 +134,6 @@ namespace CBA.Core
         public void ObtainCoin(int amount)
         {
             CurrentCoins += amount;
-            Debug.Log($"You have {CurrentCoins} coins.");
 
             OnCoinChanged?.Invoke();
         }

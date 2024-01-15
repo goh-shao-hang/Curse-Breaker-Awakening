@@ -112,7 +112,6 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         transform.SetParent(_grabTransform);
         transform.localPosition = Vector3.zero;
         transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
-        Debug.Log(transform.localPosition);
 
         OnGrabbed?.Invoke();
     }

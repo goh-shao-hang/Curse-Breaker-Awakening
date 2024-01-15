@@ -22,7 +22,8 @@ namespace CBA.Entities.Player
         [SerializeField] private float _walkMovementForce = 50f;
         [SerializeField] private float _sprintMovementForce = 100f;
         [SerializeField] private float _crouchMovementForce = 30f;
-        [SerializeField] private float _maxSpeed = 15f;
+        [SerializeField] private float _maxHorizontalSpeed = 10f;
+        [SerializeField] private float _maxVerticalSpeed = 10f;
         [SerializeField] private float _groundDrag = 7f;
         [SerializeField] private float _jumpForce = 5f;
         [SerializeField] private float _jumpBufferDuration = 0.2f;
@@ -231,20 +232,24 @@ namespace CBA.Entities.Player
             {
                 _horizontalVelocity.Set(_movementModule.CurrentVelocity.x, 0f, _movementModule.CurrentVelocity.z);
 
-                if (_horizontalVelocity.magnitude > _maxSpeed)
+                if (_horizontalVelocity.magnitude > _maxHorizontalSpeed)
                 {
-                    _horizontalVelocity = _horizontalVelocity.normalized * _maxSpeed;
+                    _horizontalVelocity = _horizontalVelocity.normalized * _maxHorizontalSpeed;
                     _movementModule.SetVelocity(_horizontalVelocity.x, _movementModule.CurrentVelocity.y, _horizontalVelocity.z);
                 }
             }
             else
             {
-                if (_movementModule.CurrentVelocity.magnitude > _maxSpeed)
+                if (_movementModule.CurrentVelocity.magnitude > _maxHorizontalSpeed)
                 {
-                    _movementModule.SetVelocity(_movementModule.CurrentVelocity.normalized * _maxSpeed);
+                    _movementModule.SetVelocity(_movementModule.CurrentVelocity.normalized * _maxHorizontalSpeed);
                 }
             }
-            
+
+            if (_movementModule.CurrentVelocity.y > _maxVerticalSpeed)
+            {
+                _movementModule.SetYVelocity(_maxVerticalSpeed);
+            }
         }
 
         public void SetIsLimitingMaxSpeed(bool set)

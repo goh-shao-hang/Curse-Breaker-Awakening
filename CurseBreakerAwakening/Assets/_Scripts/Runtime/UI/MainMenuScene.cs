@@ -14,7 +14,7 @@ public class MainMenuScene : MonoBehaviour
         _startup.gameObject.SetActive(true);
         _menu.gameObject.SetActive(false);
 
-        _versionNumber.text = $"v{Application.version}";
+        _versionNumber.text = $"v{Application.version} DEMO";
     }
 
     public void EnableMenu()

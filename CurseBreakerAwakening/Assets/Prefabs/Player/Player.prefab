@@ -130,7 +130,7 @@ MonoBehaviour:
   _walkMovementForce: 50
   _sprintMovementForce: 80
   _crouchMovementForce: 30
-  _maxSpeed: 10
+  _maxHorizontalSpeed: 10
   _groundDrag: 7
   _jumpForce: 8
   _jumpBufferDuration: 0.2
@@ -215,6 +215,7 @@ MonoBehaviour:
   _grabTransform: {fileID: 0}
   _movementModule: {fileID: 980999762728581201}
   _entityInfoCheckDistance: 8
+  _entityInfoCheckSphereRadius: 2
   _maxGrabDistance: 2
   _throwUpwardAdjustment: 0.5
   _interactableLayer:

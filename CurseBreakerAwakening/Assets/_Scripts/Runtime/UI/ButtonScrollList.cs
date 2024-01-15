@@ -53,7 +53,7 @@ public class ButtonScrollList : MonoBehaviour
     private Tween _scrollTween = null;
     public void ScrollToButton(CustomButton button)
     {
-        float targetValue = 1 - (float)_buttons.IndexOf(button) / _buttons.Count;
+        float targetValue = 1 - (float)_buttons.IndexOf(button) / (_buttons.Count - 1);
 
         if (_scrollTween != null)
             _scrollTween.Kill();

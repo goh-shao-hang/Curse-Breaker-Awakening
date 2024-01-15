@@ -15,7 +15,10 @@ namespace CBA.Entities
         [SerializeField] private ProjectileShooter _rangedAttack;
 
         [Header(GameData.CUSTOMIZATION)]
-        [SerializeField] private float _chaseSpeed = 1f;
+        [SerializeField] private float _engageDistance = 2f;
+        [SerializeField] private float _engageDistanceBias = 1f;
+        [SerializeField] private float _engagedMoveSpeed = 1f;
+        [SerializeField] private float _engagedStrafeSpeed = 1f;
         [SerializeField] private float _retreatSpeed = 1f;
         [SerializeField] private float _attackDuration = 1f;
         [SerializeField] private float _attackDelay = 0.5f;
@@ -23,9 +26,8 @@ namespace CBA.Entities
 
         #region States and Conditions
         private IdleState _idleState;
-        private ChaseState _chaseState;
+        private EngagedState _engagedState;
         private RangedAttackState _rangedAttackState;
-        private RetreatState _retreatState;
         private StunnedState _stunnedState;
         private GrabbedState _grabbedState;
         private RecoverState _recoverState;
@@ -33,7 +35,8 @@ namespace CBA.Entities
 
         private Condition _playerInDetectionRangeCondition;
         private Condition _playerOutOfDetectionRangeCondition;
-        private Condition _playerInAttackRangeCondition;
+        private Condition _engagedTimerCondition;
+        //private Condition _playerInAttackRangeCondition;
         private Condition _rangedAttackTimerCondition;
         private Condition _retreatTimerCondition;
         private Condition _guardBrokenCondition;
@@ -49,9 +52,8 @@ namespace CBA.Entities
             //State Machine Initialization
             //1. State Initialization
             _idleState = new IdleState(entity, this);
-            _chaseState = new ChaseState(entity, this, _chaseSpeed);
+            _engagedState = new EngagedState(entity, this, _engageDistance, _engageDistanceBias, _engagedMoveSpeed, _engagedStrafeSpeed);
             _rangedAttackState = new RangedAttackState(entity, this, _rangedAttack, _attackDelay);
-            _retreatState = new RetreatState(entity, this, _retreatSpeed);
             _stunnedState = new StunnedState(entity, this, _grabbableObject);
             _grabbedState = new GrabbedState(entity, this, _grabbableObject);
             _recoverState = new RecoverState(entity, this, _grabbableObject);
@@ -60,7 +62,8 @@ namespace CBA.Entities
             //2. Condition Initialization
             _playerInDetectionRangeCondition = new Condition_PlayerInRange(_playerDetector);
             _playerOutOfDetectionRangeCondition = new Condition_PlayerOutOfRange(_playerDetector);
-            _playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
+            _engagedTimerCondition = new Condition_Timer_Random(3, 5);
+            //_playerInAttackRangeCondition = new Condition_PlayerInRange(_attackRangeDetector);
             _rangedAttackTimerCondition = new Condition_Timer(_attackDuration);
             _retreatTimerCondition = new Condition_Timer(_retreatTime);
             _guardBrokenCondition = new Condition_GuardBroken(this.entity.GetModule<GuardModule>());
@@ -71,14 +74,14 @@ namespace CBA.Entities
             _healthDepletedCondition = new Condition_HealthDepleted(this.entity.GetModule<HealthModule>());
 
             //3. Setting up transitions
-            _idleState.AddTransition(_chaseState, _playerInDetectionRangeCondition);
+            _idleState.AddTransition(_engagedState, _playerInDetectionRangeCondition);
 
-            _chaseState.AddTransition(_idleState, _playerOutOfDetectionRangeCondition);
-            _chaseState.AddTransition(_rangedAttackState, _playerInAttackRangeCondition);
+            _engagedState.AddTransition(_idleState, _playerOutOfDetectionRangeCondition);
+            _engagedState.AddTransition(_rangedAttackState, _engagedTimerCondition);
 
-            _rangedAttackState.AddTransition(_retreatState, _rangedAttackTimerCondition);
+            _rangedAttackState.AddTransition(_engagedState, _rangedAttackTimerCondition);
 
-            _retreatState.AddTransition(_chaseState, _retreatTimerCondition);
+            //_retreatState.AddTransition(_chaseState, _retreatTimerCondition);
 
             _stunnedState.AddTransition(_idleState, _stunTimerCondition);
             _stunnedState.AddTransition(_grabbedState, _grabbedCondition);

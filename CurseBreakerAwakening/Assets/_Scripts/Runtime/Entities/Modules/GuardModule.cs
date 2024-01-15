@@ -72,7 +72,6 @@ namespace CBA.Entities
                 IsGuardBroken = true;
                 _guardBreakTimer = _entity.EntityData.BaseStunDuration;
 
-                Debug.LogWarning("BREAK");
                 OnGuardBroken?.Invoke();
             }
         }

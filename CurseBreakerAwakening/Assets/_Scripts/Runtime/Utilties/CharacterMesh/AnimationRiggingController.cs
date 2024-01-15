@@ -46,7 +46,7 @@ namespace GameCells.Utilities
 
         public void SetTargetPosition()
         {
-            _targetPosition = _navigationModule.FollowPosition;
+            _targetPosition = _navigationModule.LookTargetPosition;
             SetWeight(1f);
         }
 
