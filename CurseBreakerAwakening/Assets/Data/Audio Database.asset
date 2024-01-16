@@ -156,3 +156,28 @@ MonoBehaviour:
     _volume: 1
     _pitch: 0.8
     _pitchVariation: 0.15
+  - <Name>k__BackingField: Collect_Coin
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: c6e11ee22d38a8e45a905d04ab802edd, type: 3}
+    _volume: 1
+    _pitch: 0.8
+    _pitchVariation: 0.2
+  - <Name>k__BackingField: Collect_HealPotion
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 234df7fa41cb9244da74a7ad1be296a9, type: 3}
+    _volume: 1
+    _pitch: 0.8
+    _pitchVariation: 0.15
+  - <Name>k__BackingField: Shop_Purchase
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 58b57a549ad361d4f9011edd45e1e649, type: 3}
+    _volume: 1
+    _pitch: 0.8
+    _pitchVariation: 0.15
+  - <Name>k__BackingField: Chest_Open
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: d96cc328ec0258f49ac61c41ae9e0c43, type: 3}
+    - {fileID: 8300000, guid: 26b5b91c8b7b69343818c0cc4106b3c7, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0

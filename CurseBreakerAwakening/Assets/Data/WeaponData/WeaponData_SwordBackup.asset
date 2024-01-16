@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9802af61e2025f04989beba63b04b07a, type: 3}
+  m_Name: WeaponData_SwordBackup
+  m_EditorClassIdentifier: 
+  Name: Long Sword
+  Rarity: 0
+  Type: 1
+  WeaponPrefab: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
+    type: 3}
+  AttackDamage: 3
+  MinChargingTime: 1
+  MaxChargingTime: 3
+  ChargedAttackDuration: 0.5
+  MinChargedAttackDamage: 5
+  MaxChargedAttackDamage: 10
+  MinChargedAttackGuardDamage: 5
+  MaxChargedAttackGuardDamage: 10
+  ParryDuration: 0.2
+  MinBlockTime: 0.2
+  ParryGuardDamage: 8
+  MaxCombo: 2
+  ComboResetTime: 1.5

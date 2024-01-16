@@ -11,6 +11,7 @@ public abstract class Loot : MonoBehaviour
 {
     [SerializeField] private SO_GlobalPosition _playerPosition;
     [SerializeField] private float _followSpeed = 20f;
+    [SerializeField] private string _collectSoundEffectName;
 
     private Rigidbody _lootRigidbody;
     private Collider _lootCollider;
@@ -80,6 +81,11 @@ public abstract class Loot : MonoBehaviour
             _pool.AddToPool(this);
         else
             Destroy(gameObject);
+
+        if (_collectSoundEffectName != string.Empty)
+        {
+            AudioManager.Instance.PlayGlobalSFX(_collectSoundEffectName);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

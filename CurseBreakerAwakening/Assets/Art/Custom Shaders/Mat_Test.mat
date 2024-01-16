@@ -85,8 +85,9 @@ Material:
     - _DamagePower: 3
     - _DamageStrength: 0
     - _DstBlend: 0
+    - _EmissionStrength: 0
     - _FresnelPower: 3
-    - _GlowPower: 3
+    - _GlowPower: 2
     - _GlowStrength: 1
     - _Metallic: 0
     - _NormalStrength: 0

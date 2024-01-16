@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities.Player;
 using GameCells.Utilities;
 using System;
@@ -14,6 +15,7 @@ namespace CBA
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _openVFX;
         [SerializeField] private LootDropModule _lootDropModule;
+        [SerializeField] private AudioEmitter _audioEmitter;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _lootDropDelay = 1f;
@@ -49,7 +51,7 @@ namespace CBA
             OnDeselected?.Invoke();
         }
 
-        public async void OnInteract(PlayerGrabManager playerGrabManager)
+        public void OnInteract(PlayerGrabManager playerGrabManager)
         {
             if (_opened)
                 return;
@@ -63,6 +65,7 @@ namespace CBA
         private IEnumerator ChestOpenCO()
         {
             yield return WaitHandler.GetWaitForSeconds(_lootDropDelay);
+            _audioEmitter?.PlayOneShotSfx("Chest_Open");
             _openVFX.SetActive(true);
             _lootDropModule.Drop();
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Long Sword
   Rarity: 0
   Type: 1
-  WeaponPrefab: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
+  WeaponPrefab: {fileID: 383471265225623397, guid: b9f3d7a3cafc7ad41911c1f4cc5de6b6,
     type: 3}
   AttackDamage: 3
   MinChargingTime: 1
@@ -23,8 +23,6 @@ MonoBehaviour:
   ChargedAttackDuration: 0.5
   MinChargedAttackDamage: 5
   MaxChargedAttackDamage: 10
-  MinChargedAttackGuardDamage: 5
-  MaxChargedAttackGuardDamage: 10
   ParryDuration: 0.2
   MinBlockTime: 0.2
   ParryGuardDamage: 8

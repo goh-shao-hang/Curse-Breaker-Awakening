@@ -22,6 +22,7 @@ public class UIManager : Singleton<UIManager>
 
     [Header("Dialog")]
     [SerializeField] private CanvasGroup _dialogCanvasGroup;
+    [SerializeField] private TMP_Text _gabText;
     [SerializeField] private TMP_Text _dialogText;
 
     [Header("Death")]

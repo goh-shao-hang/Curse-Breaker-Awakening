@@ -806,4 +806,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c77e3dc6c7210846a81071bda357460, type: 2}
   - {fileID: 11400000, guid: 8dc8ccb998fe9044b9f880c6352c2c8c, type: 2}
   - {fileID: 11400000, guid: 02cdf7b6cdd4c3d4e814e39a0e6dc4f2, type: 2}
+  - {fileID: 11400000, guid: 14373ceca0291c4469348aa70b8ba65f, type: 2}
+  - {fileID: 11400000, guid: 12260046398821e498e3302a02ad3901, type: 2}
   _camera: {fileID: 7913550666154739246}

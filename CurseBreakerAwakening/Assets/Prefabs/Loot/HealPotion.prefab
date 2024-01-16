@@ -5081,4 +5081,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPosition: {fileID: 11400000, guid: 9ab4ecfbe1eb38f4f9bdd0e71ea7bd6b, type: 2}
   _followSpeed: 20
+  _collectSoundEffectName: Collect_HealPotion
   _healAmount: 5
