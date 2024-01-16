@@ -150,3 +150,9 @@ MonoBehaviour:
     _volume: 0.5
     _pitch: 1
     _pitchVariation: 0
+  - <Name>k__BackingField: Player_Throw
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 1aecaf9d8d120534f83acf94339e5f10, type: 3}
+    _volume: 1
+    _pitch: 0.75
+    _pitchVariation: 0.2

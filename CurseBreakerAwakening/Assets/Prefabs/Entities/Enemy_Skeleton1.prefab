@@ -1446,6 +1446,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8177358517338395635, guid: 18e0098c09c0bed41bd638b522e5a033,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18e0098c09c0bed41bd638b522e5a033, type: 3}
 --- !u!4 &8376713181684763135 stripped
@@ -1960,7 +1965,7 @@ MonoBehaviour:
   _thrownTorque: 5
   _thrownSelfDamage: 5
   _thrownInflictedDamage: 5
-  _grabbedOffset: {x: 0, y: -0.25, z: 0.05}
+  _grabbedOffset: {x: 0, y: -0.45, z: 0.25}
   _grabbedRotation: {x: -75, y: 90, z: 0}
   _canCollideWith:
     serializedVersion: 2

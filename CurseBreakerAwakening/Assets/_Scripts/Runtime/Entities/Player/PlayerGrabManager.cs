@@ -1,4 +1,5 @@
 using CBA;
+using CBA.Core;
 using GameCells.Entities;
 using System;
 using System.Collections;
@@ -156,6 +157,8 @@ namespace CBA.Entities.Player
 
             _currentGrabbedObject.Throw((direction).normalized, _movementModule.CurrentVelocity);
             _currentGrabbedObject = null;
+
+            AudioManager.Instance?.PlayGlobalSFX("Player_Throw");
 
             OnThrow?.Invoke();
         }
