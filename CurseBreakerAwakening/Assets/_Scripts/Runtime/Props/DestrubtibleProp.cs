@@ -16,13 +16,13 @@ namespace CBA
         [Header("Optional")]
         [SerializeField] private GrabbableObject _grabbableObject;
         [SerializeField] private LootDropModule _lootDropModule;
+        [SerializeField] private GameObject _destroyedVfx;
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private bool _randomScaleOnStart;
         [SerializeField] private float _minScale = 1;
         [SerializeField] private float _maxScale = 1.5f;
         [SerializeField] private string _destroyedSfxName = "PropsDestroyed_Wood";
-        [SerializeField] private bool _destroyedWhenThrown;
         [SerializeField] private bool _destroyAfterDelay = true;
 
         [Header("Explosion")]
@@ -39,7 +39,10 @@ namespace CBA
 
         private void Awake()
         {
-            _destroyedPiecesRigidbodies = _destroyedPieces.GetComponentsInChildren<Rigidbody>();
+            if (_destroyedPieces != null)
+            {
+                _destroyedPiecesRigidbodies = _destroyedPieces.GetComponentsInChildren<Rigidbody>();
+            }
         }
 
         private void Start()
@@ -52,19 +55,21 @@ namespace CBA
 
         private void OnEnable()
         {
-            //if (_grabbableObject == null)
-                //return;
+            /*if (_grabbableObject == null)
+                return;
 
-            //_grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(1f, this.gameObject));
+            _damageData.Set(1f, this.gameObject);
+            _grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(_damageData));*/
         }
 
         private void OnDisable()
         {
-            //if (_grabbableObject == null)
-                //return;
+            /*if (_grabbableObject == null)
+                return;
 
             //TODO
-            //_grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(1f, this.gameObject));
+            _damageData.Set(1f, this.gameObject);
+            _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(_damageData));*/
         }
 
         public void TakeDamage(DamageData damageData)
@@ -74,15 +79,23 @@ namespace CBA
 
             _broken = true;
 
-            _destroyedPieces.SetActive(true);
-            _destroyedPieces.transform.SetParent(null);
-
-            foreach (var rigidbody in _destroyedPiecesRigidbodies)
+            if (_destroyedPieces != null)
             {
-                rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, Random.Range(_upForceMin, _upForceMax), ForceMode.Impulse);
+                _destroyedPieces.SetActive(true);
+                _destroyedPieces.transform.SetParent(null);
 
-                if (_destroyAfterDelay)
-                    Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
+                foreach (var rigidbody in _destroyedPiecesRigidbodies)
+                {
+                    rigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, Random.Range(_upForceMin, _upForceMax), ForceMode.Impulse);
+
+                    if (_destroyAfterDelay)
+                        Destroy(rigidbody.gameObject, GameData.PROPS_DESTROYED_DELAY);
+                }
+            }
+
+            if (_destroyedVfx != null)
+            {
+                Instantiate(_destroyedVfx, transform.position, Quaternion.identity);
             }
 
             _audioEmitter?.transform.SetParent(null);

@@ -237,7 +237,7 @@ MonoBehaviour:
   _healthModule: {fileID: 9057472768883550523}
   _guardModule: {fileID: 9057472768883550522}
   _animator: {fileID: 8999064514607409465}
-  <IsGuarding>k__BackingField: 1
+  <IsGuarding>k__BackingField: 0
 --- !u!114 &9057472768732177751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,13 +250,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grabRigidbody: {fileID: 9057472768732177739}
   _startKinematic: 1
   _startGrabbable: 0
   _thrownForce: 10
+  _thrownUpwardForce: 3
+  _thrownTorque: 10
   _thrownSelfDamage: 5
   _thrownInflictedDamage: 5
   _grabbedOffset: {x: -0.2, y: -1.7, z: 0.22}
+  _grabbedRotation: {x: 0, y: 180, z: 0}
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 4288
@@ -362,7 +364,7 @@ MonoBehaviour:
     type: 3}
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 33408
   _growAmount: 10
 --- !u!114 &-5099430028635483614
 MonoBehaviour:
@@ -610,14 +612,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9057472768732177749}
     m_Modifications:
-    - target: {fileID: 1928993956, guid: 5bb043625ca65ac489c4d2c1afb8a288, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1928993957, guid: 5bb043625ca65ac489c4d2c1afb8a288, type: 3}
-      propertyPath: _healthModule
-      value: 
-      objectReference: {fileID: 9057472768883550523}
     - target: {fileID: 6787050962052900850, guid: 5bb043625ca65ac489c4d2c1afb8a288,
         type: 3}
       propertyPath: m_Drag
@@ -657,6 +651,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Drag
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788049875586639399, guid: 5bb043625ca65ac489c4d2c1afb8a288,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6788049875586639399, guid: 5bb043625ca65ac489c4d2c1afb8a288,
         type: 3}

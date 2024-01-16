@@ -19,11 +19,11 @@ namespace CBA.Entities.Player
 
         [Header(GameData.SETTINGS)]
         [SerializeField] private float _entityInfoCheckDistance = 5f;
-        [SerializeField] private float _entityInfoCheckSphereRadius = 2f;
+        [SerializeField] private float _sphereCastRadius = 1f;
         [SerializeField] private float _maxGrabDistance = 2f;
-        [SerializeField] private float _throwUpwardAdjustment = 0.5f;
         [SerializeField] private LayerMask _interactableLayer;
         [SerializeField] private LayerMask _damageableLayer;
+        [SerializeField] private LayerMask _throwTargetLayer;
 
         public bool CanInteract => !_playerCombatManager.CurrentWeapon.IsPerformingCombatAction;
         public bool IsGrabbing => _currentGrabbedObject != null;
@@ -71,7 +71,7 @@ namespace CBA.Entities.Player
             }
             else
             {
-                if (Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _entityInfoCheckSphereRadius, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _entityInfoCheckDistance,
+                if (Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _sphereCastRadius, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _entityInfoCheckDistance,
                 _interactableLayer))
                 {
                     if (_raycastHit.transform.TryGetComponent(out EntityInfo entityInfo))
@@ -98,6 +98,18 @@ namespace CBA.Entities.Player
                 {
                     interactable.OnSelect();
                     _currentSelection = interactable;
+                }
+            }
+            else
+            {
+                if (Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _sphereCastRadius, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
+                _interactableLayer))
+                {
+                    if (_raycastHit.transform.TryGetComponent(out IInteractable interactable))
+                    {
+                        interactable.OnSelect();
+                        _currentSelection = interactable;
+                    }
                 }
             }
         }
@@ -133,7 +145,7 @@ namespace CBA.Entities.Player
         public void Throw()
         {
             Vector3 targetPosition = _playerCameraController.transform.forward * 1000f;
-            if (Physics.Raycast(_playerCameraController.transform.position, _playerCameraController.transform.forward, out _raycastHit, 1000f))
+            if (Physics.Raycast(_playerCameraController.transform.position, _playerCameraController.transform.forward, out _raycastHit, 1000f, _throwTargetLayer))
             {
                 targetPosition = _raycastHit.point;
             }
@@ -142,7 +154,7 @@ namespace CBA.Entities.Player
 
             _currentGrabbedObject.GetComponentInChildren<ExplosiveModule>()?.SetTargetLayers(_damageableLayer);
 
-            _currentGrabbedObject.Throw((direction + Vector3.up * _throwUpwardAdjustment).normalized, _movementModule.CurrentVelocity);
+            _currentGrabbedObject.Throw((direction).normalized, _movementModule.CurrentVelocity);
             _currentGrabbedObject = null;
 
             OnThrow?.Invoke();

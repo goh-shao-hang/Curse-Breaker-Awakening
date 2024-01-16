@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: EntityData_Wizard
   m_EditorClassIdentifier: 
   EntityName: Dark Wizard
-  Health: 3
+  Health: 12
   Attack: 5
   Speed: 5
-  Guard: 5
+  Guard: 8
   BaseStunDuration: 5

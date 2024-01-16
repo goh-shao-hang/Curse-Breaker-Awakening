@@ -9,17 +9,19 @@ using GameCells.Utilities;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
 {
-    [Header(GameData.DEPENDENCIES)]
-    [SerializeField] private Rigidbody _grabRigidbody;
+    private Rigidbody _grabRigidbody;
 
     [Header(GameData.SETTINGS)]
     [Tooltip("Should this object interact with environment upon game start?")]
     [SerializeField] private bool _startKinematic = true;
     [SerializeField] private bool _startGrabbable = true;
     [SerializeField] private float _thrownForce = 10f;
+    [SerializeField] private float _thrownUpwardForce = 3f;
+    [SerializeField] private float _thrownTorque = 0f;
     [SerializeField] private float _thrownSelfDamage = 5f;
     [SerializeField] private float _thrownInflictedDamage = 5f;
     [SerializeField] private Vector3 _grabbedOffset;
+    [SerializeField] private Vector3 _grabbedRotation = new Vector3(0f, 180f, 0f);
     [SerializeField] private LayerMask _canCollideWith;
     [SerializeField] private SkinnedMeshRenderer[] _skinnedMeshRenderers;
 
@@ -44,6 +46,11 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     public event Action OnSelected;
     public event Action OnDeselected;
+
+    private void Awake()
+    {
+        _grabRigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
@@ -111,15 +118,15 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         _originalParent = transform.parent;
         transform.SetParent(_grabTransform);
         transform.localPosition = Vector3.zero;
-        transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
+        transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(_grabbedRotation));
 
         OnGrabbed?.Invoke();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (_grabTransform != null)
-            transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(0f, 180f, 0f));
+            transform.SetLocalPositionAndRotation(_grabbedOffset, Quaternion.Euler(_grabbedRotation));
     }
 
     public void Throw(Vector3 direction, Vector3 carriedVelocity)
@@ -143,6 +150,8 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         _grabRigidbody.velocity = carriedVelocity; //Inherit velocity from player
 
         _grabRigidbody.AddForce(direction * _thrownForce, ForceMode.Impulse);
+        _grabRigidbody.AddForce(Vector3.up * _thrownUpwardForce, ForceMode.Impulse);
+        _grabRigidbody.AddTorque(transform.up * _thrownTorque, ForceMode.Impulse);
 
         OnThrown?.Invoke();
 

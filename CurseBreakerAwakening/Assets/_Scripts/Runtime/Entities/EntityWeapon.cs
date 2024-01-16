@@ -10,16 +10,12 @@ namespace CBA.Entities
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Entity _entity;
         [SerializeField] private Collider _collider;
-        [SerializeField] private HealthModule _healthModule;
         [SerializeField] private CombatAnimationEventHander _combatAnimationEventHander;
 
-        /*[Header(GameData.SETTINGS)]
-        [SerializeField] private bool _destroyAfterDetach = true;
-        [SerializeField] private float _destroyDelay = 3f;*/
+        [Header("Optional")]
+        [SerializeField] private GrabbableObject _grabbableObject;
 
         private float _currentAttackDamage;
-
-        private Rigidbody _rigidbody;
 
         private DamageData _damageData;
 
@@ -28,7 +24,7 @@ namespace CBA.Entities
             _combatAnimationEventHander.OnActivateHitboxEvent += EnableHitbox;
             _combatAnimationEventHander.OnDeactivateHitboxEvent += DisableHitbox;
 
-            _healthModule.OnHealthDepleted.AddListener(OnDeath);
+            _entity.OnDeath.AddListener(OnDeath);
         }
 
         private void OnDisable()
@@ -36,23 +32,13 @@ namespace CBA.Entities
             _combatAnimationEventHander.OnActivateHitboxEvent -= EnableHitbox;
             _combatAnimationEventHander.OnDeactivateHitboxEvent -= DisableHitbox;
 
-            _healthModule.OnHealthDepleted.RemoveListener(OnDeath);
+            _entity.OnDeath.RemoveListener(OnDeath);
         }
 
         private void Awake()
         {
             _collider = GetComponent<Collider>();
         }
-
-        /*private void Start()
-        {
-            _collider = GetComponent<Collider>();
-            _rigidbody = GetComponent<Rigidbody>();
-
-            _collider.enabled = false;
-            _collider.isTrigger = true;
-            _rigidbody.isKinematic = true;
-        }*/
 
         public void SetDamage(float damage)
         {
@@ -78,18 +64,18 @@ namespace CBA.Entities
             }
         }
 
-        public void OnDeath()
+        public void OnDeath(Entity entity)
         {
-            _collider.enabled = false;
-
-            /*transform.SetParent(null);
+            _collider.enabled = true;
             _collider.isTrigger = false;
-            _rigidbody.isKinematic = false;
 
-            if (!_destroyAfterDetach)
-                return;
+            transform.SetParent(null);
 
-            Destroy(gameObject, _destroyDelay);*/
+            if (_grabbableObject != null)
+            {
+                _grabbableObject.SetIsGrabbable(true);
+                _grabbableObject.EnableThrowPhysics(true);
+            }
         }
     }
 }

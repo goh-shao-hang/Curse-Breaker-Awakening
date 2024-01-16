@@ -806,7 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2134943383815966998}
   - component: {fileID: 2134943383815966997}
-  - component: {fileID: 1813474099}
+  - component: {fileID: 2210668098035796782}
   m_Layer: 2
   m_Name: BossRoomManager
   m_TagString: Untagged
@@ -862,8 +862,8 @@ MonoBehaviour:
   _shakeVibrato: 100
   _tweenDuration: 0.1
   _tweenDelay: 1
---- !u!65 &1813474099
-BoxCollider:
+--- !u!135 &2210668098035796782
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -873,8 +873,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25, y: 1, z: 12.5}
-  m_Center: {x: 0, y: 22, z: -1}
+  m_Radius: 8
+  m_Center: {x: 1, y: 22, z: -1}
 --- !u!1 &2134943383905488960
 GameObject:
   m_ObjectHideFlags: 0

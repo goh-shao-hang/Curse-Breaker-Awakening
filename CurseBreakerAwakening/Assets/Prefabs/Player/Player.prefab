@@ -131,6 +131,7 @@ MonoBehaviour:
   _sprintMovementForce: 80
   _crouchMovementForce: 30
   _maxHorizontalSpeed: 10
+  _maxVerticalSpeed: 10
   _groundDrag: 7
   _jumpForce: 8
   _jumpBufferDuration: 0.2
@@ -215,15 +216,17 @@ MonoBehaviour:
   _grabTransform: {fileID: 0}
   _movementModule: {fileID: 980999762728581201}
   _entityInfoCheckDistance: 8
-  _entityInfoCheckSphereRadius: 2
-  _maxGrabDistance: 2
-  _throwUpwardAdjustment: 0.5
+  _sphereCastRadius: 1
+  _maxGrabDistance: 3
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 32896
   _damageableLayer:
     serializedVersion: 2
     m_Bits: 128
+  _throwTargetLayer:
+    serializedVersion: 2
+    m_Bits: 4288
 --- !u!114 &8423231553689615740
 MonoBehaviour:
   m_ObjectHideFlags: 0

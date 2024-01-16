@@ -18,8 +18,8 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 383471265225623397, guid: ae6ac6c875ff37a489edd983d905b673,
     type: 3}
   AttackDamage: 3
-  MinChargingTime: 0.5
-  MaxChargingTime: 2
+  MinChargingTime: 1
+  MaxChargingTime: 3
   ChargedAttackDuration: 0.5
   MinChargedAttackDamage: 5
   MaxChargedAttackDamage: 10
@@ -27,5 +27,6 @@ MonoBehaviour:
   MaxChargedAttackGuardDamage: 10
   ParryDuration: 0.2
   MinBlockTime: 0.2
+  ParryGuardDamage: 8
   MaxCombo: 2
   ComboResetTime: 1.5

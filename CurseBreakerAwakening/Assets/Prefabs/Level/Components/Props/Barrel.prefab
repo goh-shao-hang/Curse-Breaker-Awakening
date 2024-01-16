@@ -1998,13 +1998,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grabRigidbody: {fileID: 1066671628316380503}
   _startKinematic: 0
   _startGrabbable: 1
   _thrownForce: 7
+  _thrownTorque: 0
   _thrownSelfDamage: 5
   _thrownInflictedDamage: 5
   _grabbedOffset: {x: -0.3, y: -0.5, z: 0.8}
+  _grabbedRotation: {x: 0, y: 180, z: 0}
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 6336
@@ -2043,11 +2044,11 @@ MonoBehaviour:
   _audioEmitter: {fileID: 6462752040590596731}
   _grabbableObject: {fileID: 439908737}
   _lootDropModule: {fileID: 1470741896129896699}
+  _destroyedVfx: {fileID: 0}
   _randomScaleOnStart: 0
   _minScale: 1
   _maxScale: 1.5
   _destroyedSfxName: PropsDestroyed_Wood
-  _destroyedWhenThrown: 0
   _destroyAfterDelay: 1
   _explosionForce: 0.2
   _explosionRadius: 5

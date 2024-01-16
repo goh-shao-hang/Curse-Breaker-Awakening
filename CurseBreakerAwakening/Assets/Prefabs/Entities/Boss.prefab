@@ -32511,13 +32511,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5f7b71a9873f540ad5d7cc1797b396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grabRigidbody: {fileID: 9083007479036133035}
   _startKinematic: 1
   _startGrabbable: 0
   _thrownForce: 10
+  _thrownUpwardForce: 3
+  _thrownTorque: 0
   _thrownSelfDamage: 5
   _thrownInflictedDamage: 5
   _grabbedOffset: {x: 0, y: -1.3, z: 0}
+  _grabbedRotation: {x: 0, y: 180, z: 0}
   _canCollideWith:
     serializedVersion: 2
     m_Bits: 4288
@@ -32850,7 +32852,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _offset: {x: 0, y: 1, z: 0}
-  _radius: 5
+  _radius: 8
 --- !u!1 &9083007479292257644
 GameObject:
   m_ObjectHideFlags: 0
@@ -32903,7 +32905,7 @@ MonoBehaviour:
     type: 3}
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 33472
 --- !u!1 &9083007479312514531
 GameObject:
   m_ObjectHideFlags: 0
@@ -32991,7 +32993,7 @@ MonoBehaviour:
   _spawnDelay: 0.1
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 33472
 --- !u!1 &9083007479491198688
 GameObject:
   m_ObjectHideFlags: 0
@@ -33273,7 +33275,7 @@ MonoBehaviour:
   _spawnDelay: 0.1
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 33472
 --- !u!1 &9083007480143575909
 GameObject:
   m_ObjectHideFlags: 0
@@ -33712,7 +33714,7 @@ MonoBehaviour:
     type: 3}
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 33472
 --- !u!1 &9083007480482714568
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace CBA
 
         [Header(GameData.SETTINGS)]
         [ColorUsage(true, true)][SerializeField] private Color _color;
-        [SerializeField] private float _thickness = 0.05f;
+        [SerializeField] private float _thickness = 0.005f;
 
         private IInteractable _interactable;
 

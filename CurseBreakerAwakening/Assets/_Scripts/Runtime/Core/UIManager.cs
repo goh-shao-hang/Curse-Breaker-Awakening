@@ -1,8 +1,10 @@
 using CBA.Core;
 using CBA.Entities;
 using CBA.Entities.Player;
+using DG.DOTweenEditor;
 using DG.Tweening;
 using GameCells.Utilities;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +21,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TMP_Text _playerHealthText;
     [SerializeField] private TMP_Text _playerStaminaText;
 
+    [Header("Dialog")]
+    [SerializeField] private CanvasGroup _dialogCanvasGroup;
+    [SerializeField] private TMP_Text _dialogText;
+
     [Header("Death")]
     [SerializeField] private CanvasGroup _deathCanvas;
     [SerializeField] private CanvasGroup _deathScreenButtonsCanvas;
@@ -34,6 +40,9 @@ public class UIManager : Singleton<UIManager>
 
     private PlayerController _playerController;
     private HealthModule _playerHealthModule;
+
+    private SO_Dialog _currentDialog;
+    private Coroutine _dialogCO;
 
     protected override void Awake()
     {
@@ -110,6 +119,36 @@ public class UIManager : Singleton<UIManager>
         float staminaPercentage = Mathf.Clamp01(_playerController.CurrentStamina / _playerController.MaxStamina);
         _playerStaminaFill.fillAmount = staminaPercentage;
         _playerStaminaText.SetText($"{(int)_playerController.CurrentStamina} / {(int)_playerController.MaxStamina}");
+    }
+
+    public void StartDialog(SO_Dialog dialog)
+    {
+        if (_dialogCO != null)
+            return;
+
+        _dialogCanvasGroup.DOFade(1, 0.5f);
+
+        _currentDialog = dialog;
+
+        _dialogCO = StartCoroutine(DialogCO());
+    }
+
+    private IEnumerator DialogCO()
+    {
+        for (int i = 0; i < _currentDialog.Paragraphs.Length; i++)
+        {
+            _dialogText.text = _currentDialog.Paragraphs[i];
+            yield return WaitHandler.GetWaitForSeconds(3f);
+        }
+
+        EndDialog();
+    }
+
+
+    public void EndDialog()
+    {
+        _dialogCanvasGroup.DOFade(0, 0.5f);
+        _dialogCO = null;
     }
 
     public void ShowDeathScreen()

@@ -58,7 +58,6 @@ namespace CBA.Entities.Player
             Physics.IgnoreLayerCollision(GameData.PLAYER_LAYER_INDEX, GameData.DAMAGEABLE_LAYER_INDEX, false);
 
             _playerController.SetIsLimitingMaxSpeed(true);
-
         }
 
         public override EPlayerMovementState GetNextState()
