@@ -1,5 +1,6 @@
 using CBA.Core;
 using Cinemachine;
+using DG.Tweening;
 using GameCells.Utilities;
 using System;
 using System.Collections;
@@ -286,6 +287,11 @@ namespace CBA.Entities.Player.Weapons
             _fullyChargedVFX.SetActive(false);
 
             IsPerformingCombatAction = false;
+
+            if (_playerCombatManager.ChargedAttackVolume.weight != 0)
+            {
+                DOVirtual.Float(0, 0, 0.5f, (weight) => _playerCombatManager.ChargedAttackVolume.weight = weight);
+            }
         }
 
         private IEnumerator ChargingCO()
@@ -322,6 +328,8 @@ namespace CBA.Entities.Player.Weapons
 
         public void OnChargedAttackFull()
         {
+            DOVirtual.Float(0, 1, 0.5f, (weight) => _playerCombatManager.ChargedAttackVolume.weight = weight);
+
             _playerCombatManager.OnChargingMaxed?.Invoke();
 
             _weaponAnimator.SetTrigger(GameData.FULLYCHARGED_HASH);
@@ -360,6 +368,8 @@ namespace CBA.Entities.Player.Weapons
 
         public void EndChargedAttack()
         {
+            DOVirtual.Float(0, 0, 0.5f, (weight) => _playerCombatManager.ChargedAttackVolume.weight = weight);
+
             _playerCombatManager.OnChargedAttackEnded?.Invoke();
 
             _chargedAttackHitboxEnabled = false;

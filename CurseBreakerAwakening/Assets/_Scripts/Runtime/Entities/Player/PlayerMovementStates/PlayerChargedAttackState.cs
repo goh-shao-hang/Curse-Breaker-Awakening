@@ -1,3 +1,5 @@
+using Codice.Client.Common.FsNodeReaders.Watcher;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CBA.Entities.Player
@@ -35,6 +37,7 @@ namespace CBA.Entities.Player
 
             _playerController.MovementModule.SetVelocity(_chargedAttackDirection * _chargedAttackMovementSpeed);
             _playerController.SetIsLimitingMaxSpeed(false);
+
         }
 
         private void OnChargeAttackEnded()

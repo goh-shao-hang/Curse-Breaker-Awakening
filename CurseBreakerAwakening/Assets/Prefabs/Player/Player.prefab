@@ -44,6 +44,7 @@ Transform:
   - {fileID: 980999763820017703}
   - {fileID: 442615089030689717}
   - {fileID: 2654611889018968469}
+  - {fileID: 768742781905512956}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,6 +173,7 @@ MonoBehaviour:
   _weaponHolderTransform: {fileID: 980999763820017703}
   ChargedAttackHitbox: {fileID: 747243636247433320}
   PlayerHurtbox: {fileID: 8423231553689615740}
+  ChargedAttackVolume: {fileID: 2900995821284048005}
   CurrentWeapon: {fileID: 0}
   BlockStaminaConsumption: 20
   TargetLayers:
@@ -655,6 +657,55 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 1.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0.5}
+--- !u!1 &6406622665916983851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768742781905512956}
+  - component: {fileID: 2900995821284048005}
+  m_Layer: 9
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &768742781905512956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406622665916983851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 980999762061052906}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2900995821284048005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406622665916983851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 2
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 89bbcda8f89d8874598b6fbbae75d5b6, type: 2}
 --- !u!1 &8108512757192152592
 GameObject:
   m_ObjectHideFlags: 0

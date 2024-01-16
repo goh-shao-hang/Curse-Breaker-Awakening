@@ -3,6 +3,7 @@ using GameCells.Utilities;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CBA.Entities.Player
 {

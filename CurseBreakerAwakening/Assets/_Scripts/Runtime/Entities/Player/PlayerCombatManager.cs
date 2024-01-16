@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace CBA.Entities.Player
@@ -23,6 +24,7 @@ namespace CBA.Entities.Player
         [SerializeField] private Transform _weaponHolderTransform;
         [field: SerializeField] public BoxCollider ChargedAttackHitbox;
         [field: SerializeField] public PlayerHurtbox PlayerHurtbox;
+        [field: SerializeField] public Volume ChargedAttackVolume;
 
         [field: SerializeField] public Weapon CurrentWeapon = null;
 
