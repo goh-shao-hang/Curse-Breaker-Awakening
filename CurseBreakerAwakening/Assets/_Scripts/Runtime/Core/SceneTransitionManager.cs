@@ -2,8 +2,7 @@ using CBA;
 using DG.Tweening;
 using GameCells.Utilities;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +12,9 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
     [SerializeField] private CanvasGroup _transitionCanvasGroup;
     [SerializeField] private CanvasGroup _loadingBarCanvasGroup;
     [SerializeField] private Image _loadingBarFill;
+    [SerializeField] private TMP_Text _loadingScreenTipTitle;
+    [SerializeField] private TMP_Text _loadingScreenTip;
+    [SerializeField] private SO_LoadingScreenTip[] _loadingScreenTips;
 
     //Low priority cam that ensures audio can be heard. No sure if this is the best way tho.
     [SerializeField] private Camera _camera;
@@ -63,6 +65,10 @@ public class SceneTransitionManager : Singleton<SceneTransitionManager>
     {
         if (useLoadingBar)
         {
+            int random = Random.Range(0, _loadingScreenTips.Length);
+            _loadingScreenTipTitle.text = _loadingScreenTips[random].TipTitle;
+            _loadingScreenTip.text = _loadingScreenTips[random].TipText;
+
             _loadingBarFill.fillAmount = 0f;
             _loadingBarCanvasGroup.DOFade(1, _loadingBarFadeDuration);
             yield return WaitHandler.GetWaitForSeconds(_loadingBarFadeDuration);
