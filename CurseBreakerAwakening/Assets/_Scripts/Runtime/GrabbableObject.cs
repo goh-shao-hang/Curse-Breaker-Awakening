@@ -177,6 +177,9 @@ public class GrabbableObject : MonoBehaviour, IInteractable
 
     private void ChangeOriginalParent()
     {
+        if (_grabTransform == null) //Not being grabbed
+            return;
+
         //eg. when the player leave a room while grabbing this prop, when thrown set the parent to that new room instead
         _originalParent = LevelManager.Instance.CurrentRoom.transform;
     }
