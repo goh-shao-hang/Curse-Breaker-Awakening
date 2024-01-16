@@ -15,6 +15,8 @@ namespace CBA
 
         protected override void OnCollected(GameObject _playerGameObject)
         {
+            base.OnCollected(_playerGameObject);
+
             GameManager.Instance?.ObtainCoin(1);
         }
     }

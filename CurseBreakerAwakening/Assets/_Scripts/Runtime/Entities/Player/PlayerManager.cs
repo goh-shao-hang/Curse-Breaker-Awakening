@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     public void ActivateComponents(bool activate)
     {
         PlayerController.gameObject.SetActive(activate);
+        PlayerController.MovementModule.SetVelocity(Vector3.zero);
+
         PlayerCameraController.gameObject.SetActive(activate);
         PlayerHUDManager.gameObject.SetActive(activate);
     }

@@ -17,6 +17,8 @@ namespace CBA
 
         protected override void OnCollected(GameObject _playerGameObject)
         {
+            base.OnCollected(_playerGameObject);
+
             HealthModule healthModule = _playerGameObject.GetComponentInChildren<HealthModule>();
             healthModule.RestoreHealth(_healAmount);
         }

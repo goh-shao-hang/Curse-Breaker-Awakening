@@ -6179,6 +6179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: obj_01 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1735663003775730, guid: 5d7c205b438ba434e89250b89c5e0c1a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4033629406086482, guid: 5d7c205b438ba434e89250b89c5e0c1a, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -6260,7 +6264,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3692413610929249120}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b06a5da3213358940b98a6aaf641cdd2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

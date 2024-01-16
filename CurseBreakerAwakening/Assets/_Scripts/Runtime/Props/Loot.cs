@@ -74,17 +74,18 @@ public abstract class Loot : MonoBehaviour
         OnCollected(GameManager.Instance.PlayerManager.PlayerController.gameObject);
     }
 
-    protected abstract void OnCollected(GameObject _playerGameObject);
+    protected virtual void OnCollected(GameObject _playerGameObject)
+    {
+        if (_pool != null)
+            _pool.AddToPool(this);
+        else
+            Destroy(gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & GameData.PLAYER_LAYER) != 0)
         {
-            if (_pool != null)
-                _pool.AddToPool(this);
-            else
-                Destroy(gameObject);
-
             OnCollected(other.gameObject);
         }
     }
@@ -93,11 +94,6 @@ public abstract class Loot : MonoBehaviour
     {
         if (((1 << collision.gameObject.layer) & GameData.PLAYER_LAYER) != 0)
         {
-            if (_pool != null)
-                _pool.AddToPool(this);
-            else
-                Destroy(gameObject);
-
             OnCollected(collision.gameObject);
         }
     }

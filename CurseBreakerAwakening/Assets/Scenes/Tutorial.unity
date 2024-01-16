@@ -910,7 +910,7 @@ MonoBehaviour:
   - RoomTypeName: Boss
     RoomType: 3
     RoomPrefabs:
-    - {fileID: 5605829379486455899, guid: ef3e3fb0fbc6fdd48b0c3117f0dbf872, type: 3}
+    - {fileID: 5605829379486455899, guid: ec8c06953c2106f4aa4b75bf0b1ef1b4, type: 3}
   _rules:
   - ruleName: Entrance
     roomType: 0
