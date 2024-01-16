@@ -90,8 +90,8 @@ namespace CBA.Entities
 
             _recoverState.AddTransition(_idleState, _recoverAnimationFinishedCondition);
 
-            this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
             this.AddAnyTransition(_deathState, _healthDepletedCondition);
+            this.AddAnyTransition(_stunnedState, _guardBrokenCondition);
 
             Initialize(_idleState);
         }

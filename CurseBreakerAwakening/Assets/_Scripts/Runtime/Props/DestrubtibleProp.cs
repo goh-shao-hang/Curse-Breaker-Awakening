@@ -31,6 +31,8 @@ namespace CBA
         [SerializeField] private float _upForceMin = 0.0f;
         [SerializeField] private float _upForceMax = 0.5f;
 
+        public bool CanTakeDamage { get; private set; } = true;
+
         private Rigidbody[] _destroyedPiecesRigidbodies;
 
         private DamageData _damageData;
@@ -72,8 +74,16 @@ namespace CBA
             _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(_damageData));*/
         }
 
+        public void SetCanTakeDamage(bool canTakeDamage)
+        {
+            this.CanTakeDamage = canTakeDamage;
+        }
+
         public void TakeDamage(DamageData damageData)
         {
+            if (!CanTakeDamage)
+                return;
+
             if (_broken)
                 return;
 

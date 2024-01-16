@@ -14,10 +14,16 @@ namespace CBA.Entities
 
         [Header("Optional")]
         [SerializeField] private GrabbableObject _grabbableObject;
+        [SerializeField] private DestrubtibleProp _destructibleProp;
 
         private float _currentAttackDamage;
 
         private DamageData _damageData;
+
+        private void Start()
+        {
+            this._destructibleProp?.SetCanTakeDamage(false);
+        }
 
         private void OnEnable()
         {
@@ -70,6 +76,7 @@ namespace CBA.Entities
             _collider.isTrigger = false;
 
             transform.SetParent(null);
+            this._destructibleProp?.SetCanTakeDamage(true);
 
             if (_grabbableObject != null)
             {
