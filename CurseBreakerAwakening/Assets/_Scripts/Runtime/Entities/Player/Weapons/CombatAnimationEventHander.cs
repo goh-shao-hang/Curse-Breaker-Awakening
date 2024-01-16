@@ -14,6 +14,7 @@ namespace CBA.Entities.Player.Weapons
         public event Action OnAllowNextComboEvent;
         public event Action OnEmitTrail;
         public event Action OnStopEmitTrail;
+        public event Action<string> OnPlaySound;
         public event Action OnSpellCast;
         public event Action OnSpellComplete;
         public event Action OnTransitionEvent;
@@ -47,6 +48,11 @@ namespace CBA.Entities.Player.Weapons
         public void StopEmitTrail()
         {
             OnStopEmitTrail?.Invoke();
+        }
+
+        public void PlaySound(string soundName)
+        {
+            OnPlaySound(soundName);
         }
 
         public void CastSpell()

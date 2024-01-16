@@ -338,6 +338,8 @@ namespace CBA.Entities.Player.Weapons
             _fullyChargedVFX.SetActive(true);
 
             _weaponMeshRenderer.material = _chargedAttackMaterial;
+
+            AudioManager.Instance.PlayGlobalSFX("Player_ChargeMaxed");
         }
 
         public void PerformChargedAttack(float chargedPercentage)

@@ -1,4 +1,5 @@
 using CBA;
+using CBA.Core;
 using CBA.Entities;
 using DG.Tweening;
 using GameCells.Utilities;
@@ -11,6 +12,8 @@ public class Projectile : MonoBehaviour
     [Header(GameData.DEPENDENCIES)]
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private GameObject _onHitVfx;
+    [SerializeField] private AudioEmitter _audioEmitter;
+    [SerializeField] private string _collisionSfxName = "Explosion";
 
     [Header(GameData.SETTINGS)]
     [SerializeField] private float _damage = 20f;
@@ -112,6 +115,13 @@ public class Projectile : MonoBehaviour
             {
                 Instantiate(_onHitVfx, transform.position, Quaternion.identity);
             }
+
+            if (_audioEmitter != null)
+            {
+                _audioEmitter.transform.SetParent(null);
+                _audioEmitter.PlayOneShotSfx(_collisionSfxName);
+                DOVirtual.DelayedCall(3f, () => _audioEmitter.transform.parent = this.transform);
+            }
         }
     }
 
@@ -127,6 +137,13 @@ public class Projectile : MonoBehaviour
         if (_onHitVfx != null)
         {
             Instantiate(_onHitVfx, transform.position, Quaternion.identity);
+        }
+
+        if (_audioEmitter != null)
+        {
+            _audioEmitter.transform.SetParent(null);
+            _audioEmitter.PlayOneShotSfx(_collisionSfxName);
+            DOVirtual.DelayedCall(3f, () => _audioEmitter.transform.parent = this.transform);
         }
     }
 }

@@ -154,8 +154,8 @@ MonoBehaviour:
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 1aecaf9d8d120534f83acf94339e5f10, type: 3}
     _volume: 1
-    _pitch: 0.8
-    _pitchVariation: 0.15
+    _pitch: 0.7
+    _pitchVariation: 0
   - <Name>k__BackingField: Collect_Coin
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: c6e11ee22d38a8e45a905d04ab802edd, type: 3}
@@ -181,3 +181,48 @@ MonoBehaviour:
     _volume: 1
     _pitch: 1
     _pitchVariation: 0
+  - <Name>k__BackingField: Enemy_Attack
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: e921570640a47e74ca598d1c5522653a, type: 3}
+    - {fileID: 8300000, guid: 3db412a553e64cf49a57502f18989389, type: 3}
+    _volume: 0.7
+    _pitch: 1
+    _pitchVariation: 0.2
+  - <Name>k__BackingField: Enemy_Attack
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: e921570640a47e74ca598d1c5522653a, type: 3}
+    - {fileID: 8300000, guid: 3db412a553e64cf49a57502f18989389, type: 3}
+    _volume: 0.7
+    _pitch: 1
+    _pitchVariation: 0.2
+  - <Name>k__BackingField: Enemy_Death
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: b23fbc300a74db549bf2a922f99741f7, type: 3}
+    _volume: 0.7
+    _pitch: 1
+    _pitchVariation: 0.2
+  - <Name>k__BackingField: Enemy_Cast
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 0d7983f82a2ce7e44a02736b8fc9281d, type: 3}
+    - {fileID: 8300000, guid: b14c961f9e431dc40973015f8b87cfe6, type: 3}
+    _volume: 0.7
+    _pitch: 1
+    _pitchVariation: 0.2
+  - <Name>k__BackingField: Player_Charging
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: f48002586b9043c44a72f23fc1ab84de, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: Player_ChargeMaxed
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 2e23c48672809ad46a69d0271067338d, type: 3}
+    _volume: 1
+    _pitch: 1
+    _pitchVariation: 0
+  - <Name>k__BackingField: Explosion
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: f6058c25ddeaa34468c1a4a57c4d6197, type: 3}
+    _volume: 0.7
+    _pitch: 1
+    _pitchVariation: 0.2

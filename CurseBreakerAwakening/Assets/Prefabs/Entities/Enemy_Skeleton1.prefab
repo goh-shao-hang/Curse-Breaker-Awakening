@@ -62,7 +62,7 @@ Transform:
   - {fileID: 376674859219954635}
   - {fileID: 376674859149691217}
   m_Father: {fileID: 376674859392112425}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376674858028061242
 GameObject:
@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 376674858771273603}
   - component: {fileID: 376674858771273602}
   - component: {fileID: 3777867219693225738}
+  - component: {fileID: 2022018424983331200}
   m_Layer: 7
   m_Name: Modules
   m_TagString: Untagged
@@ -282,6 +283,20 @@ MonoBehaviour:
   _launchForce: 2
   _minDrops: 5
   _maxDrops: 10
+--- !u!114 &2022018424983331200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376674858771273855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f53a8509e190cae4d99add4339c0c412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioEmitter: {fileID: 8750768658225804322}
+  _combatAnimationEventHander: {fileID: 376674858730808269}
 --- !u!1 &376674858841146327
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +718,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 376674858771273600}
+  - {fileID: 8158690048849812395}
   - {fileID: 8377248061423418929}
   - {fileID: 376674857994242571}
   m_Father: {fileID: 0}
@@ -788,6 +804,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8750768658225804322}
+        m_TargetAssemblyTypeName: CBA.Core.AudioEmitter, CBA.Runtime
+        m_MethodName: PlayOneShotSfx
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Enemy_Death
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &376674859392112429
@@ -936,6 +964,147 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f365bb9737076a64da946f850f13b00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2222718082451249426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8158690048849812395}
+  - component: {fileID: 1449387223002488344}
+  - component: {fileID: 8750768658225804322}
+  m_Layer: 7
+  m_Name: AudioEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8158690048849812395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222718082451249426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 376674859392112425}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1449387223002488344
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222718082451249426}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8750768658225804322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222718082451249426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce6e8892abfd534b9642127f0e3be07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8640195058131668426
@@ -1374,7 +1543,7 @@ PrefabInstance:
     - target: {fileID: 8177342251293287161, guid: 18e0098c09c0bed41bd638b522e5a033,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8177342251293287161, guid: 18e0098c09c0bed41bd638b522e5a033,
         type: 3}
@@ -2012,6 +2181,7 @@ MonoBehaviour:
   _maxScale: 1
   _destroyedSfxName: PropsDestroyed_Metal
   _destroyAfterDelay: 1
+  _destroyOnRoomChanged: 0
   _explosionForce: 2
   _explosionRadius: 5
   _upForceMin: 0
