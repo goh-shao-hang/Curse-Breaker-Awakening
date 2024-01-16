@@ -91,7 +91,10 @@ namespace CBA.Entities.Player
 
             //Manage selection
             //Only check for highlight if the player is not already grabbing something
-            if (!IsGrabbing && Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
+            if (IsGrabbing)
+                return;
+
+            if (Physics.Raycast(_playerCameraController.PlayerCamera.transform.position, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
                 _interactableLayer))
             {
                 if (_raycastHit.transform.TryGetComponent(out IInteractable interactable))
@@ -100,16 +103,13 @@ namespace CBA.Entities.Player
                     _currentSelection = interactable;
                 }
             }
-            else
+            else if(Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _sphereCastRadius, _playerCameraController.PlayerCamera.transform.forward, 
+                out _raycastHit, _maxGrabDistance, _interactableLayer))
             {
-                if (Physics.SphereCast(_playerCameraController.PlayerCamera.transform.position, _sphereCastRadius, _playerCameraController.PlayerCamera.transform.forward, out _raycastHit, _maxGrabDistance,
-                _interactableLayer))
+                if (_raycastHit.transform.TryGetComponent(out IInteractable interactable))
                 {
-                    if (_raycastHit.transform.TryGetComponent(out IInteractable interactable))
-                    {
-                        interactable.OnSelect();
-                        _currentSelection = interactable;
-                    }
+                    interactable.OnSelect();
+                    _currentSelection = interactable;
                 }
             }
         }
