@@ -844,13 +844,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpawnPoint: {fileID: 0}
-  _bossHealth: {fileID: 0}
+  _bossEntity: {fileID: 0}
   _portalToNextLevel: {fileID: 0}
   _bossHealthCanvasGroup: {fileID: 7997439378350506166}
   _victoryTextCanvasGroup: {fileID: 1426941310}
   _healthBarRoot: {fileID: 2134943383010257246}
   _healthBarWhite: {fileID: 2134943384106213297}
   _healthBarFill: {fileID: 2134943384479031970}
+  _bossName: {fileID: 2134943383676242630}
   _victoryText1: {fileID: 2134943383528753952}
   _victoryText2: {fileID: 2056709707}
   _portalPrompt: {fileID: 1391983493}

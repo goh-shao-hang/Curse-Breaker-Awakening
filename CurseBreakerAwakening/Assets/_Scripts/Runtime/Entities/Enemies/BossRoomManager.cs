@@ -14,7 +14,7 @@ namespace CBA.Entities
     {
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private HealthModule _bossHealth;
+        [SerializeField] private Entity _bossEntity;
         [SerializeField] private Portal _portalToNextLevel;
 
         [Header("UI")]
@@ -23,6 +23,7 @@ namespace CBA.Entities
         [SerializeField] private Image _healthBarRoot;
         [SerializeField] private Image _healthBarWhite;
         [SerializeField] private Image _healthBarFill;
+        [SerializeField] private TMP_Text _bossName;
         [SerializeField] private TMP_Text _victoryText1;
         [SerializeField] private TMP_Text _victoryText2;
         [SerializeField] private TMP_Text _portalPrompt;
@@ -41,6 +42,8 @@ namespace CBA.Entities
         private bool _bossFightStarted = false;
 
         private PlayerManager _playerManager;
+
+        private HealthModule _bossHealth;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -62,6 +65,8 @@ namespace CBA.Entities
 
             _portalToNextLevel.gameObject.SetActive(false);
 
+            _bossName.text = _bossEntity.EntityData.EntityName;
+
             _bossHealthCanvasGroup.alpha = 0f;
             _victoryTextCanvasGroup.alpha = 0f;
             _portalPrompt.alpha = 0f;
@@ -71,6 +76,9 @@ namespace CBA.Entities
 
         private void OnEnable()
         {
+            if (_bossHealth == null)
+                _bossHealth = _bossEntity.GetModule<HealthModule>();
+
             _bossHealth.OnHealthIncreased.AddListener(OnBossHealthIncreased);
             _bossHealth.OnHealthDecreased.AddListener(OnBossHealthDecreased);
         }

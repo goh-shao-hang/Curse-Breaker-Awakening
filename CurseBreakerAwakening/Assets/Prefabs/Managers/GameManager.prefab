@@ -45,13 +45,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels:
+  - LevelName: Tutorial
+    FloorScene:
+      _sceneAsset: {fileID: 102900000, guid: 1357d86140899b14097f31e469dd0d27, type: 3}
+      _sceneName: Tutorial
+    BossScene:
+      _sceneAsset: {fileID: 102900000, guid: 061330547be56254596b6b451af4f7a3, type: 3}
+      _sceneName: TutorialBoss
   - LevelName: Floor 1
     FloorScene:
-      _sceneAsset: {fileID: 102900000, guid: 19bd005d606707946a95db06bc27e09f, type: 3}
-      _sceneName: Generation
+      _sceneAsset: {fileID: 102900000, guid: 50c8ab4077487fb4a855b525731ec3e1, type: 3}
+      _sceneName: Floor1
     BossScene:
       _sceneAsset: {fileID: 102900000, guid: 158a52f736a4a2748ac3bed1ee8c5dbf, type: 3}
-      _sceneName: BossNew
+      _sceneName: Floor1Boss
   _endingScene:
     _sceneAsset: {fileID: 102900000, guid: a533dcdfd330fac4498b3dc2531e99d3, type: 3}
     _sceneName: Ending

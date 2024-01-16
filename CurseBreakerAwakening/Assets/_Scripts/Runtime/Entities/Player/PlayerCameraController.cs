@@ -37,7 +37,10 @@ namespace CBA.Entities.Player
 
         private void OnEnable()
         {
-            GameEventsManager.Instance.OnCameraShakeEvent += CameraShake;
+            if (GameEventsManager.Instance != null)
+            {
+                GameEventsManager.Instance.OnCameraShakeEvent += CameraShake;
+            }
 
             _playerController.OnWallRunStarted += TiltCamera;
             _playerController.OnWallRunEnded += StopCameraTilt;
@@ -47,6 +50,11 @@ namespace CBA.Entities.Player
 
         private void OnDisable()
         {
+            if (GameEventsManager.Instance != null)
+            {
+                GameEventsManager.Instance.OnCameraShakeEvent -= CameraShake;
+            }
+
             _playerController.OnWallRunStarted -= TiltCamera;
             _playerController.OnWallRunEnded -= StopCameraTilt;
             _playerController.PlayerCombatManager.OnChargedAttackReleased -= (x) => LockCameraMovement(true);

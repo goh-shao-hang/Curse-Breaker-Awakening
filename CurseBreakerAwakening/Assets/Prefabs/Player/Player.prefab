@@ -217,7 +217,7 @@ MonoBehaviour:
   _movementModule: {fileID: 980999762728581201}
   _entityInfoCheckDistance: 8
   _sphereCastRadius: 1
-  _maxGrabDistance: 3
+  _maxGrabDistance: 2.5
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 32896

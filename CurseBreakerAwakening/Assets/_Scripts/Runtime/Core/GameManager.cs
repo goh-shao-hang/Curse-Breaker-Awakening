@@ -51,6 +51,23 @@ namespace CBA.Core
             this.SetDontDestroyOnLoad(true);
         }
 
+        public async void StartRunWithTutorial()
+        {
+            SceneTransitionManager.Instance.LoadSceneWithTransition(_emptyScene, false);
+
+            await Task.Delay(5000);
+
+            AudioManager.Instance.PlayGlobalSFX("GameStartNarration");
+
+            _currentLevel = 0;
+
+            _playerManager = Instantiate(_playerManagerPrefab, Vector3.zero, Quaternion.identity);
+            DontDestroyOnLoad(_playerManager.gameObject);
+            _playerManager.ActivateComponents(false);
+
+            DOVirtual.DelayedCall(GameData.GAME_START_NARRATION_DELAY, () => LoadNextLevel());
+        }
+
         public async void StartRun(float delay = 0f)
         {
             SceneTransitionManager.Instance.LoadSceneWithTransition(_emptyScene, false);
@@ -98,7 +115,7 @@ namespace CBA.Core
 
         public async void LoadNextLevel()
         {
-            SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel - 1].FloorScene, true);
+            SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel].FloorScene, true);
 
             await Task.Delay(1000);
             PlayerManager.ActivateComponents(false);
@@ -115,11 +132,13 @@ namespace CBA.Core
 
         }
 
-        public void EnterBossRoom()
+        public async void EnterBossRoom()
         {
             AudioManager.Instance.StopBGM(2f);
 
-            SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel - 1].BossScene, true);
+            SceneTransitionManager.Instance.LoadSceneWithTransition(_levels[_currentLevel].BossScene, true);
+            await Task.Delay(1000);
+            PlayerManager.ActivateComponents(false);
         }
 
         public void PlayerDeath()
@@ -138,26 +157,14 @@ namespace CBA.Core
             OnCoinChanged?.Invoke();
         }
 
-        private void OnValidate()
-        {
-            for (int i = 0; i < _levels.Length; i++)
-            {
-                _levels[i].UpdateLevelNames(i);
-            }
-        }
 
         [Serializable]
         public class Level
         {
-            [HideInInspector] public string LevelName;
+            public string LevelName;
 
             [field: SerializeField] public SceneField FloorScene;
             [field: SerializeField] public SceneField BossScene;
-
-            public void UpdateLevelNames(int index)
-            {
-                this.LevelName = $"Floor {index + 1}";
-            }
         }
     }
 }

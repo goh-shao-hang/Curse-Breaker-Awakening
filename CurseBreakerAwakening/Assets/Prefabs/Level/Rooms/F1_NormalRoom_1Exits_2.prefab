@@ -496,7 +496,6 @@ MonoBehaviour:
   <RoomShape>k__BackingField: 0
   <Exits>k__BackingField:
   - {fileID: 5074312657599389956}
-  - {fileID: 5074312657599389956}
 --- !u!114 &887329498917113565
 MonoBehaviour:
   m_ObjectHideFlags: 0

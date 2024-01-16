@@ -11,18 +11,33 @@ namespace CBA
     {
         [SerializeField] private PlayableDirector _cutscenePlayable;
 
+        [SerializeField] private float _minPlayTime = 5f;
+
+        private float _currentPlaytime;
+        private bool _sceneLoading = false;
+
         private void Start()
         {
             _cutscenePlayable.stopped += OnCutsceneEnded;
+
+            _currentPlaytime = 0f;
         }
 
         private void Update()
         {
+            if (_sceneLoading)
+                return;
+
+            if (_currentPlaytime < _minPlayTime)
+            {
+                _currentPlaytime += Time.deltaTime;
+                return;
+            }
+
             //TODO
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
                 _cutscenePlayable.Stop();
-                StartRun();
             }
         }
 
@@ -33,7 +48,11 @@ namespace CBA
 
         private void StartRun()
         {
-            GameManager.Instance.StartRun(5f);
+            if (_sceneLoading)
+                return;
+
+            _sceneLoading = true;
+            GameManager.Instance.StartRunWithTutorial();
         }
     }
 }

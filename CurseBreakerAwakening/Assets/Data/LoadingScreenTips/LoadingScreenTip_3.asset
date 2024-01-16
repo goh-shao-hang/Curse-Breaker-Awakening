@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LoadingScreenTip_3
   m_EditorClassIdentifier: 
   TipTitle: Kori
-  TipText: The god of wisdom. Wields the power of  <b><color=blue>Ice</color></b>.
+  TipText: The god of wisdom. Wields the power of <b><color=blue>Ice</color></b>.
     He has been in a deep slumber for over hundred years, and your appearance seems
     to have awakened him for some reason...

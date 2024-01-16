@@ -23,6 +23,7 @@ namespace CBA.Entities
         [field: SerializeField] public bool IsGuarding { get; private set; } = false;
 
         public event Action<float> OnHurt;
+        public event Action OnParried;
 
         private SkinnedMeshRenderer _skinnedMeshRenderer;
         private SkinnedMeshRenderer skinnedMeshRenderer => _skinnedMeshRenderer ??= GetComponentInChildren<SkinnedMeshRenderer>();
@@ -44,6 +45,11 @@ namespace CBA.Entities
             if (_guardModule != null && !_guardModule.IsGuardBroken)
             {
                 _guardModule.TakeDamage(damageData.DamageAmount);
+
+                if (damageData.IsGuardDamage)
+                {
+                    OnParried?.Invoke();
+                }
             }
 
             if (!IsGuarding && !damageData.IsGuardDamage)

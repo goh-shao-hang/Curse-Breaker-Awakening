@@ -1,7 +1,6 @@
 using CBA.Core;
 using CBA.Entities;
 using CBA.Entities.Player;
-using DG.DOTweenEditor;
 using DG.Tweening;
 using GameCells.Utilities;
 using System.Collections;

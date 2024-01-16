@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 94caf2ba4ca5e46bfaba53afcc8778dd, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.002491034, g: 0.042804174, b: 0.12440771, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -886,67 +886,54 @@ MonoBehaviour:
   - RoomTypeName: Entrance
     RoomType: 0
     RoomPrefabs:
-    - {fileID: 5605829379486455899, guid: a58afd1426ea7704bbb48f2a144f4cfd, type: 3}
-  - RoomTypeName: Tutorial1
-    RoomType: 6
+    - {fileID: 5605829379486455899, guid: 85bc67b5cbe58f14cae73cb8170d0587, type: 3}
+  - RoomTypeName: Normal
+    RoomType: 1
     RoomPrefabs:
-    - {fileID: 531410217305594989, guid: d479d2a53e269fe4eaf57a4b1b06d0d4, type: 3}
-  - RoomTypeName: Tutorial2
-    RoomType: 7
-    RoomPrefabs:
-    - {fileID: 9056428978846767653, guid: dcfa9cd9fb3518441a10739649d8e0c2, type: 3}
-  - RoomTypeName: Tutorial3
-    RoomType: 8
-    RoomPrefabs:
-    - {fileID: 9056428978846767653, guid: 6650cc89b1076cd42bde31c71aedc97a, type: 3}
-  - RoomTypeName: Tutorial4
-    RoomType: 9
-    RoomPrefabs:
-    - {fileID: 531410217305594989, guid: 1ca35ad8d30879a439535e34fa02e037, type: 3}
-  - RoomTypeName: Tutorial5
-    RoomType: 10
-    RoomPrefabs:
-    - {fileID: 531410217305594989, guid: 668805e994861ca4489e2690571955ed, type: 3}
+    - {fileID: 5605829379486455899, guid: 7fbdc335330d3404cbfc698a65cd346f, type: 3}
+    - {fileID: 5605829379486455899, guid: de26d8c6e7181834a88eb03c2197fa81, type: 3}
+    - {fileID: 5605829379486455899, guid: 32bca583085b55545ab3fa4d20a66c8d, type: 3}
+    - {fileID: 5605829379486455899, guid: dcb50e2dc82743749b3957d4c7027910, type: 3}
+    - {fileID: 9056428978846767653, guid: aaa1281806254974d8b843985ae562a0, type: 3}
+    - {fileID: 5605829379486455899, guid: 466d61569b9b7094f9b031fd0fde98db, type: 3}
+    - {fileID: 6759622114752963760, guid: ab894780dc4fbc44ca54fd1611694c89, type: 3}
+    - {fileID: 5605829379486455899, guid: 24ac0115e21ff8148b917120e6087e18, type: 3}
+    - {fileID: 5605829379486455899, guid: b1e014441e854aa4db40ee7bcda2a369, type: 3}
+    - {fileID: 7210583796080033317, guid: 9e18e651825cc5c48be52e2b89f692a0, type: 3}
+    - {fileID: 7210583796080033317, guid: 6ef304a59de4caa408940de395875123, type: 3}
   - RoomTypeName: Boss
     RoomType: 3
     RoomPrefabs:
     - {fileID: 5605829379486455899, guid: ef3e3fb0fbc6fdd48b0c3117f0dbf872, type: 3}
+  - RoomTypeName: Treasure
+    RoomType: 2
+    RoomPrefabs:
+    - {fileID: 5605829379486455899, guid: 5eadf475a222ba744b9ca62eedefcb9b, type: 3}
+    - {fileID: 5605829379486455899, guid: 351b0faa2712b6c44ba0bf3aed060a14, type: 3}
+    - {fileID: 5605829379486455899, guid: da78a51683dd5a34f9b50a845f8a0b8b, type: 3}
+    - {fileID: 5605829379486455899, guid: 6e8b56026e6355547848cc4c82c38319, type: 3}
+    - {fileID: 5605829379486455899, guid: 80fd388d26dbf05478a3a040cc288c9d, type: 3}
   _rules:
   - ruleName: Entrance
     roomType: 0
     MinSpawnIndex: 1
     MaxSpawnIndex: 1
     SpawnChance: 1
-  - ruleName: Tutorial1
-    roomType: 6
+  - ruleName: Normal
+    roomType: 1
     MinSpawnIndex: 2
-    MaxSpawnIndex: 2
-    SpawnChance: 1
-  - ruleName: Tutorial2
-    roomType: 7
-    MinSpawnIndex: 3
-    MaxSpawnIndex: 3
-    SpawnChance: 1
-  - ruleName: Tutorial3
-    roomType: 8
-    MinSpawnIndex: 4
-    MaxSpawnIndex: 4
-    SpawnChance: 1
-  - ruleName: Tutorial4
-    roomType: 9
-    MinSpawnIndex: 5
-    MaxSpawnIndex: 5
-    SpawnChance: 1
-  - ruleName: Tutorial5
-    roomType: 10
-    MinSpawnIndex: 6
-    MaxSpawnIndex: 6
+    MaxSpawnIndex: 19
     SpawnChance: 1
   - ruleName: Boss
     roomType: 3
-    MinSpawnIndex: 7
-    MaxSpawnIndex: 7
+    MinSpawnIndex: 20
+    MaxSpawnIndex: 20
     SpawnChance: 1
+  - ruleName: Treasure
+    roomType: 2
+    MinSpawnIndex: 2
+    MaxSpawnIndex: 19
+    SpawnChance: 0.1
   _roomOffset: {x: 0, y: 0}
   _visualizeGeneration: 0
 --- !u!1 &716039336
@@ -1262,10 +1249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4464dbbed61cf4f962cd6e3921031c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardSize: {x: 1, y: 7}
+  BoardSize: {x: 6, y: 6}
   _startPosition: {x: 0, y: 0}
   _maxIterations: 1000
-  _maxRooms: 7
+  _maxRooms: 20
   _allowLoops: 1
   _isolateFirstRoom: 1
   _delay: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LoadingScreenTip_2
   m_EditorClassIdentifier: 
   TipTitle: Valkyrie
-  TipText: The goddess of courage. Wields the power of  <b><color=red>Fire</color></b>.
+  TipText: The goddess of courage. Wields the power of <b><color=red>Fire</color></b>.
     She would generously award all who proves their courage to her, but will severely
     punish those she deem unworthy.
