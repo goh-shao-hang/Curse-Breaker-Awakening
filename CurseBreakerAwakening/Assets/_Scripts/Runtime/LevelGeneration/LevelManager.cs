@@ -2,6 +2,7 @@ using CBA.Core;
 using CBA.Entities.Player;
 using DG.Tweening;
 using GameCells.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,13 +20,15 @@ namespace CBA.LevelGeneration
 
         private Dictionary<Cell, Room> _roomsDict;
         private Cell _currentCell;
-        private Room _currentRoom => _roomsDict[_currentCell];
+        public Room CurrentRoom => _roomsDict[_currentCell];
         private Transform _safePoint; //Last entrance used will be determined as the safepoint.
 
         private PlayerManager _player;
         private PlayerController _playerController => _player.PlayerController;
         private PlayerCameraController _playerCameraController => _player.PlayerCameraController;
 
+
+        public event Action OnRoomChanged;
 
         private bool _isTransitioning;
 
@@ -55,7 +58,7 @@ namespace CBA.LevelGeneration
                 if (_levelGenerator.GetCellIndex(room.Key) == 1)
                 {
                     _currentCell = room.Key;
-                    _currentRoom.gameObject.SetActive(true);
+                    CurrentRoom.gameObject.SetActive(true);
                 }
                 else
                 {
@@ -68,16 +71,16 @@ namespace CBA.LevelGeneration
             _player = GameManager.Instance.PlayerManager;
             _player.ActivateComponents(true);
 
-            _playerController.transform.position = _currentRoom.Exits[1].SpawnPoint.position;
-            _playerCameraController.SetCameraRotation(_currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, _currentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
+            _playerController.transform.position = CurrentRoom.Exits[1].SpawnPoint.position;
+            _playerCameraController.SetCameraRotation(CurrentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.y, CurrentRoom.Exits[1].SpawnPoint.rotation.eulerAngles.x);
             _playerController.gameObject.SetActive(true);
             #endregion
 
             _mapRenderer?.SetCurrentRoom(_currentCell);
-            _currentRoom.OnPlayerExitRoom += TransitionToRoom;
-            _currentRoom.OnPlayerEnter();
+            CurrentRoom.OnPlayerExitRoom += TransitionToRoom;
+            CurrentRoom.OnPlayerEnter();
 
-            _safePoint = _currentRoom.Exits[1].SpawnPoint;
+            _safePoint = CurrentRoom.Exits[1].SpawnPoint;
 
             AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1", 2f, false);
 
@@ -96,9 +99,6 @@ namespace CBA.LevelGeneration
 
         private void LoadNextRoom(EExitDirection exitDirection)
         {
-            _currentRoom.gameObject.SetActive(false);
-            _currentRoom.OnPlayerExitRoom -= TransitionToRoom;
-
             //Adjust direction considering rotation of current cell
             int adjustedDirection = ((int)exitDirection + (_currentCell.RoomRotation / 90)) % 4;
 
@@ -111,19 +111,25 @@ namespace CBA.LevelGeneration
 
             EExitDirection nextRoomEntrance = (EExitDirection)entranceDirection;
 
+            CurrentRoom.gameObject.SetActive(false);
+            CurrentRoom.OnPlayerExitRoom -= TransitionToRoom;
+
             _currentCell = nextCell;
-            _currentRoom.gameObject.SetActive(true);
+
+            OnRoomChanged?.Invoke();
+
+            CurrentRoom.gameObject.SetActive(true);
             _mapRenderer?.SetCurrentRoom(_currentCell);
 
-            Exit entrance = _currentRoom.GetEntrance(nextRoomEntrance);
+            Exit entrance = CurrentRoom.GetEntrance(nextRoomEntrance);
             _playerController.transform.position = entrance.SpawnPoint.position;
             _playerCameraController.SetCameraRotation(entrance.SpawnPoint.rotation.eulerAngles.y, entrance.SpawnPoint.rotation.eulerAngles.x);
             //_playerReference.gameObject.SetActive(true);
 
             _safePoint = entrance.SpawnPoint;
 
-            _currentRoom.OnPlayerExitRoom += TransitionToRoom;
-            _currentRoom.OnPlayerEnter();
+            CurrentRoom.OnPlayerExitRoom += TransitionToRoom;
+            CurrentRoom.OnPlayerEnter();
 
             _transitionCanvas.DOFade(0, _roomTransitionDuration).OnComplete(() => _isTransitioning = false);
         }

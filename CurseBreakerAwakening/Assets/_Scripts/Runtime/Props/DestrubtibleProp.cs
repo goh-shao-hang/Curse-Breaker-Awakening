@@ -1,5 +1,6 @@
 using CBA.Core;
 using CBA.Entities;
+using CBA.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -24,6 +25,7 @@ namespace CBA
         [SerializeField] private float _maxScale = 1.5f;
         [SerializeField] private string _destroyedSfxName = "PropsDestroyed_Wood";
         [SerializeField] private bool _destroyAfterDelay = true;
+        [SerializeField] private bool _destroyOnRoomChanged = false;
 
         [Header("Explosion")]
         [SerializeField] private float _explosionForce = 2.0f;
@@ -55,25 +57,6 @@ namespace CBA
             transform.localScale = Vector3.one * Random.Range(_minScale, _maxScale);
         }
 
-        private void OnEnable()
-        {
-            /*if (_grabbableObject == null)
-                return;
-
-            _damageData.Set(1f, this.gameObject);
-            _grabbableObject.OnThrowCollision.AddListener(() => TakeDamage(_damageData));*/
-        }
-
-        private void OnDisable()
-        {
-            /*if (_grabbableObject == null)
-                return;
-
-            //TODO
-            _damageData.Set(1f, this.gameObject);
-            _grabbableObject.OnThrowCollision.RemoveListener(() => TakeDamage(_damageData));*/
-        }
-
         public void SetCanTakeDamage(bool canTakeDamage)
         {
             this.CanTakeDamage = canTakeDamage;
@@ -92,7 +75,8 @@ namespace CBA
             if (_destroyedPieces != null)
             {
                 _destroyedPieces.SetActive(true);
-                _destroyedPieces.transform.SetParent(null);
+
+                _destroyedPieces.transform.SetParent(LevelManager.Instance != null ? LevelManager.Instance.CurrentRoom.transform : null);
 
                 foreach (var rigidbody in _destroyedPiecesRigidbodies)
                 {
@@ -108,7 +92,7 @@ namespace CBA
                 Instantiate(_destroyedVfx, transform.position, Quaternion.identity);
             }
 
-            _audioEmitter?.transform.SetParent(null);
+            _audioEmitter?.transform.SetParent(LevelManager.Instance != null ? LevelManager.Instance.CurrentRoom.transform : null);
             _audioEmitter?.PlayOneShotSfx(_destroyedSfxName);
 
             if (_lootDropModule != null)

@@ -1,4 +1,6 @@
 using CBA;
+using CBA.Core;
+using CBA.LevelGeneration;
 using GameCells.Utilities;
 using System;
 using System.Collections;
@@ -25,12 +27,22 @@ public abstract class Loot : MonoBehaviour
     {
         lootCollider.isTrigger = false;
         _followCO = StartCoroutine(FollowCO());
+
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnRoomChanged += InstantCollect;
+        }
     }
 
     private void OnDisable()
     {
         if (_followCO != null)
             StopCoroutine(_followCO);
+
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnRoomChanged -= InstantCollect;
+        }
     }
 
     private void Update()
@@ -55,6 +67,11 @@ public abstract class Loot : MonoBehaviour
         this._pool = pool;
 
         return this;
+    }
+
+    private void InstantCollect()
+    {
+        OnCollected(GameManager.Instance.PlayerManager.PlayerController.gameObject);
     }
 
     protected abstract void OnCollected(GameObject _playerGameObject);

@@ -6,6 +6,7 @@ using CBA.Entities;
 using CBA.Entities.Player;
 using System;
 using GameCells.Utilities;
+using CBA.LevelGeneration;
 
 public class GrabbableObject : MonoBehaviour, IInteractable
 {
@@ -57,6 +58,22 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         EnableThrowPhysics(!_startKinematic);
 
         SetIsGrabbable(_startGrabbable);
+    }
+
+    private void OnEnable()
+    {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnRoomChanged += ChangeOriginalParent;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.OnRoomChanged -= ChangeOriginalParent;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -156,6 +173,12 @@ public class GrabbableObject : MonoBehaviour, IInteractable
         OnThrown?.Invoke();
 
         _thrown = true;
+    }
+
+    private void ChangeOriginalParent()
+    {
+        //eg. when the player leave a room while grabbing this prop, when thrown set the parent to that new room instead
+        _originalParent = LevelManager.Instance.CurrentRoom.transform;
     }
 
     public void OnSelect()

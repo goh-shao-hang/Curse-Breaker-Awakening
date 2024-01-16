@@ -1,4 +1,5 @@
 using CBA.Entities.Player.Weapons;
+using CBA.LevelGeneration;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,7 +76,9 @@ namespace CBA.Entities
             _collider.enabled = true;
             _collider.isTrigger = false;
 
-            transform.SetParent(null);
+            //eg. set the parent to the parent of the parent, in this case the
+            transform.SetParent(LevelManager.Instance != null ? LevelManager.Instance.CurrentRoom.transform : null);
+
             this._destructibleProp?.SetCanTakeDamage(true);
 
             if (_grabbableObject != null)
