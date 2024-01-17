@@ -59,7 +59,7 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
 
         //TODO
-        GameManager.Instance.OnGameEnded += () => Destroy(this.gameObject);
+        //GameManager.Instance.OnGameEnded += () => Destroy(this.gameObject);
 
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
         _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
@@ -72,7 +72,7 @@ public class UIManager : Singleton<UIManager>
             GameManager.Instance.OnPlayerDeath -= ShowDeathScreen;
 
             //TODO
-            GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
+            //GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
         }
 
     }

@@ -9,11 +9,17 @@ public class SinCounter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _sinPrompt.SetActive(true);
+        if (_sinPrompt != null)
+        {
+            _sinPrompt.SetActive(true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        _sinPrompt.SetActive(false);
+        if (_sinPrompt != null)
+        {
+            _sinPrompt.SetActive(false);
+        }
     }
 }

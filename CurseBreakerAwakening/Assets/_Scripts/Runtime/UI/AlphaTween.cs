@@ -8,9 +8,12 @@ public class AlphaTween : MonoBehaviour
 {
     [SerializeField] private float _duration = 1f;
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] private bool _invert = false;
 
     private void Start()
     {
-        textMeshProUGUI.DOFade(0, _duration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+        textMeshProUGUI.rectTransform.DOAnchorPosY(textMeshProUGUI.rectTransform.anchoredPosition.y - 150f, 1f).SetDelay(1.5f);
+        textMeshProUGUI.DOFade(_invert ? 1 : 0, 1f).SetDelay(1.5f);
+
     }
 }

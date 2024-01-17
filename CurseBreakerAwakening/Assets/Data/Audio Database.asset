@@ -188,13 +188,6 @@ MonoBehaviour:
     _volume: 0.7
     _pitch: 1
     _pitchVariation: 0.2
-  - <Name>k__BackingField: Enemy_Attack
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: e921570640a47e74ca598d1c5522653a, type: 3}
-    - {fileID: 8300000, guid: 3db412a553e64cf49a57502f18989389, type: 3}
-    _volume: 0.7
-    _pitch: 1
-    _pitchVariation: 0.2
   - <Name>k__BackingField: Enemy_Death
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: b23fbc300a74db549bf2a922f99741f7, type: 3}

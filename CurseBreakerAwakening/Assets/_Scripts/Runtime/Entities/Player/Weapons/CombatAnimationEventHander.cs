@@ -52,7 +52,7 @@ namespace CBA.Entities.Player.Weapons
 
         public void PlaySound(string soundName)
         {
-            OnPlaySound(soundName);
+            OnPlaySound?.Invoke(soundName);
         }
 
         public void CastSpell()

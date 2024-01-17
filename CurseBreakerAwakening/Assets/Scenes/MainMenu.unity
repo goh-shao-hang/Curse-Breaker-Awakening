@@ -32655,7 +32655,7 @@ GameObject:
   - component: {fileID: 1789105718}
   - component: {fileID: 1789105717}
   m_Layer: 5
-  m_Name: BossTrail
+  m_Name: BossTrial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33337,7 +33337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boss Trail
+  m_text: Boss Trial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 908b701775297504787f71f0f1016303, type: 2}
   m_sharedMaterial: {fileID: -4461718933691360447, guid: 908b701775297504787f71f0f1016303,

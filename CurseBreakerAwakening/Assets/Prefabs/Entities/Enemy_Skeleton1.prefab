@@ -2133,7 +2133,7 @@ MonoBehaviour:
   _thrownUpwardForce: 1
   _thrownTorque: 5
   _thrownSelfDamage: 5
-  _thrownInflictedDamage: 5
+  _thrownInflictedDamage: 7
   _grabbedOffset: {x: 0, y: -0.45, z: 0.25}
   _grabbedRotation: {x: -75, y: 90, z: 0}
   _canCollideWith:

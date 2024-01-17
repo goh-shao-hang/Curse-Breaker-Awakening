@@ -1,5 +1,3 @@
-using Codice.Client.Common.FsNodeReaders.Watcher;
-using DG.Tweening;
 using UnityEngine;
 
 namespace CBA.Entities.Player

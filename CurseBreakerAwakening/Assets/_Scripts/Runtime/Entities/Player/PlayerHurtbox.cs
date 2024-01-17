@@ -1,9 +1,11 @@
 using CBA.Core;
 using CBA.Entities;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace CBA.Entities.Player
 {
@@ -13,6 +15,7 @@ namespace CBA.Entities.Player
         [SerializeField] private HealthModule _healthModule;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private PlayerCombatManager _playerCombatManager;
+        [SerializeField] private Volume _playerHurtVolume;
 
         public bool IsBlocking { get; private set; }
         public bool IsParrying { get; private set; }
@@ -21,6 +24,8 @@ namespace CBA.Entities.Player
         public UnityEvent OnBlockSuccess;
 
         private DamageData _parryDamageData;
+
+        private Tween _hurtVolumeTween;
 
         private void OnEnable()
         {
@@ -60,6 +65,8 @@ namespace CBA.Entities.Player
                     damageData.Attacker.GetComponent<IDamageable>()?.TakeDamage(_parryDamageData);
                 }
 
+                GameEventsManager.Instance?.CameraShake(Vector3.one, 0.3f);
+
                 OnParrySuccess?.Invoke();
             }
             else if (IsBlocking && _playerController.CurrentStamina > 0)
@@ -69,6 +76,8 @@ namespace CBA.Entities.Player
 
                 OnBlockSuccess?.Invoke();
 
+                GameEventsManager.Instance?.CameraShake(Vector3.one, 0.3f);
+
                 if (_playerController.CurrentStamina <= 0) //Stamina depleted after taking this hit
                 {
                     _playerCombatManager.InterruptBlocking();
@@ -77,7 +86,19 @@ namespace CBA.Entities.Player
             }
             else
             {
+                GameEventsManager.Instance?.CameraShake(Vector3.one, 1f);
+
                 _healthModule.TakeDamage(damageData.DamageAmount);
+
+                if (_playerHurtVolume != null)
+                {
+                    if (_hurtVolumeTween != null)
+                        _hurtVolumeTween.Kill();
+
+                    _playerHurtVolume.weight = 0f;
+
+                    _hurtVolumeTween = DOVirtual.Float(0, 1, 0.5f, (weight) => _playerHurtVolume.weight = weight).SetLoops(2, LoopType.Yoyo);
+                }
             }
         }
 

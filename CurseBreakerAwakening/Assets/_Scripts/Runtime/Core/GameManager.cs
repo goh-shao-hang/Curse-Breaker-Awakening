@@ -103,7 +103,7 @@ namespace CBA.Core
 
             _currentLevel++;
 
-            if (_currentLevel > _levels.Length) //Last level completed
+            if (_currentLevel >= _levels.Length) //Last level completed
             {
                 LoadEnding();
             }
