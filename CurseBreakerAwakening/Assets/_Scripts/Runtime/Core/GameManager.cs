@@ -61,6 +61,8 @@ namespace CBA.Core
 
             _currentLevel = 0;
 
+            CurrentCoins = 0;
+
             _playerManager = Instantiate(_playerManagerPrefab, Vector3.zero, Quaternion.identity);
             DontDestroyOnLoad(_playerManager.gameObject);
             _playerManager.ActivateComponents(false);
@@ -78,6 +80,8 @@ namespace CBA.Core
             AudioManager.Instance.PlayGlobalSFX("GameStartNarration");
 
             _currentLevel = 1;
+
+            CurrentCoins = 0;
 
             _playerManager = Instantiate(_playerManagerPrefab, Vector3.zero, Quaternion.identity);
             DontDestroyOnLoad(_playerManager.gameObject);

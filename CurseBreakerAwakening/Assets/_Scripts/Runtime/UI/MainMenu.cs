@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private ButtonScrollList _buttons;
 
+    [Header("Credits")]
+    [SerializeField] private GameObject _credits;
+
     private void Start()
     {
         _buttons.DisableButtons();
@@ -65,12 +68,32 @@ public class MainMenu : MonoBehaviour
 
     public void ShowOptions()
     {
-        Debug.Log("ShowOptions");
+        SettingsManager.Instance?.ShowSettingsMenu();
+
+        _buttons.DisableButtons();
+
+        SettingsManager.Instance.OnHide += HideOptions;
+    }
+
+    private void HideOptions()
+    {
+        _buttons.ShowButtons();
+
+        SettingsManager.Instance.OnHide -= HideOptions;
     }
 
     public void ShowCredits()
     {
         Debug.Log("ShowCredits");
+        _credits.SetActive(true);
+        _buttons.DisableButtons();
+    }
+
+    public void HideCredits()
+    {
+        Debug.Log("HideCredits");
+        _credits.SetActive(false);
+        _buttons.ShowButtons();
     }
 
     public void QuitGame()

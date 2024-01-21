@@ -14,8 +14,6 @@ namespace CBA.Entities.Player
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private HealthModule _playerHealthModule;
         [SerializeField] private PlayerController _playerController;
-        //TODO
-        [SerializeField] private Slider _sensitivitySlider;
         [SerializeField] private PlayerCameraController _playerCameraController;
 
         [Header("Health")]
@@ -203,12 +201,6 @@ namespace CBA.Entities.Player
         public void HideEntityInfo()
         {
             _entityInfoCanvasGroup.alpha = 0;
-        }
-
-        //TODO
-        public void ChangeSensitivity()
-        {
-            _playerCameraController.SetSensitivity(_sensitivitySlider.value);
         }
 
     }

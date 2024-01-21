@@ -528,10 +528,10 @@ MonoBehaviour:
   _lootTable:
   - <lootPrefab>k__BackingField: {fileID: 2916089276542740830, guid: ae69a17ffeb8eb14d9840aa71d372ecf,
       type: 3}
-    _dropChance: 0.95
+    _dropChance: 0.98
   - <lootPrefab>k__BackingField: {fileID: 4117496607631864789, guid: 56d1a07c1655dd446892dfb8701ab6c0,
       type: 3}
-    _dropChance: 0.05
+    _dropChance: 0.02
   _dropOffset: {x: 0, y: 1, z: 0}
   _launchForce: 2
   _minDrops: 5

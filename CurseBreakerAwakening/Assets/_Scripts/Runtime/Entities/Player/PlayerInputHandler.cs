@@ -27,6 +27,7 @@ namespace CBA.Entities.Player
         public bool CrouchInput { get; private set; }
         public bool KickInput { get; private set; }
 
+
         private void OnEnable()
         {
             if (PlayerControls == null)

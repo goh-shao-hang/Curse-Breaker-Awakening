@@ -7,6 +7,8 @@ public class MapTester : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _mapCanvas;
 
+    private bool _mapOpened = false;
+
     private void Start()
     {
         _mapCanvas.alpha = 0;
@@ -15,10 +17,21 @@ public class MapTester : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Helper.LockAndHideCursor(Cursor.lockState == CursorLockMode.Locked ? false : true);
-            _mapCanvas.alpha = _mapCanvas.alpha == 1 ? 0 : 1;
+            OpenMap(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            OpenMap(false);
         }
     }
+
+    private void OpenMap(bool open)
+    {
+        _mapOpened = open;
+        Helper.LockAndHideCursor(!_mapOpened);
+        _mapCanvas.alpha = _mapOpened ? 1 : 0;
+    }
+
 }

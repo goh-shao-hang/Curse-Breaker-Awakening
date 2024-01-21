@@ -11,6 +11,7 @@ namespace CBA.Entities.Player
 {
     public class PlayerCameraController : MonoBehaviour
     {
+
         [Header(GameData.DEPENDENCIES)]
         [SerializeField] private GameEventsManager gameEventsManager;
         [SerializeField] private Camera _playerCamera;
@@ -37,6 +38,12 @@ namespace CBA.Entities.Player
 
         private void OnEnable()
         {
+            if (SettingsManager.Instance != null)
+            {
+                SetSensitivity();
+                SettingsManager.Instance.OnSensitivityChanged += SetSensitivity;
+            }
+
             if (GameEventsManager.Instance != null)
             {
                 GameEventsManager.Instance.OnCameraShakeEvent += CameraShake;
@@ -50,6 +57,11 @@ namespace CBA.Entities.Player
 
         private void OnDisable()
         {
+            if (SettingsManager.Instance != null)
+            {
+                SettingsManager.Instance.OnSensitivityChanged -= SetSensitivity;
+            }
+
             if (GameEventsManager.Instance != null)
             {
                 GameEventsManager.Instance.OnCameraShakeEvent -= CameraShake;
@@ -74,9 +86,14 @@ namespace CBA.Entities.Player
             transform.SetPositionAndRotation(_playerController.CameraRootTransform.transform.position, Quaternion.Euler(_pitch, _yaw, _tiltRotation));
         }
 
-        public void SetSensitivity(float sensitivity)
+        private void SetSensitivity()
         {
-            this._sensitivity = Mathf.Lerp(0.05f, 0.5f, sensitivity);
+            float sensitivity = SettingsManager.Instance.GetSensitivity();
+            if (sensitivity != -1) //Unset
+            {
+                _sensitivity = sensitivity / 10;
+                _sensitivity = Mathf.Lerp(0.05f, 0.5f, _sensitivity);
+            }
         }
 
         public void ResetCameraRotation()
