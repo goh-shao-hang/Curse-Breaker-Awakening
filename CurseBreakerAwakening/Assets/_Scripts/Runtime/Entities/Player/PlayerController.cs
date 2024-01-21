@@ -348,6 +348,12 @@ namespace CBA.Entities.Player
             IsChargingAttack = true;
         }
 
+        public void InterruptCharging()
+        {
+            IsChargingAttack = false;
+            IsPerformingChargedAttack = false;
+        }
+
         public void OnChargedAttackReleased(float chargePercentage)
         {
             IsChargingAttack = false;

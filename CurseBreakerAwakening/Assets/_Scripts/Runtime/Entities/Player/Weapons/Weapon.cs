@@ -352,6 +352,7 @@ namespace CBA.Entities.Player.Weapons
             _currentChargedAttackDamage = Mathf.Lerp(WeaponData.MinChargedAttackDamage, WeaponData.MaxChargedAttackDamage, chargedPercentage);
 
             _playerCombatManager.OnChargedAttackReleased?.Invoke(chargedPercentage);
+
             _chargedAttackCO = StartCoroutine(ChargedAttackCO());
         }
 

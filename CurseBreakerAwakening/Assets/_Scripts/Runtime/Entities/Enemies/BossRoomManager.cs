@@ -58,10 +58,10 @@ namespace CBA.Entities
         private void Start()
         {
             _playerManager = GameManager.Instance.PlayerManager;
+            _playerManager.ActivateComponents(true);
             _playerManager.PlayerController.transform.position = _playerSpawnPoint.position;
             _playerManager.PlayerCameraController.SetCameraRotation(_playerSpawnPoint.rotation.eulerAngles.y, _playerSpawnPoint.rotation.eulerAngles.x);
 
-            _playerManager.ActivateComponents(true);
 
             _portalToNextLevel.gameObject.SetActive(false);
 

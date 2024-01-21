@@ -93,7 +93,14 @@ namespace CBA.Entities.Player
 
         private void OnAttackReleased()
         {
-            CurrentWeapon.ReleaseCharge();
+            if (gameObject.activeInHierarchy)
+            {
+                CurrentWeapon.ReleaseCharge();
+            }
+            else
+            {
+                CurrentWeapon.InterruptCharging();
+            }
         }
 
         private void OnBlockPressed()

@@ -1,13 +1,8 @@
-using CBA.Entities.Player;
 using GameCells.Utilities;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class SettingsManager : Singleton<SettingsManager>
