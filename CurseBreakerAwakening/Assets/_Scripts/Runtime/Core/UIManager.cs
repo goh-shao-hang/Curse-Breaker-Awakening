@@ -3,6 +3,7 @@ using CBA.Entities;
 using CBA.Entities.Player;
 using DG.Tweening;
 using GameCells.Utilities;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -33,10 +34,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TMP_Text _deathText2;
 
     //TODO
+    public event Action OnPauseStateChanged;
+
     [SerializeField] private SceneField _mainMenuScene;
 
     private bool _canPause = true;
-    private bool _paused = false;
+    public bool Paused { get; private set; } = false;
 
     private PlayerController _playerController;
     private HealthModule _playerHealthModule;
@@ -90,21 +93,24 @@ public class UIManager : Singleton<UIManager>
         if (!_canPause)
             return;
 
-        _paused = !_paused;
+        Paused = !Paused;
 
-        Helper.LockAndHideCursor(!_paused);
-        Time.timeScale = _paused ? 0 : 1;
+        Helper.LockAndHideCursor(!Paused);
+        Time.timeScale = Paused ? 0 : 1;
 
-        _pauseCanvas.gameObject.SetActive(_paused);
-        _pauseCanvas.alpha = _paused ? 1 : 0;
-        _pauseCanvas.interactable = _paused;
-        _pauseCanvas.blocksRaycasts = _paused;
+        _pauseCanvas.gameObject.SetActive(Paused);
+        _pauseCanvas.alpha = Paused ? 1 : 0;
+        _pauseCanvas.interactable = Paused;
+        _pauseCanvas.blocksRaycasts = Paused;
 
-        if (_paused)
+        if (Paused)
         {
             UpdateHealth();
             UpdateStamina();
         }
+
+        OnPauseStateChanged?.Invoke();
+        AudioManager.Instance?.SetPauseFilter(Paused);
     }
 
     private void UpdateHealth()

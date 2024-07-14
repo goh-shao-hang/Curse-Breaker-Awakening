@@ -1,3 +1,4 @@
+using CBA.Core;
 using CBA.Entities.Player.Weapons;
 using CBA.Modules;
 using DG.Tweening;
@@ -195,6 +196,9 @@ namespace CBA.Entities
         private void Start()
         {
             OnEnterPhase1();
+
+            //TODO
+            AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Boss1);
         }
 
         private void OnEnterPhase1()
@@ -212,6 +216,9 @@ namespace CBA.Entities
         private void Phase2TransitionEvent()
         {
             OnPhase2TransitionEvent?.Invoke();
+
+            //TODO
+            AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Boss2);
         }
 
         public async void TeleportToPosition(Transform teleportTransform)

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4458883719707001275}
   - component: {fileID: 6288375755161756020}
+  - component: {fileID: 7003564553467646326}
   m_Layer: 0
   m_Name: BGM2
   m_TagString: Untagged
@@ -44,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1813897820624922086, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -129,6 +130,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!169 &7003564553467646326
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392314085712961602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4073322422901259353
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4073322422901259351}
   - component: {fileID: 4073322422901259350}
+  - component: {fileID: 988459531}
   m_Layer: 0
   m_Name: BGM1
   m_TagString: Untagged
@@ -173,7 +200,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1813897820624922086, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -244,6 +271,31 @@ AudioSource:
     m_PostInfinity: 2
     m_RotationOrder: 4
   reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!169 &988459531
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073322422901259353}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -312,6 +364,19 @@ MonoBehaviour:
   <BgmMixerGroup>k__BackingField: {fileID: 1813897820624922086, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
     type: 2}
   <SfxMixerGroup>k__BackingField: {fileID: 9217110025810887174, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+    type: 2}
+  _bgm1LowPassFilter: {fileID: 988459531}
+  _bgm2LowPassFilter: {fileID: 7003564553467646326}
+  Snapshot_Default: {fileID: 24500006, guid: 7fee1a5ff405c2b44acbe21bb4d154d1, type: 2}
+  Snapshot_Combat1: {fileID: 6053535934862040521, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+    type: 2}
+  Snapshot_Combat2: {fileID: 2137325359802014607, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+    type: 2}
+  Snapshot_Combat3: {fileID: -3663697206532882711, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+    type: 2}
+  Snapshot_Boss1: {fileID: 1002472433472678884, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+    type: 2}
+  Snapshot_Boss2: {fileID: -3320883644443033405, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
     type: 2}
 --- !u!1 &4073322424524421709
 GameObject:

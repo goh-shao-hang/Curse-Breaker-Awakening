@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EntityData_Boss
   m_EditorClassIdentifier: 
   EntityName: Die Feuerhexe
-  Health: 50
+  Health: 65
   Attack: 5
   Speed: 5
   Guard: 50

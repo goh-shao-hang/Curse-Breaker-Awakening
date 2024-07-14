@@ -15,7 +15,16 @@ namespace CBA.Core
         [SerializeField] private AudioSource _globalSFXAudioSource;
         [field: SerializeField] public AudioMixerGroup BgmMixerGroup { get; private set; }
         [field: SerializeField] public AudioMixerGroup SfxMixerGroup { get; private set; }
+        [SerializeField] private AudioLowPassFilter _bgm1LowPassFilter;
+        [SerializeField] private AudioLowPassFilter _bgm2LowPassFilter;
 
+        [Header("Snapshots")]
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Default;
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Combat1;
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Combat2;
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Combat3;
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Boss1;
+        [field: SerializeField] public AudioMixerSnapshot Snapshot_Boss2;
 
         private Dictionary<string, Audio> _musicDictionary = new Dictionary<string, Audio>();
         private Dictionary<string, Audio> _soundEffectsDictionary = new Dictionary<string, Audio>();
@@ -24,6 +33,8 @@ namespace CBA.Core
 
         private Audio _currentBGM;
 
+        private Sequence _pauseFilterTween;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -54,6 +65,16 @@ namespace CBA.Core
                 }
             }
         }
+
+        /*private void OnEnable()
+        {
+            UIManager.Instance.OnPauseStateChanged += OnPauseStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            UIManager.Instance.OnPauseStateChanged -= OnPauseStateChanged;
+        }*/
 
         public void PlayBGM(string audioName)
         {
@@ -180,6 +201,11 @@ namespace CBA.Core
 
         }
 
+        public void SetSnapshot(AudioMixerSnapshot snapshot, float duration = 0.5f)
+        {
+            snapshot.TransitionTo(duration);
+        }
+        
         public void PlayGlobalSFX(string audioName)
         {
             if (_soundEffectsDictionary.ContainsKey(audioName))
@@ -210,6 +236,25 @@ namespace CBA.Core
             }
         }
 
+        public void SetPauseFilter(bool paused)
+        {
+            float target = paused ? 5000f : 22000f;
+
+            if (_pauseFilterTween != null)
+            {
+                _pauseFilterTween.Kill();
+            }
+
+            _pauseFilterTween = DOTween.Sequence();
+            _pauseFilterTween.Append(DOVirtual.Float(_bgm1LowPassFilter.cutoffFrequency, target, 0.5f, (value) => _bgm1LowPassFilter.cutoffFrequency = value).SetUpdate(true).SetEase(Ease.OutSine));
+            _pauseFilterTween.Append(DOVirtual.Float(_bgm2LowPassFilter.cutoffFrequency, target, 0.5f, (value) => _bgm2LowPassFilter.cutoffFrequency = value).SetUpdate(true).SetEase(Ease.OutSine));
+            _pauseFilterTween.SetUpdate(true);
+            _pauseFilterTween.Play();
+
+            //_bgm1LowPassFilter.enabled = paused; 
+            //_bgm2LowPassFilter.enabled = paused;
+        }
+
         public bool MusicExist(string audioName)
         {
             return _musicDictionary.ContainsKey(audioName);
@@ -219,5 +264,6 @@ namespace CBA.Core
         {
             return _soundEffectsDictionary.ContainsKey(audioName);
         }
+
     }
 }
