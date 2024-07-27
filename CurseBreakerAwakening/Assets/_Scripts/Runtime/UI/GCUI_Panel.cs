@@ -20,7 +20,17 @@ namespace GameCells.UI
         private void OnEnable()
         {
             _cancelKey ??= EventSystem.current.GetComponent<InputSystemUIInputModule>().actionsAsset.FindAction("Cancel");
-            _cancelKey.performed += (ctx) => Hide();
+            _cancelKey.performed += HideOnCancelAction;
+        }
+
+        private void OnDisable()
+        {
+            _cancelKey.performed -= HideOnCancelAction;
+        }
+
+        private void HideOnCancelAction(InputAction.CallbackContext ctx)
+        {
+            Hide();
         }
 
         public void Show()

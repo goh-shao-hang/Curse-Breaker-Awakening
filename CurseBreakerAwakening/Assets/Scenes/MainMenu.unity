@@ -5840,6 +5840,56 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2866803557857974867, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866803557857974867, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489814609755737589, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489814609755737589, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730875370177417766, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730875370177417766, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730875370177417766, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021536489140549197, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021536489140549197, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021536489140549197, guid: ecbbcd6a6087beb4bab5c015750217d9,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecbbcd6a6087beb4bab5c015750217d9, type: 3}
 --- !u!1 &533579007
