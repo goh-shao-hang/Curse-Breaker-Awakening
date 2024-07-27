@@ -57420,6 +57420,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4073322424459129672, guid: 39950e0814842e2438df571539b4f7e1,
+        type: 3}
+      propertyPath: <BgmMixerGroup>k__BackingField
+      value: 
+      objectReference: {fileID: 6429142105854890808, guid: 7fee1a5ff405c2b44acbe21bb4d154d1,
+        type: 2}
     - target: {fileID: 4073322424459129673, guid: 39950e0814842e2438df571539b4f7e1,
         type: 3}
       propertyPath: m_RootOrder
