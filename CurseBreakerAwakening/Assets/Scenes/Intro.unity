@@ -7476,6 +7476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cutscenePlayable: {fileID: 1263138691}
+  _minPlayTime: 0
 --- !u!4 &1364725684
 Transform:
   m_ObjectHideFlags: 0

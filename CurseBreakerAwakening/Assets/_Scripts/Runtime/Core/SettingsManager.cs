@@ -1,3 +1,4 @@
+using GameCells.UI;
 using GameCells.Utilities;
 using System;
 using UnityEngine;
@@ -7,7 +8,8 @@ using UnityEngine.UI;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
-    [SerializeField] private CanvasGroup _settingsCanvasGroup;
+    [SerializeField] private GCUI_Panel _settingsUIPanel;
+    //[SerializeField] private CanvasGroup _settingsCanvasGroup;
     [SerializeField] private Button _backButton;
 
     [Header("Audio")]
@@ -54,20 +56,22 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public void ShowSettingsMenu()
     {
-        EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
+        //EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
 
-        _settingsCanvasGroup.alpha = 1;
-        _settingsCanvasGroup.interactable = true;
-        _settingsCanvasGroup.blocksRaycasts = true;
+        _settingsUIPanel.Show();
+        //_settingsCanvasGroup.alpha = 1;
+        //_settingsCanvasGroup.interactable = true;
+        //_settingsCanvasGroup.blocksRaycasts = true;
 
         OnShow?.Invoke();
     }
 
     public void HideSettingsMenu()
     {
-        _settingsCanvasGroup.alpha = 0;
-        _settingsCanvasGroup.interactable = false;
-        _settingsCanvasGroup.blocksRaycasts = false;
+        _settingsUIPanel.Hide();
+        //_settingsCanvasGroup.alpha = 0;
+        //_settingsCanvasGroup.interactable = false;
+        //_settingsCanvasGroup.blocksRaycasts = false;
 
         OnHide?.Invoke();
     }
