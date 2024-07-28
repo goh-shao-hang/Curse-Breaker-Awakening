@@ -53,6 +53,8 @@ namespace CBA.LevelGeneration
             float maxHorizontalSize = 0;
             float maxVerticalSize = 0;
 
+            _iconDict.Clear();
+
             for (int i = 0; i < _levelGenerator.BoardSize.x; i++)
             {
                 for (int j = 0; j < _levelGenerator.BoardSize.y; j++)
