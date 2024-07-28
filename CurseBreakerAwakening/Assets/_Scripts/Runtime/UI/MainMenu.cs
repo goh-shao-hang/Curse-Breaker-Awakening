@@ -1,6 +1,7 @@
 using CBA;
 using CBA.Core;
 using DG.Tweening;
+using GameCells.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private ButtonScrollList _buttons;
 
     [Header("Credits")]
-    [SerializeField] private GameObject _credits;
+    [SerializeField] private GCUI_Panel _credits;
 
     private void Start()
     {
@@ -61,6 +62,8 @@ public class MainMenu : MonoBehaviour
 
     public void BossTrail()
     {
+        _buttons.SetInteractable(false);
+
         AudioManager.Instance?.PlayGlobalSFX("MainMenu_Confirm");
 
         GameManager.Instance.StartBossTrail();
@@ -84,21 +87,19 @@ public class MainMenu : MonoBehaviour
 
     public void ShowCredits()
     {
-        Debug.Log("ShowCredits");
-        _credits.SetActive(true);
+        _credits.Show();
+
         _buttons.DisableButtons();
     }
 
     public void HideCredits()
     {
-        Debug.Log("HideCredits");
-        _credits.SetActive(false);
+        _credits.Hide();
         _buttons.ShowButtons();
     }
 
     public void QuitGame()
     {
-        Debug.LogWarning("QUIT");
         Application.Quit();
     }
 

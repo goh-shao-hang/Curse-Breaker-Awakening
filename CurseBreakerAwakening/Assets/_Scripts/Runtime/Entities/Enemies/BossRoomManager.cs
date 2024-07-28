@@ -144,6 +144,8 @@ namespace CBA.Entities
             sequnce.Play();
 
             AudioManager.Instance.CrossFadeBGM("VictoryTheme", 2f, false);
+
+            AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Default);
         }
 
         private void ActivatePortalToNextLevel()

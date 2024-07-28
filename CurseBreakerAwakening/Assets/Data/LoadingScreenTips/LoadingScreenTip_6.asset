@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b55705ff3a99b04ca48a393851a1a48, type: 3}
-  m_Name: EntityData_Boss
+  m_Script: {fileID: 11500000, guid: 50bf9804338559d4c9f58748df5f670a, type: 3}
+  m_Name: LoadingScreenTip_6
   m_EditorClassIdentifier: 
-  EntityName: Die Feuerhexe
-  Health: 65
-  Attack: 5
-  Speed: 5
-  Guard: 50
-  BaseStunDuration: 5
+  TipTitle: Parrying
+  TipText: Pay attention to your enemies' movements, and block just before they hit
+    to greatly reduce their guard meter.

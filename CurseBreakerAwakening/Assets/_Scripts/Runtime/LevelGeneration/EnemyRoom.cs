@@ -1,5 +1,6 @@
 using CBA.Core;
 using CBA.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,17 @@ namespace CBA.LevelGeneration
         private Room _room;
         private bool _roomCleared = false;
 
+        private int _initialEnemyCount;
+
+        public event Action<int> OnEnemyCountChanged;
+
         private void Awake()
         {
             _room = GetComponent<Room>();
             _room.OnPlayerEnterRoom += OnPlayerFirstEnter;
 
             _enemies = _enemiesHolder.GetComponentsInChildren<Entity>().ToList();
+            _initialEnemyCount = _enemies.Count;
 
             if (_enemies.Count < 1)
             {
@@ -41,11 +47,26 @@ namespace CBA.LevelGeneration
             _enemies.Remove(deadEnemy);
             deadEnemy.OnDeath.RemoveListener(OnAnyEnemyDeath);
 
-            if (_enemies.Count <= 0)
+            float remainingEnemyPercentage = (float)_enemies.Count / (float)_initialEnemyCount;
+            if (remainingEnemyPercentage > 0.66f)
+            {
+                AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Combat3, 1.5f);
+            }
+            else if (remainingEnemyPercentage > 0.33f)
+            {
+                AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Combat2, 1.5f);
+            }
+            else if (remainingEnemyPercentage > 0f)
+            {
+                AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Combat1, 1.5f);
+            }
+            else
             {
                 _roomCleared = true;
                 _room.UnlockRoom();
                 AudioManager.Instance.CrossFadeBGM("ExplorationTheme_1", 2f, true);
+
+                AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Default);
             }
         }
 
@@ -56,7 +77,12 @@ namespace CBA.LevelGeneration
 
             _room.LockRoom();
 
+            OnEnemyCountChanged?.Invoke(_enemies.Count);
+
             AudioManager.Instance.CrossFadeBGM("BattleTheme_1", 2f, true);
+
+            //TODO adaptive audio
+            AudioManager.Instance.SetSnapshot(AudioManager.Instance.Snapshot_Combat3);
         }
         
     }

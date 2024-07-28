@@ -537,7 +537,8 @@ MonoBehaviour:
   _playerVirtualCamera: {fileID: 1974657823380212355}
   _playerController: {fileID: 0}
   _cinemachineImpulseSource: {fileID: 1974657825226049401}
-  _sensitivity: 0.25
+  _mouseSensitivity: 5
+  _controllerSensitivity: 5
   _invertXAxis: 0
   _invertYAxis: 0
   _maxCameraVerticalAngle: 80

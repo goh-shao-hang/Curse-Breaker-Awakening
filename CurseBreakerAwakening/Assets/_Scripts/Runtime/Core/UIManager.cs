@@ -2,11 +2,14 @@ using CBA.Core;
 using CBA.Entities;
 using CBA.Entities.Player;
 using DG.Tweening;
+using GameCells.UI;
 using GameCells.Utilities;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
@@ -14,7 +17,8 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [Header("Pause")]
-    [SerializeField] private CanvasGroup _pauseCanvas;
+    [SerializeField] private GCUI_Panel _pauseMenu;
+    //[SerializeField] private CanvasGroup _pauseCanvas;
     [SerializeField] private Image _playerHealthFill;
     [SerializeField] private Image _playerStaminaFill;
     [SerializeField] private TMP_Text _playerHealthText;
@@ -33,10 +37,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TMP_Text _deathText2;
 
     //TODO
+    public event Action OnPauseStateChanged;
+
     [SerializeField] private SceneField _mainMenuScene;
 
     private bool _canPause = true;
-    private bool _paused = false;
+    public bool Paused { get; private set; } = false;
 
     private PlayerController _playerController;
     private HealthModule _playerHealthModule;
@@ -53,7 +59,9 @@ public class UIManager : Singleton<UIManager>
 
     private void OnEnable()
     {
-        _pauseCanvas.gameObject.SetActive(false);
+        _pauseMenu.Hide();
+        //_pauseCanvas.gameObject.SetActive(false);
+
         _deathCanvas.gameObject.SetActive(false);
 
         GameManager.Instance.OnPlayerDeath += ShowDeathScreen;
@@ -79,7 +87,8 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        //TODO better input check
+        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
         {
             OpenPauseMenu();
         }
@@ -90,21 +99,38 @@ public class UIManager : Singleton<UIManager>
         if (!_canPause)
             return;
 
-        _paused = !_paused;
+        Paused = !Paused;
 
-        Helper.LockAndHideCursor(!_paused);
-        Time.timeScale = _paused ? 0 : 1;
+        Helper.LockAndHideCursor(!Paused);
+        Time.timeScale = Paused ? 0 : 1;
 
-        _pauseCanvas.gameObject.SetActive(_paused);
-        _pauseCanvas.alpha = _paused ? 1 : 0;
-        _pauseCanvas.interactable = _paused;
-        _pauseCanvas.blocksRaycasts = _paused;
+        //_pauseCanvas.gameObject.SetActive(Paused);
+        //_pauseCanvas.alpha = Paused ? 1 : 0;
+        //_pauseCanvas.interactable = Paused;
+        //_pauseCanvas.blocksRaycasts = Paused;
+        
+        if (Paused)
+        {
+            _pauseMenu.Show();
+        }
+        else
+        {
+            _pauseMenu.Hide();
+        }
 
-        if (_paused)
+        if (Paused)
         {
             UpdateHealth();
             UpdateStamina();
         }
+
+        OnPauseStateChanged?.Invoke();
+        AudioManager.Instance?.SetPauseFilter(Paused);
+    }
+
+    public void OpenSettingsMenu()
+    {
+        SettingsManager.Instance?.ShowSettingsMenu();
     }
 
     private void UpdateHealth()

@@ -43,7 +43,7 @@ namespace CBA.LevelGeneration
             _roomSpawner.OnAllRoomsSpawned += DrawMap;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _roomSpawner.OnAllRoomsSpawned -= DrawMap;
         }
@@ -52,6 +52,8 @@ namespace CBA.LevelGeneration
         {
             float maxHorizontalSize = 0;
             float maxVerticalSize = 0;
+
+            _iconDict.Clear();
 
             for (int i = 0; i < _levelGenerator.BoardSize.x; i++)
             {
