@@ -12,6 +12,7 @@ namespace GameCells.UI
     public class GCUI_Panel : MonoBehaviour
     {
         [SerializeField] private Selectable _firstSelected;
+        [SerializeField] private bool _hideOnCancel = true;
 
         private Selectable _previousSelected = null;
 
@@ -19,13 +20,17 @@ namespace GameCells.UI
 
         private void OnEnable()
         {
-            _cancelKey ??= EventSystem.current.GetComponent<InputSystemUIInputModule>().actionsAsset.FindAction("Cancel");
-            _cancelKey.performed += HideOnCancelAction;
+            if (_hideOnCancel)
+            {
+                _cancelKey ??= EventSystem.current.GetComponent<InputSystemUIInputModule>().actionsAsset.FindAction("Cancel");
+                _cancelKey.performed += HideOnCancelAction;
+            }
         }
 
         private void OnDisable()
         {
-            _cancelKey.performed -= HideOnCancelAction;
+            if (_hideOnCancel)
+                _cancelKey.performed -= HideOnCancelAction;
         }
 
         private void HideOnCancelAction(InputAction.CallbackContext ctx)

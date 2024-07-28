@@ -55,7 +55,7 @@ namespace CBA
             if (_sceneLoading)
                 return;
 
-            if (_currentPlaytime < _minPlayTime)
+            if (_cutscenePlayable.time < _minPlayTime)
             {
                 _currentPlaytime += Time.deltaTime;
                 return;
@@ -82,6 +82,8 @@ namespace CBA
 
         private void CancelActionHeld(InputAction.CallbackContext ctx)
         {
+            if (_skipFinished) return;
+
             _isSkipping = true;
             _skipProgress = 0f;
 
@@ -93,6 +95,8 @@ namespace CBA
 
         private void CancelActionReleased(InputAction.CallbackContext ctx)
         {
+            if (_skipFinished) return;
+
             _isSkipping = false;
             _skipProgress = 0f;
 

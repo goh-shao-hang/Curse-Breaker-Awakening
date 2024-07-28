@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -7571,7 +7571,7 @@ MonoBehaviour:
   _skipCanvasGroup: {fileID: 1910928258}
   _skipMask: {fileID: 591389683}
   _holdTimeForSkip: 3
-  _minPlayTime: 0
+  _minPlayTime: 1
 --- !u!4 &1364725684
 Transform:
   m_ObjectHideFlags: 0
