@@ -22,8 +22,8 @@ namespace CBA.Entities.Player
         public Camera PlayerCamera => _playerCamera;
 
         [Header(GameData.SETTINGS)]
-        [SerializeField] private float _mouseSensitivity;
-        [SerializeField] private float _controllerSensitivity;
+        [Range(1, 10)][SerializeField] private float _mouseSensitivity;
+        [Range(1, 10)][SerializeField] private float _controllerSensitivity;
         [SerializeField] private bool _invertXAxis;
         [SerializeField] private bool _invertYAxis;
         [SerializeField] private float _maxCameraVerticalAngle;

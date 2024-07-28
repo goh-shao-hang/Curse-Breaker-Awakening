@@ -27,7 +27,7 @@ public class MapTester : MonoBehaviour
         {
             OpenMap(false);
         }
-        else if (Gamepad.current.selectButton.wasPressedThisFrame)
+        else if (Gamepad.current != null && Gamepad.current.selectButton.wasPressedThisFrame)
         {
             OpenMap(!_mapOpened);
         }

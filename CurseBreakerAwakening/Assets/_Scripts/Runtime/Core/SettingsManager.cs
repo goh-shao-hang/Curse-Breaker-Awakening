@@ -168,5 +168,6 @@ public class SettingsManager : Singleton<SettingsManager>
         SetMusicVolume(10);
         SetSfxVolume(10);
         SetMouseSensitivity(5);
+        SetControllerSensitivity(5);
     }
 }

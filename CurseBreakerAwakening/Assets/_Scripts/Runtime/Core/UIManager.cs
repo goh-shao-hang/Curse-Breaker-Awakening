@@ -88,7 +88,7 @@ public class UIManager : Singleton<UIManager>
     private void Update()
     {
         //TODO better input check
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
         {
             OpenPauseMenu();
         }
