@@ -2,6 +2,7 @@ using GameCells.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MapTester : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class MapTester : MonoBehaviour
 
     private void Start()
     {
-        _mapCanvas.alpha = 0;
+        _mapCanvas.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //TODO better input check
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             OpenMap(true);
@@ -25,13 +27,17 @@ public class MapTester : MonoBehaviour
         {
             OpenMap(false);
         }
+        else if (Gamepad.current.selectButton.wasPressedThisFrame)
+        {
+            OpenMap(!_mapOpened);
+        }
     }
 
     private void OpenMap(bool open)
     {
         _mapOpened = open;
         Helper.LockAndHideCursor(!_mapOpened);
-        _mapCanvas.alpha = _mapOpened ? 1 : 0;
+        _mapCanvas.gameObject.SetActive(open);
     }
 
 }

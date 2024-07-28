@@ -560,7 +560,8 @@ MonoBehaviour:
   _masterVolumeSlider: {fileID: 1747685197182561436}
   _musicVolumeSlider: {fileID: 1747685196242188959}
   _sfxVolumeSlider: {fileID: 1747685196526268612}
-  _sensitivitySlider: {fileID: 1747685195983258252}
+  _mouseSensitivitySlider: {fileID: 1747685195983258252}
+  _controllerSensitivitySlider: {fileID: 8565023563886891969}
 --- !u!1 &1747685195803241942
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +830,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1747685195791321536}
         m_TargetAssemblyTypeName: SettingsManager, CBA.Runtime
-        m_MethodName: SetSensitivity
+        m_MethodName: SetMouseSensitivity
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4199,7 +4200,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1747685195791321536}
         m_TargetAssemblyTypeName: SettingsManager, CBA.Runtime
-        m_MethodName: SetSensitivity
+        m_MethodName: SetControllerSensitivity
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

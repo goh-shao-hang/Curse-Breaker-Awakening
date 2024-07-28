@@ -19,19 +19,22 @@ public class SettingsManager : Singleton<SettingsManager>
     [SerializeField] private Slider _sfxVolumeSlider;
 
     [Header("Gameplay")]
-    [SerializeField] private Slider _sensitivitySlider;
+    [SerializeField] private Slider _mouseSensitivitySlider;
+    [SerializeField] private Slider _controllerSensitivitySlider;
 
 
     private const string MasterVolume = "MasterVolume";
     private const string MusicVolume = "MusicVolume";
     private const string SfxVolume = "SfxVolume";
-    private const string Sensitivity = "Sensitivity";
+    private const string MouseSensitivity = "MouseSensitivity";
+    private const string ControllerSensitivity = "ControllerSensitivity";
 
     private const float VolumeMultiplier = 20;
 
     public event Action OnShow;
     public event Action OnHide;
-    public event Action OnSensitivityChanged;
+    public event Action OnMouseSensitivityChanged;
+    public event Action OnControllerSensitivityChanged;
 
     private void Start()
     {
@@ -118,19 +121,19 @@ public class SettingsManager : Singleton<SettingsManager>
         _audioMixer.SetFloat(SfxVolume, Mathf.Log10(volume) * VolumeMultiplier);
     }
 
-    public void SetSensitivity(float sensitivity)
+    public void SetMouseSensitivity(float sensitivity)
     {
-        PlayerPrefs.SetFloat(Sensitivity, _sensitivitySlider.value);
-        _sensitivitySlider.value = sensitivity;
+        PlayerPrefs.SetFloat(MouseSensitivity, _mouseSensitivitySlider.value);
+        _mouseSensitivitySlider.value = sensitivity;
 
-        OnSensitivityChanged?.Invoke();
+        OnMouseSensitivityChanged?.Invoke();
     }
 
-    public float GetSensitivity()
+    public float GetMouseSensitivity()
     {
-        if (PlayerPrefs.HasKey(Sensitivity))
+        if (PlayerPrefs.HasKey(MouseSensitivity))
         {
-            return PlayerPrefs.GetFloat(Sensitivity);
+            return PlayerPrefs.GetFloat(MouseSensitivity);
         }
         else
         {
@@ -138,11 +141,32 @@ public class SettingsManager : Singleton<SettingsManager>
         }
     }
 
+    public void SetControllerSensitivity(float sensitivity)
+    {
+        PlayerPrefs.SetFloat(ControllerSensitivity, _controllerSensitivitySlider.value);
+        _controllerSensitivitySlider.value = sensitivity;
+
+        OnControllerSensitivityChanged?.Invoke();
+    }
+
+    public float GetControllerSensitivity()
+    {
+        if (PlayerPrefs.HasKey(ControllerSensitivity))
+        {
+            return PlayerPrefs.GetFloat(ControllerSensitivity);
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+
     public void ResetToDefault()
     {
         SetMasterVolume(10);
         SetMusicVolume(10);
         SetSfxVolume(10);
-        SetSensitivity(5);
+        SetMouseSensitivity(5);
     }
 }

@@ -41,7 +41,7 @@ namespace CBA.Entities.Player
             if (SettingsManager.Instance != null)
             {
                 SetSensitivity();
-                SettingsManager.Instance.OnSensitivityChanged += SetSensitivity;
+                SettingsManager.Instance.OnMouseSensitivityChanged += SetSensitivity;
             }
 
             if (GameEventsManager.Instance != null)
@@ -59,7 +59,7 @@ namespace CBA.Entities.Player
         {
             if (SettingsManager.Instance != null)
             {
-                SettingsManager.Instance.OnSensitivityChanged -= SetSensitivity;
+                SettingsManager.Instance.OnMouseSensitivityChanged -= SetSensitivity;
             }
 
             if (GameEventsManager.Instance != null)
@@ -88,7 +88,7 @@ namespace CBA.Entities.Player
 
         private void SetSensitivity()
         {
-            float sensitivity = SettingsManager.Instance.GetSensitivity();
+            float sensitivity = SettingsManager.Instance.GetMouseSensitivity();
             if (sensitivity != -1) //Unset
             {
                 _sensitivity = sensitivity / 10;
