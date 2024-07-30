@@ -15,10 +15,8 @@ namespace CBA
         [SerializeField] private CanvasGroup _skipCanvasGroup;
         [SerializeField] private Image _skipMask;
 
-        [SerializeField] private float _holdTimeForSkip = 3f;
         [SerializeField] private float _minPlayTime = 5f;
 
-        private float _currentPlaytime;
         private bool _sceneLoading = false;
 
         private InputAction _cancelAction;
@@ -31,8 +29,6 @@ namespace CBA
         private void Start()
         {
             _cutscenePlayable.stopped += OnCutsceneEnded;
-
-            _currentPlaytime = 0f;
 
             _skipCanvasGroup.alpha = 0f;
         }
@@ -57,27 +53,21 @@ namespace CBA
 
             if (_cutscenePlayable.time < _minPlayTime)
             {
-                _currentPlaytime += Time.deltaTime;
                 return;
             }
 
             if (_isSkipping && ! _skipFinished)
             {
                 _skipProgress += Time.deltaTime;
-                _skipMask.fillAmount = _skipProgress / _holdTimeForSkip;
+                _skipMask.fillAmount = _skipProgress / GameData.CUTSCENE_SKIP_TIME;
 
-                if (_skipProgress >= _holdTimeForSkip)
+                if (_skipProgress >= GameData.CUTSCENE_SKIP_TIME)
                 {
                     //Skip
                     _cutscenePlayable.Stop();
                     _skipFinished = true;
                 }
             }
-
-            /*if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
-            {
-                _cutscenePlayable.Stop();
-            }*/
         }
 
         private void CancelActionHeld(InputAction.CallbackContext ctx)

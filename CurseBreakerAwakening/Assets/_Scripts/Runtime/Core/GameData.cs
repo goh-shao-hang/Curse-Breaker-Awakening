@@ -19,6 +19,7 @@ namespace CBA
         public const float PROPS_DESTROYED_DELAY = 5f;
         public const float LOOT_SPAWN_DELAY = 0.05f;
         public const float LOOT_FOLLOW_DELAY = 2f;
+        public const float CUTSCENE_SKIP_TIME = 3f;
 
         #endregion
 

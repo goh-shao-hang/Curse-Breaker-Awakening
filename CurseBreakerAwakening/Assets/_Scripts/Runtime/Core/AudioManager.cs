@@ -175,9 +175,6 @@ namespace CBA.Core
 
         public async void StopBGM(float fadeOutTime = 0f)
         {
-            if (!_globalBGMAudioSource1.isPlaying && !_globalBGMAudioSource2.isPlaying)
-                return;
-
             if (_globalBGMAudioSource1.isPlaying)
             {
                 if (fadeOutTime > 0f)
@@ -188,7 +185,8 @@ namespace CBA.Core
                 _globalBGMAudioSource1.Stop();
                 _currentBGM = null;
             }
-            else
+
+            if (_globalBGMAudioSource2.isPlaying)
             {
                 if (fadeOutTime > 0f)
                 {
