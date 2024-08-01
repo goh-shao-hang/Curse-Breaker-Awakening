@@ -554,8 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890a91d55aaa757419df84f183b2f6af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settingsUIPanel: {fileID: 81875848117702491}
-  _backButton: {fileID: 1944528122433920712}
+  SettingsUIPanel: {fileID: 81875848117702491}
   _audioMixer: {fileID: 24100000, guid: 7fee1a5ff405c2b44acbe21bb4d154d1, type: 2}
   _masterVolumeSlider: {fileID: 1747685197182561436}
   _musicVolumeSlider: {fileID: 1747685196242188959}
@@ -2801,7 +2800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firstSelected: {fileID: 1944528122433920712}
-  _hideOnCancel: 1
+  _cancelKeyButton: {fileID: 1944528122433920712}
 --- !u!1 &1747685197390671715
 GameObject:
   m_ObjectHideFlags: 0

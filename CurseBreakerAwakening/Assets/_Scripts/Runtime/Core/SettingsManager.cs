@@ -8,9 +8,7 @@ using UnityEngine.UI;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
-    [SerializeField] private GCUI_Panel _settingsUIPanel;
-    //[SerializeField] private CanvasGroup _settingsCanvasGroup;
-    [SerializeField] private Button _backButton;
+    [field: SerializeField] public GCUI_Panel SettingsUIPanel;
 
     [Header("Audio")]
     [SerializeField] private AudioMixer _audioMixer;
@@ -31,10 +29,14 @@ public class SettingsManager : Singleton<SettingsManager>
 
     private const float VolumeMultiplier = 20;
 
-    public event Action OnShow;
-    public event Action OnHide;
     public event Action OnMouseSensitivityChanged;
     public event Action OnControllerSensitivityChanged;
+
+    private void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject != null)
+            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+    }
 
     private void Start()
     {
@@ -61,22 +63,18 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         //EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
 
-        _settingsUIPanel.Show();
+        SettingsUIPanel.Show();
         //_settingsCanvasGroup.alpha = 1;
         //_settingsCanvasGroup.interactable = true;
         //_settingsCanvasGroup.blocksRaycasts = true;
-
-        OnShow?.Invoke();
     }
 
     public void HideSettingsMenu()
     {
-        _settingsUIPanel.Hide();
+        SettingsUIPanel.Hide();
         //_settingsCanvasGroup.alpha = 0;
         //_settingsCanvasGroup.interactable = false;
         //_settingsCanvasGroup.blocksRaycasts = false;
-
-        OnHide?.Invoke();
     }
 
     public void SetMasterVolume(float volume)

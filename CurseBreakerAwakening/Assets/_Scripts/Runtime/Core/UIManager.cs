@@ -50,6 +50,8 @@ public class UIManager : Singleton<UIManager>
     private SO_Dialog _currentDialog;
     private Coroutine _dialogCO;
 
+    private InputAction _cancelKey = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -71,6 +73,9 @@ public class UIManager : Singleton<UIManager>
 
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
         _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
+
+        _cancelKey ??= EventSystem.current.GetComponent<InputSystemUIInputModule>().actionsAsset.FindAction("Cancel");
+        _cancelKey.performed += TogglePauseOnCancelKey;
     }
 
     private void OnDisable()
@@ -83,15 +88,15 @@ public class UIManager : Singleton<UIManager>
             //GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
         }
 
+        _cancelKey.performed -= TogglePauseOnCancelKey;
     }
 
-    private void Update()
+    private void TogglePauseOnCancelKey(InputAction.CallbackContext ctx)
     {
-        //TODO better input check
-        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
-        {
-            OpenPauseMenu();
-        }
+        if (SettingsManager.Instance == null || SettingsManager.Instance.SettingsUIPanel.IsOpened)
+            return;
+
+        OpenPauseMenu();
     }
 
     public void OpenPauseMenu()
@@ -130,7 +135,20 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenSettingsMenu()
     {
-        SettingsManager.Instance?.ShowSettingsMenu();
+        if (SettingsManager.Instance == null)
+            return;
+
+        _pauseMenu.Hide();
+
+        SettingsManager.Instance.ShowSettingsMenu();
+        SettingsManager.Instance.SettingsUIPanel.OnHide += OnSettingsMenuClosed;
+    }
+
+    private void OnSettingsMenuClosed()
+    {
+        _pauseMenu.Show();
+
+        SettingsManager.Instance.SettingsUIPanel.OnHide -= OnSettingsMenuClosed;
     }
 
     private void UpdateHealth()

@@ -75,14 +75,14 @@ public class MainMenu : MonoBehaviour
 
         _buttons.DisableButtons();
 
-        SettingsManager.Instance.OnHide += HideOptions;
+        SettingsManager.Instance.SettingsUIPanel.OnHide += HideOptions;
     }
 
     private void HideOptions()
     {
         _buttons.ShowButtons();
 
-        SettingsManager.Instance.OnHide -= HideOptions;
+        SettingsManager.Instance.SettingsUIPanel.OnHide -= HideOptions;
     }
 
     public void ShowCredits()
