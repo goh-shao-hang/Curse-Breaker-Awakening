@@ -1812,6 +1812,7 @@ MonoBehaviour:
   _mainMenuScene:
     _sceneAsset: {fileID: 102900000, guid: 19e52e587a987ff4ab6fb23bd7652a39, type: 3}
     _sceneName: MainMenu
+  _pauseKeyRef: {fileID: 0}
 --- !u!1 &4101697753700901649
 GameObject:
   m_ObjectHideFlags: 0
@@ -13246,7 +13247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firstSelected: {fileID: 4952197141688768851}
-  _cancelKeyButton: {fileID: 0}
+  _cancelKeyButton: {fileID: 4952197141688768851}
 --- !u!1 &5432170147619953598
 GameObject:
   m_ObjectHideFlags: 0

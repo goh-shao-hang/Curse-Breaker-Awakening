@@ -109,6 +109,15 @@ namespace CBA.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d00fcbf5-a949-4838-8aa4-6d7977b117b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -353,6 +362,28 @@ namespace CBA.Input
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd891965-fa8b-4600-8862-0ffd3985127a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13083a00-91f2-4c54-be14-41ecf3379930"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -468,6 +499,7 @@ namespace CBA.Input
             m_Gameplay_Kick = m_Gameplay.FindAction("Kick", throwIfNotFound: true);
             m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
             m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
+            m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Vertical = m_UI.FindAction("Vertical", throwIfNotFound: true);
@@ -542,6 +574,7 @@ namespace CBA.Input
         private readonly InputAction m_Gameplay_Kick;
         private readonly InputAction m_Gameplay_Crouch;
         private readonly InputAction m_Gameplay_Interact;
+        private readonly InputAction m_Gameplay_Pause;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
@@ -555,6 +588,7 @@ namespace CBA.Input
             public InputAction @Kick => m_Wrapper.m_Gameplay_Kick;
             public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
             public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
+            public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -591,6 +625,9 @@ namespace CBA.Input
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -622,6 +659,9 @@ namespace CBA.Input
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -722,6 +762,7 @@ namespace CBA.Input
             void OnKick(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

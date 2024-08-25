@@ -2716,6 +2716,12 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4101697753689044897, guid: 08fcc81ace33bbe468f0860a928fae58,
+        type: 3}
+      propertyPath: _pauseKeyRef
+      value: 
+      objectReference: {fileID: -771285542147596485, guid: d78d9be82f548f04c833fd661db79cbf,
+        type: 3}
     - target: {fileID: 4101697753700901654, guid: 08fcc81ace33bbe468f0860a928fae58,
         type: 3}
       propertyPath: m_AnchorMax.y

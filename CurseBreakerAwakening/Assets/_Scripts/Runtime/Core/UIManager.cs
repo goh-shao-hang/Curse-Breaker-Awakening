@@ -50,7 +50,8 @@ public class UIManager : Singleton<UIManager>
     private SO_Dialog _currentDialog;
     private Coroutine _dialogCO;
 
-    private InputAction _cancelKey = null;
+    [SerializeField] private InputActionReference _pauseKeyRef = null;
+    private InputAction _pauseKey;
 
     protected override void Awake()
     {
@@ -74,8 +75,13 @@ public class UIManager : Singleton<UIManager>
         _playerController ??= GameManager.Instance.PlayerManager.PlayerController;
         _playerHealthModule ??= _playerController.GetComponentInChildren<HealthModule>();
 
-        _cancelKey ??= EventSystem.current.GetComponent<InputSystemUIInputModule>().actionsAsset.FindAction("Cancel");
-        _cancelKey.performed += TogglePauseOnCancelKey;
+        if (_pauseKey == null)
+        {
+            _pauseKey = _pauseKeyRef.ToInputAction();
+            _pauseKey.Enable();
+        }
+
+        _pauseKey.performed += TogglePauseOnKey;
     }
 
     private void OnDisable()
@@ -88,10 +94,10 @@ public class UIManager : Singleton<UIManager>
             //GameManager.Instance.OnGameEnded -= () => Destroy(this.gameObject);
         }
 
-        _cancelKey.performed -= TogglePauseOnCancelKey;
+        _pauseKey.performed -= TogglePauseOnKey;
     }
 
-    private void TogglePauseOnCancelKey(InputAction.CallbackContext ctx)
+    private void TogglePauseOnKey(InputAction.CallbackContext ctx)
     {
         if (SettingsManager.Instance == null || SettingsManager.Instance.SettingsUIPanel.IsOpened)
             return;
